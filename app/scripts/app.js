@@ -1,13 +1,8 @@
 'use strict';
 
-var habitRPG = angular.module('habitRPG', [])
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  }]);
+/**
+ * The main HabitRPG app module.
+ *
+ * @type {angular.Module}
+ */
+var habitrpg = angular.module('habitrpg', []);
