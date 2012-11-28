@@ -1,6 +1,6 @@
 'use strict';
 
-var mobileAngularApp = angular.module('mobileAngularApp', [])
+var habitRPG = angular.module('habitRPG', [])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/', {
