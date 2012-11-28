@@ -22,11 +22,19 @@ habitrpg.controller( 'TodoCtrl', function TodoCtrl( $scope, $location, todoStora
   $scope.location = $location;
 
   $scope.$watch( 'location.path()', function( path ) {
-    $scope.statusFilter = (path == '/active') ?
-      { completed: false } : (path == '/completed') ?
-        { completed: true } : null;
+    var type = $scope.taskType = path.split('/')[1];
+    $scope.taskFilter = { type: type }
+    $scope.taskTypeTitle =
+        (type == 'habit') ? 'Habits' :
+        (type == 'daily') ? 'Dailies' :
+        (type == 'todo') ? 'Todos' :
+        (type == 'reward') ? 'Rewards' : null;
+    if (type == 'todo') {
+        $scope.taskFilter =
+            (path == '/todo/active') ? { type: type, completed: false } :
+            (path == '/todo/completed') ? { type: type, completed: true } : { type: type };
+    }
   });
-
 
   $scope.addTodo = function() {
     if ( !$scope.newTodo.length ) {
@@ -35,7 +43,8 @@ habitrpg.controller( 'TodoCtrl', function TodoCtrl( $scope, $location, todoStora
 
     todos.push({
       title: $scope.newTodo,
-      completed: false
+      completed: false,
+      type: $scope.taskType
     });
 
     $scope.newTodo = '';

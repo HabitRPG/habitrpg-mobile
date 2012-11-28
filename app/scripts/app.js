@@ -8,19 +8,25 @@
 var habitrpg = angular.module('habitrpg', [])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'views/list.html',
-                controller: 'TodoCtrl'
+            .when('/habit', {
+                templateUrl: 'views/list.html'
             })
-            .when('/active', {
-                templateUrl: 'views/list.html',
-                controller: 'TodoCtrl'
+            .when('/daily', {
+                templateUrl: 'views/list.html'
             })
-            .when('/completed', {
-                templateUrl: 'views/list.html',
-                controller: 'TodoCtrl'
+            .when('/todo', {
+                templateUrl: 'views/list.html'
+            })
+            .when('/todo/active', {
+                templateUrl: 'views/list.html'
+            })
+            .when('/todo/completed', {
+                templateUrl: 'views/list.html'
+            })
+            .when('/reward', {
+                templateUrl: 'views/list.html'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/habit'
             });
     }]);
