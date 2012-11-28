@@ -170,7 +170,7 @@ module.exports = function( grunt ) {
   grunt.registerTask('test', 'run the testacular test driver', function () {
     var done = this.async();
     require('child_process').exec('testacular start --single-run', function (err, stdout) {
-      grun.log.write(err);
+      console.log(err);
       grunt.log.write(stdout);
       done(err);
     });
