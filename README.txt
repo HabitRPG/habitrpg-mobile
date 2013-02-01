@@ -1,3 +1,3 @@
 HabitRPG-Mobile
 
-Built with PhoneGap + AngularJS
+Built with PhoneGap + AngularJS & tested with Testacular
