@@ -1,20 +1,25 @@
+<div ng-controller="StatsCtrl">
+
+ <div class="head"><br />
+    <div class="meter animate">
+    <span style="width: {{stats.health}}"><span></span></span>
+    </div>
+
+    <div class="meter animate orange">
+    <span style="width: {{stats.exp}}"><span></span></span>
+    </div>
+</div>
+
+</div>
+
 <div ng-controller="TodoCtrl">
 
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li ng-class="{ active: taskType == 'habit'  }"><a href="#/habit">Habits</a></li>
-                <li ng-class="{ active: taskType == 'daily'  }"><a href="#/daily">Dailies</a></li>
-                <li ng-class="{ active: taskType == 'todo'   }"><a href="#/todo">Todos</a></li>
-                <li ng-class="{ active: taskType == 'reward' }"><a href="#/reward">Rewards</a></li>
-            </ul>
-        </div>
-    </div>
+    <h2>{{taskTypeTitle}}</h2>
 
     <section id="todoapp" ng-controller="TodoCtrl">
 
+
         <header id="header">
-            <h1>{{taskTypeTitle}}</h1>
             <form id="todo-form" ng-submit="addTodo()">
                 <input id="new-todo" placeholder="Add new {{taskType}}" ng-model="newTodo" autofocus>
             </form>
@@ -57,4 +62,13 @@
 
     </section>
 
-</div>
+   </div>
+
+   <div ng-controller='NavCtrl'>
+
+    <div class="footer">
+
+    <div ng-repeat="button in nav" class="button-tab"><a href="{{button.name}}"><img ng-src="assets/{{button.img}}" /></a></div>
+    </div>
+
+    </div>
