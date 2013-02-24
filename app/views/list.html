@@ -1,18 +1,20 @@
-<div ng-controller="StatsCtrl">
+<div ng-controller="StatsCtrl" ng-class="{menuopen: menuopen, menuclose: menuclose}">
 
- <div class="head"><br />
+ <div class="head" >
+    <div class="click" gf-Tap="toggleMenu()"><img ng-src="assets/icon.png" style="width:60px;" /></div>
     <div class="meter animate">
-    <span style="width: {{stats.health}}"><span></span></span>
+    <span style="width: {{stats.health}}%"><span></span></span>
     </div>
 
     <div class="meter animate orange">
-    <span style="width: {{stats.exp}}"><span></span></span>
+    <span style="width: {{stats.exp}}%"><span></span></span>
     </div>
-</div>
 
 </div>
 
-<div ng-controller="TodoCtrl">
+</div>
+
+<div ng-controller="TodoCtrl" ng-class="{menuopen: menuopen, menuclose: menuclose}">
 
     <h2>{{taskTypeTitle}}</h2>
 
@@ -63,12 +65,3 @@
     </section>
 
    </div>
-
-   <div ng-controller='NavCtrl'>
-
-    <div class="footer">
-
-    <div ng-repeat="button in nav" class="button-tab"><a href="{{button.name}}"><img ng-src="assets/{{button.img}}" /></a></div>
-    </div>
-
-    </div>
