@@ -17,7 +17,16 @@
 <body>
 
     <!--<div class="container" ng-view></div>-->
+    <div ng-controller="WrapperCtrl" class="wrapper">
+    <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
+
+        <div ng-controller="CharacterCtrl">
+            {{character.health}}
+        </div>
+
+    </nav>
     <div ng-view></div>
+    </div>
 
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/vendor/angular.js"></script>
@@ -27,8 +36,10 @@
     <script src="scripts/directives/todoFocus.js"></script>
     <script src="scripts/directives/todoBlur.js"></script>
     <script src="scripts/controllers/navCtrl.js"></script>
+    <script src="scripts/controllers/wrapperCtrl.js"></script>
     <script src="scripts/controllers/statsCtrl.js"></script>
-    <script src="scripts/services/statsStorage.js"></script>
+    <script src="scripts/controllers/characterCtrl.js"></script>
+    <script src="scripts/services/characterStorage.js"></script>
     <!-- endbuild -->
 </body>
 </html>

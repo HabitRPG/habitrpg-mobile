@@ -4,40 +4,36 @@
 
 Statz controller
 
-- Retrieves statz from localStorage. If not present, set fake data
+- Retrieves statz from localStorage.
 - Exposes the model to the template and provides event handlers
 
 
 */
 
 
-habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, statzStorage, filterFilter ) {
-
- var stats = $scope.stats = statzStorage.get()
+habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, filterFilter, characterData ) {
 
 
- $scope.$watch('stats', function() {
+ var character = characterData.getData()
 
- 	statzStorage.put(stats);
+ var stats = $scope.stats = {}
 
- }, true)
-
- $scope.updateStats = function(key,value) {
-
-    switch(key) {
-
-      case 'health':
-      stats.health = value;
-      break;
-      case 'exp':
-      stats.exp    = value;
-      break;
-
-    }
-
+ if (character) {
+ $scope.stats.health = character.stats.hp;
+ $scope.stats.exp = character.stats.exp
  }
 
- $scope.updateStats('health', '90%')
+
+ $scope.$on('characterUpdate', function() {
+
+  character = characterData.getData()
+
+  $scope.stats.health = character.stats.hp;
+  $scope.stats.exp = character.stats.exp
+
+  $scope.$apply()
+
+ });
 
 
 

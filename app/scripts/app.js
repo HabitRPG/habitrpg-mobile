@@ -14,7 +14,7 @@ var habitrpg = angular.module('habitrpg', [])
             .when('/*/:taskId/edit', {templateUrl: 'views/details.html'})
             .when('/todo/active', {templateUrl: 'views/list.html'})
             .when('/todo/completed', {templateUrl: 'views/list.html'})
-            .otherwise({redirectTo: '/*'});
+            .otherwise({redirectTo: '/'});
     }]);
 
 
@@ -27,3 +27,27 @@ habitrpg.directive('gfTap', function() {
     });
   };
 });
+
+habitrpg.factory('characterData', function($rootScope, characterStorage) {
+
+  var data;
+
+  return {
+
+    getData: function() { 
+
+      return data; 
+    },
+
+    setData: function(sentdata) { 
+     
+      data = sentdata;
+      characterStorage.put(data)
+      $rootScope.$broadcast('characterUpdate')
+
+
+    }
+
+  }
+
+})
