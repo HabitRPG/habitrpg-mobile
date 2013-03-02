@@ -7,6 +7,7 @@
     <title>HabitRPG</title>
     <link rel="stylesheet" href="styles/bootstrap.css"/>
     <link rel="stylesheet" href="styles/main.css"/>
+    <link rel="stylesheet" href="styles/style_habit.css" />
     <link rel="stylesheet" href="styles/beta.css" />
     <style>[ng-cloak] {display: none}</style>
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1"> 
@@ -21,7 +22,34 @@
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
         <div ng-controller="CharacterCtrl">
-            {{character.health}}
+        <div class="avatar main-avatar">
+        <div class="character-sprites" ng-cloak>
+        <span id="ix" class="m_skin_{{m_skin}}"></span>
+        <span id="iy" class="m_hair_{{m_color}}"></span>
+        <span id="iz" class="m_armor_{{m_armor}}"></span>
+        <span id="j0" class="m_head_{{m_head}}"></span>
+        <span id="j1" class="m_shield_{{m_shield}}"></span>
+        <span id="j2" class="m_weapon_{{m_weapon}}"></span>
+        </div>
+        </div>
+
+        <div class="user">
+        {{user.username}}<br>
+        level {{character.stats.lvl}}
+        </div>
+        <div style="clear:both"></div>
+
+         <div class="meter animate">
+         <span style="width: {{character.stats.hp}}%"><span></span></span>
+         </div>
+
+         <div class="meter animate orange">
+          <span style="width: {{character.stats.exp}}%"><span></span></span>
+          </div>
+        </div>
+
+        <div ng-controller="MenuCtrl">
+        <div ng-repeat="button in nav" class="link"><a ng-click="open({{button.name}})">{{button.link}}</a></a>
         </div>
 
     </nav>
@@ -40,6 +68,8 @@
     <script src="scripts/controllers/statsCtrl.js"></script>
     <script src="scripts/controllers/characterCtrl.js"></script>
     <script src="scripts/services/characterStorage.js"></script>
+    <script src="scripts/controllers/menuCtrl.js"></script>
+    <script src="scripts/services/userStorage.js"></script>
     <!-- endbuild -->
 </body>
 </html>
