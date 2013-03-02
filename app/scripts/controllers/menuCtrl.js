@@ -8,14 +8,40 @@
 
 habitrpg.controller( 'MenuCtrl', function MenuCtrl( $scope, $location, filterFilter ) {
 
+ var nav = $scope.nav = [
+
+    {
+    'name' :'/habit',
+    'img'  :'explorer.png',
+    'link' :'Habits'
+    },
+
+    {
+    'name' :'/daily',
+    'img'  :'contacts.png',
+    'link' :'Dailies'
+    },
+
+    {
+    'name' :'/todo',
+    'img'  :'todo.png',
+    'link' :'Todos'
+    },
+
+    {
+    'name' :'/reward',
+    'img'  :'explorer.png',
+    'link' :'Rewards'
+    }
+
+  ]
+
+$scope.open = function(name) {
 
 
-    var player = $scope.player = [
-
-    {  }
+}
 
 
-    ]
 
 
 

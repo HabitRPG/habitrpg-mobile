@@ -1,16 +1,8 @@
 <div ng-controller="StatsCtrl" ng-class="{menuopen: menuopen, menuclose: menuclose}">
 
- <div class="head" >
-    <div class="click" gf-Tap="toggleMenu()"><img ng-src="assets/icon.png" style="width:60px;" /></div>
-    <div class="meter animate">
-    <span style="width: {{stats.health}}%"><span></span></span>
-    </div>
-
-    <div class="meter animate orange">
-    <span style="width: {{stats.exp}}%"><span></span></span>
-    </div>
-
-</div>
+ <div class="head2">
+ <div id="lines" gf-Tap="toggleMenu()"></div>
+ </div>
 
 </div>
 
@@ -18,50 +10,26 @@
 
     <h2>{{taskTypeTitle}}</h2>
 
-    <section id="todoapp" ng-controller="TodoCtrl">
+    <div class="todo_wrapper">
 
+    <form id="todo-form" ng-submit="addTodo()">
+        <input type="text" placeholder="+ add new :)" ng-model="newTodo">
+    </form>   
 
-        <header id="header">
-            <form id="todo-form" ng-submit="addTodo()">
-                <input id="new-todo" placeholder="Add new {{taskType}}" ng-model="newTodo" autofocus>
-            </form>
-        </header>
-
-        <section id="main" ng-show="todos.length" ng-cloak>
-            <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
-            <label for="toggle-all">Mark all as complete</label>
-            <ul id="todo-list">
+    <div class="todo_list">
+    <div class="no_tasks" ng-show="todos.length == 0">No tasks, yo.</div>
+    <ul id="todo-list" class="list" ng-hide="todos.length == 0">
                 <li ng-repeat="todo in todos | filter:taskFilter" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
-                    <div class="view">
+                    <div class="lines" ng-hide="todos.length == 0"></div>
                         <input class="toggle" type="checkbox" ng-model="todo.completed">
                         <label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
-                        <button class="destroy" ng-click="removeTodo(todo)"></button>
-                    </div>
+                        <button class="destroy" gf-Tap="removeTodo(todo)"></button>
                     <form ng-submit="doneEditing(todo)">
                         <input class="edit" ng-model="todo.title" todo-blur="doneEditing(todo)" todo-focus="todo == editedTodo">
                     </form>
                 </li>
             </ul>
-        </section>
-
-        <footer id="footer" ng-show="todos.length && taskType == 'todo'" ng-cloak>
-          <span id="todo-count"><strong>{{remainingCount}}</strong>
-            <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
-          </span>
-            <ul id="filters">
-                <li>
-                    <a ng-class="{selected: location.path() == '/todo'} " href="#/todo">All</a>
-                </li>
-                <li>
-                    <a ng-class="{selected: location.path() == '/todo/active'}" href="#/todo/active">Active</a>
-                </li>
-                <li>
-                    <a ng-class="{selected: location.path() == '/todo/completed'}" href="#/todo/completed">Completed</a>
-                </li>
-            </ul>
-            <button id="clear-completed" ng-click="clearDoneTodos()" ng-show="doneCount">Clear completed ({{doneCount}})</button>
-        </footer>
-
-    </section>
+    </div>
+    </div>
 
    </div>
