@@ -51,3 +51,27 @@ habitrpg.factory('characterData', function($rootScope, characterStorage) {
   }
 
 })
+
+habitrpg.factory('userData', function($rootScope, userStorage) {
+
+  var data;
+
+  return {
+
+    getData: function() { 
+
+      return data; 
+    },
+
+    setData: function(sentdata) { 
+     
+      data = sentdata;
+      userStorage.put(data)
+      $rootScope.$broadcast('userUpdate')
+
+
+    }
+
+  }
+
+})
