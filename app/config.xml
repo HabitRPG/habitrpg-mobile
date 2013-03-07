@@ -4,7 +4,12 @@
         id        = "com.phonegap.habitrpg"
         version   = "1.0.0">
 
-    <!-- versionCode is optional and Android only -->
+  <name>HabitRPG</name>
+
+    <description>
+        Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
+    </description>
+
  <gap:plugin name="FacebookConnect">
    <param name="APP_ID" value="149438691882945" />
  </gap:plugin>
