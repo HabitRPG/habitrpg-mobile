@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://habitrpg.com"
+        xmlns:gap = "http://phonegap.com/ns/2.2.0"
+        id        = "com.phonegap.habitrpg"
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
  <gap:plugin name="FacebookConnect">
    <param name="APP_ID" value="149438691882945" />
  </gap:plugin>
