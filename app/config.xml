@@ -1,0 +1,3 @@
+ <gap:plugin name="FacebookConnect">
+   <param name="APP_ID" value="149438691882945" />
+ </gap:plugin>
