@@ -1,6 +1,11 @@
 'use strict';
 
 /**
- * The character controller:
+ * The service controller:
  *
  */
+ 
+ habitrpg.controller( 'ServiceCtrl', function ServiceCtrl( $scope, $location, ) {
+ 
+
+});
