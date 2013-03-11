@@ -41,8 +41,8 @@ angular.module('userServices', ['ngResource']).
                 if (!!uuid && !!token) {
                     $http.get(URL)
                         .success(function(data, status, headers, config) {
+                            data.tasks = _.toArray(data.tasks);
                             self.save(data, function(user){
-                                user.tasks = _.toArray(user.tasks);
                                 cb(user);
                             });
                         })
@@ -62,10 +62,12 @@ angular.module('userServices', ['ngResource']).
             },
 
             save: function(data, cb) {
+                if (!data) return; //todo !data means send to server
+
                 var self = this;
                 user = data;
-                localStorage.setItem(STORAGE_ID, JSON.stringify(data));
-                cb(user);
+                localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                if (!!cb) return cb(user);
                 /*if (!!uuid && !!token) {
                     $http.put(URL).success(function(data) {
                         cb(data);
