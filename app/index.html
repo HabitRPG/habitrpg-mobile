@@ -1,77 +1,77 @@
 <!doctype html>
 <html lang="en" ng-app="habitrpg">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width"/>
-    <title>HabitRPG</title>
-    <link rel="stylesheet" href="styles/bootstrap.css"/>
-    <link rel="stylesheet" href="styles/main.css"/>
-    <link rel="stylesheet" href="styles/style_habit.css" />
-    <link rel="stylesheet" href="styles/beta.css" />
-    <style>[ng-cloak] {display: none}</style>
-    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1"> 
-    <script src="cdv-plugin-fb-connect.js"></script>
-    <script src="facebook-js-sdk.js"></script>
-    <!--[if IE]>
-    <script src="scripts/vendor/ie.js"></script>
-    <![endif]-->
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width"/>
+        <title>HabitRPG</title>
+        <link rel="stylesheet" href="styles/bootstrap.css"/>
+        <link rel="stylesheet" href="styles/main.css"/>
+        <link rel="stylesheet" href="styles/style_habit.css" />
+        <link rel="stylesheet" href="styles/beta.css" />
+        <style>[ng-cloak] {display: none}</style>
+        <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
+        <script src="cdv-plugin-fb-connect.js"></script>
+        <script src="facebook-js-sdk.js"></script>
+        <!--[if IE]>
+        <script src="scripts/vendor/ie.js"></script>
+        <![endif]-->
+    </head>
+    <body>
 
-    <!--<div class="container" ng-view></div>-->
-    <div ng-controller="WrapperCtrl" class="wrapper">
-    <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
+        <!--<div class="container" ng-view></div>-->
+        <div ng-controller="WrapperCtrl" class="wrapper">
+            <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
-        <div ng-controller="CharacterCtrl">
-        <div class="avatar main-avatar">
-        <div class="character-sprites" ng-cloak>
-        <span id="ix" class="m_skin_{{m_skin}}"></span>
-        <span id="iy" class="m_hair_{{m_color}}"></span>
-        <span id="iz" class="m_armor_{{m_armor}}"></span>
-        <span id="j0" class="m_head_{{m_head}}"></span>
-        <span id="j1" class="m_shield_{{m_shield}}"></span>
-        <span id="j2" class="m_weapon_{{m_weapon}}"></span>
+                <div ng-controller="CharacterCtrl">
+                    <div class="avatar main-avatar">
+                        <div class="character-sprites" ng-cloak>
+                            <span id="ix" class="m_skin_{{m_skin}}"></span>
+                            <span id="iy" class="m_hair_{{m_color}}"></span>
+                            <span id="iz" class="m_armor_{{m_armor}}"></span>
+                            <span id="j0" class="m_head_{{m_head}}"></span>
+                            <span id="j1" class="m_shield_{{m_shield}}"></span>
+                            <span id="j2" class="m_weapon_{{m_weapon}}"></span>
+                        </div>
+                    </div>
+
+                    <div class="user">
+                        {{user.username}}<br>
+                        level {{character.stats.lvl}}
+                    </div>
+                    <div style="clear:both"></div>
+
+                     <div class="meter animate">
+                        <span style="width: {{character.stats.hp}}%"><span></span></span>
+                     </div>
+
+                     <div class="meter animate orange">
+                      <span style="width: {{character.stats.exp}}%"><span></span></span>
+                     </div>
+                </div>
+
+                <div ng-controller="MenuCtrl">
+                    <div ng-repeat="button in nav" class="link"><a ng-click="open({{button.name}})">{{button.link}}</a></div>
+                </div>
+
+            </nav>
+            <div ng-view></div>
         </div>
-        </div>
 
-        <div class="user">
-        {{user.username}}<br>
-        level {{character.stats.lvl}}
-        </div>
-        <div style="clear:both"></div>
-
-         <div class="meter animate">
-         <span style="width: {{character.stats.hp}}%"><span></span></span>
-         </div>
-
-         <div class="meter animate orange">
-          <span style="width: {{character.stats.exp}}%"><span></span></span>
-          </div>
-        </div>
-
-        <div ng-controller="MenuCtrl">
-        <div ng-repeat="button in nav" class="link"><a ng-click="open({{button.name}})">{{button.link}}</a></a>
-        </div>
-
-    </nav>
-    <div ng-view></div>
-    </div>
-
-    <!-- build:js scripts/scripts.js -->
-    <script src="scripts/vendor/angular.js"></script>
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/todoCtrl.js"></script>
-    <script src="scripts/services/todoStorage.js"></script>
-    <script src="scripts/directives/todoFocus.js"></script>
-    <script src="scripts/directives/todoBlur.js"></script>
-    <script src="scripts/controllers/navCtrl.js"></script>
-    <script src="scripts/controllers/wrapperCtrl.js"></script>
-    <script src="scripts/controllers/statsCtrl.js"></script>
-    <script src="scripts/controllers/characterCtrl.js"></script>
-    <script src="scripts/services/characterStorage.js"></script>
-    <script src="scripts/controllers/menuCtrl.js"></script>
-    <script src="scripts/services/userStorage.js"></script>
-    <!-- endbuild -->
-</body>
+        <!-- build:js scripts/scripts.js -->
+        <script src="scripts/vendor/angular.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/todoCtrl.js"></script>
+        <script src="scripts/services/todoStorage.js"></script>
+        <script src="scripts/directives/todoFocus.js"></script>
+        <script src="scripts/directives/todoBlur.js"></script>
+        <script src="scripts/controllers/navCtrl.js"></script>
+        <script src="scripts/controllers/wrapperCtrl.js"></script>
+        <script src="scripts/controllers/statsCtrl.js"></script>
+        <script src="scripts/controllers/characterCtrl.js"></script>
+        <script src="scripts/services/characterStorage.js"></script>
+        <script src="scripts/controllers/menuCtrl.js"></script>
+        <script src="scripts/services/userStorage.js"></script>
+        <!-- endbuild -->
+    </body>
 </html>
