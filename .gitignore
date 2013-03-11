@@ -1,2 +1,5 @@
-node_modules/
-
+node_modules
+dist
+.tmp
+.sass-cache
+app/components
