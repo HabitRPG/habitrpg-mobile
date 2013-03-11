@@ -8,6 +8,7 @@
 var habitrpg = angular.module('habitrpg', ['userServices'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
+            .when('/', {templateUrl: 'views/list.html'})
             .when('/*', {templateUrl: 'views/list.html'})
             .when('/*/:action', {templateUrl: 'views/list.html'})
             .when('/*/:taskId', {templateUrl: 'views/details.html'})

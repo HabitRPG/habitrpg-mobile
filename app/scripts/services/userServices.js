@@ -42,7 +42,7 @@ angular.module('userServices', ['ngResource']).
                     $http.get(URL)
                         .success(function(data, status, headers, config) {
                             self.save(data, function(user){
-                                debugger
+                                user.tasks = _.toArray(user.tasks);
                                 cb(user);
                             });
                         })
@@ -52,7 +52,6 @@ angular.module('userServices', ['ngResource']).
 
                 // else just work with localStorage user
                 } else {
-                    debugger;
                     user = JSON.parse(localStorage.getItem(STORAGE_ID));
                     if (!user) {
                         user = schema;

@@ -17,7 +17,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
           $scope.remainingCount = filterFilter(tasks, {completed: false}).length;
           $scope.doneCount = tasks.length - $scope.remainingCount;
           $scope.allChecked = !$scope.remainingCount
-          userStorage.save();
+          User.save();
       }, true);
 
       if ( $location.path() === '' ) $location.path('/');

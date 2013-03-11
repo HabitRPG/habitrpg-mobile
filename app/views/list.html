@@ -1,8 +1,8 @@
 <div ng-controller="StatsCtrl" ng-class="{menuopen: menuopen, menuclose: menuclose}">
 
- <div class="head2">
- <div id="lines" gf-Tap="toggleMenu()"></div>
- </div>
+    <div class="head2">
+        <div id="lines" gf-Tap="toggleMenu()"></div>
+    </div>
 
 </div>
 
@@ -12,24 +12,24 @@
 
     <div class="todo_wrapper">
 
-    <form id="todo-form" ng-submit="addTask()">
-        <input type="text" placeholder="Add new {{taskTypeTitle}}" ng-model="newTask">
-    </form>   
+        <form id="todo-form" ng-submit="addTask()">
+            <input type="text" placeholder="Add new {{taskTypeTitle}}" ng-model="newTask">
+        </form>
 
-    <div class="todo_list">
-    <div class="no_tasks" ng-show="tasks.length == 0">No {{taskTypeTitle}}.</div>
-    <ul id="todo-list" class="list" ng-hide="tasks.length == 0">
+        <div class="todo_list">
+            <div class="no_tasks" ng-show="tasks.length == 0">No {{taskTypeTitle}}.</div>
+            <ul id="todo-list" class="list" ng-hide="tasks.length == 0">
                 <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
                     <div class="lines" ng-hide="tasks.length == 0"></div>
                         <input class="toggle" type="checkbox" ng-model="tasks.completed">
-                        <label ng-dblclick="editTodo(tasks)">{{tasks.title}}</label>
+                        <label ng-dblclick="editTodo(tasks)">{{task.title}}</label>
                         <button class="destroy" gf-Tap="removeTask(task)"></button>
                     <form ng-submit="doneEditing(task)">
-                        <input class="edit" ng-model="task.title" todo-blur="doneEditing(task)" todo-focus="task == editedTask">
+                        <input class="edit" ng-model="task.title" todo-blur="doneEditing(task)" todo-focus="task == editedTask" />
                     </form>
                 </li>
             </ul>
-    </div>
+        </div>
     </div>
 
    </div>
