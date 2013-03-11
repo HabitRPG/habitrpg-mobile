@@ -11,11 +11,11 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
   $scope.editedTask = null;
 
   User.fetch(function(user){
-      var tasks = $scope.tasks = user.tasks
+      $scope.tasks = user.tasks;
 
       $scope.$watch('tasks', function() {
-          $scope.remainingCount = filterFilter(tasks, {completed: false}).length;
-          $scope.doneCount = tasks.length - $scope.remainingCount;
+          $scope.remainingCount = filterFilter($scope.tasks, {completed: false}).length;
+          $scope.doneCount = $scope.tasks.length - $scope.remainingCount;
           $scope.allChecked = !$scope.remainingCount
           User.save();
       }, true);
@@ -46,7 +46,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
               return;
           }
 
-          tasks.push({
+          $scope.tasks.push({
               title: $scope.newTask,
               completed: false,
               type: $scope.taskTask
@@ -56,7 +56,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
       };
 
 
-      $scope.editTodo = function( task ) {
+      $scope.editTask = function( task ) {
           $scope.editedTask = task;
       };
 
@@ -69,20 +69,20 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
       };
 
 
-      $scope.removeTodo = function( task ) {
-          todos.splice(tasks.indexOf(task), 1);
+      $scope.removeTask = function( task ) {
+          $scope.tasks.splice($scope.tasks.indexOf(task), 1);
       };
 
 
       $scope.clearDoneTodos = function() {
-          $scope.tasks = tasks = tasks.filter(function( val ) {
+          $scope.tasks = $scope.tasks.filter(function( val ) {
               return !val.completed;
           });
       };
 
 
       $scope.markAll = function( done ) {
-          tasks.forEach(function( task ) {
+          $scope.tasks.forEach(function( task ) {
               task.completed = done;
           });
       };
