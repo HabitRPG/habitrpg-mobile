@@ -11,11 +11,6 @@
         <link rel="stylesheet" href="styles/beta.css" />
         <style>[ng-cloak] {display: none}</style>
         <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
-        <script src="cdv-plugin-fb-connect.js"></script>
-        <script src="facebook-js-sdk.js"></script>
-        <!--[if IE]>
-        <script src="scripts/vendor/ie.js"></script>
-        <![endif]-->
     </head>
     <body>
 
@@ -58,8 +53,11 @@
             <div ng-view></div>
         </div>
 
-        <!-- build:js scripts/scripts.js -->
+        <!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
         <script src="scripts/vendor/angular.js"></script>
+        <script src="scripts/vendor/angular-resource.js.js"></script>
+
+        <!-- build:js scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/todoCtrl.js"></script>
         <script src="scripts/services/todoStorage.js"></script>
@@ -72,6 +70,9 @@
         <script src="scripts/services/characterStorage.js"></script>
         <script src="scripts/controllers/menuCtrl.js"></script>
         <script src="scripts/services/userStorage.js"></script>
+
+        <script src="cdv-plugin-fb-connect.js"></script>
+        <script src="facebook-js-sdk.js"></script>
         <!-- endbuild -->
     </body>
 </html>
