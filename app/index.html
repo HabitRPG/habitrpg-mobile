@@ -31,17 +31,17 @@
                     </div>
 
                     <div class="user">
-                        {{user.username}}<br>
-                        level {{character.stats.lvl}}
+                        {{user.auth.username}}<br>
+                        level {{user.stats.lvl}}
                     </div>
                     <div style="clear:both"></div>
 
                      <div class="meter animate">
-                        <span style="width: {{character.stats.hp}}%"><span></span></span>
+                        <span style="width: {{user.stats.hp}}%"><span></span></span>
                      </div>
 
                      <div class="meter animate orange">
-                      <span style="width: {{character.stats.exp}}%"><span></span></span>
+                      <span style="width: {{user.stats.exp}}%"><span></span></span>
                      </div>
                 </div>
 
@@ -55,24 +55,23 @@
 
         <!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
         <script src="scripts/vendor/angular.js"></script>
-        <script src="scripts/vendor/angular-resource.js.js"></script>
+        <script src="scripts/vendor/angular-resource.js"></script>
 
         <!-- build:js scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/todoCtrl.js"></script>
-        <script src="scripts/services/todoStorage.js"></script>
+        <script src="scripts/controllers/tasksCtrl.js"></script>
         <script src="scripts/directives/todoFocus.js"></script>
         <script src="scripts/directives/todoBlur.js"></script>
         <script src="scripts/controllers/navCtrl.js"></script>
         <script src="scripts/controllers/wrapperCtrl.js"></script>
         <script src="scripts/controllers/statsCtrl.js"></script>
         <script src="scripts/controllers/characterCtrl.js"></script>
-        <script src="scripts/services/characterStorage.js"></script>
         <script src="scripts/controllers/menuCtrl.js"></script>
-        <script src="scripts/services/userStorage.js"></script>
+        <script src="scripts/services/userServices.js"></script>
 
-        <script src="cdv-plugin-fb-connect.js"></script>
-        <script src="facebook-js-sdk.js"></script>
+        <!-- TODO implement facebook -->
+        <!--<script src="cdv-plugin-fb-connect.js"></script>
+        <script src="facebook-js-sdk.js"></script>-->
         <!-- endbuild -->
     </body>
 </html>

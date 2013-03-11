@@ -11,32 +11,10 @@ Statz controller
 */
 
 
-habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, filterFilter, characterData ) {
+habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, filterFilter, User ) {
 
-
- var character = characterData.getData()
-
- var stats = $scope.stats = {}
-
- if (character) {
- $scope.stats.health = character.stats.hp;
- $scope.stats.exp = character.stats.exp
- }
-
-
- $scope.$on('characterUpdate', function() {
-
-  character = characterData.getData()
-
-  $scope.stats.health = character.stats.hp;
-  $scope.stats.exp = character.stats.exp
-
-  $scope.$apply()
-
- });
-
-
-
-
+    User.fetch(function(user){
+        $scope.stats = user.stats;
+    })
 
 });

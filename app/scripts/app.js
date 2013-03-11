@@ -5,7 +5,7 @@
  *
  * @type {angular.Module}
  */
-var habitrpg = angular.module('habitrpg', [])
+var habitrpg = angular.module('habitrpg', ['userServices'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/*', {templateUrl: 'views/list.html'})
@@ -27,51 +27,3 @@ habitrpg.directive('gfTap', function() {
     });
   };
 });
-
-habitrpg.factory('characterData', function($rootScope, characterStorage) {
-
-  var data;
-
-  return {
-
-    getData: function() { 
-
-      return data; 
-    },
-
-    setData: function(sentdata) { 
-     
-      data = sentdata;
-      characterStorage.put(data)
-      $rootScope.$broadcast('characterUpdate')
-
-
-    }
-
-  }
-
-})
-
-habitrpg.factory('userData', function($rootScope, userStorage) {
-
-  var data;
-
-  return {
-
-    getData: function() { 
-
-      return data; 
-    },
-
-    setData: function(sentdata) { 
-     
-      data = sentdata;
-      userStorage.put(data)
-      $rootScope.$broadcast('userUpdate')
-
-
-    }
-
-  }
-
-})
