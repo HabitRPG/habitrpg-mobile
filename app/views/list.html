@@ -22,10 +22,10 @@
                 <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
                     <div class="lines" ng-hide="tasks.length == 0"></div>
                     <input class="toggle" type="checkbox" ng-model="tasks.completed" />
-                    <label ng-dblclick="editTask(task)">{{task.title}}</label>
+                    <label ng-dblclick="editTask(task)">{{task.text}}</label>
                     <button class="destroy" gf-Tap="removeTask(task)"></button>
                     <form ng-submit="doneEditing(task)">
-                        <input class="edit" ng-model="task.title" todo-blur="doneEditing(task)" todo-focus="task == editedTask" />
+                        <input class="edit" ng-model="task.text" todo-blur="doneEditing(task)" todo-focus="task == editedTask" />
                     </form>
                 </li>
             </ul>
