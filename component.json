@@ -9,7 +9,7 @@
     "angular-cookies": "~1.0.5",
     "angular-sanitize": "~1.0.5",
     "underscore": "*",
-    "requirejs": "*"
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.5",

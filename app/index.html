@@ -62,8 +62,18 @@
 <script src="components/angular-sanitize/angular-sanitize.js"></script>
 
 <!-- build:js scripts/scripts.js -->
+
+<!-- Vendor -->
 <script src="components/underscore/underscore-min.js"></script>
-<script src="components/requirejs/require.js"></script>
+<!--<script src="scripts/vendor/cdv-plugin-fb-connect.js"></script>
+<script src="scripts/vendor/facebook-js-sdk.js"></script>-->
+
+<!-- HabitRPG Shared -->
+<script src="components/habitrpg-shared/algos.js"></script>
+<script src="components/habitrpg-shared/items.js"></script>
+<script src="components/habitrpg-shared/scoring.js"></script>
+
+<!-- App -->
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/tasksCtrl.js"></script>
 <script src="scripts/directives/taskFocus.js"></script>
@@ -74,10 +84,7 @@
 <script src="scripts/controllers/characterCtrl.js"></script>
 <script src="scripts/controllers/menuCtrl.js"></script>
 <script src="scripts/services/userServices.js"></script>
-
-<!-- TODO implement facebook -->
-<!--<script src="scripts/vendor/cdv-plugin-fb-connect.js"></script>
-<script src="scripts/vendor/facebook-js-sdk.js"></script>-->
+<script src="scripts/services/sharedServices.js"></script>
 <!-- endbuild -->
 </body>
 </html>
