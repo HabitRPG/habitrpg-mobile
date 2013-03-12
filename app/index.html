@@ -1,79 +1,83 @@
 <!doctype html>
 <html lang="en" ng-app="habitrpg">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width"/>
-        <title>HabitRPG</title>
-        <link rel="stylesheet" href="styles/bootstrap.css"/>
-        <link rel="stylesheet" href="styles/main.css"/>
-        <!--<link rel="stylesheet" href="styles/style_habit.css" />-->
-        <link rel="stylesheet" href="styles/beta.css" />
-        <style>[ng-cloak] {display: none}</style>
-        <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width"/>
+    <title>HabitRPG</title>
+    <link rel="stylesheet" href="styles/bootstrap.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
+    <!--<link rel="stylesheet" href="styles/style_habit.css" />-->
+    <link rel="stylesheet" href="styles/beta.css"/>
+    <style>[ng-cloak] {
+        display: none
+    }</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
+</head>
+<body>
 
-        <!--<div class="container" ng-view></div>-->
-        <div ng-controller="WrapperCtrl" class="wrapper">
-            <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
+<!--<div class="container" ng-view></div>-->
+<div ng-controller="WrapperCtrl" class="wrapper">
+    <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
-                <div ng-controller="CharacterCtrl">
-                    <div class="avatar main-avatar">
-                        <div class="character-sprites" ng-cloak>
-                            <span id="ix" class="m_skin_{{user.preferences.skin}}"></span>
-                            <span id="iy" class="m_hair_{{user.preferences.hair}}"></span>
-                            <span id="iz" class="m_armor_{{user.items.armor}}"></span>
-                            <span id="j0" class="m_head_{{user.items.head}}"></span>
-                            <span id="j1" class="m_shield_{{user.items.shield}}"></span>
-                            <span id="j2" class="m_weapon_{{user.items.weapon}}"></span>
-                        </div>
-                    </div>
-
-                    <div class="user">
-                        {{user.auth.username}}<br>
-                        level {{user.stats.lvl}}
-                    </div>
-                    <div style="clear:both"></div>
-
-                     <div class="meter animate">
-                        <span style="width: {{user.stats.hp}}%"><span></span></span>
-                     </div>
-
-                     <div class="meter animate orange">
-                      <span style="width: {{user.stats.exp}}%"><span></span></span>
-                     </div>
+        <div ng-controller="CharacterCtrl">
+            <div class="avatar main-avatar">
+                <div class="character-sprites" ng-cloak>
+                    <span id="ix" class="m_skin_{{user.preferences.skin}}"></span>
+                    <span id="iy" class="m_hair_{{user.preferences.hair}}"></span>
+                    <span id="iz" class="m_armor_{{user.items.armor}}"></span>
+                    <span id="j0" class="m_head_{{user.items.head}}"></span>
+                    <span id="j1" class="m_shield_{{user.items.shield}}"></span>
+                    <span id="j2" class="m_weapon_{{user.items.weapon}}"></span>
                 </div>
+            </div>
 
-                <div ng-controller="MenuCtrl">
-                    <div ng-repeat="button in nav" class="link"><a ng-click="open({{button.name}})">{{button.link}}</a></div>
-                </div>
+            <div class="user">
+                {{user.auth.username}}<br>
+                level {{user.stats.lvl}}
+            </div>
+            <div style="clear:both"></div>
 
-            </nav>
-            <div ng-view></div>
+            <div class="meter animate">
+                <span style="width: {{user.stats.hp}}%"><span></span></span>
+            </div>
+
+            <div class="meter animate orange">
+                <span style="width: {{user.stats.exp}}%"><span></span></span>
+            </div>
         </div>
 
-        <!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
-        <script src="scripts/vendor/angular.js"></script>
-        <script src="scripts/vendor/angular-resource.js"></script>
+        <div ng-controller="MenuCtrl">
+            <div ng-repeat="button in nav" class="link"><a ng-click="open({{button.name}})">{{button.link}}</a></div>
+        </div>
 
-        <!-- build:js scripts/scripts.js -->
-        <script src="scripts/vendor/underscore-min.js"></script>
-        <script src="scripts/vendor/require.js"></script>
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/tasksCtrl.js"></script>
-        <script src="scripts/directives/taskFocus.js"></script>
-        <script src="scripts/directives/taskBlur.js"></script>
-        <script src="scripts/controllers/navCtrl.js"></script>
-        <script src="scripts/controllers/wrapperCtrl.js"></script>
-        <script src="scripts/controllers/statsCtrl.js"></script>
-        <script src="scripts/controllers/characterCtrl.js"></script>
-        <script src="scripts/controllers/menuCtrl.js"></script>
-        <script src="scripts/services/userServices.js"></script>
+    </nav>
+    <div ng-view></div>
+</div>
 
-        <!-- TODO implement facebook -->
-        <!--<script src="cdv-plugin-fb-connect.js"></script>
-        <script src="facebook-js-sdk.js"></script>-->
-        <!-- endbuild -->
-    </body>
+<!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
+<script src="components/angular/angular.js"></script>
+<script src="components/angular-resource/angular-resource.js"></script>
+<script src="components/angular-cookies/angular-cookies.js"></script>
+<script src="components/angular-sanitize/angular-sanitize.js"></script>
+
+<!-- build:js scripts/scripts.js -->
+<script src="components/underscore/underscore-min.js"></script>
+<script src="components/requirejs/require.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/tasksCtrl.js"></script>
+<script src="scripts/directives/taskFocus.js"></script>
+<script src="scripts/directives/taskBlur.js"></script>
+<script src="scripts/controllers/navCtrl.js"></script>
+<script src="scripts/controllers/wrapperCtrl.js"></script>
+<script src="scripts/controllers/statsCtrl.js"></script>
+<script src="scripts/controllers/characterCtrl.js"></script>
+<script src="scripts/controllers/menuCtrl.js"></script>
+<script src="scripts/services/userServices.js"></script>
+
+<!-- TODO implement facebook -->
+<!--<script src="cdv-plugin-fb-connect.js"></script>
+<script src="facebook-js-sdk.js"></script>-->
+<!-- endbuild -->
+</body>
 </html>
