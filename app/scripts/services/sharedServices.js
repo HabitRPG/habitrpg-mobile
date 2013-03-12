@@ -20,7 +20,6 @@ angular.module('sharedServices', [] ).
             , cron
             , score
             , updateStats
-            , tnl = Algos.tnl
             , helpers = $window.habitrpgHelpers;
 
 
@@ -51,7 +50,7 @@ angular.module('sharedServices', [] ).
                     if (adjustvalue) {
                         value += nextDelta;
                     }
-                    return delta += nextDelta;
+                    delta += nextDelta;
                 });
             };
 
@@ -139,11 +138,12 @@ angular.module('sharedServices', [] ).
                 user.stats.exp = 0;
                 user.stats.lvl = 100;
             } else {
+                user.stats.tnl = Algos.tnl(user.stats.lvl);
                 if (user.stats.exp >= tnl) {
                     while (user.stats.exp >= tnl && user.stats.lvl < 100) {
                         user.stats.exp -= tnl;
                         user.stats.lvl++;
-                        tnl = algos.tnl(obj.stats.lvl);
+                        user.stats.tnl = Algos.tnl(user.stats.lvl);
                     }
                     if (user.stats.lvl === 100) {
                         user.stats.exp = 0;
