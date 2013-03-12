@@ -5,13 +5,13 @@
  */
 
 angular.module('sharedServices', [] ).
-    factory("Items", function($rootScope, $window){
-        return $window.habitrpgItems;
+    factory("Items", function($rootScope){
+        return window.habitrpgShared.items;
     }).
-    factory("Algos", function($rootScope, $window){
-        return $window.habitrpgAlgos;
+    factory("Algos", function($rootScope){
+        return window.habitrpgShared.algos;
     }).
-    factory('Scoring', function($rootScope, $window, User, Algos, Items){
+    factory('Scoring', function($rootScope, User, Algos, Items){
 
         //TODO implement with promises
 
@@ -20,7 +20,7 @@ angular.module('sharedServices', [] ).
             , cron
             , score
             , updateStats
-            , helpers = $window.habitrpgHelpers;
+            , helpers = window.habitrpgShared.helpers;
 
 
         User.fetch(function(data) {
@@ -54,7 +54,7 @@ angular.module('sharedServices', [] ).
                 });
             };
 
-            function addPoints() {
+            function addPoints(user, delta ,Items) {
                 var level, weaponStrength;
                 level = user.stats.lvl;
                 weaponStrength = Items.items.weapon[user.items.weapon].strength;
@@ -138,7 +138,7 @@ angular.module('sharedServices', [] ).
                 user.stats.exp = 0;
                 user.stats.lvl = 100;
             } else {
-                user.stats.tnl = Algos.tnl(user.stats.lvl);
+                var tnl = user.stats.tnl = Algos.tnl(user.stats.lvl);
                 if (user.stats.exp >= tnl) {
                     while (user.stats.exp >= tnl && user.stats.lvl < 100) {
                         user.stats.exp -= tnl;
