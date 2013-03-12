@@ -5,7 +5,7 @@
  * - retrieves and persist the model via the todoStorage service
  * - exposes the model to the template and provides event handlers
  */
-habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterFilter, User, Scoring) {
+habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterFilter, User, Algos) {
 
   $scope.newTask = "";
   $scope.editedTask = null;
@@ -40,7 +40,9 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
       });
 
       $scope.score = function(task, direction) {
-          Scoring.score(task.id, direction);
+          console.log({before:user.stats.hp})
+          Algos.score(user, task.id, direction);
+          console.log({after:user.stats.hp})
       }
 
       $scope.addTask = function() {
