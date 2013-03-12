@@ -37,6 +37,8 @@ angular.module('userServices', ['ngResource']).
                 if (!!user) return cb(user);
                 var self = this;
 
+                // see http://docs.angularjs.org/api/ng.$q for promise return
+
                 // If we have auth variables, get the user form the server
                 if (!!uuid && !!token) {
                     $http.get(URL)
