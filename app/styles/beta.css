@@ -207,7 +207,7 @@ text-align:center;
 
 }
 
-.new_todo {
+.new_task {
 
   border:1px solid #cccccc;
   height:30px;
@@ -217,7 +217,7 @@ text-align:center;
 
 }
 
-.todo_wrapper {
+.task_wrapper {
 
 
 }
@@ -230,7 +230,7 @@ text-align:center;
 
 }
 
-#todo-list li .toggle {
+#task-list li .toggle {
 
   height:auto;
   top:10px;
@@ -238,7 +238,7 @@ text-align:center;
 
 }
 
-#todo-list li .destroy {
+#task-list li .destroy {
 
   bottom:auto;
   top:7px;
@@ -308,6 +308,8 @@ text-align:center;
   margin-left: 40px;
   margin-top:-10px;
   background:rgb(255, 242, 204);
+
+  clear:both
 }
 
 .lines-good {
@@ -330,13 +332,13 @@ text-align:center;
   background:rgb(230, 184, 175);
 }
 
-.todo_list {
+.task_list {
 
   margin-bottom:10px;
 
 }
 
-#todo-list li label {
+#task-list li label {
 
   padding:10px;
   font-size:16px;

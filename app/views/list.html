@@ -10,22 +10,22 @@
 
     <h2>{{taskTypeTitle}}</h2>
 
-    <div class="todo_wrapper">
+    <div class="task_wrapper">
 
-        <form id="todo-form" ng-submit="addTask()">
+        <form id="task-form" ng-submit="addTask()">
             <input type="text" placeholder="Add new {{taskTypeTitle}}" ng-model="newTask">
         </form>
 
-        <div class="todo_list">
+        <div class="task_list">
             <div class="no_tasks" ng-show="tasks.length == 0">No {{taskTypeTitle}}.</div>
-            <ul id="todo-list" class="list" ng-hide="tasks.length == 0">
-                <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+            <ul id="task-list" class="list" ng-hide="tasks.length == 0">
+                <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
                     <div class="lines" ng-hide="tasks.length == 0"></div>
                     <input class="toggle" type="checkbox" ng-model="tasks.completed" />
                     <label ng-dblclick="editTask(task)">{{task.text}}</label>
                     <button class="destroy" gf-Tap="removeTask(task)"></button>
                     <form ng-submit="doneEditing(task)">
-                        <input class="edit" ng-model="task.text" todo-blur="doneEditing(task)" todo-focus="task == editedTask" />
+                        <input class="edit" ng-model="task.text" task-blur="doneEditing(task)" task-focus="task == editedTask" />
                     </form>
                 </li>
             </ul>
