@@ -24,8 +24,8 @@
 
                     <!-- Habits -->
                     <span ng-show="task.type == 'habit'" ng-cloak>
-                        <input type="button" value="+" ng-click="score({{task.id}}, 'up')"/>
-                        <input type="button" value="-" ng-click="score({{task.id}}, 'down')"/>
+                        <input type="button" value="+" ng-click="score(task,'up')"/>
+                        <input type="button" value="-" ng-click="score(task,'down')"/>
                     </span>
 
                     <!-- Daily, Todo -->

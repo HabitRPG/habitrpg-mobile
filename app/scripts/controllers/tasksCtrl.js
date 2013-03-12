@@ -39,8 +39,8 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
           }
       });
 
-      $scope.score = function(taskId, direction) {
-          Scoring.score(taskId, direction);
+      $scope.score = function(task, direction) {
+          Scoring.score(task.id, direction);
       }
 
       $scope.addTask = function() {
