@@ -21,7 +21,21 @@
             <ul id="task-list" class="list" ng-hide="tasks.length == 0">
                 <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
                     <div class="lines" ng-hide="tasks.length == 0"></div>
-                    <input class="toggle" type="checkbox" ng-model="task.completed" />
+
+                    <!-- Habits -->
+                    <span ng-show="task.type == 'habit'" ng-cloak>
+                        <input type="button" value="+"/>
+                        <input type="button" value="-"/>
+                    </span>
+
+                    <!-- Daily, Todo -->
+                    <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' | task.type == 'todo'" ng-cloak />
+
+                    <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-cloak />
+
+                    <!-- Rewards -->
+                    <span></span>
+
                     <label ng-dblclick="editTask(task)">{{task.text}}</label>
                     <button class="destroy" gf-Tap="removeTask(task)"></button>
                     <form ng-submit="doneEditing(task)">
