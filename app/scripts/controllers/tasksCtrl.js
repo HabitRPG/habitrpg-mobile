@@ -10,7 +10,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
   $scope.newTask = "";
   $scope.editedTask = null;
 
-  User.fetch(function(user){
+  User.get(function(user){
       $scope.tasks = user.tasks;
 
       $scope.$watch('tasks', function() {

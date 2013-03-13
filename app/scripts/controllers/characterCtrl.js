@@ -7,7 +7,7 @@
 
 habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location, filterFilter, User ) {
 
-    User.fetch(function(user){
+    User.get(function(user){
         $scope.user = user;
     })
 

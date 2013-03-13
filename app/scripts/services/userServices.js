@@ -7,41 +7,38 @@
 angular.module('userServices', ['ngResource']).
     factory('User', function($resource, $http, $rootScope){
         var STORAGE_ID = 'habitrpg-user',
-            URL = 'http://localhost:3000/api/v1/user',
+            URL = 'http://localhost:3000/api/v1',
             schema = {
-                stats : { gp:0, exp:0, lvl:1, hp:50          },
-                party : { current:null, invitation:null      },
+                stats : { gp:0, exp:0, lvl:1, hp:50 },
+                party : { current:null, invitation:null },
                 items : { weapon:0, armor:0, head:0, shield:0, pets: [], eggs: []},
                 preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1' },
+                auth: { timestamps: {savedAt: +new Date} },
                 tasks: [], // note task-types are differentiated / filtered by type {habit, daily, todo, reward}
-                apiToken : null,
                 lastCron: 'new',
                 balance  : 1,
-                flags: { partyEnabled:false, itemsEnabled:false},
-                lastSync: +new Date
+                flags: {}
             },
-            user; // this is stored as a reference accessible to all controllers, that way updates propagate
+            user, // this is stored as a reference accessible to all controllers, that way updates propagate
+            authenticated = false;
 
-        // tmp vars, will be replaced once api-auth done
-        var uuid = 'ad71feef-056f-40d9-b1fb-144ce156cd4d',
-            token = '285dec52-d032-4860-acf4-b589dc64d857';
-
-        $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
-        $http.defaults.headers.common['x-api-user'] = uuid;
-        $http.defaults.headers.common['x-api-key'] = token;
-
+        function setAuthHeaders(){
+            $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
+            $http.defaults.headers.common['x-api-user'] = user.id;
+            $http.defaults.headers.common['x-api-key'] = user.apiToken;
+            authenticated = true;
+        }
 
         return {
 
             fetch: function(cb) {
-                if (!!user) return cb(user);
                 var self = this;
 
                 // see http://docs.angularjs.org/api/ng.$q for promise return
 
                 // If we have auth variables, get the user form the server
-                if (!!uuid && !!token) {
-                    $http.get(URL)
+                if (authenticated) {
+                    $http.get(URL + '/user')
                         .success(function(data, status, headers, config) {
                             data.tasks = _.toArray(data.tasks);
                             self.save(data, function(user){
@@ -57,24 +54,49 @@ angular.module('userServices', ['ngResource']).
                     user = JSON.parse(localStorage.getItem(STORAGE_ID));
                     if (!user) {
                         user = schema;
-                        this.save(user);
+                        self.save(user);
                     }
                     cb(user);
                 }
             },
 
-            save: function(data, cb) {
-                if (!data) return; //todo !data means send to server
+            get: function(cb) {
+                if(!!user) return cb(user);
+                return this.fetch(cb)
+            },
 
+            /**
+             * Save the user object. Will sync with the server
+             *
+             * Current thought process: send only the things you want to change. Eg on a Algos.score() operation, we'd queue
+             * PUT /api/v1/user data: {stats:{exp,hp,gp,lvl}, tasks.scored-task:{value,history,etc}
+             * The server will run sent objects through _.defaults, so it's non-destructive. If you want to delete properties
+             * (eg, removing tasks), set that as a flag on the task: {text, notes, value, delete:true}
+             * Send POST /api/v1/user for creating new user objects, decide in this function whether PUT or POST based on
+             * if user.id && user.apiToken exist
+             *
+             * @param paths: if we want to apply a partial update to the server (save some resources), send an array
+             *  of paths (or single path string) like 'stats.hp' or ['stats', 'tasks.productivity']. Passing in null means
+             *  save the whole user object to the server
+             * @returns {*}
+             */
+            save: function(paths) {
                 var self = this;
-                user = data;
+                user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-                if (!!cb) return cb(user);
-                /*if (!!uuid && !!token) {
-                    $http.put(URL).success(function(data) {
+
+                /**
+                 * If not authenticated, just save locally
+                 * If authenticating and only saved locally, create new user on the server
+                 * If authenticating and exists on the server, do some crazy merge magic
+                 */
+                if (authenticated) {
+                    var partialUserObj = user; //TODO apply partial
+
+                    $http.put({url: URL + '/user', data: {user:partialUserObj}}).success(function(data) {
                         cb(data);
                     });
-                }*/
+                }
             },
 
             remove: function(cb) {
