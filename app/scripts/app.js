@@ -5,7 +5,7 @@
  *
  * @type {angular.Module}
  */
-var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices'])
+var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'facebookServices'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {templateUrl: 'views/list.html'})

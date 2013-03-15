@@ -6,8 +6,8 @@
  * - exposes the model to the template and provides event handlers
  */
 
-habitrpg.controller( 'WrapperCtrl', function WrapperCtrl( $scope, $location, filterFilter ) {
- 
+habitrpg.controller( 'WrapperCtrl', function WrapperCtrl( $scope, $location, filterFilter, Facebook ) {
+
 $scope.toggleMenu = function() {
   if ($scope.menuopen) {
   	$scope.menuclose =true;
