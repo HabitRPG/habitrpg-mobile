@@ -18,6 +18,16 @@
 
 <!--<div class="container" ng-view></div>-->
 <div ng-controller="WrapperCtrl" class="wrapper">
+    <section ng-app='myApp'>
+    <button class='btn' ng-click="Facebook.login()">Connect with Facebook</button>
+    <div ng-show="Facebook.getAuth()">
+         <h4>Access Token:</h4>
+
+        <p ng-bind="Facebook.getAuth().accessToken"></p>
+        <button class='btn btn-small' ng-click="Facebook.logout()">Logout</button>
+    </div>
+    <div id='fb-root'></div>
+</section>
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
         <div ng-controller="CharacterCtrl">
