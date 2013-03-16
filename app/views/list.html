@@ -29,7 +29,7 @@
                     </span>
 
                     <!-- Daily, Todo -->
-                    <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' | task.type == 'todo'" ng-cloak />
+                    <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />
 
                     <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-cloak />
 
