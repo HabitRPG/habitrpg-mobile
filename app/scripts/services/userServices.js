@@ -98,7 +98,7 @@ angular.module('userServices', []).
                 if (authenticated) {
                     var partialUserObj = user; //TODO apply partial
 
-                    $http.put({url: URL + '/user', data: {user:partialUserObj}}).success(function(data) {
+                    $http.put(URL + '/user', {user:partialUserObj}).success(function(data) {
                         cb(data);
                     });
                 }
