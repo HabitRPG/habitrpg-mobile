@@ -19,14 +19,17 @@
 <!--<div class="container" ng-view></div>-->
 <div ng-controller="WrapperCtrl" class="wrapper">
     <section ng-app='myApp'>
-    <button class='btn' ng-click="Facebook.login()">Connect with Facebook</button>
-    <div ng-show="Facebook.getAuth()">
-         <h4>Access Token:</h4>
 
-        <p ng-bind="Facebook.getAuth().accessToken"></p>
-        <button class='btn btn-small' ng-click="Facebook.logout()">Logout</button>
+    <div style='float:right;' ng-controller='AuthCtrl'>
+        <button class='btn' ng-click="Facebook.login()">Connect with Facebook</button>
+        <div ng-show="Facebook.getAuth()">
+             <h4>Access Token:</h4>
+
+            <p ng-bind="Facebook.getAuth().accessToken"></p>
+            <button class='btn btn-small' ng-click="Facebook.logout()">Logout</button>
+        </div>
+        <div id='fb-root'></div>
     </div>
-    <div id='fb-root'></div>
 </section>
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
@@ -77,8 +80,8 @@
 <!-- Vendor -->
 <script src="components/underscore/underscore-min.js"></script>
 <script src="components/moment/moment.js"></script>
-<!--<script src="scripts/vendor/cdv-plugin-fb-connect.js"></script>
-<script src="scripts/vendor/facebook-js-sdk.js"></script>-->
+<!--<script src="scripts/vendor/cdv-plugin-fb-connect.js"></script>-->
+<script src="scripts/vendor/facebook-js-sdk.js"></script>
 
 <!-- HabitRPG Shared -->
 <script src="components/habitrpg-shared/index-browser.js"></script>
@@ -93,9 +96,10 @@
 <script src="scripts/controllers/statsCtrl.js"></script>
 <script src="scripts/controllers/characterCtrl.js"></script>
 <script src="scripts/controllers/menuCtrl.js"></script>
+<script src="scripts/controllers/authCtrl.js"></script>
 <script src="scripts/services/userServices.js"></script>
 <script src="scripts/services/sharedServices.js"></script>
-<script src="scripts/services/fbauthenticationServices.js"></script>
+<script src="scripts/services/facebookServices.js"></script>
 <!-- endbuild -->
 </body>
 </html>

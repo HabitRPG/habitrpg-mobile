@@ -19,14 +19,12 @@ angular.module('userServices', []).
                 balance  : 1,
                 flags: {}
             },
-            user, // this is stored as a reference accessible to all controllers, that way updates propagate
-            authenticated = false;
+            user; // this is stored as a reference accessible to all controllers, that way updates propagate
 
-        function setAuthHeaders(){
-            $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
-            $http.defaults.headers.common['x-api-user'] = user.id;
-            $http.defaults.headers.common['x-api-key'] = user.apiToken;
-            authenticated = true;
+        $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
+
+        function isAuthenticated() {
+            return !!$http.defaults.headers.common['x-api-user'] && !!$http.defaults.headers.common['x-api-key'];
         }
 
         return {
@@ -37,7 +35,7 @@ angular.module('userServices', []).
                 // see http://docs.angularjs.org/api/ng.$q for promise return
 
                 // If we have auth variables, get the user form the server
-                if (authenticated) {
+                if (isAuthenticated()) {
                     $http.get(URL + '/user')
                         .success(function(data, status, headers, config) {
                             data.tasks = _.toArray(data.tasks);
@@ -90,7 +88,7 @@ angular.module('userServices', []).
                  * If authenticating and only saved locally, create new user on the server
                  * If authenticating and exists on the server, do some crazy merge magic
                  */
-                if (authenticated) {
+                if (isAuthenticated()) {
                     var partialUserObj = user; //TODO apply partial
 
                     $http.put({url: URL + '/user', data: {user:partialUserObj}}).success(function(data) {
