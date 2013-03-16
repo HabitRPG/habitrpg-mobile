@@ -4,7 +4,7 @@
  * Services that persists and retrieves user from localStorage.
  */
 angular.module('facebookServices', []).
-    factory('Facebook', function($resource, $http, $rootScope){
+    factory('Facebook', function($http){
 
         var self = this;
         this.auth = null;
