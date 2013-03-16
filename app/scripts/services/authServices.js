@@ -3,7 +3,7 @@
 /**
  * Services that persists and retrieves user from localStorage.
  */
-angular.module('facebookServices', ['userServices']).
+angular.module('authServices', ['userServices']).
     factory('Facebook', function($http, User){
         //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
 
@@ -13,11 +13,6 @@ angular.module('facebookServices', ['userServices']).
         User.get(function(data){
             user = data;
         })
-
-        function authenticate() {
-            $http.defaults.headers.common['x-api-user'] = user.id;
-            $http.defaults.headers.common['x-api-key'] = user.apiToken;
-        }
 
         return {
 
@@ -29,7 +24,8 @@ angular.module('facebookServices', ['userServices']).
                 // fixme temporary hard-coded
                 user.id = '91dae4a1-895f-4698-a768-67ec0c8293bb';
                 user.apiToken = 'e984549d-6364-42eb-beec-1f075d80381d';
-                return authenticate();
+                User.authenticate();
+                return;
 
                 FB.login(function(response) {
                     if (response.authResponse) {
@@ -53,6 +49,36 @@ angular.module('facebookServices', ['userServices']).
                         console.log('Facebook logout failed.', response);
                     }
                 })
+            }
+        }
+
+    })
+
+    .factory('LocalAuth', function($http, User){
+
+        var auth,
+            user;
+
+        User.get(function(data){
+            user = data;
+        })
+
+        return {
+
+            getAuth: function() {
+                return auth;
+            },
+
+            login: function() {
+                // fixme temporary hard-coded
+                user.id = '91dae4a1-895f-4698-a768-67ec0c8293bb';
+                user.apiToken = 'e984549d-6364-42eb-beec-1f075d80381d';
+                User.authenticate();
+                return;
+
+            },
+
+            logout: function() {
             }
         }
 

@@ -7,7 +7,7 @@
 angular.module('userServices', []).
     factory('User', function($http){
         var STORAGE_ID = 'habitrpg-user',
-            URL = 'http://localhost:3000/api/v1',
+            URL = 'https://habitrpg.com/api/v1',
             schema = {
                 stats : { gp:0, exp:0, lvl:1, hp:50 },
                 party : { current:null, invitation:null },
@@ -19,15 +19,22 @@ angular.module('userServices', []).
                 balance  : 1,
                 flags: {}
             },
-            user; // this is stored as a reference accessible to all controllers, that way updates propagate
+            user, // this is stored as a reference accessible to all controllers, that way updates propagate
+            authenticated = false;
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
 
-        function isAuthenticated() {
-            return !!$http.defaults.headers.common['x-api-user'] && !!$http.defaults.headers.common['x-api-key'];
-        }
-
         return {
+
+            authenticate: function() {
+                if (!!user.id && !!user.apiToken) {
+                    $http.defaults.headers.common['x-api-user'] = user.id;
+                    $http.defaults.headers.common['x-api-key'] = user.apiToken;
+                    authenticated = true;
+                    this.fetch(); // now they've authenticated, get that user instead
+                }
+
+            },
 
             fetch: function(cb) {
                 var self = this;
@@ -35,7 +42,7 @@ angular.module('userServices', []).
                 // see http://docs.angularjs.org/api/ng.$q for promise return
 
                 // If we have auth variables, get the user form the server
-                if (isAuthenticated()) {
+                if (authenticated) {
                     $http.get(URL + '/user')
                         .success(function(data, status, headers, config) {
                             data.tasks = _.toArray(data.tasks);
@@ -88,7 +95,7 @@ angular.module('userServices', []).
                  * If authenticating and only saved locally, create new user on the server
                  * If authenticating and exists on the server, do some crazy merge magic
                  */
-                if (isAuthenticated()) {
+                if (authenticated) {
                     var partialUserObj = user; //TODO apply partial
 
                     $http.put({url: URL + '/user', data: {user:partialUserObj}}).success(function(data) {
