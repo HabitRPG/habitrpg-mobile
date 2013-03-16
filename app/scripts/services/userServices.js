@@ -4,8 +4,8 @@
  * Services that persists and retrieves user from localStorage.
  */
 
-angular.module('userServices', ['ngResource']).
-    factory('User', function($resource, $http, $rootScope){
+angular.module('userServices', []).
+    factory('User', function($http){
         var STORAGE_ID = 'habitrpg-user',
             URL = 'http://localhost:3000/api/v1',
             schema = {
