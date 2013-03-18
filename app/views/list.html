@@ -20,13 +20,15 @@
             <div class="no_tasks" ng-show="tasks.length == 0">No {{taskTypeTitle}}.</div>
             <ul id="task-list" class="list" ng-hide="tasks.length == 0">
                 <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
-                    <div class="lines" ng-hide="tasks.length == 0"></div>
+                    <div class="lines" ng-hide="tasks.length == 0 || task.type == 'habit'"></div>
 
                     <!-- Habits -->
                     <span ng-show="task.type == 'habit'" ng-cloak>
                         <input type="button" value="+" ng-click="score(task,'up')"/>
                         <input type="button" value="-" ng-click="score(task,'down')"/>
                     </span>
+
+                    {{task.title}}
 
                     <!-- Daily, Todo -->
                     <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />
