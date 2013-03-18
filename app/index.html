@@ -61,7 +61,7 @@
         </div>
 
         <div ng-controller="MenuCtrl">
-            <div ng-repeat="button in nav" class="link"><a ng-click="open({{button.name}})">{{button.link}}</a></div>
+            <div ng-repeat="button in nav" class="link"><a ng-click="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
         </div>
 
     </nav>
