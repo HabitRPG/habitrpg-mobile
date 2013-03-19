@@ -23,7 +23,23 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'au
 habitrpg.directive('gfTap', function() {
   return function(scope, element, attrs) {
     element.bind('touchstart', function() {
-      scope.$apply(attrs['gfTap']);
+      scope.$apply(attrs['gfTap'], element);
+    });
+  };
+});
+
+habitrpg.directive('gfTapstop', function() {
+  return function(scope, element, attrs) {
+    element.bind('touchstop', function() {
+      scope.$apply(attrs['gfTapstop'], element);
+    });
+  };
+});
+
+habitrpg.directive('gfTapmove', function() {
+  return function(scope, element, attrs) {
+    element.bind('touchmove', function() {
+      scope.$apply(attrs['gfTapmove'], element);
     });
   };
 });

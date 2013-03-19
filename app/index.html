@@ -17,7 +17,7 @@
 <body>
 
 <!--<div class="container" ng-view></div>-->
-<div ng-controller="WrapperCtrl" class="wrapper">
+<div ng-controller="WrapperCtrl" class="wrapper" ng-mouseup="mouseup()" ng-mousemove="mousemove($event)">
     <section ng-app='myApp'>
 
     <div style='float:right;' ng-controller='AuthCtrl'>
@@ -85,6 +85,7 @@
 
 <!-- HabitRPG Shared -->
 <script src="components/habitrpg-shared/index-browser.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 <!-- App -->
 <script src="scripts/app.js"></script>
