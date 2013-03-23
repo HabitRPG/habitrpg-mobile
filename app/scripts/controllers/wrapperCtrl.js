@@ -48,12 +48,25 @@ $scope.mouseup = function() {
 	$scope.startX = null;
 	$scope.startY = null;
 
+	/*if ($scope.direction == 'down') {
 	if($scope.current != 'false') {
 		$($scope.targeted).insertAfter($($scope.current))
 	}else{
 		$($scope.targeted).parent().append($($scope.targeted))	
-		console.log('asdasd')
 	}
+	}else{
+
+	if($scope.current != 'false') {
+		$($scope.targeted).insertBefore($($scope.current))
+	}else{
+		$($scope.targeted).parent().prepend($($scope.targeted))	
+	}	
+
+	}*/
+
+
+
+	$scope.direction = null
 
 
 	$('#whitespace').remove()
@@ -64,80 +77,131 @@ $scope.mouseup = function() {
 }
 
 var m;
+var i;
+var placeholder;
 
 $scope.mousemove = function($event) {
 
 	if ($scope.dragging) {
 
 	if (!$scope.targeted) {
-
 		m = 0;
 
 		$scope.targeted = $event.target;
+		$scope.current = $scope.targeted;
 		$scope.X = $event.pageX;
 		$scope.Y = $event.pageY;
 		angular.element($scope.targeted).css('z-index', '9999')
 		angular.element($scope.targeted).css('position', 'absolute')
-		$('<div id="whitespace" style="width:' + $($scope.targeted).width() + 'px; height:' + $($scope.targeted).outerHeight() + 'px"></div>').insertBefore($($scope.targeted));
+
+		$scope.current.offset = {
+			top: $($scope.current).offset().top,
+			left: $($scope.current).offset().left
+		};
+
+		$.extend($scope.current.offset, {
+			click: { //Where the click happened, relative to the element
+				left: event.pageX - $scope.current.offset.left,
+				top: event.pageY - $scope.current.offset.top
+			},
+			parent: $($scope.current).prev(),
+		});
+
+		//Generate the original position
+		//$scope.current.originalPosition = this.position = this._generatePosition(event);
+
+		placeholder = $('<div id="whitespace" style="width:' + $($scope.targeted).width() + 'px; height:' + $($scope.targeted).outerHeight() + 'px"></div>')
+		placeholder.insertBefore($($scope.targeted));
 
 	}
 
 
-	angular.element($scope.targeted).css('left', parseInt($event.pageX - $scope.startX) + 'px')
 	angular.element($scope.targeted).css('top', parseInt($event.pageY - 80) + 'px')
 
 	if (!$scope.current) {
-
-		$scope.current = $scope.targeted;
-
+		//$scope.current = $scope.targeted;
 	}
 
 
-	
-	console.log($scope.current)
+
 
 	if ($event.pageY < m) {
 
-	if ($($scope.current).prev().width() != null) {
-	if ($event.pageY <= $($scope.current).prev().offset().top - 30) {
+		$scope.direction = 'up';
 
-		$('#whitespace').remove()
-		$('<div id="whitespace" style="width:' + $($scope.current).width() + 'px; height:' + $($scope.current).outerHeight() + 'px"></div>').insertBefore($($scope.current).prev());
-		if ($($scope.current).prev().width() != null) {
-			$scope.current = $($scope.current).prev().prev()
-		
+		if ($scope.current.offset.parent.width() != null) {
+
+			if ($event.pageY <= $scope.current.offset.parent.offset().top) {
+
+
+				$scope.current = $scope.current.offset.parent;
+
+				$scope.current.offset = {
+				top: $($scope.current).offset().top,
+				left: $($scope.current).offset().left
+				};
+
+
+				$.extend($scope.current.offset, {
+					click: { //Where the click happened, relative to the element
+						left: event.pageX - $scope.current.offset.left,
+						top: event.pageY - $scope.current.offset.top
+					},
+					parent: $($scope.current).prev(),
+				});
+
+
+				$('#whitespace').remove()
+				placeholder.insertBefore($scope.current);
+
+			}
+
+
+
 		}
 
-	}
 	}else{
 
-		$scope.current = 'false';
+		$scope.direction = 'down';
 
-	}
+		console.log($event.pageY)
+
+		if ($($scope.current).next().width() != null)
+			console.log($($scope.current))
 
 
-	}else{
+	if ($scope.current.offset.parent.width() != null) {
 
-		console.log('down')
+		if ($event.pageY >= $scope.current.offset.parent.offset().top + 30) {
 
-		if ($($scope.current).next().width() != null) {
-	if ($event.pageY >= $($scope.current).next().offset().top + 30) {
 
-		$('#whitespace').remove()
-		$('<div id="whitespace" style="width:' + $($scope.current).width() + 'px; height:' + $($scope.current).outerHeight() + 'px"></div>').insertAfter($($scope.current).next());
-		if ($($scope.current).next().width() != null) {
-			$scope.current = $($scope.current).next().next()
-		
+			$scope.current = $scope.current.offset.parent;
+
+			$scope.current.offset = {
+			top: $($scope.current).offset().top,
+			left: $($scope.current).offset().left
+			};
+
+
+			$.extend($scope.current.offset, {
+				click: { //Where the click happened, relative to the element
+					left: event.pageX - $scope.current.offset.left,
+					top: event.pageY - $scope.current.offset.top
+				},
+				parent: $($scope.current).next(),
+			});
+
+
+			$('#whitespace').remove()
+			placeholder.insertAfter($scope.current);
+
 		}
 
-	}
-	}else{
 
-		$scope.current = 'false';
 
-	}
+		}
 
-	}
+		}
 
 
 
