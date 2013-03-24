@@ -28,18 +28,17 @@ habitrpg.directive('gfTap', function() {
   };
 });
 
-habitrpg.directive('gfTapstop', function() {
-  return function(scope, element, attrs) {
-    element.bind('touchstop', function() {
-      scope.$apply(attrs['gfTapstop'], element);
-    });
-  };
-});
+habitrpg.directive('sort', function() {
 
-habitrpg.directive('gfTapmove', function() {
-  return function(scope, element, attrs) {
-    element.bind('touchmove', function() {
-      scope.$apply(attrs['gfTapmove'], element);
-    });
-  };
-});
+  return{
+
+    link: function(scope, element, attrs, ngModel) {
+
+      //really really really bad fix but i'll fix that soon
+      setTimeout(function() { $(element).sortable()}, 100)
+
+    }
+
+  }
+
+})
