@@ -23,7 +23,7 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'au
 habitrpg.directive('gfTap', function() {
   return function(scope, element, attrs) {
     element.bind('touchstart', function() {
-      scope.$apply(attrs['gfTap'], element);
+      scope.$apply(attrs['gfTap']);
     });
   };
 });
