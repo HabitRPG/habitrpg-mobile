@@ -8,6 +8,9 @@
 
 habitrpg.controller( 'WrapperCtrl', function WrapperCtrl( $scope, $location, filterFilter, Facebook ) {
 
+$scope.menuclose = true;
+$scope.menuopen  = false;
+
 $scope.toggleMenu = function() {
 
 	if ($scope.menuopen) {
@@ -23,5 +26,6 @@ $scope.toggleMenu = function() {
 	}
 
 }
+
 
 });

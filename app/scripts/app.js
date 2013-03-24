@@ -27,3 +27,18 @@ habitrpg.directive('gfTap', function() {
     });
   };
 });
+
+habitrpg.directive('sort', function() {
+
+  return{
+
+    link: function(scope, element, attrs, ngModel) {
+
+      //really really really bad fix but i'll fix that soon
+      setTimeout(function() { $(element).sortable()}, 100)
+
+    }
+
+  }
+
+})
