@@ -6,13 +6,13 @@
 
 angular.module('authServices', ['userServices']).
     factory('Facebook', function($http, User){
-        //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
         window.fbAsyncInit = function () {
             FB.init({
                 appId: 149438691882945, // App ID
                 status: true, // check login status
                 cookie: true, // enable cookies to allow the server to access the session
                 xfbml: true,  // parse XFBML
+                oauth: true
             });
         };
         var auth,
