@@ -3,10 +3,18 @@
 /**
  * Services that persists and retrieves user from localStorage.
  */
+
 angular.module('authServices', ['userServices']).
     factory('Facebook', function($http, User){
         //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
-
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: 149438691882945, // App ID
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true,  // parse XFBML
+            });
+        };
         var auth,
             user;
 
@@ -21,16 +29,15 @@ angular.module('authServices', ['userServices']).
             },
 
             login: function() {
-                // fixme temporary hard-coded
-                user.id = '91dae4a1-895f-4698-a768-67ec0c8293bb';
-                user.apiToken = 'e984549d-6364-42eb-beec-1f075d80381d';
+                user.id = '';
+                user.apiToken = '';
                 User.authenticate();
                 return;
 
                 FB.login(function(response) {
                     if (response.authResponse) {
-                        //user.auth =response.authResponse;
-                        // 1. Get user id & apiToken from server using facebook id
+                        user.auth =response.authResponse;
+                        //1. Get user id & apiToken from server using facebook id
                         // 2. store in user
                         // 3. authenticate()
                         debugger;
@@ -54,7 +61,7 @@ angular.module('authServices', ['userServices']).
 
     })
 
-    .factory('LocalAuth', function($http, User){
+   .factory('LocalAuth', function($http, User){
 
         var auth,
             user;
