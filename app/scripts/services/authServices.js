@@ -6,15 +6,7 @@
 
 angular.module('authServices', ['userServices']).
     factory('Facebook', function($http, User){
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: 149438691882945, // App ID
-                status: true, // check login status
-                cookie: true, // enable cookies to allow the server to access the session
-                xfbml: true,  // parse XFBML
-                oauth: true
-            });
-        };
+        //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
         var auth,
             user;
 
@@ -29,15 +21,16 @@ angular.module('authServices', ['userServices']).
             },
 
             login: function() {
-                user.id = '';
-                user.apiToken = '';
+                user.id = 'fe4ebe85-137c-4e6a-b8a4-9d117b02310c';
+                user.apiToken = 'd805aaee-d74b-469c-ba16-d58e0b84e29a';
                 User.authenticate();
                 return;
 
                 FB.login(function(response) {
                     if (response.authResponse) {
-                        user.auth =response.authResponse;
-                        //1. Get user id & apiToken from server using facebook id
+                        // 1. get userid & accesstoken
+                        var uid = response.authResponse.userID;
+                        var accessToken = response.authResponse.accessToken;
                         // 2. store in user
                         // 3. authenticate()
                         debugger;
