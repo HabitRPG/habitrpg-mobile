@@ -18,7 +18,6 @@
 
 <!--<div class="container" ng-view></div>-->
 <div ng-controller="WrapperCtrl" class="wrapper">
-    <section ng-app='myApp'>
 
     <div style='float:right;' ng-controller='AuthCtrl'>
         <button class='btn' ng-click="Facebook.login()">Connect with Facebook</button>
@@ -30,7 +29,7 @@
         </div>
         <div id='fb-root'></div>
     </div>
-</section>
+
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
         <div ng-controller="CharacterCtrl">
@@ -61,6 +60,7 @@
         </div>
 
         <div ng-controller="MenuCtrl">
+            <div class="first_block"><b>Navigation</b></div>
             <div ng-repeat="button in nav" class="link"><a ng-click="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
         </div>
 
