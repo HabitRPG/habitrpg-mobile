@@ -34,8 +34,18 @@ habitrpg.directive('sort', function() {
 
     link: function(scope, element, attrs, ngModel) {
 
-      //really really really bad fix but i'll fix that soon
-      setTimeout(function() { $(element).sortable()}, 100)
+
+      scope.$watch('tasks', function() {
+
+        $(document).bind('touchmove', function(e) {
+          e.preventDefault();
+        }, false);
+
+        $(element).sortable('destroy')
+        $(element).sortable()
+        console.log('added')
+
+      }, true)
 
     }
 
