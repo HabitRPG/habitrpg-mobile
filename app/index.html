@@ -65,7 +65,9 @@
         </div>
 
     </nav>
-    <div ng-view ng-class="{menuopen: menuopen, menuclose: menuclose}"></div>
+    <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
+    <div ng-view></div>
+    </div>
 </div>
 
 <!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
