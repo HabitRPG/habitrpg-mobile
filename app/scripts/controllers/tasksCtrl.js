@@ -56,7 +56,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
               type: $scope.taskType
           });
 
-          $scope.newTodo = '';
+          $scope.newTask = '';
       };
 
 

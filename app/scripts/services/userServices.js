@@ -111,5 +111,5 @@ angular.module('userServices', []).
             }
         }
 
-    });
+    })
 

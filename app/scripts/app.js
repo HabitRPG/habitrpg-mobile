@@ -27,3 +27,28 @@ habitrpg.directive('gfTap', function() {
     });
   };
 });
+
+habitrpg.directive('sort', function() {
+
+  return{
+
+    link: function(scope, element, attrs, ngModel) {
+
+
+      scope.$watch('tasks', function() {
+
+        $(document).bind('touchmove', function(e) {
+          e.preventDefault();
+        }, false);
+
+        $(element).sortable('destroy')
+        $(element).sortable()
+        console.log('added')
+
+      }, true)
+
+    }
+
+  }
+
+})

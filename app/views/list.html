@@ -1,12 +1,12 @@
-<div ng-controller="StatsCtrl" ng-class="{menuopen: menuopen, menuclose: menuclose}">
+<div ng-controller="StatsCtrl">
 
     <div class="head2">
-        <div id="lines" gf-Tap="toggleMenu()"></div>
+        <div id="lines" ng-click="toggleMenu()"></div>
     </div>
 
 </div>
 
-<div ng-controller="TasksCtrl" ng-class="{menuopen: menuopen, menuclose: menuclose}">
+<div ng-controller="TasksCtrl">
 
     <h2>{{taskTypeTitle}}</h2>
 
@@ -18,7 +18,7 @@
 
         <div class="task_list">
             <div class="no_tasks" ng-show="tasks.length == 0">No {{taskTypeTitle}}.</div>
-            <ul id="task-list" class="list" ng-hide="tasks.length == 0">
+            <ul id="task-list" class="list" ng-hide="tasks.length == 0" sort>
                 <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
                     <div class="lines" ng-hide="tasks.length == 0 || task.type == 'habit'"></div>
 
