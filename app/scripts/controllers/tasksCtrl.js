@@ -50,13 +50,27 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
               return;
           }
 
-          $scope.tasks.push({
-              title: $scope.newTask,
-              completed: false,
-              type: $scope.taskType
-          });
+          var defaults = {
+                title: $scope.newTask,
+                type: $scope.taskType,
+                value: 0
+              },
+              extra = {};
 
+          switch($scope.taskType) {
+              case 'habit':
+                  extra = {up:true, down:true}
+                  break;
+              case 'daily':
+              case 'todo':
+                  extra = {completed:false}
+                  break;
+          }
+
+          $scope.tasks.push(_.defaults(extra, defaults));
           $scope.newTask = '';
+
+          User.save();
       };
 
 
