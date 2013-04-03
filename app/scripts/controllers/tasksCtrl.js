@@ -25,7 +25,9 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
 
       $scope.$watch( 'location.path()', function( path ) {
           var type = $scope.taskType = path.split('/')[1];
-          $scope.taskFilter = { type: type }
+          $scope.taskFilter = function(task){
+              return task.type === type && !task.del;
+          }
           $scope.taskTypeTitle =
               (type == 'habit')  ? 'Habits' :
               (type == 'daily')  ? 'Dailies' :
@@ -88,7 +90,8 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
 
 
       $scope.removeTask = function( task ) {
-          $scope.tasks.splice($scope.tasks.indexOf(task), 1);
+          task.del = true
+          User.save()
       };
 
 
