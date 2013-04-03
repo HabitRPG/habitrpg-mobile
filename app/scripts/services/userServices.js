@@ -7,7 +7,7 @@
 angular.module('userServices', []).
     factory('User', function($http){
         var STORAGE_ID = 'habitrpg-user',
-            URL = 'https://habitrpg.com/api/v1',
+            URL = 'http://localhost:3000/api/v1',
             schema = {
                 stats : { gp:0, exp:0, lvl:1, hp:50 },
                 party : { current:null, invitation:null },
@@ -23,6 +23,14 @@ angular.module('userServices', []).
             authenticated = false;
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
+        function setAuthHeaders(uid, apiToken){
+            $http.defaults.headers.common['x-api-user'] = uid;
+            $http.defaults.headers.common['x-api-key'] = apiToken;
+            authenticated = true;
+        }
+
+        //TODO change this once we have auth built
+        setAuthHeaders('972cdabf-5ff9-4473-bc8e-a1a2f0f30871', 'f4ec4562-7a1d-4fda-82c4-b5f10443ffd4');
 
         return {
 
@@ -46,9 +54,8 @@ angular.module('userServices', []).
                     $http.get(URL + '/user')
                         .success(function(data, status, headers, config) {
                             data.tasks = _.toArray(data.tasks);
-                            self.save(data, function(user){
-                                cb(user);
-                            });
+                            user = data;
+                            self.save({skipServer:true});
                         })
                         .error(function(data, status, headers, config) {
                             debugger;
@@ -59,7 +66,7 @@ angular.module('userServices', []).
                     user = JSON.parse(localStorage.getItem(STORAGE_ID));
                     if (!user) {
                         user = schema;
-                        self.save(user);
+                        self.save();
                     }
                     cb(user);
                 }
@@ -85,7 +92,7 @@ angular.module('userServices', []).
              *  save the whole user object to the server
              * @returns {*}
              */
-            save: function(paths) {
+            save: function(options) {
                 var self = this;
                 user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
@@ -95,11 +102,12 @@ angular.module('userServices', []).
                  * If authenticating and only saved locally, create new user on the server
                  * If authenticating and exists on the server, do some crazy merge magic
                  */
-                if (authenticated) {
-                    var partialUserObj = user; //TODO apply partial
+                if (authenticated && !(options && options.skipServer)) {
+                    var partialUserObj = user; //TODO apply partial (options: {paths:[]})
+                    debugger
 
                     $http.put(URL + '/user', {user:partialUserObj}).success(function(data) {
-                        cb(data);
+                        //cb(data);
                     });
                 }
             },
