@@ -98,12 +98,6 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
           });
       };
 
-
-      $scope.markAll = function( done ) {
-          $scope.tasks.forEach(function( task ) {
-              task.completed = done;
-          });
-      };
   })
 
 });
