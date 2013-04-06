@@ -53,7 +53,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
           }
 
           var defaults = {
-                title: $scope.newTask,
+                text: $scope.newTask,
                 type: $scope.taskType,
                 value: 0
               },
