@@ -83,9 +83,6 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
 
       $scope.doneEditing = function( task ) {
           $scope.editedTask = null;
-          if ( !task.title ) {
-              $scope.removeTask(task);
-          }
       };
 
 
