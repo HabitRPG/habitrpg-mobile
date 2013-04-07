@@ -30,7 +30,7 @@ angular.module('userServices', []).
         }
 
         //TODO change this once we have auth built
-        setAuthHeaders('972cdabf-5ff9-4473-bc8e-a1a2f0f30871', 'f4ec4562-7a1d-4fda-82c4-b5f10443ffd4');
+        setAuthHeaders('fa88bcda-4c9a-4e92-8091-b99297261529', '83b0e4c1-56e4-4281-8685-2da3aa328fc7');
 
         return {
 
@@ -56,6 +56,7 @@ angular.module('userServices', []).
                             data.tasks = _.toArray(data.tasks);
                             user = data;
                             self.save({skipServer:true});
+                            cb(user);
                         })
                         .error(function(data, status, headers, config) {
                             debugger;
@@ -104,7 +105,6 @@ angular.module('userServices', []).
                  */
                 if (authenticated && !(options && options.skipServer)) {
                     var partialUserObj = user; //TODO apply partial (options: {paths:[]})
-                    debugger
 
                     $http.put(URL + '/user', {user:partialUserObj}).success(function(data) {
                         //cb(data);
