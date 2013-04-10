@@ -9,6 +9,10 @@ habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location,
 
     User.get(function(user){
         $scope.user = user;
+        $scope.equipped = function(user, type) {
+            return window.habitrpgShared.helpers.equipped(user, type);
+        }
     })
+
 
 });
