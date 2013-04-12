@@ -71,11 +71,11 @@
             <div style="clear:both"></div>
 
             <div class="meter animate">
-                <span style="width: {{user.stats.hp}}%"><span></span></span>
+                <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
             </div>
 
             <div class="meter animate orange">
-                <span style="width: {{user.stats.exp}}%"><span></span></span>
+                <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
             </div>
         </div>
 
