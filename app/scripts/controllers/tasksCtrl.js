@@ -13,10 +13,12 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
   User.get(function(user){
       $scope.tasks = user.tasks;
 
+      // FIXME optimize this watch
       $scope.$watch('tasks', function() {
           $scope.remainingCount = filterFilter($scope.tasks, {completed: false}).length;
           $scope.doneCount = $scope.tasks.length - $scope.remainingCount;
           $scope.allChecked = !$scope.remainingCount
+
       }, true);
 
       if ( $location.path() === '' ) $location.path('/');
@@ -82,6 +84,15 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
       $scope.selectTask = function(task) {
           $rootScope.selectedTask = task;
           $location.path('/tasks/' + task.id)
+      }
+
+      $scope.changeCheck = function(task){
+          // This is calculated post-change, so task.completed=true if they just checked it
+          if(task.completed) {
+              $scope.score(task, 'up')
+          } else {
+              $scope.score(task, 'down')
+          }
       }
 
   })
