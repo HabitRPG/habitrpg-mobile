@@ -8,12 +8,11 @@
 var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
-            .when('/', {templateUrl: 'views/list.html'})
             .when('/:action', {templateUrl: 'views/list.html'})
             .when('/tasks/:taskId', {templateUrl: 'views/details.html'})
             .when('/todo/active', {templateUrl: 'views/list.html'})
             .when('/todo/completed', {templateUrl: 'views/list.html'})
-            .otherwise({redirectTo: '/'});
+            .otherwise({redirectTo: '/habit'});
     }]);
 
 
