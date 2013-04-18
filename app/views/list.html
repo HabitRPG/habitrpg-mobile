@@ -38,11 +38,8 @@
                     <!-- Rewards -->
                     <span></span>
 
-                    <label ng-dblclick="editTask(task)">{{task.text}}</label>
-                    <button class="destroy" gf-Tap="removeTask(task)"></button>
-                    <form ng-submit="doneEditing(task)">
-                        <input class="edit" ng-model="task.text" task-blur="doneEditing(task)" task-focus="task == editedTask" />
-                    </form>
+                    <span ng-click="selectTask(task)">{{task.text}}</span>
+
                 </li>
             </ul>
         </div>

@@ -5,10 +5,10 @@
  * - retrieves and persist the model via the todoStorage service
  * - exposes the model to the template and provides event handlers
  */
-habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterFilter, User, Algos) {
+habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $location, filterFilter, User, Algos) {
 
   $scope.newTask = "";
-  $scope.editedTask = null;
+  $rootScope.selectedTask = null; // FIXME is there a way to pass an object into another controller without rootScope?
 
   User.get(function(user){
       $scope.tasks = user.tasks;
@@ -73,28 +73,16 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $location, filterF
           User.save();
       };
 
-
-      $scope.editTask = function( task ) {
-          $scope.editedTask = task;
-      };
-
-
-      $scope.doneEditing = function( task ) {
-          $scope.editedTask = null;
-      };
-
-
-      $scope.removeTask = function( task ) {
-          task.del = true
-          User.save()
-      };
-
-
       $scope.clearDoneTodos = function() {
           $scope.tasks = $scope.tasks.filter(function( val ) {
               return !val.completed;
           });
       };
+
+      $scope.selectTask = function(task) {
+          $rootScope.selectedTask = task;
+          $location.path('/tasks/' + task.id)
+      }
 
   })
 
