@@ -6,7 +6,7 @@
  * @type {angular.Module}
  */
 var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices'])
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', function($routeProvider, $compileProvider) {
         $routeProvider
             .when('/', {templateUrl: 'views/list.html'})
             .when('/:action', {templateUrl: 'views/list.html'})
@@ -15,7 +15,10 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'au
             .when('/todo/active', {templateUrl: 'views/list.html'})
             .when('/todo/completed', {templateUrl: 'views/list.html'})
             .otherwise({redirectTo: '/'});
-    }]);
+    }])
+    .config(['$compileProvider', function($compileProvider) {
+            $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+    }])
 
 
 // Touch directive, binding to touchstart as to not wait for 300ms
