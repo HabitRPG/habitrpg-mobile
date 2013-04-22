@@ -30,7 +30,7 @@ angular.module('userServices', []).
         }
 
         //TODO change this once we have auth built
-        setAuthHeaders('fa88bcda-4c9a-4e92-8091-b99297261529', '83b0e4c1-56e4-4281-8685-2da3aa328fc7');
+        setAuthHeaders('ec1d6529-248c-4b42-85b6-b993daeef3f9', '4e5e73be-35f8-4cb6-b75d-aabc32ffd74a');
 
         return {
 
@@ -69,13 +69,22 @@ angular.module('userServices', []).
                         user = schema;
                         self.save();
                     }
+                    user.lastUpdated = user.lastUpdated ? new Date(user.lastUpdated) : undefined ;
                     cb(user);
                 }
             },
 
+            update: function(options) {
+                for(var key in options){
+                    user[key] = options[key];
+                }
+                console.log('user just after update');
+                console.log(user);
+            },
+
             get: function(cb) {
                 if(!!user) return cb(user);
-                return this.fetch(cb)
+                return this.fetch(cb);
             },
 
             /**
@@ -107,7 +116,10 @@ angular.module('userServices', []).
                     var partialUserObj = user; //TODO apply partial (options: {paths:[]})
 
                     $http.put(URL + '/user', {user:partialUserObj}).success(function(data) {
-                        //cb(data);
+                        self.update(data);
+                        //_.extend(user,data);
+                        localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                        console.log(data);
                     });
                 }
             },
