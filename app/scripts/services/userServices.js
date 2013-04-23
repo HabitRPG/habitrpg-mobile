@@ -20,7 +20,9 @@ angular.module('userServices', []).
                 flags: {}
             },
             user, // this is stored as a reference accessible to all controllers, that way updates propagate
-            authenticated = false;
+            authenticated = false,
+            fetched = false, // whether fetch() was called or no. this is to avoid race conditions
+            callbackQue = []; // a queue of callbacks to be called once user is fetched
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
         function setAuthHeaders(uid, apiToken){
@@ -57,6 +59,10 @@ angular.module('userServices', []).
                             user = data;
                             self.save({skipServer:true});
                             cb(user);
+                            // loop on all callbacks in the callbackQue and call them with user as argument
+                            _.each(callbackQue, function(callback){
+                                callback(user);
+                            });
                         })
                         .error(function(data, status, headers, config) {
                             debugger;
@@ -71,6 +77,10 @@ angular.module('userServices', []).
                     }
                     user.lastUpdated = user.lastUpdated ? new Date(user.lastUpdated) : undefined ;
                     cb(user);
+                    // loop on all callbacks in the callbackQue and call them with user as argument
+                    _.each(callbackQue, function(callback){
+                        callback(user);
+                    });
                 }
             },
 
@@ -84,7 +94,14 @@ angular.module('userServices', []).
 
             get: function(cb) {
                 if(!!user) return cb(user);
-                return this.fetch(cb);
+                if(fetched){
+                    // fetch was called but the user is not set yet.
+                    callbackQue.push(cb);
+                }else{
+                    // first call to fetch
+                    fetched = true;
+                    return this.fetch(cb);
+                }
             },
 
             /**
