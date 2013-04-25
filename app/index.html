@@ -7,8 +7,8 @@
     <title>HabitRPG</title>
     <link rel="stylesheet" href="styles/bootstrap.css"/>
     <link rel="stylesheet" href="styles/main.css"/>
-    <!--<link rel="stylesheet" href="styles/style_habit.css" />-->
     <link rel="stylesheet" href="styles/beta.css"/>
+    <link rel="stylesheet" href="shared/css/index.css"/>
     <style>[ng-cloak] {
         display: none
     }</style>
@@ -22,16 +22,23 @@
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
         <div ng-controller="CharacterCtrl">
-            <div class="avatar main-avatar">
-                <div class="character-sprites" ng-cloak>
-                    <span id="ix" class="m_skin_{{user.preferences.skin}}"></span>
-                    <span id="iy" class="m_hair_{{user.preferences.hair}}"></span>
-                    <span id="iz" class="m_armor_{{user.items.armor}}"></span>
-                    <span id="j0" class="m_head_{{user.items.head}}"></span>
-                    <span id="j1" class="m_shield_{{user.items.shield}}"></span>
-                    <span id="j2" class="m_weapon_{{user.items.weapon}}"></span>
+
+            <figure class="herobox"
+                    data-name="{{username(user.auth)}}"
+                    data-level="{{user.stats.lvl}}"
+                    data-checkuser="isUser"
+                >
+                <div class='character-sprites'>
+                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
+                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
+                    <span class="{{equipped(user, 'armor')}}"></span>
+                    <span class="{{equipped(user, 'head')}}"></span>
+                    <span class="{{user.preferences.gender}}_head_0"></span>
+                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
+                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
                 </div>
-            </div>
+            </figure>
+
 
             <div class="user">
                 {{user.auth.username}}<br>
@@ -40,11 +47,11 @@
             <div style="clear:both"></div>
 
             <div class="meter animate">
-                <span style="width: {{user.stats.hp}}%"><span></span></span>
+                <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
             </div>
 
             <div class="meter animate orange">
-                <span style="width: {{user.stats.exp}}%"><span></span></span>
+                <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
             </div>
         </div>
 
@@ -65,8 +72,6 @@
 <script src="components/angular-resource/angular-resource.js"></script>
 <script src="components/angular-cookies/angular-cookies.js"></script>
 <script src="components/angular-sanitize/angular-sanitize.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="scripts/jquery.sortable.js"></script>
 
 
 <!-- build:js scripts/scripts.js -->
@@ -76,13 +81,16 @@
 <script src="components/moment/moment.js"></script>
 <!--<script src="scripts/vendor/cdv-plugin-fb-connect.js"></script>-->
 <script src="scripts/vendor/facebook-js-sdk.js"></script>
+<script src="components/jquery/jquery.min.js"></script>
+<script src="scripts/vendor/jquery.sortable.js"></script>
 
 <!-- HabitRPG Shared -->
-<script src="components/habitrpg-shared/index-browser.js"></script>
+<script src="shared/index-browser.js"></script>
 
 <!-- App -->
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/tasksCtrl.js"></script>
+<script src="scripts/controllers/taskDetailsCtrl.js"></script>
 <script src="scripts/directives/taskFocus.js"></script>
 <script src="scripts/directives/taskBlur.js"></script>
 <script src="scripts/controllers/navCtrl.js"></script>

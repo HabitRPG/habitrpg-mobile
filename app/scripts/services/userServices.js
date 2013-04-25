@@ -7,7 +7,7 @@
 angular.module('userServices', []).
     factory('User', function($http){
         var STORAGE_ID = 'habitrpg-user',
-            URL = 'https://habitrpg.com/api/v1',
+            URL = 'http://localhost:3000/api/v1',
             schema = {
                 stats : { gp:0, exp:0, lvl:1, hp:50 },
                 party : { current:null, invitation:null },
@@ -20,9 +20,19 @@ angular.module('userServices', []).
                 flags: {}
             },
             user, // this is stored as a reference accessible to all controllers, that way updates propagate
-            authenticated = false;
+            authenticated = false,
+            fetched = false, // whether fetch() was called or no. this is to avoid race conditions
+            callbackQue = []; // a queue of callbacks to be called once user is fetched
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
+        function setAuthHeaders(uid, apiToken){
+            $http.defaults.headers.common['x-api-user'] = uid;
+            $http.defaults.headers.common['x-api-key'] = apiToken;
+            authenticated = true;
+        }
+
+        //TODO change this once we have auth built
+        setAuthHeaders('ec1d6529-248c-4b42-85b6-b993daeef3f9', '4e5e73be-35f8-4cb6-b75d-aabc32ffd74a');
 
         return {
 
@@ -46,8 +56,12 @@ angular.module('userServices', []).
                     $http.get(URL + '/user')
                         .success(function(data, status, headers, config) {
                             data.tasks = _.toArray(data.tasks);
-                            self.save(data, function(user){
-                                cb(user);
+                            user = data;
+                            self.save({skipServer:true});
+                            cb(user);
+                            // loop on all callbacks in the callbackQue and call them with user as argument
+                            _.each(callbackQue, function(callback){
+                                callback(user);
                             });
                         })
                         .error(function(data, status, headers, config) {
@@ -59,15 +73,35 @@ angular.module('userServices', []).
                     user = JSON.parse(localStorage.getItem(STORAGE_ID));
                     if (!user) {
                         user = schema;
-                        self.save(user);
+                        self.save();
                     }
+                    user.lastUpdated = user.lastUpdated ? new Date(user.lastUpdated) : undefined ;
                     cb(user);
+                    // loop on all callbacks in the callbackQue and call them with user as argument
+                    _.each(callbackQue, function(callback){
+                        callback(user);
+                    });
                 }
+            },
+
+            update: function(options) {
+                for(var key in options){
+                    user[key] = options[key];
+                }
+                console.log('user just after update');
+                console.log(user);
             },
 
             get: function(cb) {
                 if(!!user) return cb(user);
-                return this.fetch(cb)
+                if(fetched){
+                    // fetch was called but the user is not set yet.
+                    callbackQue.push(cb);
+                }else{
+                    // first call to fetch
+                    fetched = true;
+                    return this.fetch(cb);
+                }
             },
 
             /**
@@ -85,7 +119,7 @@ angular.module('userServices', []).
              *  save the whole user object to the server
              * @returns {*}
              */
-            save: function(paths) {
+            save: function(options) {
                 var self = this;
                 user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
@@ -95,11 +129,14 @@ angular.module('userServices', []).
                  * If authenticating and only saved locally, create new user on the server
                  * If authenticating and exists on the server, do some crazy merge magic
                  */
-                if (authenticated) {
-                    var partialUserObj = user; //TODO apply partial
+                if (authenticated && !(options && options.skipServer)) {
+                    var partialUserObj = user; //TODO apply partial (options: {paths:[]})
 
-                    $http.put({url: URL + '/user', data: {user:partialUserObj}}).success(function(data) {
-                        cb(data);
+                    $http.put(URL + '/user', {user:partialUserObj}).success(function(data) {
+                        self.update(data);
+                        //_.extend(user,data);
+                        localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                        console.log(data);
                     });
                 }
             },
