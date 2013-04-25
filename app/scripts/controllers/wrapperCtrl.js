@@ -11,7 +11,7 @@ habitrpg.controller( 'WrapperCtrl', function WrapperCtrl( $scope, $location, fil
 $scope.menuclose = true;
 $scope.menuopen  = false;
 
-$scope.toggleMenu = function() {
+$scope.toggleMenu = function(hash) {
 
 	if ($scope.menuopen) {
 
@@ -24,6 +24,7 @@ $scope.toggleMenu = function() {
   		$scope.menuopen  = true;
 
 	}
+
 
 }
 

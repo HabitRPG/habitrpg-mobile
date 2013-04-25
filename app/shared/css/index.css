@@ -1,5 +1,5 @@
 .herobox {
-  position: relative;
+  position: absolute;
 }
 .herobox:after {
   content: attr(data-name);
@@ -23,13 +23,13 @@ border 1pxsolid black,
   padding-top: 2em;
 }
 .herobox:not([data-checkpet="hasPet"]) {
-  padding-top: 1.75em;
 }
+
 .herobox[data-checkpet="hasPet"][data-checkuser="isUser"] {
   padding-top: 3.25em;
 }
 .herobox:not([data-checkuser="isUser"]) {
-  outline: 0;
+
 }
 .herobox .character-sprites {
   width: 6.428571429em;

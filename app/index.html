@@ -19,26 +19,11 @@
 <!--<div class="container" ng-view></div>-->
 <div ng-controller="WrapperCtrl" class="wrapper">
 
-    <div style='float:right;' ng-controller='AuthCtrl'>
-        <button class='btn' ng-click="Facebook.login()">Connect with Facebook</button>
-        <div ng-show="Facebook.getAuth()">
-             <h4>Access Token:</h4>
-
-            <p ng-bind="Facebook.getAuth().accessToken"></p>
-            <button class='btn btn-small' ng-click="Facebook.logout()">Logout</button>
-        </div>
-        <div id='fb-root'></div>
-    </div>
-
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
         <div ng-controller="CharacterCtrl">
 
-            <figure class="herobox"
-                    data-name="{{username(user.auth)}}"
-                    data-level="{{user.stats.lvl}}"
-                    data-checkuser="isUser"
-                >
+            <div class="herobox">
                 <div class='character-sprites'>
                     <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
                     <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
@@ -48,11 +33,11 @@
                     <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
                     <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
                 </div>
-            </figure>
+            </div>
 
 
             <div class="user">
-                {{user.auth.username}}<br>
+                {{user.auth.local.username}}<br>
                 level {{user.stats.lvl}}
             </div>
             <div style="clear:both"></div>
@@ -68,7 +53,9 @@
 
         <div ng-controller="MenuCtrl">
             <div class="first_block"><b>Navigation</b></div>
-            <div ng-repeat="button in nav" class="link"><a ng-click="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
+            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu('{{button.name}}')" href="{{button.name}}">{{button.link}}</a></div>
+            <div class="first_block_settings"><b>Settings</b></div>
+            <div class="link"><a gf-Tap="toggleMenu('settings')" href="#settings">Settings</a></div>
         </div>
 
     </nav>
