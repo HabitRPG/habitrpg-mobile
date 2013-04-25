@@ -16,6 +16,11 @@ angular.module('authServices', ['userServices']).
 
         return {
 
+            init: function() {
+
+                FB.init({ appId: "374812825970494", nativeInterface: CDV.FB, useCachedDialogs: false });
+
+            },
             getAuth: function() {
                 return auth;
             },
@@ -25,19 +30,16 @@ angular.module('authServices', ['userServices']).
                 user.id = '91dae4a1-895f-4698-a768-67ec0c8293bb';
                 user.apiToken = 'e984549d-6364-42eb-beec-1f075d80381d';
                 User.authenticate();
-                return;
 
                 FB.login(function(response) {
-                    if (response.authResponse) {
-                        //user.auth =response.authResponse;
-                        // 1. Get user id & apiToken from server using facebook id
-                        // 2. store in user
-                        // 3. authenticate()
-                        debugger;
-                    } else {
-                        console.log('Facebook login failed', response);
-                    }
-                })
+                           if (response.session) {
+                                alert('logged in');
+                            } else {
+                                alert('not logged in');
+                            }
+                        },
+                            { scope: "email" }
+                    );
             },
 
             logout: function() {
