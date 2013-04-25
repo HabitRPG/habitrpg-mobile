@@ -54,6 +54,8 @@
         <div ng-controller="MenuCtrl">
             <div class="first_block"><b>Navigation</b></div>
             <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu('{{button.name}}')" href="{{button.name}}">{{button.link}}</a></div>
+            <div class="first_block_settings"><b>Settings</b></div>
+            <div class="link"><a gf-Tap="toggleMenu('settings')" href="#settings">Settings</a></div>
         </div>
 
     </nav>

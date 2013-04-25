@@ -25,8 +25,6 @@ $scope.toggleMenu = function(hash) {
 
 	}
 
-	$location.hash(hash)
-
 
 }
 
