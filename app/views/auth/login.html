@@ -20,7 +20,7 @@
         </form>
 
         <button class='btn' ng-click="showAPILogin = !showAPILogin;">ID / API Token</button>
-        <form ng-show="showAPILogin" ng-submit="apiLogin()">
+        <form ng-show="showAPILogin" ng-submit="apiLogin()" id="apiLoginForm">
             <label for="uuid">UUID</label><input type='text' id="uuid" required />
             <label for="apiToken">API Token</label><input type='text' id="apiToken" required />
             <input class='btn' type='submit' value="Submit" />

@@ -23,21 +23,14 @@ angular.module('userServices', []).
             authenticated = false;
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
-        function setAuthHeaders(uid, apiToken){
-            $http.defaults.headers.common['x-api-user'] = uid;
-            $http.defaults.headers.common['x-api-key'] = apiToken;
-            authenticated = true;
-        }
-
-        //TODO change this once we have auth built
-        setAuthHeaders('fa88bcda-4c9a-4e92-8091-b99297261529', '83b0e4c1-56e4-4281-8685-2da3aa328fc7');
 
         return {
 
-            authenticate: function() {
-                if (!!user.id && !!user.apiToken) {
-                    $http.defaults.headers.common['x-api-user'] = user.id;
-                    $http.defaults.headers.common['x-api-key'] = user.apiToken;
+            authenticate: function(id, apiToken) {
+                if (!!id && !!apiToken) {
+
+                    $http.defaults.headers.common['x-api-user'] = id;
+                    $http.defaults.headers.common['x-api-key'] = apiToken;
                     authenticated = true;
                     this.fetch(); // now they've authenticated, get that user instead
                 }
@@ -59,7 +52,9 @@ angular.module('userServices', []).
                             cb(user);
                         })
                         .error(function(data, status, headers, config) {
-                            debugger;
+                            authenticated = false;
+                            alert("Invalid Credentials.");
+
                         });
 
                 // else just work with localStorage user
@@ -95,7 +90,7 @@ angular.module('userServices', []).
              */
             save: function(options) {
                 var self = this;
-                user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
+                user.auth.timestamps.updated = +new Date; //TODO handle this with timezones
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
 
                 /**
