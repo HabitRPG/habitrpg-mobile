@@ -20,7 +20,9 @@ angular.module('userServices', []).
                 flags: {}
             },
             user, // this is stored as a reference accessible to all controllers, that way updates propagate
-            authenticated = false;
+            authenticated = false,
+            fetched = false, // whether fetch() was called or no. this is to avoid race conditions
+            callbackQue = []; // a queue of callbacks to be called once user is fetched
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
 
@@ -28,7 +30,6 @@ angular.module('userServices', []).
 
             authenticate: function(id, apiToken) {
                 if (!!id && !!apiToken) {
-
                     $http.defaults.headers.common['x-api-user'] = id;
                     $http.defaults.headers.common['x-api-key'] = apiToken;
                     authenticated = true;
@@ -50,6 +51,10 @@ angular.module('userServices', []).
                             user = data;
                             self.save({skipServer:true});
                             cb(user);
+                            // loop on all callbacks in the callbackQue and call them with user as argument
+                            _.each(callbackQue, function(callback){
+                                callback(user);
+                            });
                         })
                         .error(function(data, status, headers, config) {
                             authenticated = false;
@@ -64,13 +69,33 @@ angular.module('userServices', []).
                         user = schema;
                         self.save();
                     }
+                    user.lastUpdated = user.lastUpdated ? new Date(user.lastUpdated) : undefined ;
                     cb(user);
+                    // loop on all callbacks in the callbackQue and call them with user as argument
+                    _.each(callbackQue, function(callback){
+                        callback(user);
+                    });
                 }
+            },
+
+            update: function(options) {
+                for(var key in options){
+                    user[key] = options[key];
+                }
+                console.log('user just after update');
+                console.log(user);
             },
 
             get: function(cb) {
                 if(!!user) return cb(user);
-                return this.fetch(cb)
+                if(fetched){
+                    // fetch was called but the user is not set yet.
+                    callbackQue.push(cb);
+                }else{
+                    // first call to fetch
+                    fetched = true;
+                    return this.fetch(cb);
+                }
             },
 
             /**
@@ -102,7 +127,10 @@ angular.module('userServices', []).
                     var partialUserObj = user; //TODO apply partial (options: {paths:[]})
 
                     $http.put(URL + '/user', {user:partialUserObj}).success(function(data) {
-                        //cb(data);
+                        self.update(data);
+                        //_.extend(user,data);
+                        localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                        console.log(data);
                     });
                 }
             },
