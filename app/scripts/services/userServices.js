@@ -7,6 +7,7 @@
 angular.module('userServices', []).
     factory('User', function($http){
         var STORAGE_ID = 'habitrpg-user',
+            LOG_STORAGE_ID = 'habitrpg-user-log',
             URL = 'http://localhost:3000/api/v1',
             schema = {
                 stats : { gp:0, exp:0, lvl:1, hp:50 },
@@ -21,6 +22,7 @@ angular.module('userServices', []).
             },
             user, // this is stored as a reference accessible to all controllers, that way updates propagate
             authenticated = false,
+            actions = [], // A list of all actions done locally that are not yet saved to the server
             fetched = false, // whether fetch() was called or no. this is to avoid race conditions
             callbackQue = []; // a queue of callbacks to be called once user is fetched
 
@@ -54,7 +56,7 @@ angular.module('userServices', []).
                 // If we have auth variables, get the user form the server
                 if (authenticated) {
                     $http.get(URL + '/user')
-                        .success(function(data, status, headers, config) {
+                        .success(function(data, status, heacreatingders, config) {
                             data.tasks = _.toArray(data.tasks);
                             user = data;
                             self.save({skipServer:true});
@@ -82,14 +84,18 @@ angular.module('userServices', []).
                         callback(user);
                     });
                 }
+                actions = JSON.parse( localStorage.getItem(LOG_STORAGE_ID) || "[]" );
             },
 
             update: function(options) {
                 for(var key in options){
                     user[key] = options[key];
                 }
-                console.log('user just after update');
-                console.log(user);
+            },
+
+            log: function(action) {
+                actions.push(action);
+                localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
             },
 
             get: function(cb) {
@@ -125,18 +131,24 @@ angular.module('userServices', []).
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
 
                 /**
-                 * If not authenticated, just save locally
+                 * If not authenticated, just save locally)
+
                  * If authenticating and only saved locally, create new user on the server
                  * If authenticating and exists on the server, do some crazy merge magic
                  */
                 if (authenticated && !(options && options.skipServer)) {
                     var partialUserObj = user; //TODO apply partial (options: {paths:[]})
 
-                    $http.put(URL + '/user', {user:partialUserObj}).success(function(data) {
+                    $http.put(URL + '/updates', {updates: actions}).success(function(data) {
+                        console.log(data)
                         self.update(data);
-                        //_.extend(user,data);
+                        
+                        //save returned user to localstorage
                         localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-                        console.log(data);
+
+                        //clear actions since they are now updated. client and server are synced
+                        actions = [];
+                        localStorage.removeItem(LOG_STORAGE_ID);
                     });
                 }
             },

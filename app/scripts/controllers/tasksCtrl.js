@@ -44,12 +44,13 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
 
       $scope.score = function(task, direction) {
           Algos.score(user, task.id, direction);
+          User.log({op: 'score', task: task.id, dir: direction});
           User.save()
       }
 
       $scope.addTask = function() {
           if ( !$scope.newTask.length ) {
-              return;
+              return;src/app/scoring.coffee
           }
 
           var defaults = {
@@ -69,8 +70,12 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
                   break;
           }
 
-          $scope.tasks.push(_.defaults(extra, defaults));
+
+          var newTask = _.defaults(extra, defaults)
+          $scope.tasks.push(newTask);
           $scope.newTask = '';
+          //Add the new task to the actions log
+          User.log({op: 'create_task', task: newTask});
 
           User.save();
       };
