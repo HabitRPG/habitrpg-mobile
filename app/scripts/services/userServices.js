@@ -136,20 +136,50 @@ angular.module('userServices', []).
                  * If authenticating and only saved locally, create new user on the server
                  * If authenticating and exists on the server, do some crazy merge magic
                  */
+
                 if (authenticated && !(options && options.skipServer)) {
-                    var partialUserObj = user; //TODO apply partial (options: {paths:[]})
 
-                    $http.put(URL + '/updates', {updates: actions}).success(function(data) {
-                        console.log(data)
-                        self.update(data);
-                        
-                        //save returned user to localstorage
-                        localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                    var action = actions.shift();
+                    var url = "",method = "", params = {}, validAction = true;
+                    if(action.op == "create_task"){
+                        url = "/tasks";
+                        method = "post"
+                        params = action.task
+                    }else if(action.op == "score"){
+                        url = "/tasks/" + action.task + "/score";
+                        method = "put";
+                        params = {task: action.task, dir: action.dir};
+                    }else if(action.op == "edit_task"){
+                        url = "/tasks/" + action.task ;
+                        method = "put";
+                        params = action.task;
+                    }else if(action.op == "delete_task"){
+                        url = "/tasks/" + action.task ;
+                        method = "delete";
+                    }else if(action.op == "buy_reward"){
+                    }else{
+                        validAction = false;
+                    }
 
-                        //clear actions since they are now updated. client and server are synced
-                        actions = [];
-                        localStorage.removeItem(LOG_STORAGE_ID);
-                    });
+                    if(validAction){
+                        // TODO only update if actions is empty, otherwise, call save again
+                        // TODO make this DRY
+                        $http[method](URL + url, params).success(function(data) {
+                            console.log(data);
+                            self.update(data);
+                            //save returned user to localstorage
+                            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                            //clear actions since they are now updated. client and server are synced
+                            localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
+                        }).error(function(data){
+                            console.log(data.message);
+                            self.update(data.state);
+                            //save returned user to localstorage
+                            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                            //clear actions since they are now updated. client and server are synced
+                            localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
+                        });
+                    }
                 }
             },
 
