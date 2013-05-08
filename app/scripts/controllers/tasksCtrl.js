@@ -6,7 +6,6 @@
  * - exposes the model to the template and provides event handlers
  */
 habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $location, filterFilter, User, Algos) {
-
   $scope.newTask = "";
   $rootScope.selectedTask = null; // FIXME is there a way to pass an object into another controller without rootScope?
 
@@ -18,7 +17,6 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
           $scope.remainingCount = filterFilter($scope.tasks, {completed: false}).length;
           $scope.doneCount = $scope.tasks.length - $scope.remainingCount;
           $scope.allChecked = !$scope.remainingCount
-
       }, true);
 
       if ( $location.path() === '' ) $location.path('/');
@@ -45,7 +43,9 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
       $scope.score = function(task, direction) {
           Algos.score(user, task.id, direction);
           User.log({op: 'score', task: task.id, dir: direction});
-          User.save();
+          User.save({callback: function(){
+            $scope.tasks = user.tasks;
+          }});
       }
 
       $scope.addTask = function() {
@@ -77,7 +77,9 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
           //Add the new task to the actions log
           User.log({op: 'create_task', task: newTask});
 
-          User.save();
+          User.save({callback: function(){
+            $scope.tasks = user.tasks;
+          }});
       };
 
       $scope.clearDoneTodos = function() {

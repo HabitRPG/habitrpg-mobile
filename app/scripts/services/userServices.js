@@ -38,22 +38,25 @@ angular.module('userServices', []).
         * Synchronizes the current state to the response from the server
         * Will be called in the success and error callbacks in save().
         */
-        var sync = function(newUser){
+        var sync = function(newUser, cb){
             if(actions.length == 0){
                 for(var key in newUser){
                     user[key] = newUser[key];
                 }
-                //save returned user to localstorage
+                // save returned user to localstorage
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-                //clear actions since they are now updated. client and server are synced
+                // clear actions since they are now updated. client and server are synced
                 localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
+                // apply call
+                if(cb) cb();
             }else{
-                save();
+                save({callback: cb});
             }
         }
 
         var save = function(options) {
             var self = this;
+            options = options || {};
             user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
             localStorage.setItem(STORAGE_ID, JSON.stringify(user));
 
@@ -63,7 +66,7 @@ angular.module('userServices', []).
              * If authenticating and exists on the server, do some crazy merge magic
              */
 
-            if (authenticated && !(options && options.skipServer)) {
+            if (authenticated && ! options.skipServer) {
                 if(! waiting){ // Don't perform an action if we are already waiting for a response from the server
                     var action = actions.shift();
                     var url = "",method = "", params = {}, validAction = true;
@@ -94,13 +97,13 @@ angular.module('userServices', []).
                         $http[method](URL + url, params).success(function(data) {
                             console.log(data);
                             waiting = false;
-                            sync(data);
+                            sync(data, options.callback);
                         }).error(function(data){
                             console.log(data.message);
                             console.log(data.state);
                             waiting = false;
                             if(data.state){
-                                sync(data.state);
+                                sync(data.state, options.callback );
                             }else{
                                 // no connection. add the action back to actions
                                 actions.unshift(action);
