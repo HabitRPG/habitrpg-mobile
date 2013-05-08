@@ -48,7 +48,7 @@ angular.module('userServices', []).
                 // clear actions since they are now updated. client and server are synced
                 localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
                 // apply call
-                if(cb) cb();
+                if(cb) cb(user);
             }else{
                 save({callback: cb});
             }
