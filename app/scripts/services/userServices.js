@@ -105,7 +105,7 @@ angular.module('userServices', []).
                             if(data.state){
                                 sync(data.state, options.callback );
                             }else{
-                                // no connection. add the action back to actions
+                                // Failed to connect to server. add the action back to actions
                                 actions.unshift(action);
                             }
                         });
