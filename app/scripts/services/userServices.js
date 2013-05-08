@@ -24,13 +24,91 @@ angular.module('userServices', []).
             authenticated = false,
             actions = [], // A list of all actions done locally that are not yet saved to the server
             fetched = false, // whether fetch() was called or no. this is to avoid race conditions
-            callbackQue = []; // a queue of callbacks to be called once user is fetched
+            callbackQue = [], // a queue of callbacks to be called once user is fetched
+            waiting = false; //Indicates if an update was sent to the server and we are waiting for a response
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
         function setAuthHeaders(uid, apiToken){
             $http.defaults.headers.common['x-api-user'] = uid;
             $http.defaults.headers.common['x-api-key'] = apiToken;
             authenticated = true;
+        }
+
+        /**
+        * Synchronizes the current state to the response from the server
+        * Will be called in the success and error callbacks in save().
+        */
+        var sync = function(newUser){
+            if(actions.length == 0){
+                for(var key in newUser){
+                    user[key] = newUser[key];
+                }
+                //save returned user to localstorage
+                localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                //clear actions since they are now updated. client and server are synced
+                localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
+            }else{
+                save();
+            }
+        }
+
+        var save = function(options) {
+            var self = this;
+            user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
+            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+
+            /**
+             * If not authenticated, just save locally)
+             * If authenticating and only saved locally, create new user on the server
+             * If authenticating and exists on the server, do some crazy merge magic
+             */
+
+            if (authenticated && !(options && options.skipServer)) {
+                if(! waiting){ // Don't perform an action if we are already waiting for a response from the server
+                    var action = actions.shift();
+                    var url = "",method = "", params = {}, validAction = true;
+                    if(action.op == "create_task"){
+                        url = "/tasks";
+                        method = "post"
+                        params = action.task
+                    }else if(action.op == "score"){
+                        url = "/tasks/" + action.task + "/score";
+                        method = "put";
+                        params = {task: action.task, dir: action.dir};
+                    }else if(action.op == "edit_task"){
+                        url = "/tasks/" + action.task ;
+                        method = "put";
+                        params = action.task;
+                    }else if(action.op == "delete_task"){
+                        url = "/tasks/" + action.task ;
+                        method = "delete";
+                    }else if(action.op == "buy_reward"){
+                    }else{
+                        validAction = false;
+                    }
+
+                    if(validAction){
+                        //we are going to send a request to server. so we should set waiting to true
+                        waiting = true;
+                        // TODO only update if actions is empty, otherwise, call save again
+                        $http[method](URL + url, params).success(function(data) {
+                            console.log(data);
+                            waiting = false;
+                            sync(data);
+                        }).error(function(data){
+                            console.log(data.message);
+                            console.log(data.state);
+                            waiting = false;
+                            if(data.state){
+                                sync(data.state);
+                            }else{
+                                // no connection. add the action back to actions
+                                actions.unshift(action);
+                            }
+                        });
+                    }
+                }
+            }
         }
 
         //TODO change this once we have auth built
@@ -87,12 +165,6 @@ angular.module('userServices', []).
                 actions = JSON.parse( localStorage.getItem(LOG_STORAGE_ID) || "[]" );
             },
 
-            update: function(options) {
-                for(var key in options){
-                    user[key] = options[key];
-                }
-            },
-
             log: function(action) {
                 actions.push(action);
                 localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
@@ -125,63 +197,7 @@ angular.module('userServices', []).
              *  save the whole user object to the server
              * @returns {*}
              */
-            save: function(options) {
-                var self = this;
-                user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
-                localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-
-                /**
-                 * If not authenticated, just save locally)
-
-                 * If authenticating and only saved locally, create new user on the server
-                 * If authenticating and exists on the server, do some crazy merge magic
-                 */
-
-                if (authenticated && !(options && options.skipServer)) {
-
-                    var action = actions.shift();
-                    var url = "",method = "", params = {}, validAction = true;
-                    if(action.op == "create_task"){
-                        url = "/tasks";
-                        method = "post"
-                        params = action.task
-                    }else if(action.op == "score"){
-                        url = "/tasks/" + action.task + "/score";
-                        method = "put";
-                        params = {task: action.task, dir: action.dir};
-                    }else if(action.op == "edit_task"){
-                        url = "/tasks/" + action.task ;
-                        method = "put";
-                        params = action.task;
-                    }else if(action.op == "delete_task"){
-                        url = "/tasks/" + action.task ;
-                        method = "delete";
-                    }else if(action.op == "buy_reward"){
-                    }else{
-                        validAction = false;
-                    }
-
-                    if(validAction){
-                        // TODO only update if actions is empty, otherwise, call save again
-                        // TODO make this DRY
-                        $http[method](URL + url, params).success(function(data) {
-                            console.log(data);
-                            self.update(data);
-                            //save returned user to localstorage
-                            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-                            //clear actions since they are now updated. client and server are synced
-                            localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
-                        }).error(function(data){
-                            console.log(data.message);
-                            self.update(data.state);
-                            //save returned user to localstorage
-                            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-                            //clear actions since they are now updated. client and server are synced
-                            localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
-                        });
-                    }
-                }
-            },
+            save:  save,
 
             remove: function(cb) {
                 /*return User.update({id: this._id.$oid},
