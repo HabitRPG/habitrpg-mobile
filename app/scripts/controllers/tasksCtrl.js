@@ -60,7 +60,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
           var defaults = {
                 text: $scope.newTask,
                 type: $scope.taskType,
-                value: 0
+                value: $scope.taskType == 'reward' ? 20 : 0
               },
               extra = {};
 
