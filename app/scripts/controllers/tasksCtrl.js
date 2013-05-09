@@ -24,9 +24,10 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
 
       $scope.$watch( 'location.path()', function( path ) {
           var type = $scope.taskType = path.split('/')[1];
-          $scope.taskFilter = function(task){
+          var filter = function(task){
               return task.type === type && !task.del;
-          }
+          };
+          $scope.taskFilter = filter;
           $scope.taskTypeTitle =
               (type == 'habit')  ? 'Habits' :
               (type == 'daily')  ? 'Dailies' :
@@ -34,9 +35,12 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
               (type == 'reward') ? 'Rewards' : null;
 
           if (type == 'todo') {
-              $scope.taskFilter =
-              (path == '/todo/active') ? { type: type, completed: false } :
-              (path == '/todo/completed') ? { type: type, completed: true } : { type: type };
+              $scope.taskFilter = function(task){
+                var display = (path == '/todo/active') ? !task.completed :
+                              (path == '/todo/completed') ? task.completed :
+                              true ;
+                return filter(task) && display;
+              }
           }
       });
 
