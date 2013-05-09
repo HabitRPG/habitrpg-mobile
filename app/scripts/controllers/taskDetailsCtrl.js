@@ -30,7 +30,10 @@ habitrpg.controller( 'TaskDetailsCtrl', function TaskDetailsCtrl( $scope, $rootS
   };
 
   $scope.cancel = function() {
-      $scope.task = $scope.originalTask;
+      // reset $scope.task to $scope.originalTask
+      for(var key in $scope.task){
+        $scope.task[key] = $scope.originalTask[key];
+      }
       $scope.originalTask = null;
       $scope.editedTask = null;
       $scope.editing = false;
