@@ -407,3 +407,8 @@ label[for='toggle-all'] {
 .hidden{
     display:none;
 }
+
+.login-page {
+    margin: 0px auto;
+    width: 200px;
+}

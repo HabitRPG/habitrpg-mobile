@@ -28,11 +28,6 @@ angular.module('userServices', []).
             waiting = false; //Indicates if an update was sent to the server and we are waiting for a response
 
         $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
-        function setAuthHeaders(uid, apiToken){
-            $http.defaults.headers.common['x-api-user'] = uid;
-            $http.defaults.headers.common['x-api-key'] = apiToken;
-            authenticated = true;
-        }
 
         /**
         * Synchronizes the current state to the response from the server
@@ -114,19 +109,15 @@ angular.module('userServices', []).
             }
         }
 
-        //TODO change this once we have auth built
-        setAuthHeaders('ec1d6529-248c-4b42-85b6-b993daeef3f9', '4e5e73be-35f8-4cb6-b75d-aabc32ffd74a');
-
         return {
 
-            authenticate: function() {
-                if (!!user.id && !!user.apiToken) {
-                    $http.defaults.headers.common['x-api-user'] = user.id;
-                    $http.defaults.headers.common['x-api-key'] = user.apiToken;
+            authenticate: function(id, apiToken) {
+                if (!!id && !!apiToken) {
+                    $http.defaults.headers.common['x-api-user'] = id;
+                    $http.defaults.headers.common['x-api-key'] = apiToken;
                     authenticated = true;
                     this.fetch(); // now they've authenticated, get that user instead
                 }
-
             },
 
             fetch: function(cb) {
@@ -148,7 +139,9 @@ angular.module('userServices', []).
                             });
                         })
                         .error(function(data, status, headers, config) {
-                            debugger;
+                            authenticated = false;
+                            alert("Invalid Credentials.");
+
                         });
 
                 // else just work with localStorage user
@@ -185,21 +178,6 @@ angular.module('userServices', []).
                 }
             },
 
-            /**
-             * Save the user object. Will sync with the server
-             *
-             * Current thought process: send only the things you want to change. Eg on a Algos.score() operation, we'd queue
-             * PUT /api/v1/user data: {stats:{exp,hp,gp,lvl}, tasks.scored-task:{value,history,etc}
-             * The server will run sent objects through _.defaults, so it's non-destructive. If you want to delete properties
-             * (eg, removing tasks), set that as a flag on the task: {text, notes, value, delete:true}
-             * Send POST /api/v1/user for creating new user objects, decide in this function whether PUT or POST based on
-             * if user.id && user.apiToken exist
-             *
-             * @param paths: if we want to apply a partial update to the server (save some resources), send an array
-             *  of paths (or single path string) like 'stats.hp' or ['stats', 'tasks.productivity']. Passing in null means
-             *  save the whole user object to the server
-             * @returns {*}
-             */
             save:  save,
 
             remove: function(cb) {
@@ -210,4 +188,3 @@ angular.module('userServices', []).
         }
 
     })
-
