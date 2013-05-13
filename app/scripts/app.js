@@ -41,7 +41,6 @@ habitrpg.directive('sort', function() {
 
         $(element).sortable('destroy')
         $(element).sortable()
-        console.log('added')
 
       }, true)
 
