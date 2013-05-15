@@ -302,7 +302,6 @@ text-align:center;
 .list li {
   list-style: none;
   border-bottom: 1px dotted #ccc;
-  text-indent: 25px;
   height: 40px;
   padding: 10px;
 }
@@ -398,5 +397,23 @@ text-align:center;
   color:white;
   box-shadow:inset 0 -8px 2px -7px black;
   padding-left:10px;
+
+}
+
+.first_block_settings {
+
+  background-color:#ab262f;
+  height:30px;
+  line-height: 30px;
+
+  color:white;
+  box-shadow:inset 0 -8px 2px -7px black;
+  padding-left:10px;
+
+}
+
+.text {
+
+  margin-left:20px;
 
 }

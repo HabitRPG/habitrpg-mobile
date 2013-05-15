@@ -19,27 +19,49 @@
 <!--<div class="container" ng-view></div>-->
 <div ng-controller="WrapperCtrl" class="wrapper">
 
-    <!-- Logged Out -->
-    <div ng-hide="user" ng-include="'views/auth/login.html'"></div>
+    <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
-    <!-- Logged In -->
-    <div ng-show="user">
-        <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
+        <div ng-controller="CharacterCtrl">
 
-            <ng-include src="'views/avatar.html'"></ng-include>
-
-            <div ng-controller="MenuCtrl">
-                <div class="first_block"><b>Navigation</b></div>
-                <div ng-repeat="button in nav" class="link"><a ng-click="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
+            <div class="herobox">
+                <div class='character-sprites'>
+                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
+                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
+                    <span class="{{equipped(user, 'armor')}}"></span>
+                    <span class="{{equipped(user, 'head')}}"></span>
+                    <span class="{{user.preferences.gender}}_head_0"></span>
+                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
+                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
+                </div>
             </div>
 
-        </nav>
 
-        <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
-            <div ng-view></div>
+            <div class="user">
+                {{user.auth.local.username}}<br>
+                level {{user.stats.lvl}}
+            </div>
+            <div style="clear:both"></div>
+
+            <div class="meter animate">
+                <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
+            </div>
+
+            <div class="meter animate orange">
+                <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
+            </div>
         </div>
-    </div>
 
+        <div ng-controller="MenuCtrl">
+            <div class="first_block"><b>Navigation</b></div>
+            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu('{{button.name}}')" href="{{button.name}}">{{button.link}}</a></div>
+            <div class="first_block_settings"><b>Settings</b></div>
+            <div class="link"><a gf-Tap="toggleMenu('settings')" href="#settings">Settings</a></div>
+        </div>
+
+    </nav>
+    <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
+    <div ng-view></div>
+    </div>
 </div>
 
 <!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->

@@ -13,6 +13,9 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'au
             .when('/todo/active', {templateUrl: 'views/list.html'})
             .when('/todo/completed', {templateUrl: 'views/list.html'})
             .otherwise({redirectTo: '/habit'});
+    }])
+    .config(['$compileProvider', function($compileProvider) {
+            $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
     }]);
 
 
