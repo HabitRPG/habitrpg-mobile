@@ -53,9 +53,9 @@
 
         <div ng-controller="MenuCtrl">
             <div class="first_block"><b>Navigation</b></div>
-            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu('{{button.name}}')" href="{{button.name}}">{{button.link}}</a></div>
+            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
             <div class="first_block_settings"><b>Settings</b></div>
-            <div class="link"><a gf-Tap="toggleMenu('settings')" href="#settings">Settings</a></div>
+            <div class="link"><a ng-click="toggleMenu()" href="#settings">Settings</a></div>
         </div>
 
     </nav>
@@ -84,6 +84,7 @@
 
 <!-- HabitRPG Shared -->
 <script src="shared/index-browser.js"></script>
+<script src="scripts/vendor/jquery.transit.min.js"></script>
 
 <!-- App -->
 <script src="scripts/app.js"></script>
@@ -100,6 +101,9 @@
 <script src="scripts/services/userServices.js"></script>
 <script src="scripts/services/sharedServices.js"></script>
 <script src="scripts/services/authServices.js"></script>
+<script src="scripts/services/notificationServices.js"></script>
+<script src="scripts/controllers/notificationCtrl.js"></script>
+<script src="scripts/controllers/loginCtrl.js"></script>
 <!-- endbuild -->
 </body>
 </html>

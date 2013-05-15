@@ -232,7 +232,7 @@ text-align:center;
 #task-list li .toggle {
 
   height:auto;
-  top:10px;
+  top:4px;
   left:4px;
 
 }
@@ -304,6 +304,7 @@ text-align:center;
   border-bottom: 1px dotted #ccc;
   height: 40px;
   padding: 10px;
+  text-transform: capitalize;
 }
 
 .lines {
@@ -415,5 +416,61 @@ text-align:center;
 .text {
 
   margin-left:20px;
+
+}
+
+#notification {
+
+  position:absolute;
+  height:60px;
+  top:-60px;
+  width:100%;
+  background-color:#f9edbe;
+  z-index:10;
+  font-size:20px;
+  opacity:0.9;
+
+}
+
+.transition-1 {
+  WebkitTransition : 'left 0.5s ease-in-out'
+}
+
+.login {
+
+  background-image:url('../assets/background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  position:absolute;
+
+}
+
+.header_notloggedin {
+
+  margin:0 auto;
+  width:230px;
+  margin-top:54px;
+
+}
+
+.content-notlogged {
+
+  background-image:url('../assets/mail.png');
+  width:220px;
+  height:306px;
+  margin:0 auto;
+  margin-top:10px;
+
+}
+
+.text-content {
+
+  background-image:url('../assets/text.png');
+  width:170px;
+  height:45px;
 
 }

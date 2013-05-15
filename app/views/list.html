@@ -1,10 +1,11 @@
-<div ng-controller="AuthCtrl">
+<div ng-controller="NotificationCtrl">
+    <div id="notification">EXP: {{delta.delta}}</div>
 </div>
 
 <div ng-controller="StatsCtrl">
 
     <div class="head2">
-        <div id="lines" ng-click="toggleMenu('menu')"></div>
+        <div id="lines" gf-Tap="toggleMenu()"></div>
     </div>
 
 </div>
@@ -27,8 +28,8 @@
 
                     <!-- Habits -->
                     <span ng-show="task.type == 'habit'" ng-cloak>
-                        <input type="button" value="+" ng-click="score(task,'up')"/>
-                        <input type="button" value="-" ng-click="score(task,'down')"/>
+                        <input type="button" value="+" gf-Tap="score(task,'up')"/>
+                        <input type="button" value="-" gf-Tap="score(task,'down')"/>
                     </span>
 
                     {{task.title}}
@@ -40,11 +41,11 @@
 
                     <!-- Rewards -->
                     <span>
-                        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak />
+                        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" gf-Tap="score(task,'down')" ng-cloak />
                     </span>
 
 
-                    <span ng-click="selectTask(task)" class="text">{{task.text}}</span>
+                    <span gf-Tap="selectTask(task)" class="text">{{task.text}}</span>
 
                 </li>
             </ul>
