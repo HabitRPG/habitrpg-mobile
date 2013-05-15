@@ -452,18 +452,23 @@ text-align:center;
 .header_notloggedin {
 
   margin:0 auto;
-  width:230px;
-  margin-top:54px;
+  width:100%;
+  margin-top:44px;
+  text-align:center;
+  margin-bottom:31px;
 
 }
 
 .content-notlogged {
 
-  background-image:url('../assets/mail.png');
-  width:220px;
-  height:306px;
+  background-image:url('../assets/home-scroll.png');
+  width:69%;
+  height:64%;
   margin:0 auto;
   margin-top:10px;
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  position:relative;
 
 }
 
@@ -472,5 +477,81 @@ text-align:center;
   background-image:url('../assets/text.png');
   width:170px;
   height:45px;
+
+}
+
+.login_button {
+  background-image:url('../assets/home-login.png');
+  width: 69%;
+  height: 9%;
+  position: absolute;
+  top: 56%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  left: 16%;
+
+}
+
+.signup_button {
+  background-image:url('../assets/home-signup.png');
+  width:100%;
+   width: 69%;
+  height: 9%;
+  position: absolute;
+  top: 78%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  left: 16%;
+}
+
+.username {
+
+  width: 71%      !important;
+  height: 8%      !important;
+  left: 15%       !important;
+  border: 1px solid #000;
+  position: absolute;
+  top: 32%        !important;
+  font-size:12px  !important;
+  line-height:0px !important;
+  padding:0px     !important;
+
+
+}
+
+.password {
+
+  width: 71%      !important;
+  height: 8%      !important;
+  left: 15%       !important;
+  border: 1px solid #000;
+  position: absolute;
+  top: 44%        !important;
+  font-size:12px  !important;
+  line-height:0px !important;
+  padding:0px     !important;
+
+}
+
+.username::-webkit-input-placeholder 
+{ 
+
+  color:#fff; 
+  font-size:200%;
+  line-height:60%;
+  text-align:center;
+  font-weight:bold;
+  padding-top:1%;
+
+}
+
+.password::-webkit-input-placeholder 
+{ 
+
+  color:#fff; 
+  font-size:200%;
+  line-height:10%;
+  text-align:center;
+  font-weight:bold;
 
 }
