@@ -5,8 +5,8 @@
  * - retrieves and persist the model via the todoStorage service
  * - exposes the model to the template and provides event handlers
  */
-habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $location, filterFilter, User, Algos, Notification) {
 
+habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $location, filterFilter, User, Algos) {
   $scope.newTask = "";
   $rootScope.selectedTask = null; // FIXME is there a way to pass an object into another controller without rootScope?
 
@@ -18,7 +18,6 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
           $scope.remainingCount = filterFilter($scope.tasks, {completed: false}).length;
           $scope.doneCount = $scope.tasks.length - $scope.remainingCount;
           $scope.allChecked = !$scope.remainingCount
-
       }, true);
 
       if ( $location.path() === '' ) $location.path('/');
@@ -26,9 +25,10 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
 
       $scope.$watch( 'location.path()', function( path ) {
           var type = $scope.taskType = path.split('/')[1];
-          $scope.taskFilter = function(task){
+          var filter = function(task){
               return task.type === type && !task.del;
-          }
+          };
+          $scope.taskFilter = filter;
           $scope.taskTypeTitle =
               (type == 'habit')  ? 'Habits' :
               (type == 'daily')  ? 'Dailies' :
@@ -36,9 +36,12 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
               (type == 'reward') ? 'Rewards' : null;
 
           if (type == 'todo') {
-              $scope.taskFilter =
-              (path == '/todo/active') ? { type: type, completed: false } :
-              (path == '/todo/completed') ? { type: type, completed: true } : { type: type };
+              $scope.taskFilter = function(task){
+                var display = (path == '/todo/active') ? !task.completed :
+                              (path == '/todo/completed') ? task.completed :
+                              true ;
+                return filter(task) && display;
+              }
           }
       });
 
@@ -46,7 +49,12 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
           var delta = Algos.score(user, task.id, direction);
           Notification.push(delta);
           
-          User.save()
+
+	  User.log({op: 'score', task: task.id, dir: direction});
+          User.save({callback: function(){
+            $scope.tasks = user.tasks;
+          }});
+
       }
 
       $scope.addTask = function() {
@@ -57,7 +65,7 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
           var defaults = {
                 text: $scope.newTask,
                 type: $scope.taskType,
-                value: 0
+                value: $scope.taskType == 'reward' ? 20 : 0
               },
               extra = {};
 
@@ -71,10 +79,16 @@ habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $locat
                   break;
           }
 
-          $scope.tasks.push(_.defaults(extra, defaults));
-          $scope.newTask = '';
 
-          User.save();
+          var newTask = _.defaults(extra, defaults)
+          $scope.tasks.push(newTask);
+          $scope.newTask = '';
+          //Add the new task to the actions log
+          User.log({op: 'create_task', task: newTask});
+
+          User.save({callback: function(){
+            $scope.tasks = user.tasks;
+          }});
       };
 
       $scope.clearDoneTodos = function() {
