@@ -8,7 +8,7 @@ angular.module('userServices', []).
     factory('User', function($http){
         var STORAGE_ID = 'habitrpg-user',
             LOG_STORAGE_ID = 'habitrpg-user-log',
-            URL = 'http://localhost:3000/api/v1',
+            URL = 'http://127.0.0.1:3000/api/v1',
             schema = {
                 stats : { gp:0, exp:0, lvl:1, hp:50 },
                 party : { current:null, invitation:null },
@@ -140,7 +140,8 @@ angular.module('userServices', []).
                         })
                         .error(function(data, status, headers, config) {
                             authenticated = false;
-                            alert("Invalid Credentials.");
+                            //alert("Invalid Credentials.");
+			    console.log();
 
                         });
 

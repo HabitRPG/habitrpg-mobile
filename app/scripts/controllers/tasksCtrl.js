@@ -6,7 +6,7 @@
  * - exposes the model to the template and provides event handlers
  */
 
-habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $location, filterFilter, User, Algos) {
+habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $location, filterFilter, User, Algos, Notification) {
   $scope.newTask = "";
   $rootScope.selectedTask = null; // FIXME is there a way to pass an object into another controller without rootScope?
 
