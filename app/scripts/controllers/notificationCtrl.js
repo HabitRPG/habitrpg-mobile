@@ -26,6 +26,7 @@ habitrpg.controller( 'NotificationCtrl', function WrapperCtrl( $scope, $location
 	var treshold 	  = 0;
 	var move_treshold = 0;
 
+	/*
 	notification.bind('touchmove.swipe', function(event) {
 
 		move_treshold = event.originalEvent.target.offsetLeft;
@@ -44,6 +45,8 @@ habitrpg.controller( 'NotificationCtrl', function WrapperCtrl( $scope, $location
 
 
 	})
+
+	*/
 
 	/*notification.bind('touchend.swipe', function(event) {
 
