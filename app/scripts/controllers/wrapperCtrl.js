@@ -25,5 +25,14 @@ $scope.toggleMenu = function() {
 
 }
 
+$scope.openMenu = function() {
+    $scope.menuclose = false;
+    $scope.menuopen = true;
+}
+
+$scope.closeMenu = function() {
+    $scope.menuclose = true;
+    $scope.menuopen = false;
+}
 
 });

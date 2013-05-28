@@ -5,7 +5,7 @@
  *
  * @type {angular.Module}
  */
-var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices'])
+var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'hmTouchEvents'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/home', {templateUrl: 'views/home.html'})
@@ -37,7 +37,7 @@ habitrpg.directive('gfTap', ["$location", "$parse", function($location, $parse) 
     element.bind('touchend', function(event) {
       if (tapping) {
         var fn       = $parse(attrs['gfTap'])
-        
+
         if (attrs['href']) {
           var location = attrs['href'].replace('#', '/')
           $location.path(location);

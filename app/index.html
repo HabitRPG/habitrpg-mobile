@@ -17,7 +17,7 @@
 <body>
 
 <!--<div class="container" ng-view></div>-->
-<div ng-controller="WrapperCtrl" class="wrapper">
+<div ng-controller="WrapperCtrl" class="wrapper" hm-swiperight="openMenu()" hm-swipeleft="closeMenu()">
 
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
@@ -81,6 +81,10 @@
 <script src="scripts/vendor/facebook-js-sdk.js"></script>
 <script src="components/jquery/jquery.min.js"></script>
 <script src="scripts/vendor/jquery.sortable.js"></script>
+<!-- touch events (bower: hammerjs and monospaced/angular-hammer) -->
+<script src="components/hammerjs/dist/hammer.min.js"></script>
+<script src="components/hammerjs/dist/jquery.hammer.min.js"></script>
+<script src="components/angular-hammer/angular-hammer.js"></script>
 
 <!-- HabitRPG Shared -->
 <script src="shared/index-browser.js"></script>
