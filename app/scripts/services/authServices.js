@@ -8,11 +8,7 @@ angular.module('authServices', ['userServices']).
     factory('Facebook', function($http, User){
         //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
         var auth,
-            user;
-
-        User.get(function(data){
-            user = data;
-        })
+            user = User.user;
 
         return {
 
@@ -55,11 +51,7 @@ angular.module('authServices', ['userServices']).
    .factory('LocalAuth', function($http, User){
 
         var auth,
-            user;
-
-        User.get(function(data){
-            user = data;
-        })
+            user = User.user;
 
         return {
 

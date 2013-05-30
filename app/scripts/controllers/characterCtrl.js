@@ -7,8 +7,7 @@
 
 habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location, filterFilter, User ) {
 
-    User.get(function(user){
-        $scope.user = user;
+        $scope.user = User.user;
 
         $scope.equipped = function(user, type) {
             return window.habitrpgShared.helpers.equipped(user, type);
@@ -23,7 +22,7 @@ habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location,
                 return (exp / window.habitrpgShared.algos.tnl(level)) * 100;
             }
         })
-    })
+
 
 
 });

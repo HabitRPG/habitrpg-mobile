@@ -13,8 +13,6 @@ Statz controller
 
 habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, filterFilter, User ) {
 
-    User.get(function(user){
-        $scope.stats = user.stats;
-    })
+        $scope.stats = User.user.stats;
 
 });
