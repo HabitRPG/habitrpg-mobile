@@ -6,9 +6,16 @@
 
 angular.module('userServices', []).
     factory('User', function ($http) {
+        $http.defaults.headers.get = {'Content-Type': "application/json;charset=utf-8"};
         var STORAGE_ID = 'habitrpg-user',
-            LOG_STORAGE_ID = 'habitrpg-user-log',
             HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
+            defaultSettings = {
+                auth: {in: false, apiId: '', apiKey: '' },
+                sync: {
+                    queue: [], //here OT will be queued up, this is NOT call-back queue!
+                    sent: [] //here will be OT which have been sent, but we have not got reply from server yet.
+                }
+            },
             settings = {}, //habit mobile settings (like auth etc.) to be stored here
             URL = 'http://127.0.0.1:3000/api/v1',
             schema = {
@@ -23,18 +30,48 @@ angular.module('userServices', []).
                 flags: {}
             },
             user = {}, // this is stored as a reference accessible to all controllers, that way updates propagate
-            actions = [], // A list of all actions done locally that are not yet saved to the server
             fetching = false; // whether fetch() was called or no. this is to avoid race conditions
+
+        var syncQueue = function () {
+            var queue =settings.sync.queue;
+            var sent = settings.sync.sent;
+
+            if (queue&&!fetching) {
+                fetching=true;
+//                move all actions from queue array to sent array
+                _.times(queue.length,function (){sent.push(queue.shift())});
+
+                $http.post(URL + '/APIv2/')
+                    .success(function (data, status, heacreatingders, config) {
+                        data.tasks = _.toArray(data.tasks);
+                        user = data;
+                        self.save();
+                        sent=[];
+                        fetching = false;
+                        syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
+                    })
+                    .error(function (data, status, headers, config) {
+                        //move sent actions back to queue
+                        _.times(sent.length,function (){queue.push(sent.shift())});
+                        fetching = false;
+                        alert('Sync error')
+                    });
+            }
+        };
+
         var userServices = {
-            user:function () {return user;},
+            user: function () {
+                return user;
+            },
+
             authenticate: function (apiId, apiToken) {
                 if (!!apiId && !!apiToken) {
                     $http.defaults.headers.common['x-api-user'] = apiId;
                     $http.defaults.headers.common['x-api-key'] = apiToken;
                     settings.auth.in = true;
                     settings.auth.apiId = apiId;
-                    settings.auth.apiToken=apiToken;
-                    this.fetch(); // now they've authenticated, get that user instead
+                    settings.auth.apiToken = apiToken;
+                    this.fetch();
                 }
             },
 
@@ -46,12 +83,13 @@ angular.module('userServices', []).
                     console.log('already fetching');
                     return;
                 }
-                fetching = true;
+
 
                 // see http://docs.angularjs.org/api/ng.$q for promise return
 
                 // If we have auth variables, get the user form the server
                 if (settings.auth.in) {
+                    fetching = true;
                     $http.get(URL + '/user')
                         .success(function (data, status, heacreatingders, config) {
                             data.tasks = _.toArray(data.tasks);
@@ -68,13 +106,15 @@ angular.module('userServices', []).
             },
 
             log: function (action) {
-                actions.push(action);
-                localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
+                settings.sync.queue.push(action);
+                this.save();
+                syncQueue();
             },
 
             save: function () {
                 user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+                localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(settings));
             }
         }
 
@@ -83,21 +123,15 @@ angular.module('userServices', []).
         if (localStorage.getItem(HABIT_MOBILE_SETTINGS)) {
             settings = JSON.parse(localStorage.getItem(HABIT_MOBILE_SETTINGS));
 
-            //create if not
+            //create and load if not
         } else {
-            var defaultSettings = {
-                auth: {in: false, apiId: '', apiKey:'' }
-            };
             localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(defaultSettings));
+            settings = defaultSettings;
         }
-
-        //authenticate user
-        userServices.authenticate('e72f55df-acf3-4cea-b9b5-024260b1a22d', '61080833-87e6-461e-afd1-2ef2dde48148');
-
 
 
         //first we populate user with schema
-//        _.defaults(user, schema);
+        user = schema;
 
         //than we try to load localStorage
         if (localStorage.getItem(STORAGE_ID)) {
@@ -107,8 +141,6 @@ angular.module('userServices', []).
         //try to fetch user from remote
         userServices.fetch();
 
-
-        $http.defaults.headers.get = {'Content-Type': "application/json;charset=utf-8"};
 
         /**
          * Synchronizes the current state to the response from the server
