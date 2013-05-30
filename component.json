@@ -11,7 +11,9 @@
     "angular-sanitize": "~1.0.5",
     "underscore": "*",
     "moment": "*",
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git"
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git",
+    "hammerjs": "~1.0.5",
+    "angular-hammer": "~1.0.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.5",
