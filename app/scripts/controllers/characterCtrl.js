@@ -7,7 +7,7 @@
 
 habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location, filterFilter, User ) {
 
-        $scope.user = User.user();
+        $scope.user = User.user;
 
         $scope.equipped = function(user, type) {
             return window.habitrpgShared.helpers.equipped(user, type);

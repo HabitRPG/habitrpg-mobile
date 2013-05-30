@@ -10,8 +10,7 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
     $scope.newTask = "";
     $rootScope.selectedTask = null; // FIXME is there a way to pass an object into another controller without rootScope?
 
-    var user = User.user();
-    $scope.tasks = user.tasks;
+    $scope.user = User.user;
 
     // FIXME optimize this watch
     $scope.$watch('tasks', function () {
@@ -46,15 +45,10 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
     });
 
     $scope.score = function (task, direction) {
-        var delta = Algos.score(user, task.id, direction);
-        Notification.push(delta);
 
-
+//        var delta = Algos.score(user, task.id, direction);
+//        Notification.push(delta);
         User.log({op: 'score', task: task.id, dir: direction});
-        User.save({callback: function () {
-            $scope.tasks = user.tasks;
-        }});
-
     }
 
     $scope.addTask = function () {
@@ -80,15 +74,11 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         }
 
 
-        var newTask = _.defaults(extra, defaults)
-        $scope.tasks.push(newTask);
+        var newTask = _.defaults(extra, defaults);
+        $scope.user.tasks.push(newTask);
         $scope.newTask = '';
         //Add the new task to the actions log
         User.log({op: 'create_task', task: newTask});
-
-        User.save({callback: function () {
-            $scope.tasks = user.tasks;
-        }});
     };
 
     $scope.clearDoneTodos = function () {

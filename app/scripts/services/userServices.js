@@ -60,9 +60,7 @@ angular.module('userServices', []).
         };
 
         var userServices = {
-            user: function () {
-                return user;
-            },
+            user: user,
 
             authenticate: function (apiId, apiToken) {
                 if (!!apiId && !!apiToken) {
@@ -93,7 +91,7 @@ angular.module('userServices', []).
                     $http.get(URL + '/user')
                         .success(function (data, status, heacreatingders, config) {
                             data.tasks = _.toArray(data.tasks);
-                            user = data;
+                            _.extend(user, data);
                             self.save();
                             fetching = false;
                         })
@@ -131,34 +129,15 @@ angular.module('userServices', []).
 
 
         //first we populate user with schema
-        user = schema;
+        _.extend(user, schema);
 
         //than we try to load localStorage
         if (localStorage.getItem(STORAGE_ID)) {
-            user = JSON.parse(localStorage.getItem(STORAGE_ID));
+            _.extend(user, JSON.parse(localStorage.getItem(STORAGE_ID)));
         }
 
         //try to fetch user from remote
         userServices.fetch();
-
-
-        /**
-         * Synchronizes the current state to the response from the server
-         * Will be called in the success and error callbacks in save().
-         */
-//        var sync = function(newUser){
-//            //apply remote user only if there are no pending actions to be synced.
-//            if(actions.length == 0) {
-//                _.defaults(user, newUser);
-//                // save returned user to localstorage
-//
-//                localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-//                // clear actions since they are now updated. client and server are synced
-//                localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
-//                // apply call
-//                if(cb) cb(user);
-//            }
-//        }
 
         return userServices;
 
