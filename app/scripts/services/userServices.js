@@ -26,28 +26,32 @@ angular.module('userServices', []).
             actions = [], // A list of all actions done locally that are not yet saved to the server
             fetching = false; // whether fetch() was called or no. this is to avoid race conditions
         var userServices = {
-            user: user,
-            authenticate: function (id, apiToken) {
-                if (!!id && !!apiToken) {
-                    $http.defaults.headers.common['x-api-user'] = id;
+            user:function () {return user;},
+            authenticate: function (apiId, apiToken) {
+                if (!!apiId && !!apiToken) {
+                    $http.defaults.headers.common['x-api-user'] = apiId;
                     $http.defaults.headers.common['x-api-key'] = apiToken;
-                    settings.authenticated = true;
+                    settings.auth.in = true;
+                    settings.auth.apiId = apiId;
+                    settings.auth.apiToken=apiToken;
                     this.fetch(); // now they've authenticated, get that user instead
                 }
             },
 
             fetch: function () {
                 var self = this;
+
+                //do not do anything if already fetching.
                 if (fetching) {
                     console.log('already fetching');
                     return;
-                } //do not do anything if already fetching.
+                }
                 fetching = true;
 
                 // see http://docs.angularjs.org/api/ng.$q for promise return
 
                 // If we have auth variables, get the user form the server
-                if (settings.authenticated) {
+                if (settings.auth.in) {
                     $http.get(URL + '/user')
                         .success(function (data, status, heacreatingders, config) {
                             data.tasks = _.toArray(data.tasks);
@@ -56,7 +60,7 @@ angular.module('userServices', []).
                             fetching = false;
                         })
                         .error(function (data, status, headers, config) {
-                            settings.authenticated = false;
+                            settings.auth.in = false;
                             fetching = false;
                         });
                 }
@@ -68,7 +72,7 @@ angular.module('userServices', []).
                 localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
             },
 
-            save: function (options) {
+            save: function () {
                 user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
                 localStorage.setItem(STORAGE_ID, JSON.stringify(user));
             }
@@ -81,12 +85,19 @@ angular.module('userServices', []).
 
             //create if not
         } else {
-            localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify({}));
+            var defaultSettings = {
+                auth: {in: false, apiId: '', apiKey:'' }
+            };
+            localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(defaultSettings));
         }
+
+        //authenticate user
+        userServices.authenticate('e72f55df-acf3-4cea-b9b5-024260b1a22d', '61080833-87e6-461e-afd1-2ef2dde48148');
+
 
 
         //first we populate user with schema
-        _.defaults(user, schema);
+//        _.defaults(user, schema);
 
         //than we try to load localStorage
         if (localStorage.getItem(STORAGE_ID)) {
