@@ -14,8 +14,8 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 
     // FIXME optimize this watch
     $scope.$watch('tasks', function () {
-        $scope.remainingCount = filterFilter($scope.tasks, {completed: false}).length;
-        $scope.doneCount = $scope.tasks.length - $scope.remainingCount;
+        $scope.remainingCount = filterFilter($scope.user.tasks, {completed: false}).length;
+        $scope.doneCount = $scope.user.tasks.length - $scope.remainingCount;
         $scope.allChecked = !$scope.remainingCount
     }, true);
 
@@ -49,7 +49,7 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 //        var delta = Algos.score(user, task.id, direction);
 //        Notification.push(delta);
         User.log({op: 'score', task: task.id, dir: direction});
-    }
+    };
 
     $scope.addTask = function () {
         if (!$scope.newTask.length) {
@@ -82,9 +82,8 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
     };
 
     $scope.clearDoneTodos = function () {
-        $scope.tasks = $scope.tasks.filter(function (val) {
-            return !val.completed;
-        });
+        //We can't alter $scope.user.tasks her. We have to invoke API call.
+        //To be implemented
     };
 
     $scope.selectTask = function (task) {
