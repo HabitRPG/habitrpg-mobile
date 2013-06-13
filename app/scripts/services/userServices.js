@@ -10,7 +10,7 @@ angular.module('userServices', []).
             HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
             authenticated = false,
             defaultSettings = {
-                auth: { apiId: '', apiToken: '' },
+                auth: { apiId: '', apiToken: ''},
                 sync: {
                     queue: [], //here OT will be queued up, this is NOT call-back queue!
                     sent: [] //here will be OT which have been sent, but we have not got reply from server yet.
@@ -40,42 +40,48 @@ angular.module('userServices', []).
 
             var queue = settings.sync.queue;
             var sent = settings.sync.sent;
+            if (queue.length === 0) {
+                console.log('Queue is empty');
+                return;
+            }
+            if (fetching) {
+                console.log('Already fetching');
+                return;
+            }
 
-            if (queue.length && !fetching) {
-                fetching = true;
+            fetching = true;
 //                move all actions from queue array to sent array
-                _.times(queue.length, function () {
-                    sent.push(queue.shift());
+            _.times(queue.length, function () {
+                sent.push(queue.shift());
+            });
+
+            $http.post(URL, sent)
+                .success(function (data, status, heacreatingders, config) {
+                    data.tasks = _.toArray(data.tasks);
+                    //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
+                    if (!queue.length) {
+                        //we can't do user=data as it will not update user references in all other angular controllers.
+                        _.extend(user, data);
+                    }
+                    sent.length = 0;
+                    save();
+                    fetching = false;
+                    syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
+                })
+                .error(function (data, status, headers, config) {
+                    //move sent actions back to queue
+                    _.times(sent.length, function () {
+                        queue.push(sent.shift())
+                    });
+                    fetching = false;
+                    console.log('Sync error!');
+                    console.log(data);
+
                 });
 
-                $http.post(URL, sent)
-                    .success(function (data, status, heacreatingders, config) {
-                        data.tasks = _.toArray(data.tasks);
-                        //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
-                        if (!queue.length) {
-                            //we can't do user=data as it will not update user references in all other angular controllers.
-                            _.extend(user, data);
-                        }
-                        sent.length = 0;
-                        save();
-                        fetching = false;
-                        syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
-                    })
-                    .error(function (data, status, headers, config) {
-                        //move sent actions back to queue
-                        _.times(sent.length, function () {
-                            queue.push(sent.shift())
-                        });
-                        fetching = false;
-                        alert('Sync error')
-                    });
 
-            } else {
-                console.log('Queue is empty or already fetching');
-            }
         };
         var save = function () {
-            user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
             localStorage.setItem(STORAGE_ID, JSON.stringify(user));
             localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(settings));
         };

@@ -40,9 +40,9 @@ habitrpg.controller( 'TaskDetailsCtrl', function TaskDetailsCtrl( $scope, $rootS
   }
 
   $scope.delete = function() {
-      $scope.task.del = true;
-      User.log({op: 'delete_task', task: $scope.task.id});
-      User.save();
+//      $scope.task.del = true;
+      User.log({op: 'delTask', task: $scope.task.id});
+//      User.save();
       $scope.goBack();
   };
 

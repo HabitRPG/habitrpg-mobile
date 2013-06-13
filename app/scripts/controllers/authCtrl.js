@@ -15,9 +15,10 @@ habitrpg.controller( 'AuthCtrl', function AuthCtrl( $scope, Facebook, LocalAuth,
             apiToken = $('#apiLoginForm #apiToken').val();
         User.authenticate(uuid, apiToken);
     }
+//authenticate user
 
-     var uuid = '',
-         apiToken = '';
+     var uuid = '4a94db89-d825-4bbf-9c6c-4de0f7e65cc8',
+         apiToken = 'd188cd17-dc9a-45f8-bdfa-66a358b0f597';
      User.authenticate(uuid, apiToken);
 
 });

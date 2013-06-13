@@ -75,10 +75,10 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 
 
         var newTask = _.defaults(extra, defaults);
-        $scope.user.tasks.push(newTask);
+        User.log({op: 'create_task', task: newTask});
         $scope.newTask = '';
         //Add the new task to the actions log
-        User.log({op: 'create_task', task: newTask});
+
     };
 
     $scope.clearDoneTodos = function () {
