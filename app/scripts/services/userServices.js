@@ -29,8 +29,8 @@ angular.module('userServices', []).
                 balance: 1,
                 flags: {}
             },
-            user = {}, // this is stored as a reference accessible to all controllers, that way updates propagate
-            fetching = false; // whether fetch() was called or no. this is to avoid race conditions
+            user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
+            settings.fetching = false; // whether fetch() was called or no. this is to avoid race conditions
 
         var syncQueue = function () {
             if (!authenticated) {
@@ -44,12 +44,12 @@ angular.module('userServices', []).
                 console.log('Queue is empty');
                 return;
             }
-            if (fetching) {
+            if (settings.fetching) {
                 console.log('Already fetching');
                 return;
             }
 
-            fetching = true;
+            settings.fetching = true;
 //                move all actions from queue array to sent array
             _.times(queue.length, function () {
                 sent.push(queue.shift());
@@ -65,7 +65,7 @@ angular.module('userServices', []).
                     }
                     sent.length = 0;
                     save();
-                    fetching = false;
+                    settings.fetching = false;
                     syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
                 })
                 .error(function (data, status, headers, config) {
@@ -73,7 +73,7 @@ angular.module('userServices', []).
                     _.times(sent.length, function () {
                         queue.push(sent.shift())
                     });
-                    fetching = false;
+                    settings.fetching = false;
                     console.log('Sync error!');
                     console.log(data);
 
@@ -104,18 +104,22 @@ angular.module('userServices', []).
                 settings.sync.queue.push(action);
                 save();
                 syncQueue();
-            }
+            },
+            settings: settings
         }
 
 
         //load settings if we have them
         if (localStorage.getItem(HABIT_MOBILE_SETTINGS)) {
-            settings = JSON.parse(localStorage.getItem(HABIT_MOBILE_SETTINGS));
+            //use extend here to make sure we keep object reference in other angular controllers
+            _.extend(settings, JSON.parse(localStorage.getItem(HABIT_MOBILE_SETTINGS)));
 
+            //if settings were saved while fetch was in process reset the flag.
+            settings.fetching = false;
             //create and load if not
         } else {
             localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(defaultSettings));
-            settings = defaultSettings;
+            _.extend(settings,defaultSettings);
         }
 
 

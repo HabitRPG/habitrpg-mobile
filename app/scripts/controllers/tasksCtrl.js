@@ -45,10 +45,7 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
     });
 
     $scope.score = function (task, direction) {
-
-//        var delta = Algos.score(user, task.id, direction);
-//        Notification.push(delta);
-        User.log({op: 'score', task: task.id, dir: direction});
+        User.log({op: 'score', task: task, dir: direction});
     };
 
     $scope.addTask = function () {
