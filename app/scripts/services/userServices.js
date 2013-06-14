@@ -5,7 +5,7 @@
  */
 
 angular.module('userServices', []).
-    factory('User', function ($http) {
+    factory('User', function ($http, $location) {
         var STORAGE_ID = 'habitrpg-user',
             HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
             authenticated = false,
@@ -30,11 +30,11 @@ angular.module('userServices', []).
                 flags: {}
             },
             user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
-            settings.fetching = false; // whether fetch() was called or no. this is to avoid race conditions
+        settings.fetching = false; // whether fetch() was called or no. this is to avoid race conditions
 
-        var syncQueue = function () {
+        var syncQueue = function (cb) {
             if (!authenticated) {
-                console.log("Not authenticated, can't sync");
+                alert("Not authenticated, can't sync, go to settings first.");
                 return;
             }
 
@@ -66,6 +66,7 @@ angular.module('userServices', []).
                     sent.length = 0;
                     save();
                     settings.fetching = false;
+                    if (cb) {cb(false)};
                     syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
                 })
                 .error(function (data, status, headers, config) {
@@ -74,7 +75,7 @@ angular.module('userServices', []).
                         queue.push(sent.shift())
                     });
                     settings.fetching = false;
-                    console.log('Sync error!');
+                    alert('Sync error: ' + data.err);
                     console.log(data);
 
                 });
@@ -88,7 +89,7 @@ angular.module('userServices', []).
         var userServices = {
             user: user,
 
-            authenticate: function (apiId, apiToken) {
+            authenticate: function (apiId, apiToken,cb) {
                 if (!!apiId && !!apiToken) {
                     $http.defaults.headers.common = {'Content-Type': "application/json;charset=utf-8"};
                     $http.defaults.headers.common['x-api-user'] = apiId;
@@ -96,17 +97,19 @@ angular.module('userServices', []).
                     authenticated = true;
                     settings.auth.apiId = apiId;
                     settings.auth.apiToken = apiToken;
-                    this.log({});
+                    this.log({}, cb);
+                } else {
+                    alert('Please enter your ID and Token in settings.')
                 }
             },
 
-            log: function (action) {
+            log: function (action, cb) {
                 settings.sync.queue.push(action);
                 save();
-                syncQueue();
+                syncQueue(cb);
             },
             settings: settings
-        }
+        };
 
 
         //load settings if we have them
@@ -119,7 +122,14 @@ angular.module('userServices', []).
             //create and load if not
         } else {
             localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(defaultSettings));
-            _.extend(settings,defaultSettings);
+            _.extend(settings, defaultSettings);
+        }
+
+        //If user does not have ApiID that forward him to settings.
+        if (!settings.auth.apiId || !settings.auth.apiToken) {
+            $location.path("/settings");
+        } else {
+            userServices.authenticate(settings.auth.apiId, settings.auth.apiToken)
         }
 
 

@@ -1,0 +1,14 @@
+<div ng-controller="StatsCtrl">
+    <div class="topbar">
+        <div id="lines" gf-Tap="toggleMenu()"></div>
+        <div ng-show="settings.fetching" style="text-align: right"><img style="margin: 5px" src="/img/ajax-loader.gif">
+        </div>
+    </div>
+</div>
+
+<div ng-controller="SettingsCtrl">
+    <div>Id:<input type="text" ng-model="settings.auth.apiId">
+        Token:<input type="text" ng-model="settings.auth.apiToken">
+        <input type="button" value="Save" ng-click="auth(settings.auth.apiId,settings.auth.apiToken)">
+    </div>
+</div>

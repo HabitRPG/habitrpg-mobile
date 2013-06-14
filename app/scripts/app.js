@@ -10,6 +10,7 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'au
         $routeProvider
             .when('/home', {templateUrl: 'views/home.html'})
 	    .when('/login', {templateUrl: 'views/login.html'})
+	    .when('/settings', {templateUrl: 'views/settings.html'})
             .when('/:action', {templateUrl: 'views/list.html'})
             .when('/tasks/:taskId', {templateUrl: 'views/details.html'})
             .when('/todo/active', {templateUrl: 'views/list.html'})
