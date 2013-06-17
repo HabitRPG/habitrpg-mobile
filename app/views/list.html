@@ -15,6 +15,7 @@
 <div ng-controller="TasksCtrl">
 
     <h2>{{taskTypeTitle()}}</h2>
+    <div ng-show="taskType()=='todo'"><a href="#todo">Active</a> <a href="#todo/completed">Completed</a></div>
 
     <div class="task_wrapper">
 

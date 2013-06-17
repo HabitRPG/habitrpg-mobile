@@ -30,8 +30,7 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
     };
 
     $scope.taskFilter = function (task) {
-        //this applies only to todos
-        return ($location.path() == '/todo/active') ? !task.completed :
+        return ($location.path() == '/todo') ? !task.completed :
             ($location.path() == '/todo/completed') ? task.completed :
                 true;
     };
