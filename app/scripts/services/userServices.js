@@ -66,7 +66,10 @@ angular.module('userServices', []).
                     sent.length = 0;
                     save();
                     settings.fetching = false;
-                    if (cb) {cb(false)};
+                    if (cb) {
+                        cb(false)
+                    }
+                    ;
                     syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
                 })
                 .error(function (data, status, headers, config) {
@@ -89,7 +92,7 @@ angular.module('userServices', []).
         var userServices = {
             user: user,
 
-            authenticate: function (apiId, apiToken,cb) {
+            authenticate: function (apiId, apiToken, cb) {
                 if (!!apiId && !!apiToken) {
                     $http.defaults.headers.common = {'Content-Type': "application/json;charset=utf-8"};
                     $http.defaults.headers.common['x-api-user'] = apiId;
@@ -104,7 +107,15 @@ angular.module('userServices', []).
             },
 
             log: function (action, cb) {
-                settings.sync.queue.push(action);
+                //push by one buy one if an array passed in.
+                if (_.isArray(action)) {
+                    action.forEach(function (a) {
+                        settings.sync.queue.push(a);
+                    });
+                } else {
+                    settings.sync.queue.push(action);
+                }
+
                 save();
                 syncQueue(cb);
             },

@@ -10,4 +10,7 @@ angular.module('sharedServices', [] ).
     }).
     factory("Algos", function($rootScope){
         return window.habitrpgShared.algos;
-    })
+    }).
+    factory("Helpers", function($rootScope){
+        return window.habitrpgShared.helpers;
+    });

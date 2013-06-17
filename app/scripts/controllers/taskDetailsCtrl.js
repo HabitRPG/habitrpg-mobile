@@ -1,50 +1,48 @@
 'use strict';
 
-habitrpg.controller( 'TaskDetailsCtrl', function TaskDetailsCtrl( $scope, $rootScope, $location, User) {
+habitrpg.controller('TaskDetailsCtrl', function TaskDetailsCtrl($scope, $rootScope, $location, User) {
 
-  $scope.task = $rootScope.selectedTask;
-  $scope.editing = false;
-  $scope.editedTask = null;
+    $scope.task = $rootScope.selectedTask;
+    $scope.editing = false;
+    $scope.editedTask = null;
 
-  $scope.goBack = function(){
-      $rootScope.selectedTask = null;
-      $location.path('/' + $scope.task.type);
-  }
+    $scope.goBack = function () {
+        $rootScope.selectedTask = null;
+        $location.path('/' + $scope.task.type);
+    }
 
-  $scope.edit = function() {
-      $scope.originalTask = _.clone($scope.task); // TODO deep clone?;
-      $scope.editedTask = $scope.task;
-      $scope.editing = true;
-  };
+    $scope.edit = function () {
+        $scope.originalTask = _.clone($scope.task); // TODO deep clone?;
+        $scope.editedTask = $scope.task;
+        $scope.editing = true;
+    };
 
-  $scope.save = function() {
-      User.log({op: 'edit_task', task: $scope.task});
-      User.save({callback: function(user){
-        var task = _.findWhere(user.tasks, {id: $scope.task.id});
-        $rootScope.selectedTask = task;
-        $scope.task = task;
-      }});
-      $scope.originalTask = null;
-      $scope.editedTask = null;
-      $scope.editing = false;
-  };
+    $scope.save = function () {
+        var task = $scope.task;
+        User.log([
+            {op: 'set', path: "tasks." + task.id + ".text", value: task.text},
+            {op: 'set', path: "tasks." + task.id + ".notes", value: task.notes}
+        ]);
+        $rootScope.selectedTask = null;
+        $location.path('/' + $scope.task.type);
+        $scope.editing = false;
+    };
 
-  $scope.cancel = function() {
-      // reset $scope.task to $scope.originalTask
-      for(var key in $scope.task){
-        $scope.task[key] = $scope.originalTask[key];
-      }
-      $scope.originalTask = null;
-      $scope.editedTask = null;
-      $scope.editing = false;
-  }
+    $scope.cancel = function () {
+        // reset $scope.task to $scope.originalTask
+        for (var key in $scope.task) {
+            $scope.task[key] = $scope.originalTask[key];
+        }
+        $scope.originalTask = null;
+        $scope.editedTask = null;
+        $scope.editing = false;
+    }
 
-  $scope.delete = function() {
-//      $scope.task.del = true;
-      User.log({op: 'delTask', task: $scope.task.id});
-//      User.save();
-      $scope.goBack();
-  };
+    $scope.delete = function () {
+        $scope.task.del = true;
+        User.log({op: 'delTask', task: $scope.task});
+        $scope.goBack();
+    };
 
 
 });

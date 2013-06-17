@@ -57,17 +57,25 @@ habitrpg.directive('sort', function() {
 
   return{
 
-    link: function(scope, element, attrs, ngModel) {
+    link: function($scope, element, attrs, ngModel) {
 
-
-      scope.$watch('tasks', function() {
+      $scope.$watch('tasks', function() {
 
         $(document).bind('touchmove', function(e) {
           e.preventDefault();
         }, false);
 
-        $(element).sortable('destroy')
-        $(element).sortable()
+        $(element).sortable('destroy');
+        $(element).sortable({
+            change: function( event, ui ) {
+                console.log (event);
+                console.log (ui);
+            }
+        });
+          $(element).on( "sortchange", function( event, ui ) {
+              console.log (event);
+              console.log (ui);
+          } );
 
       }, true)
 
