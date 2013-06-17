@@ -9,7 +9,7 @@ habitrpg.controller('TaskDetailsCtrl', function TaskDetailsCtrl($scope, $rootSco
     $scope.goBack = function () {
         $rootScope.selectedTask = null;
         $location.path('/' + $scope.task.type);
-    }
+    };
 
     $scope.edit = function () {
         $scope.originalTask = _.clone($scope.task); // TODO deep clone?;
@@ -36,12 +36,14 @@ habitrpg.controller('TaskDetailsCtrl', function TaskDetailsCtrl($scope, $rootSco
         $scope.originalTask = null;
         $scope.editedTask = null;
         $scope.editing = false;
-    }
+    };
 
     $scope.delete = function () {
-        $scope.task.del = true;
-        User.log({op: 'delTask', task: $scope.task});
+        var task = $scope.task;
+        var tasks = User.user[task.type+'s'];
+        User.log({op: 'delTask', task: task});
         $scope.goBack();
+        delete tasks.splice(tasks.indexOf(task),1);
     };
 
 

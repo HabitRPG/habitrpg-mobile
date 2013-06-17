@@ -14,19 +14,19 @@
 
 <div ng-controller="TasksCtrl">
 
-    <h2>{{taskTypeTitle}}</h2>
+    <h2>{{taskTypeTitle()}}</h2>
 
     <div class="task_wrapper">
 
         <form id="task-form" ng-submit="addTask()">
-            <input type="text" placeholder="Add new {{taskTypeTitle}}" ng-model="newTask">
+            <input type="text" placeholder="Add new {{taskTypeTitle()}}" ng-model="newTask">
         </form>
 
         <div class="task_list">
-            <div class="no_tasks" ng-show="user.tasks.length == 0">No {{taskTypeTitle}}.</div>
-            <ul id="task-list" class="list" ng-hide="user.tasks.length == 0" sort>
-                <li ng-repeat="task in user.tasks | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
-                    <div class="lines" ng-hide="user.tasks.length == 0 || task.type == 'habit' || task.type == 'reward'"></div>
+            <div class="no_tasks" ng-show="tasks().length == 0">No {{taskTypeTitle()}}.</div>
+            <ul id="task-list" class="list" ng-hide="tasks().length == 0" sort>
+                <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
+                    <div class="lines" ng-hide="tasks().length == 0 || task.type == 'habit' || task.type == 'reward'"></div>
 
                     <!-- Habits -->
                     <span ng-show="task.type == 'habit'" ng-cloak>
