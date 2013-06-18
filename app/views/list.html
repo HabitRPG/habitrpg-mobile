@@ -7,20 +7,20 @@
 
 <div ng-controller="StatsCtrl">
     <div class="topbar">
-        <div id="lines" gf-Tap="toggleMenu()"></div>
+        <div id="lines" gf-Tap="toggleMenu()">☰</div>
         <div ng-show="settings.fetching" style="text-align: right"><img style="margin: 5px" src="/img/ajax-loader.gif"></div>
     </div>
 </div>
 
-<div ng-controller="TasksCtrl">
+<div ng-controller="TasksCtrl" class="taskWell">
 
-    <h2>{{taskTypeTitle()}}</h2>
+    <h2 class="taskTypeHeader">{{taskTypeTitle()}}</h2>
     <div ng-show="taskType()=='todo'"><a href="#todo">Active</a> <a href="#todo/completed">Completed</a></div>
 
     <div class="task_wrapper">
 
         <form id="task-form" ng-submit="addTask()">
-            <input type="text" placeholder="Add new {{taskTypeTitle()}}" ng-model="newTask">
+            <input type="text" placeholder="Add new {{taskTypeTitle()}}" ng-model="newTask" class="newTaskPrompt">
         </form>
 
         <div class="task_list">

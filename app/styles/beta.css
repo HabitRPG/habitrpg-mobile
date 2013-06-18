@@ -5,6 +5,29 @@ body {
     margin: 0;
     height: 100%;
     z-index: 1;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.wrapper {
+
+  position:fixed !important;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+
+}
+
+.wrapper_animation {
+
+  position:fixed !important;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  padding: 1.5em;
 }
 
 
@@ -12,13 +35,20 @@ body {
 =============================== */
 
 .topbar {
-    width:100%;
-    height:50px;
-    background:-webkit-gradient(linear,0 0,0 100%,from(#e7e7e7),to(#d0d0d0));
-    box-shadow:inset 0 0px #f7f7f7,0 1px #888,0 0px #e7e7e7;
-    text-align:center;
+    width: 100%;
+    height: 3.75em;
+    background: #f5f5f5;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
 }
 
+#lines {
+    position: absolute;
+    left: 0.25em;
+    font-size: 2.65em;
+    color: #555;
+    cursor: pointer;
+}
 
 /* Nav Panel
 =============================== */
@@ -26,37 +56,97 @@ body {
 .menu {
   position:absolute;
   height:100%;
-  width:240px;
-  left:-240px;
-  background-color:#3D3D3D;
+  width:15em;
+  left:-15em;
+  background-color:#212121;
 }
 .menuopen, .menuclose {
   -webkit-transition: 0.23s -webkit-transform ease-out;
 }
 .menuopen {
-  -webkit-transform: translate3d(240px,0,0);
+  -webkit-transform: translate3d(15em,0,0);
 }
 .menuclose {
   -webkit-transform: translate3d(0px,0,0);
 }
 
+/* Navigation Items
+=============================== */
 
+.navLinkBlock {
+    padding-top: 0.75em;
+}
+    .mainNavLink {
+        font-size: 1.5em;
+        color: #ddd;
+        padding: 0.75em;
+        border-top:1px solid #4E4E4E;
+        display: block;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
 
+    .lastNavLink {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 
+/* Tasks
+=============================== */
+.taskWell * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
+.taskWell {
+    padding: 1.5em;
+    background: #fefefe;
+}
+    .taskTypeHeader {
+        color: rgb(51,51,51);
+        font-size: 2em;
+        margin: 0 0 0.375em 0;
+        padding-bottom: 0.375em;
+        border-bottom: 1px solid slategrey;
+    }
+    #task-form {
+        display: block;
+        padding: 0;
+        margin: 0;
+        line-height: 1.5;
+    }
+    .newTaskPrompt {
+        -webkit-appearance: none;
+        border: 0;
+        margin: 0 0 0.75em;
+        width: 100%;
+        padding: 0.75em;
+        font-size: 1.25em;
+        line-height: 1.5;
+        color: rgb(51,51,51);
+    }
+        .newTaskPrompt:focus {
+            background: #eee;
+            outline: 0;
+            -webkit-box-shadow: inset 0 0 3px #7aa4ee,inset -1px 0 1px #5288e9;
+            box-shadow: inset 0 0 3px #7aa4ee,inset 0 0 1px #5288e9;
+        }
 
-input[type='text'] {
-
-
-  height:30px;
-  width:100%;
-  line-height:30px;
-  font-size:30px;
-  background:transparent;
-  border:0px;
-  box-shadow:none;
+.task_list {
 
 }
+
+    .list {
+        margin: 0;
+    }
+
+
+/* UNTOUCHED BY ZAK CSS BELOW */
+/* -==============================- */
+
 
 .head {
 
@@ -186,27 +276,7 @@ width:100%;
 
 }
 
-.wrapper {
 
-  position:fixed !important;
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-
-}
-
-.wrapper_animation {
-
-  position:fixed !important;
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-
-}
 
 .player {
 
@@ -272,38 +342,13 @@ width:100%;
 
 }
 
-.link {
 
-  font-size:22px;
-  color:#000;
-  padding:12px;
-  border-top:1px solid #4E4E4E;
-  border-bottom:1px solid black;
-
-}
-
-.link a {
-
-  color:white;
-
-}
-
-#lines {
-    border-bottom: 17px double black;
-    border-top: 6px solid black;
-    content:"";
-    height: 5px;
-    width:30px;
-    top:10px;
-    left:10px;
-    position:absolute;
-}​
 
 .list {
   color: #555;
   font-size: 22px;
   padding: 0 !important;
-  width: 500px;
+  width: 100%;
   font-family: courier, monospace;
   border: 1px solid #dedede;
   background-color:#FFFCAD;

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>HabitRPG</title>
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="shared/css/index.css">
     <link rel="stylesheet" href="styles/beta.css">
     <style>[ng-cloak] {
@@ -48,11 +49,10 @@
             </div>
         </div>
 
-        <div ng-controller="MenuCtrl">
-            <div class="first_block"><b>Navigation</b></div>
-            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
-            <div class="first_block_settings"><b>Settings</b></div>
-            <div class="link"><a ng-click="toggleMenu()" href="#settings">Settings</a></div>
+        <div ng-controller="MenuCtrl" class="navLinkBlock">
+            <a class="mainNavLink" ng-repeat="button in nav" gf-Tap="toggleMenu()" href="{{button.name}}">{{button.link}}</a>
+
+            <a class="mainNavLink lastNavLink" ng-click="toggleMenu()" href="#settings">Settings</a>
         </div>
 
     </nav>
