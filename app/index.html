@@ -57,12 +57,13 @@
         </div>
 
     </nav>
+    <div ng-controller="AuthCtrl">
+    </div>
     <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
         <div ng-controller="StatsCtrl">
             <div class="topbar">
                 <div id="lines" gf-Tap="toggleMenu()"></div>
-                <div ng-show="settings.fetching" style="text-align: right"><img style="margin: 5px"
-                                                                                src="/img/ajax-loader.gif"></div>
+                <input type="button" value="{{refreshing()}}" gf-Tap="User.log({})">
             </div>
         </div>
         <div ng-view></div>

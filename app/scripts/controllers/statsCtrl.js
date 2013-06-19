@@ -12,7 +12,9 @@ Statz controller
 
 
 habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, filterFilter, User ) {
-        $scope.settings=User.settings;
+        $scope.refreshing = function () {
+          return User.settings.fetching ? "Refreshing..." : "Refresh!"
+        };
         $scope.stats = User.user.stats;
 
 });
