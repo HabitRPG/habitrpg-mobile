@@ -50,14 +50,22 @@
 
         <div ng-controller="MenuCtrl">
             <div class="first_block"><b>Navigation</b></div>
-            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
+            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu()"
+                                                           href="{{button.name}}">{{button.link}}</a></div>
             <div class="first_block_settings"><b>Settings</b></div>
             <div class="link"><a ng-click="toggleMenu()" href="#settings">Settings</a></div>
         </div>
 
     </nav>
     <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
-    <div ng-view></div>
+        <div ng-controller="StatsCtrl">
+            <div class="topbar">
+                <div id="lines" gf-Tap="toggleMenu()"></div>
+                <div ng-show="settings.fetching" style="text-align: right"><img style="margin: 5px"
+                                                                                src="/img/ajax-loader.gif"></div>
+            </div>
+        </div>
+        <div ng-view></div>
     </div>
 </div>
 
