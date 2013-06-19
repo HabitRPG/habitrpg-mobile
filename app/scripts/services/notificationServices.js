@@ -1,7 +1,6 @@
 angular.module('notificationServices', []).
     factory('Notification', function () {
-
-        var delta = { delta: 0 };
+        var data = {message:{}};
         var active = false;
         var timer = null;
 
@@ -14,7 +13,6 @@ angular.module('notificationServices', []).
 
                 active = false;
                 timer = null;
-                this.clearDelta();
             },
 
             animate: function () {
@@ -33,23 +31,21 @@ angular.module('notificationServices', []).
 
             },
 
-            push: function (newDelta) {
-                delta.delta += newDelta;
+            push: function (message) {
+                data.message=message;
+//                TODO implement message growl type notifications instead.
+                console.log(message);
                 this.animate()
             },
 
             get: function () {
-                return delta;
+                return data;
             },
 
             clearTimer: function () {
                 clearTimeout(timer);
                 timer = null;
                 active = false;
-            },
-
-            clearDelta: function () {
-                delta.delta = 0;
             },
 
             init: function () {

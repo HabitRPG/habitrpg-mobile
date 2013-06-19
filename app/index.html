@@ -11,9 +11,9 @@
     }</style>
 </head>
 <body>
-
+<div ng-controller="AuthCtrl">
+</div>
 <div ng-controller="WrapperCtrl" class="wrapper" hm-swiperight="openMenu()" hm-swipeleft="closeMenu()">
-
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
         <div ng-controller="CharacterCtrl">
@@ -50,15 +50,14 @@
 
         <div ng-controller="MenuCtrl">
             <div class="first_block"><b>Navigation</b></div>
-            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu()"
-                                                           href="{{button.name}}">{{button.link}}</a></div>
+            <div ng-repeat="button in nav" class="link">
+                <a gf-Tap="toggleMenu()" href="{{button.name}}">{{button.link}}</a>
+            </div>
             <div class="first_block_settings"><b>Settings</b></div>
             <div class="link"><a ng-click="toggleMenu()" href="#settings">Settings</a></div>
         </div>
 
     </nav>
-    <div ng-controller="AuthCtrl">
-    </div>
     <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
         <div ng-controller="StatsCtrl">
             <div class="topbar">
