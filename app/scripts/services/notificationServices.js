@@ -14,7 +14,7 @@ angular.module('notificationServices', []).
 
                 active = false;
                 timer = null;
-                delta.delta = 0;
+                this.clearDelta();
             },
 
             animate: function () {
