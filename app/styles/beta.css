@@ -43,12 +43,29 @@ body {
 }
 
 #lines {
-    position: absolute;
-    left: 0.25em;
-    font-size: 2.65em;
-    color: #555;
-    cursor: pointer;
+    width: 3.375em;
+    height: 100%;
+    color: transparent;
+    background: transparent;
+    position: relative;
 }
+#lines:after {
+      content: "";
+  position: absolute;
+  left: 0.75em;
+  top: 0.75em;
+  bottom: 0.75em;
+  width: 2.5em;
+  background: -webkit-linear-gradient(
+    top,
+    #333, #333 20%,
+    transparent 20%, transparent 40%,
+    #333 40%, #333 60%,
+    transparent 60%, transparent 80%,
+    #333 80%, #333 100%
+  );
+}
+
 
 /* Nav Panel
 =============================== */
