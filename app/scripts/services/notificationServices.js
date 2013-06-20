@@ -40,7 +40,11 @@ angular.module('notificationServices', []).
                     case 'stats':
                         var keys = Object.keys(message.stats)
                         _.each(keys, function(el, index) {
-                            data.message += el + ':' + message.stats[el]
+                            if (message.stats[el] < 0) {
+                                data.message += el + ':' + '<font style="color:red">' + message.stats[el] + '</font>'
+                            }else{
+                                data.message += el + ':' + message.stats[el]
+                            }
                         })
                     break;
                     case 'text':

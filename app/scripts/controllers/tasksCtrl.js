@@ -50,7 +50,8 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
             }
         });
         //notify user.
-        Notification.push(diff);
+        //Notification.push(diff);
+        //Notification.push({type:'stats',stats:diff})
         User.log({op: 'score', task: task, dir: direction});
     };
 
