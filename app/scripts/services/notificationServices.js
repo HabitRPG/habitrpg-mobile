@@ -1,6 +1,6 @@
 angular.module('notificationServices', []).
     factory('Notification', function () {
-        var data = {message:{}};
+        var data = {message:''};
         var active = false;
         var timer = null;
 
@@ -32,9 +32,22 @@ angular.module('notificationServices', []).
             },
 
             push: function (message) {
-                data.message=message;
-//                TODO implement message growl type notifications instead.
-                console.log(message);
+                data.message = ''
+                //  TODO implement message growl type notifications instead.
+                //  {type:'stats',stats:stats} and {type:"text", text:"text"} 
+                //  {hp:1,gp:-2.2} 
+                switch(message.type) {
+                    case 'stats':
+                        var keys = Object.keys(message.stats)
+                        _.each(keys, function(el, index) {
+                            data.message += el + ':' + message.stats[el]
+                        })
+                    break;
+                    case 'text':
+                        data.message = message.text
+                    break;
+                }
+
                 this.animate()
             },
 
