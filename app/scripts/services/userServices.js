@@ -14,7 +14,9 @@ angular.module('userServices', []).
                 sync: {
                     queue: [], //here OT will be queued up, this is NOT call-back queue!
                     sent: [] //here will be OT which have been sent, but we have not got reply from server yet.
-                }
+                },
+                fetching: false,  // whether fetch() was called or no. this is to avoid race conditions
+                online: false
             },
             settings = {}, //habit mobile settings (like auth etc.) to be stored here
             URL = 'http://127.0.0.1:3000/api/v2',
@@ -30,7 +32,6 @@ angular.module('userServices', []).
                 flags: {}
             },
             user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
-        settings.fetching = false; // whether fetch() was called or no. this is to avoid race conditions
 
         var syncQueue = function (cb) {
             if (!authenticated) {
@@ -41,11 +42,15 @@ angular.module('userServices', []).
             var queue = settings.sync.queue;
             var sent = settings.sync.sent;
             if (queue.length === 0) {
-                console.log('Queue is empty');
+                console.log('Sync: Queue is empty');
                 return;
             }
             if (settings.fetching) {
-                console.log('Already fetching');
+                console.log('Sync: Already fetching');
+                return;
+            }
+            if (settings.online!==true) {
+                console.log('Sync: Not online');
                 return;
             }
 
@@ -64,12 +69,12 @@ angular.module('userServices', []).
                         _.extend(user, data);
                     }
                     sent.length = 0;
-                    save();
                     settings.fetching = false;
+                    save();
                     if (cb) {
                         cb(false)
                     }
-                    ;
+
                     syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
                 })
                 .error(function (data, status, headers, config) {
@@ -91,6 +96,14 @@ angular.module('userServices', []).
         };
         var userServices = {
             user: user,
+            online: function (status) {
+                if (status===true) {
+                    settings.online = true;
+                    syncQueue();
+                } else {
+                    settings.online = false;
+                };
+            },
 
             authenticate: function (apiId, apiToken, cb) {
                 if (!!apiId && !!apiToken) {

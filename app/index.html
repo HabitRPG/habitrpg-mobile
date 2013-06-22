@@ -64,6 +64,7 @@
                 <div id="lines" gf-Tap="toggleMenu()"></div>
                 <div>{{queueLength()}}</div>
                 <input type="button" value="{{refreshing()}}" gf-Tap="User.log({})">
+                <input type="button" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">
             </div>
         </div>
         <div ng-view></div>
