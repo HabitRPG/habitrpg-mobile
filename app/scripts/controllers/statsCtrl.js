@@ -15,6 +15,9 @@ habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, filterF
         $scope.refreshing = function () {
           return User.settings.fetching ? "Refreshing..." : "Refresh!"
         };
+        $scope.queueLength = function () {
+          return User.settings.sync.queue.length || User.settings.sync.sent.length
+        };
         $scope.stats = User.user.stats;
 
 });

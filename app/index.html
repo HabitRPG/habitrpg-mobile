@@ -62,6 +62,7 @@
         <div ng-controller="StatsCtrl">
             <div class="topbar">
                 <div id="lines" gf-Tap="toggleMenu()"></div>
+                <div>{{queueLength()}}</div>
                 <input type="button" value="{{refreshing()}}" gf-Tap="User.log({})">
             </div>
         </div>
