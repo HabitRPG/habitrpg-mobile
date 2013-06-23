@@ -36,6 +36,21 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
     };
 
     $scope.score = function (task, direction) {
+        //save current stats to compute the difference after scoring.
+        var statsDiff = {};
+        var oldStats = _.clone(User.user.stats);
+
+        Algos.score(User.user,task,direction);
+
+        //compute the stats change.
+        _.each (oldStats,function (value,key) {
+            var newValue = User.user.stats[key];
+            if (newValue!==value) {
+                statsDiff[key]=newValue-value;
+            }
+        });
+        //notify user.
+        Notification.push({type:'stats',stats:statsDiff});
         User.log({op: 'score', task: task, dir: direction});
     };
 
@@ -53,11 +68,11 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 
         switch ($scope.taskType()) {
             case 'habit':
-                extra = {up: true, down: true}
+                extra = {up: true, down: true};
                 break;
             case 'daily':
             case 'todo':
-                extra = {completed: false}
+                extra = {completed: false};
                 break;
         }
 
