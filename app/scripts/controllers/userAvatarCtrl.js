@@ -24,9 +24,9 @@ habitrpg.controller( 'userAvatarCtrl', function CharacterCtrl( $scope, $location
             User.log({op:"set",path:"preferences.gender",value:gender})
         }
 
-        $scope.changeArmor = function(v) {
+        $scope.changeArmor = function(set) {
             User.user.preferences.armorSet = v
-            User.log({op:"set",path:"preferences.armorSet",value:v})
+            User.log({op:"set",path:"preferences.armorSet",value:set})
         }
 
          $scope.hideUserAvatar = function() {
