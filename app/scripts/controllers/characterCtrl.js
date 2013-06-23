@@ -23,6 +23,10 @@ habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location,
             }
         })
 
+        $scope.showUserAvatar = function() {
+            $('.userAvatar').show()
+        }
+
 
 
 });

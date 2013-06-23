@@ -13,13 +13,53 @@
 <body>
 <div ng-controller="AuthCtrl">
 </div>
+
+<div ng-controller="userAvatarCtrl" class="userAvatar">
+    <div>
+    <menu type="list">
+    <li class="customize-menu">
+        <menu label="Head">
+            <button type="button" class="m_head_0 customize-option" data-value="m" ng-click="changeSex('m')"></button>
+            <button type="button" class="f_head_0 customize-option" data-value="f" ng-click="changeSex('f')"></button>
+        </menu>
+    </li>
+
+    <li class="customize-menu">
+        <menu label="Hair">
+            <button type="button" class="{{user.preferences.gender}}_hair_blond customize-option" data-value="blond" ng-click="changeHair('blond')"></button>
+            <button type="button" class="{{user.preferences.gender}}_hair_black customize-option" data-value="black" ng-click="changeHair('black')"></button>
+            <button type="button" class="{{user.preferences.gender}}_hair_brown customize-option" data-value="brown" ng-click="changeHair('brown')"></button>
+            <button type="button" class="{{user.preferences.gender}}_hair_white customize-option" data-value="white" ng-click="changeHair('white')"></button>
+        </menu>
+    </li>
+
+    <li class="customize-menu">
+        <menu label="Skin">
+            <button type="button" class="{{user.preferences.gender}}_skin_dead customize-option" data-value="dead"   ng-click="changeSkin('dead')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_orc customize-option" data-value="orc"     ng-click="changeSkin('orc')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_asian customize-option" data-value="asian" ng-click="changeSkin('asian')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_black customize-option" data-value="black" ng-click="changeSkin('black')"></button>
+            <button type="button" class="{{user.preferences.gender}}_skin_white customize-option" data-value="white" ng-click="changeSkin('white')"></button>
+        </menu>
+    </li>
+
+     <li class="customize-menu">
+        <menu label="Clothing" ng-show="user.preferences.gender == 'f'">
+            <button type="button" class="f_armor_0_v1 customize-option" data-value="v1" ng-click="changeArmor('v1')"></button>
+            <button type="button" class="f_armor_0_v2 customize-option" data-value="v2" ng-click="changeArmor('v2')"></button>
+        </menu>
+    </li>
+    </menu>
+    <button id="close" ng-click="hideUserAvatar()">Close</button>
+    </div>
+</div>
 <div ng-controller="WrapperCtrl" class="wrapper" hm-swiperight="openMenu()" hm-swipeleft="closeMenu()">
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
         <div ng-controller="CharacterCtrl">
 
             <div class="herobox">
-                <div class='character-sprites'>
+                <div class='character-sprites' ng-click="showUserAvatar()">
                     <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
                     <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
                     <span class="{{equipped(user, 'armor')}}"></span>
@@ -118,6 +158,8 @@
 <script src="scripts/services/notificationServices.js"></script>
 <script src="scripts/controllers/notificationCtrl.js"></script>
 <script src="scripts/controllers/loginCtrl.js"></script>
+<script src="scripts/controllers/eventCtrl.js"></script>
+<script src="scripts/controllers/userAvatarCtrl.js"></script>
 <!-- endbuild -->
 </body>
 </html>

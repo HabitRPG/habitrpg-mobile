@@ -575,3 +575,17 @@ width:100%;
 
 
 }
+
+.userAvatar {
+  position:absolute;
+  z-index:99999;
+  width:600px;
+  background-color: #fff;
+  left:100px;
+  display:none;
+
+}
+
+.customize-menu {
+  list-style: none;
+}
