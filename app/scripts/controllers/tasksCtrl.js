@@ -40,17 +40,19 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         var statsDiff = {};
         var oldStats = _.clone(User.user.stats);
 
-        Algos.score(User.user,task,direction);
+        Algos.score(User.user, task, direction);
 
         //compute the stats change.
-        _.each (oldStats,function (value,key) {
+        _.each(oldStats, function (value, key) {
             var newValue = User.user.stats[key];
-            if (newValue!==value) {
-                statsDiff[key]=newValue-value;
+            if (newValue !== value) {
+                statsDiff[key] = newValue - value;
             }
         });
-        //notify user.
-        Notification.push({type:'stats',stats:statsDiff});
+        //notify user if there are changes in stats.
+        if (Object.keys(statsDiff).length > 0) {
+            Notification.push({type: 'stats', stats: statsDiff});
+        }
         User.log({op: 'score', task: task, dir: direction});
     };
 
