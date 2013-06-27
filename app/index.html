@@ -98,10 +98,13 @@
     <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
         <div ng-controller="StatsCtrl">
             <div class="topbar">
-                <div id="lines" gf-Tap="toggleMenu()"></div>
-                <div>{{queueLength()}}</div>
-                <input type="button" value="{{refreshing()}}" gf-Tap="User.log({})">
-                <input type="button" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">
+                <button class="btn btn--icon btn--large floatLeft" gf-Tap="toggleMenu()"><!-- ⚙ -->J</button>
+                <button class="btn btn--icon floatRight" gf-Tap="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
+            </div>
+            <!-- this stuff is just for development? I won't style this right now -->
+            <div class="appStatusArea">
+                <output class="queueLengthReporter">{{queueLength()}}</output>
+                <input type="button" class="appOnlineToggle" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">
             </div>
         </div>
         <div ng-view></div>
