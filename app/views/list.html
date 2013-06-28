@@ -5,7 +5,10 @@
 <div ng-controller="TasksCtrl" class="taskWell">
 
     <h2 class="taskTypeHeader">{{taskTypeTitle()}}</h2>
-    <div ng-show="taskType()=='todo'"><a href="#todo">Active</a> <a href="#todo/completed">Completed</a></div>
+    <div class="filterBar" ng-show="taskType()=='todo'">
+        <a class="btn btn--small btn--filter current" href="#todo">Active</a>
+        <a class="btn btn--small btn--filter" href="#todo/completed">Completed</a>
+    </div>
 
     <div class="task_wrapper">
 
