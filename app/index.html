@@ -2,9 +2,9 @@
 <html lang="en" ng-app="habitrpg" ng-controller="RootCtrl">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>HabitRPG</title>
-    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:300,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="shared/css/index.css">
     <link rel="stylesheet" href="styles/beta.css">
     <style>[ng-cloak] {
@@ -57,42 +57,11 @@
 <div ng-controller="WrapperCtrl" class="wrapper" hm-swiperight="openMenu()" hm-swipeleft="closeMenu()">
     <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
 
-        <div ng-controller="CharacterCtrl">
-
-            <div class="herobox">
-                <div class='character-sprites' ng-click="showUserAvatar()">
-                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
-                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
-                    <span class="{{equipped(user, 'armor')}}"></span>
-                    <span class="{{equipped(user, 'head')}}"></span>
-                    <span class="{{user.preferences.gender}}_head_0"></span>
-                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
-                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
-                </div>
-            </div>
-
-
-            <div class="user">
-                {{user.auth.local.username}}<br>
-                level {{user.stats.lvl}}<br>
-                Gold: {{user.stats.gp | gold}}
-                Silver: {{user.stats.gp | silver}}
-            </div>
-            <div style="clear:both"></div>
-
-            <div class="meter animate">
-                <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
-            </div>
-
-            <div class="meter animate orange">
-                <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
-            </div>
-        </div>
-
         <div ng-controller="MenuCtrl" class="navLinkBlock">
             <a class="mainNavLink" ng-repeat="button in nav" gf-Tap="toggleMenu()" href="{{button.name}}">{{button.link}}</a>
-
+            <a class="mainNavLink" ng-click="toggleMenu()" href="#profile">Profile</a>
             <a class="mainNavLink lastNavLink" ng-click="toggleMenu()" href="#settings">Settings</a>
+        </div>
 
     </nav>
     <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
@@ -103,8 +72,8 @@
             </div>
             <!-- this stuff is just for development? I won't style this right now -->
             <div class="appStatusArea">
-                <output class="queueLengthReporter">{{queueLength()}}</output>
                 <input type="button" class="appOnlineToggle" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">
+                | <output class="queueLengthReporter">{{queueLength()}}</output>
             </div>
         </div>
         <div ng-view></div>

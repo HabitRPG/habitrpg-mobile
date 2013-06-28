@@ -36,11 +36,16 @@
 /* Global Styles
 =============================== */
 
+html, input {
+    /* input is required to override browser default */
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+}
+
 body {
     margin: 0;
     height: 100%;
     z-index: 1;
-    font-family: 'Lato', sans-serif !important;
 }
 
 .wrapper {
@@ -83,6 +88,12 @@ body {
         font-size: 2.25em;
     }
 
+    .btn--small {
+        width: 1.5em;
+        height: 1.5em;
+        font-size: 1.5em;
+    }
+
 
 
 /* Top Bar
@@ -100,14 +111,20 @@ body {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAIvHb3TGGF8EEd8/9ZZYAEYB8RmROaABACVRQ3gbQlLJgAAAABJRU5ErkJggg==);
     position: absolute;
     top: 0;
-    left: 35%;
-    width: 30%;
+    left: 32%;
     padding: 0.75em;
 }
     .queueLengthReporter {
+        font-weight: 700;
     }
 
     .appOnlineToggle {
+        -webkit-appearance: none;
+        border: 0;
+        background: 0;
+        font: 400 14px "Lato";
+        padding: 0;
+        margin: 0;
     }
 
 /* Nav Panel
@@ -115,7 +132,9 @@ body {
 
 .menu {
   position:absolute;
-  height:100%;
+  height: 100%;
+  padding-bottom: 0.75em;
+  background-color: blue;
   width:15em;
   left:-15em;
   background-color:#212121;
@@ -132,9 +151,11 @@ body {
 
 /* Navigation Items
 =============================== */
-
+.menu {
+    -webkit-overflow-scroll: touch;
+    overflow: scroll;
+}
 .navLinkBlock {
-    padding-top: 0.75em;
 }
     .mainNavLink {
         font-size: 1.5em;
@@ -147,10 +168,6 @@ body {
     }
 
     .lastNavLink {
-        /* position: absolute; */
-        /* bottom: 0; */
-        /* left: 0; */
-        /* right: 0; */
         background: #333;
     }
 
@@ -185,7 +202,7 @@ body {
         border: 0;
         margin: 0 0 0.75em;
         width: 100%;
-        padding: 0.75em 1.5em;
+        padding: 0.75em 1em;
         font-size: 1.25em;
         line-height: 1.5;
         color: rgb(51,51,51);
@@ -197,12 +214,42 @@ body {
             box-shadow: inset 0 0 3px #7aa4ee,inset 0 0 1px #5288e9;
         }
 
-.task_list {
 
+.taskList {
+    padding: 0;
+    margin: 0;
 }
+    .taskItem {
+        font-size: 1.25em;
+        list-style: none;
+        padding: 1em 0.75em;
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        letter-spacing: -4px;
+    }
+        .taskActions, .taskText {
+            letter-spacing: normal;
+            vertical-align: middle;
+        }
+        .taskActions {
+            float: left;
+            margin-right: 0.75em;
+        }
+            .taskButton {
+                color: #555;
+            }
+        .taskText {
+            overflow-x: scroll;
+            margin: 0;
+            line-height: 2.1;
+            white-space: nowrap;
+        }
 
-    .list {
-        margin: 0;
+    .emptyStateMsg {
+        font-size: 1.25em;
+        padding: 0 1.5em;
+        color: rgb(51,51,51);
+        line-height: 1.5;
     }
 
 
@@ -456,11 +503,6 @@ width:100%;
   background:rgb(230, 184, 175);
 }
 
-.task_list {
-
-  margin-bottom:10px;
-
-}
 
 #task-list li label {
 

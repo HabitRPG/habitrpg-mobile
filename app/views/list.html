@@ -10,22 +10,23 @@
     <div class="task_wrapper">
 
         <form id="task-form" ng-submit="addTask()">
-            <input type="text" placeholder="Add new {{taskTypeTitle()}}" ng-model="newTask" class="newTaskPrompt">
+            <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="newTaskPrompt">
         </form>
 
-        <div class="task_list">
-            <div class="no_tasks" ng-show="tasks().length == 0">No {{taskTypeTitle()}}.</div>
-            <ul id="task-list" class="list" ng-hide="tasks().length == 0" sort>
-                <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
-                    <div class="lines" ng-hide="tasks().length == 0 || task.type == 'habit' || task.type == 'reward'"></div>
+        <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskTypeTitle()}}! Why don't you add some?</p>
 
+        <ul id="task-list" class="taskList" ng-hide="tasks().length == 0" sort>
+            <li class="taskItem" ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
+                <!-- what is this div for? Don't see its purpose, but
+                won't delete it until I know what its there for. – Zak -->
+                <!-- <div class="lines" ng-hide="tasks().length == 0 || task.type == 'habit' || task.type == 'reward'"></div> -->
+
+                <div class="taskActions">
                     <!-- Habits -->
                     <span ng-show="task.type == 'habit'" ng-cloak>
-                        <input type="button" value="+" ng-click="score(task,'up')"/>
-                        <input type="button" value="-" ng-click="score(task,'down')"/>
+                        <button class="btn btn--small taskButton" ng-click="score(task,'up')">＋</button>
+                        <button class="btn btn--small taskButton" ng-click="score(task,'down')">－</button>
                     </span>
-
-                    {{task.title}}
 
                     <!-- Daily, Todo -->
                     <span ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak>
@@ -36,13 +37,12 @@
                     <span>
                         <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak />
                     </span>
+                </div>
 
+                <p class="taskText" ng-click="selectTask(task)">{{task.text}}</p>
 
-                    <span ng-click="selectTask(task)" class="text">{{task.text}}</span>
-
-                </li>
-            </ul>
-        </div>
+            </li>
+        </ul>
     </div>
 
    </div>
