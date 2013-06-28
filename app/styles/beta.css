@@ -24,7 +24,7 @@
 }
 
 [data-animation="spin"] {
-    -webkit-animation: spin 0.25s infinite;
+    -webkit-animation: spin 1s infinite linear;
 }
 
 @-webkit-keyframes spin{
@@ -78,8 +78,10 @@ body {
     font-size: 2em;
 }
     .btn--icon {
-    font-family: 'android-icons';
-    -webkit-font-smoothing: antialiased;
+        font-family: 'android-icons';
+        -webkit-font-smoothing: antialiased;
+        padding: 0;
+        -webkit-transform-origin: 50% 53%;
     }
 
     .btn--large {
