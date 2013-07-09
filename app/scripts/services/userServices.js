@@ -113,6 +113,7 @@ angular.module('userServices', []).
                     authenticated = true;
                     settings.auth.apiId = apiId;
                     settings.auth.apiToken = apiToken;
+                    settings.online = true;
                     this.log({}, cb);
                 } else {
                     alert('Please enter your ID and Token in settings.')
