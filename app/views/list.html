@@ -18,8 +18,11 @@
 
         <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskTypeTitle()}}! Why don't you add some?</p>
 
-        <ul id="task-list" ng-hide="tasks().length == 0" sort>
-            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
+        <ul id="task-list" class="taskList" ng-hide="tasks().length == 0" sort>
+            <li class="taskItem" ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
+                <!-- what is this div for? Don't see its purpose, but
+                won't delete it until I know what its there for. – Zak -->
+                <!-- <div class="lines" ng-hide="tasks().length == 0 || task.type == 'habit' || task.type == 'reward'"></div> -->
 
                 <div class="taskActions">
                     <!-- Habits -->

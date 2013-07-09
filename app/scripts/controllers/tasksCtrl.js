@@ -61,25 +61,6 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         User.log({op: 'score', task: task, dir: direction});
     };
 
-    $scope.getClass = function(value) {
-        var out = ''
-        if (value < -20)
-            out += ' color-worst'
-        else if (value < -10)
-            out += ' color-worse'
-        else if (value < -1)
-            out += ' color-bad'
-        else if (value < 1)
-            out += ' color-neutral'
-        else if (value < 5)
-            out += ' color-good'
-        else if (value < 10)
-            out += ' color-better'
-        else
-            out += ' color-best'
-        return out
-    }
-
     $scope.addTask = function () {
         if (!$scope.newTask.length) {
             return;
