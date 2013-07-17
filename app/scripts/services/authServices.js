@@ -4,71 +4,95 @@
  * Services that persists and retrieves user from localStorage.
  */
 
+var facebook = {}
+
 angular.module('authServices', ['userServices']).
-    factory('Facebook', function($http, User){
-        //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
-        var auth,
-            user = User.user;
+factory('Facebook', function($http, User) {
+    //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
+    var auth, user = User.user;
 
-        return {
+    facebook.handleStatusChange = function(session) {
+        if (session.authResponse) {
 
-            getAuth: function() {
-                return auth;
-            },
+            FB.api('/me', {
+                fields: 'name, picture, email'
+            }, function(response) {
+                console.log(response.error)
+                if (!response.error) {
 
-            login: function() {
-                user.id = '';
-                user.apiToken = '';
-                User.authenticate();
-                return;
-
-                FB.login(function(response) {
-                    if (response.authResponse) {
-                        // 1. get userid & accesstoken
-                        // 2. store in user
-                        // 3. authenticate()
-                        debugger;
-                    } else {
-                        console.log('Facebook login failed', response);
+                    var data = {
+                        name: response.name,
+                        facebook_id: response.id,
+                        email: response.email
                     }
-                })
-            },
 
-            logout: function() {
-                FB.logout(function(response) {
-                    if(response) {
-                        // todo what to do here?
-                        debugger;
-                    } else {
-                        console.log('Facebook logout failed.', response);
-                    }
-                })
-            }
+                    $http.post('http://127.0.0.1:3000/api/v1/user/auth/facebook', data).success(function(data, status, headers, config) {
+                        User.authenticate(data.id, data.token, function(err) {
+                            if (!err) {
+                                alert('Login succesfull!');
+                                $location.path("/habit");
+                            }
+                        });
+                    }).error(function(response) {
+                        console.log('error')
+                    })
+
+                } else {
+                    alert('napaka')
+                }
+                //clearAction();
+            });
+        } else {
+            document.body.className = 'not_connected';
+            //clearAction();
         }
+    }
 
-    })
+    return {
 
-   .factory('LocalAuth', function($http, User){
+        authUser: function() {
+            FB.Event.subscribe('auth.statusChange', facebook.handleStatusChange);
+        },
 
-        var auth,
-            user = User.user;
+        getAuth: function() {
+            return auth;
+        },
 
-        return {
+        login: function() {
 
-            getAuth: function() {
-                return auth;
-            },
+            FB.login(null, {
+                scope: 'email'
+            });
+        },
 
-            login: function() {
-                user.id = '';
-                user.apiToken = '';
-                User.authenticate();
-                return;
-
-            },
-
-            logout: function() {
-            }
+        logout: function() {
+            FB.logout(function(response) {
+                window.location.reload();
+            });
         }
+    }
 
-    });
+})
+
+.factory('LocalAuth', function($http, User) {
+
+    var auth, user = User.user;
+
+    return {
+
+        getAuth: function() {
+            return auth;
+        },
+
+        login: function() {
+            user.id = '';
+            user.apiToken = '';
+            User.authenticate();
+            return;
+
+        },
+
+        logout: function() {}
+    }
+
+});

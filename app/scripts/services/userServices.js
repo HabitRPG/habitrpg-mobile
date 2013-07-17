@@ -152,7 +152,7 @@ angular.module('userServices', []).
 
         //If user does not have ApiID that forward him to settings.
         if (!settings.auth.apiId || !settings.auth.apiToken) {
-            $location.path("/settings");
+            $location.path("/login");
         } else {
             userServices.authenticate(settings.auth.apiId, settings.auth.apiToken)
         }

@@ -46,6 +46,8 @@ body {
     margin: 0;
     height: 100%;
     z-index: 1;
+    overflow:hidden !important;
+    overflow-x:hidden !important;
 }
 
 .wrapper {
@@ -55,8 +57,6 @@ body {
   right:0;
   bottom:0;
   left:0;
-  padding: 3.75em 0;
-  overflow-y: scroll;
   -webkit-overflow-scroll: touch;
 }
     .wrapper_animation {
@@ -774,3 +774,14 @@ width:100%;
 .customize-menu {
   list-style: none;
 }
+
+#task-list {
+    margin:0px;
+    padding:0px;
+}
+
+.taskWell {
+    overflow:hidden;
+    overflow-y:scroll;
+}
+

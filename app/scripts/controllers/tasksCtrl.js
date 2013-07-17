@@ -131,5 +131,7 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         }
     }
 
+    $('.taskWell').css('height', $(window).height())
+
 
 });

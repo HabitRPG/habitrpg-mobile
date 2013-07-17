@@ -5,6 +5,7 @@
  *
  * @type {angular.Module}
  */
+
 var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'hmTouchEvents'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
