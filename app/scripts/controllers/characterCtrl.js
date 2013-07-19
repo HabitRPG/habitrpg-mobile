@@ -10,7 +10,8 @@ habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location,
         $scope.user = User.user;
 
         $scope.equipped = function(user, type) {
-            return window.habitrpgShared.helpers.equipped(user, type);
+            var tier = (user.backer && user.backer.tier)
+            return window.habitrpgShared.helpers.equipped(type, user.items[type], user.preferences, tier);
         }
 
         $scope.$watch('user.tasks', function(){
