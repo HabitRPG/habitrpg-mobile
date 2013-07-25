@@ -13,26 +13,16 @@ $scope.toggleMenu = function() {
 	if ($scope.menuopen) {
 
 		$scope.menuclose = true;
-  		$scope.menuopen  = false;
+  	 $scope.menuopen  = false;
 
 	}else{
 
 		$scope.menuclose = false;
-  		$scope.menuopen  = true;
+  	 $scope.menuopen  = true;
 
 	}
 
 
 }
 
-$scope.openMenu = function() {
-    $scope.menuclose = false;
-    $scope.menuopen = true;
-}
-
-$scope.closeMenu = function() {
-    $scope.menuclose = true;
-    $scope.menuopen = false;
-}
-
-});
+})

@@ -5,9 +5,11 @@
  *
  */
 
-habitrpg.controller('AuthCtrl', function AuthCtrl($scope, Facebook, LocalAuth, User, $http) {
+habitrpg.controller('AuthCtrl', function AuthCtrl($scope, Facebook, LocalAuth, User, $http, $location) {
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
+
+    //localStorage.clear()
 
     document.addEventListener('deviceready', function() {
 
@@ -30,16 +32,16 @@ habitrpg.controller('AuthCtrl', function AuthCtrl($scope, Facebook, LocalAuth, U
             password: password
         }
 
-        $http.post('http://127.0.0.1:3000/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
-            console.log(data)
+        $.post('http://192.168.10.31:3000/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
+            
             User.authenticate(data.id, data.token, function(err) {
                 if (!err) {
                     alert('Login succesfull!');
                     $location.path("/habit");
                 }
             });
-        }).error(function(data) {
-            alert('Invalid username/password')
+        }).error(function(data, status, headers, config) {
+            alert(status)
         })
     }
 

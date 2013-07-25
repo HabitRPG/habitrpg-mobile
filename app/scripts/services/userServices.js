@@ -19,7 +19,7 @@ angular.module('userServices', []).
                 online: false
             },
             settings = {}, //habit mobile settings (like auth etc.) to be stored here
-            URL = 'http://127.0.0.1:3000/api/v2',
+            URL = 'http://192.168.10.31:3000/api/v2',
             schema = {
                 stats: { gp: 0, exp: 0, lvl: 1, hp: 50 },
                 party: { current: null, invitation: null },
@@ -32,6 +32,7 @@ angular.module('userServices', []).
                 flags: {}
             },
             user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
+            var apiId, apiToken = ''
 
         var syncQueue = function (cb) {
             if (!authenticated) {
@@ -60,7 +61,8 @@ angular.module('userServices', []).
                 sent.push(queue.shift());
             });
 
-            $http.post(URL, sent)
+            
+            $http.post(URL + '?date=' + new Date().getTime(), sent)
                 .success(function (data, status, heacreatingders, config) {
                     data.tasks = _.toArray(data.tasks);
                     //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
@@ -88,8 +90,79 @@ angular.module('userServices', []).
 
                 });
 
+                }
 
-        };
+                
+
+                /*var data = $.ajax({
+                url:URL,
+                type:'POST',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('x-api-key', settings.auth.apiToken)
+                    xhr.setRequestHeader('x-api-user', settings.auth.apiId)
+                },
+                data: JSON.stringify(sent),
+                async:false,
+                contentType: 'application/json;charset=utf-8'}).responseText
+
+                data = JSON.parse(data)
+
+                data.tasks = _.toArray(data.tasks);
+                    //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
+                if (!queue.length) {
+                        //we can't do user=data as it will not update user references in all other angular controllers.
+                    _.extend(user, data);
+                }
+                
+                sent.length = 0;
+                settings.fetching = false;
+                save();
+                
+                if (cb) {
+                        cb(false)
+                }
+
+                */
+
+                /*
+                var http = new XMLHttpRequest();
+
+                var url = "http://192.168.10.31:3000/api/v2";
+                var params = JSON.stringify(sent);
+                http.open("POST", url + '?date=' +  new Date().getTime(), true);
+
+                http.setRequestHeader("Content-type", "application/json");
+                http.setRequestHeader('x-api-key', settings.auth.apiToken)
+                http.setRequestHeader('x-api-user', settings.auth.apiId)
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 200) {
+                    var data = JSON.parse(http.responseText)
+                    data.tasks = _.toArray(data.tasks);
+                    //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
+                    if (!queue.length) {
+                        //we can't do user=data as it will not update user references in all other angular controllers.
+                        _.extend(user, data);
+                    }
+                    sent.length = 0;
+                    settings.fetching = false;
+                    save();
+                    if (cb) {
+                        cb(false)
+                    }
+
+                    syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
+             
+                }
+                
+
+                }
+                
+                http.send(params);
+
+                */
+
+
         var save = function () {
             localStorage.setItem(STORAGE_ID, JSON.stringify(user));
             localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(settings));
@@ -105,14 +178,14 @@ angular.module('userServices', []).
                 };
             },
 
-            authenticate: function (apiId, apiToken, cb) {
-                if (!!apiId && !!apiToken) {
+            authenticate: function (uuid, token, cb) {
+                if (!!uuid && !!token) {
                     $http.defaults.headers.common = {'Content-Type': "application/json;charset=utf-8"};
-                    $http.defaults.headers.common['x-api-user'] = apiId;
-                    $http.defaults.headers.common['x-api-key'] = apiToken;
+                    $http.defaults.headers.common['x-api-user'] = uuid;
+                    $http.defaults.headers.common['x-api-key'] = token;
                     authenticated = true;
-                    settings.auth.apiId = apiId;
-                    settings.auth.apiToken = apiToken;
+                    settings.auth.apiId = uuid;
+                    settings.auth.apiToken = token;
                     settings.online = true;
                     this.log({}, cb);
                 } else {

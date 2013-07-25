@@ -11,7 +11,7 @@
         display: none
     }</style>
 </head>
-<body>
+<body ng-cloak>
 
 <div ng-controller="AuthCtrl">
 </div>
@@ -67,8 +67,8 @@
     </nav>
     <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
         <div ng-controller="StatsCtrl">
-            <div class="topbar">
-                <button class="btn btn--icon btn--large floatLeft" gf-Tap="toggleMenu()"><!-- ⚙ -->J</button>
+            <div class="topbar" ng-show="authenticated()">
+                <button class="btn btn--icon btn--large floatLeft" ng-click="toggleMenu()"><!-- ⚙ -->J</button>
                 <button class="btn btn--icon floatRight" gf-Tap="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
             </div>
             <!-- this stuff is just for development? I won't style this right now -->
@@ -77,13 +77,13 @@
                 | <output class="queueLengthReporter">{{queueLength()}}</output>
             </div>
         </div>
-        <div ng-view></div>
+        <div ng-view ng-cloak></div>
     </div>
 </div>
 
 <!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
 <!-- See http://docs.angularjs.org/guide/di "$injection Annotation" for when we're ready to deploy -->
-<script src="components/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
 <script src="components/angular-resource/angular-resource.js"></script>
 <script src="components/angular-cookies/angular-cookies.js"></script>
 <script src="components/angular-sanitize/angular-sanitize.js"></script>
