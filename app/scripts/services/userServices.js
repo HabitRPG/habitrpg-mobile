@@ -5,7 +5,7 @@
  */
 
 angular.module('userServices', []).
-    factory('User', function ($http, $location) {
+    factory('User', function ($http, $location, Notification) {
         var STORAGE_ID = 'habitrpg-user',
             HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
             authenticated = false,
@@ -19,7 +19,7 @@ angular.module('userServices', []).
                 online: false
             },
             settings = {}, //habit mobile settings (like auth etc.) to be stored here
-            URL = 'http://192.168.10.31:3000/api/v2',
+            URL = 'http://127.0.0.1:3000/api/v2',
             schema = {
                 stats: { gp: 0, exp: 0, lvl: 1, hp: 50 },
                 party: { current: null, invitation: null },
@@ -85,82 +85,12 @@ angular.module('userServices', []).
                         queue.push(sent.shift())
                     });
                     settings.fetching = false;
-                    alert('Sync error: ' + data.err);
+                    Notification.push({type:'text', text:"We're offline :("})
                     console.log(data);
 
                 });
 
                 }
-
-                
-
-                /*var data = $.ajax({
-                url:URL,
-                type:'POST',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('x-api-key', settings.auth.apiToken)
-                    xhr.setRequestHeader('x-api-user', settings.auth.apiId)
-                },
-                data: JSON.stringify(sent),
-                async:false,
-                contentType: 'application/json;charset=utf-8'}).responseText
-
-                data = JSON.parse(data)
-
-                data.tasks = _.toArray(data.tasks);
-                    //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
-                if (!queue.length) {
-                        //we can't do user=data as it will not update user references in all other angular controllers.
-                    _.extend(user, data);
-                }
-                
-                sent.length = 0;
-                settings.fetching = false;
-                save();
-                
-                if (cb) {
-                        cb(false)
-                }
-
-                */
-
-                /*
-                var http = new XMLHttpRequest();
-
-                var url = "http://192.168.10.31:3000/api/v2";
-                var params = JSON.stringify(sent);
-                http.open("POST", url + '?date=' +  new Date().getTime(), true);
-
-                http.setRequestHeader("Content-type", "application/json");
-                http.setRequestHeader('x-api-key', settings.auth.apiToken)
-                http.setRequestHeader('x-api-user', settings.auth.apiId)
-
-                http.onreadystatechange = function() {//Call a function when the state changes.
-                    if(http.readyState == 4 && http.status == 200) {
-                    var data = JSON.parse(http.responseText)
-                    data.tasks = _.toArray(data.tasks);
-                    //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
-                    if (!queue.length) {
-                        //we can't do user=data as it will not update user references in all other angular controllers.
-                        _.extend(user, data);
-                    }
-                    sent.length = 0;
-                    settings.fetching = false;
-                    save();
-                    if (cb) {
-                        cb(false)
-                    }
-
-                    syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
-             
-                }
-                
-
-                }
-                
-                http.send(params);
-
-                */
 
 
         var save = function () {
