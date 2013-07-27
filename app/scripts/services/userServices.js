@@ -34,6 +34,15 @@ angular.module('userServices', []).
             user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
             var apiId, apiToken = ''
 
+              //first we populate user with schema
+             _.extend(user, schema);
+
+              //than we try to load localStorage
+            
+            if (localStorage.getItem(STORAGE_ID)) {
+                _.extend(user, JSON.parse(localStorage.getItem(STORAGE_ID)));
+            }
+
         var syncQueue = function (cb) {
             if (!authenticated) {
                 alert("Not authenticated, can't sync, go to settings first.");
@@ -158,15 +167,6 @@ angular.module('userServices', []).
             $location.path("/login");
         } else {
             userServices.authenticate(settings.auth.apiId, settings.auth.apiToken)
-        }
-
-
-        //first we populate user with schema
-        _.extend(user, schema);
-
-        //than we try to load localStorage
-        if (localStorage.getItem(STORAGE_ID)) {
-            _.extend(user, JSON.parse(localStorage.getItem(STORAGE_ID)));
         }
 
         return userServices;
