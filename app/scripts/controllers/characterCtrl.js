@@ -24,6 +24,18 @@ habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location,
             }
         })
 
+        $scope.floor = Math.floor;
+        $scope.count = function(arr) {
+            return _.size(arr);
+        }
+        $scope.tnl = habitrpgShared.algos.tnl;
+//        $scope.userStr = habitrpgShared.helpers.userStr;
+//        $scope.userDef = habitrpgShared.helpers.userDef;
+//        $scope.totalStr = habitrpgShared.helpers.totalStr;
+//        $scope.totalDef = habitrpgShared.helpers.totalDef;
+//        $scope.itemText = habitrpgShared.helpers.itemText;
+//        $scope.itemStat = habitrpgShared.helpers.itemStat;
+
         $scope.showUserAvatar = function() {
             $('.userAvatar').show()
         }
