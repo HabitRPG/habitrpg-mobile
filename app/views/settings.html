@@ -1,7 +1,8 @@
 <div ng-controller="SettingsCtrl">
-    <div>Id:<input type="text" ng-model="settings.auth.apiId">
-        Token:<input type="text" ng-model="settings.auth.apiToken">
-        <input type="button" value="Save" ng-click="auth(settings.auth.apiId,settings.auth.apiToken)">
-        <input type="button" value="RESET APPLICATION" ng-click="resetApp()">
-    </div>
+    <form ng-submit="resetApp()">
+        <p>Id: <input type="text" ng-model="settings.auth.apiId"></p>
+        <p>Token:<input type="text" ng-model="settings.auth.apiToken"></p>
+        <p><input type="button" value="Save" ng-click="auth(settings.auth.apiId,settings.auth.apiToken)"></p>
+        <p><input type="submit" value="RESET APPLICATION" /></p>
+    </form>
 </div>

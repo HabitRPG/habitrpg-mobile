@@ -29,22 +29,25 @@
                 <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
             </div>
 
-            <h4>Items</h4>
-            <p><strong>{{itemText('weapon',user.items.weapon)}}</strong>: {{itemStat('weapon',user.items.weapon)}}% Exp gain</p>
-            <p><strong>{{itemText('armor',user.items.armor)}}</strong>: {{itemStat('armor',user.items.armor)}}% Defense</p>
-            <p><strong>{{itemText('head',user.items.head)}}</strong>: {{itemStat('head',user.items.head)}}% Defense</p>
-            <p><strong>{{itemText('shield',user.items.shield)}}</strong>: {{itemStat('shield',user.items.shield)}}% Defense</p>
+            <h3>Items</h3>
+            <ul class="stats-list">
+                <p><strong>{{itemText('weapon',user.items.weapon)}}</strong>: {{itemStat('weapon',user.items.weapon)}}% Exp gain</p>
+                <p><strong>{{itemText('armor',user.items.armor)}}</strong>: {{itemStat('armor',user.items.armor)}}% Defense</p>
+                <p><strong>{{itemText('head',user.items.head)}}</strong>: {{itemStat('head',user.items.head)}}% Defense</p>
+                <p><strong>{{itemText('shield',user.items.shield)}}</strong>: {{itemStat('shield',user.items.shield)}}% Defense</p>
+            </ul>
 
-            <h4>Stats</h4>
-            <p><strong>HP</strong>: {{floor(user.stats.hp)}} / 50</p>
-            <p><strong>GP</strong>: {{floor(user.stats.gp)}}</p>
-            <p><strong>Lvl</strong>: {{user.stats.lvl}}</p>
-            <p><strong>Exp</strong>: {{floor(user.stats.exp)}} / {{tnl(user.stats.lvl)}}</p>
-            <p><strong>Strength</strong>: {{userStr(user.stats.lvl)}}</p>
-            <p><strong>Defense</strong>: {{userDef(user.stats.lvl)}}</p>
-            <p><strong>Pets Found</strong>: {{count(user.items.pets)}}</p>
-            <hr/>
-            <p><strong>Total Strength</strong>: {{totalStr(user.stats.lvl, user.items.weapon)}} %</p>
-            <p><strong>Total Defense</strong>: {{totalDef(user.stats.lvl, user.items.armor, user.items.head, user.items.shield)}} %</p>
-
+            <h3>Stats</h3>
+            <ul class="stats-list">
+                <li><strong>HP</strong>: {{floor(user.stats.hp)}} / 50</li>
+                <li><strong>GP</strong>: {{floor(user.stats.gp)}}</li>
+                <li><strong>Lvl</strong>: {{user.stats.lvl}}</li>
+                <li><strong>Exp</strong>: {{floor(user.stats.exp)}} / {{tnl(user.stats.lvl)}}</li>
+                <li><strong>Strength</strong>: {{userStr(user.stats.lvl)}}</li>
+                <li><strong>Defense</strong>: {{userDef(user.stats.lvl)}}</li>
+                <li><strong>Pets Found</strong>: {{count(user.items.pets)}}</li>
+                <li><hr/></li>
+                <li><strong>Total Strength</strong>: {{totalStr(user.stats.lvl, user.items.weapon)}} %</li>
+                <li><strong>Total Defense</strong>: {{totalDef(user.stats.lvl, user.items.armor, user.items.head, user.items.shield)}} %</li>
+            </ul>
 </div>

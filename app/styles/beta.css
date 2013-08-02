@@ -800,3 +800,19 @@ width:100%;
   min-height: 85px;
 }
 
+
+
+/* ------------------
+Character
+--------------------*/
+
+ul.stats-list {
+    list-style: none;
+}
+
+ul.stats-list {
+    overflow-x: scroll;
+    margin: 0;
+    line-height: 2.1;
+    white-space: nowrap;
+}
