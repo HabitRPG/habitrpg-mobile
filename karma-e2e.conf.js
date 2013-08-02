@@ -1,26 +1,21 @@
-// Testacular configuration
+// Karma E2E configuration
 
 // base path, that will be used to resolve files and exclude
 basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-  'app/components/angular/angular.js',
-  'app/components/angular-mocks/angular-mocks.js',
-  'app/scripts/*.js',
-  'app/scripts/**/*.js',
-  'test/mock/**/*.js',
-  'test/spec/**/*.js'
+  ANGULAR_SCENARIO,
+  ANGULAR_SCENARIO_ADAPTER,
+  'test/e2e/**/*.js'
 ];
 
 // list of files to exclude
 exclude = [];
 
 // test results reporter to use
-// possible values: dots || progress
-reporter = 'progress';
+// possible values: dots || progress || growl
+reporters = ['progress'];
 
 // web server port
 port = 8080;
@@ -43,10 +38,21 @@ autoWatch = false;
 // - ChromeCanary
 // - Firefox
 // - Opera
-// - Safari
+// - Safari (only Mac)
 // - PhantomJS
+// - IE (only Windows)
 browsers = ['Chrome'];
+
+// If browser does not capture in given timeout [ms], kill it
+captureTimeout = 5000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
 singleRun = false;
+
+// Uncomment the following lines if you are using grunt's server to run the tests
+// proxies = {
+//   '/': 'http://localhost:9000/'
+// };
+// URL root prevent conflicts with the site root
+// urlRoot = '_karma_';
