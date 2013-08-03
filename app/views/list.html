@@ -12,7 +12,7 @@
     <div class="task_wrapper">
 
         <form id="task-form" ng-submit="addTask()">
-            <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="topcoat-text-input--large">
+            <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="newTaskPrompt">
         </form>
 
         <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskTypeTitle()}}! Why don't you add some?</p>

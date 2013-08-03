@@ -6,11 +6,11 @@
  * - exposes the model to the template and provides event handlers
  */
 
-habitrpg.controller('MenuCtrl', function($scope, $location) {
+habitrpg.controller('MenuCtrl', function($scope, $rootScope, $location, User) {
 
   $scope.clickLink = function(link){
     $scope.currentTitle = link.name;
-    $scope.menuopen = false;
+    $rootScope.menuopen = false;
     $location.path(link.link);
   }
 
@@ -22,5 +22,8 @@ habitrpg.controller('MenuCtrl', function($scope, $location) {
     { link:'/profile',   name:'Profile' },
     { link:'/settings',  name:'Settings'}
   ]
+
+  // Start at habits
+  $scope.clickLink($scope.nav[0]);
 
 });

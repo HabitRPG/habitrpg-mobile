@@ -1,10 +1,9 @@
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {display: none;}
-
 /* FIXME */
 #content {
     background-color: #F0F1F1;
     height: 100%;
     min-height: 780px;
+    padding:0px;
 }
 
 /**
@@ -55,4 +54,16 @@
 }
 #sideNav .topcoat-list__item:first-child {
     border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/**
+ * Forms
+ */
+
+form input {
+    width: 90%;
+}
+
+form label {
+    color: black;
 }
