@@ -11,7 +11,7 @@ habitrpg.controller('MenuCtrl', function($scope, $location) {
   $scope.clickLink = function(link){
     $scope.currentTitle = link.name;
     $scope.menuopen = false;
-    $location.url(link.link);
+    $location.path(link.link);
   }
 
   $scope.nav = [

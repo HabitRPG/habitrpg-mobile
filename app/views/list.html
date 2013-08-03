@@ -4,7 +4,6 @@
 
 <div ng-controller="TasksCtrl" class="taskWell">
 
-    <h2 class="taskTypeHeader">{{taskTypeTitle()}}</h2>
     <div class="filterBar" ng-show="taskType()=='todo'">
         <a class="btn btn--small btn--filter current" href="#todo">Active</a>
         <a class="btn btn--small btn--filter" href="#todo/completed">Completed</a>
@@ -13,36 +12,39 @@
     <div class="task_wrapper">
 
         <form id="task-form" ng-submit="addTask()">
-            <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="newTaskPrompt">
+            <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="topcoat-text-input--large">
         </form>
 
         <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskTypeTitle()}}! Why don't you add some?</p>
 
-        <ul id="task-list" ng-hide="tasks().length == 0" sort>
-            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
 
-                <div class="taskActions">
-                    <!-- Habits -->
-                    <span ng-show="task.type == 'habit'" ng-cloak>
-                        <button class="btn btn--small taskButton" ng-click="score(task,'up')">＋</button>
-                        <button class="btn btn--small taskButton" ng-click="score(task,'down')">－</button>
-                    </span>
+        <div class="topcoat-list__container">
+            <ul class="topcoat-list" ng-hide="tasks().length == 0" sort>
+                <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}" class="taskItem topcoat-list__item {{getClass(task.value)}}">
 
-                    <!-- Daily, Todo -->
-                    <span ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak>
-                        <input class="toggle" type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'/>
-                    </span>
+                    <div class="taskActions">
+                        <!-- Habits -->
+                        <span ng-show="task.type == 'habit'" ng-cloak>
+                            <button class="btn btn--small taskButton" ng-click="score(task,'up')">＋</button>
+                            <button class="btn btn--small taskButton" ng-click="score(task,'down')">－</button>
+                        </span>
 
-                    <!-- Rewards -->
-                    <span>
-                        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak />
-                    </span>
-                </div>
+                        <!-- Daily, Todo -->
+                        <span ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak>
+                            <input class="toggle" type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'/>
+                        </span>
 
-                <p class="taskText" ng-click="selectTask(task)">{{task.text}}</p>
+                        <!-- Rewards -->
+                        <span>
+                            <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak />
+                        </span>
+                    </div>
 
-            </li>
-        </ul>
+                    <p class="taskText" ng-click="selectTask(task)">{{task.text}}</p>
+                </li>
+            </ul>
+        </div>
+
     </div>
 
    </div>
