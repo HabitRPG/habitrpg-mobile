@@ -1,0 +1,53 @@
+<div id="wrapper" ng-controller='MenuCtrl' hm-swiperight="menuopen = true" hm-swipeleft="menuopen = true">
+
+    <!-- Nav -->
+    <div class="max-width">
+        <div id="sideNav">
+            <div class="site">
+                <div class="topcoat-list__container">
+                    <h3 class="topcoat-list__header">Category</h3>
+                    <ul class="topcoat-list">
+                        <li ng-repeat="link in nav" class="topcoat-list__item">
+                            <a ng-click="clickLink(link)">{{link.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div id="site" ng-class="{open: menuopen}">
+
+        <!-- Header -->
+        <div class="topcoat-navigation-bar">
+            <div class="topcoat-navigation-bar__item left quarter">
+                <a class="topcoat-icon-button--quiet" ng-click="menuopen = !menuopen">
+                    <span class="topcoat-icon topcoat-icon--menu-stack"></span>
+                </a>
+            </div>
+            <div class="topcoat-navigation-bar__item center half">
+                <h1 class="topcoat-navigation-bar__title">{{currentTitle}}</h1>
+            </div>
+            <div class="topcoat-navigation-bar__item right quarter">
+                <a class="topcoat-icon-button--quiet">
+                    <span class="topcoat-icon topcoat-icon--edit"></span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div id="content" class="max-width" ng-controller="StatsCtrl">
+            <div class="topbar" ng-show="authenticated()">
+                <button class="btn btn--icon btn--large floatLeft" ng-click="toggleMenu()"><!-- ⚙ -->J</button>
+                <button class="btn btn--icon floatRight" gf-Tap="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
+            </div>
+            <!-- this stuff is just for development? I won't style this right now -->
+            <div class="appStatusArea">
+                <input type="button" class="appOnlineToggle" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">
+                | <output class="queueLengthReporter">{{queueLength()}}</output>
+            </div>
+            <div ng-view ng-cloak></div>
+        </div>
+    </div>
+</div>

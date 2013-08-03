@@ -6,38 +6,21 @@
  * - exposes the model to the template and provides event handlers
  */
 
-habitrpg.controller( 'MenuCtrl', function MenuCtrl( $scope, $location, filterFilter) {
+habitrpg.controller('MenuCtrl', function($scope, $location) {
 
- var nav = $scope.nav = [
+  $scope.clickLink = function(link){
+    $scope.currentTitle = link.name;
+    $scope.menuopen = false;
+    $location.url(link.link);
+  }
 
-    {
-    'name' :'#habit',
-    'img'  :'explorer.png',
-    'link' :'Habits'
-    },
-
-    {
-    'name' :'#daily',
-    'img'  :'contacts.png',
-    'link' :'Dailies'
-    },
-
-    {
-    'name' :'#todo',
-    'img'  :'todo.png',
-    'link' :'Todos'
-    },
-
-    {
-    'name' :'#reward',
-    'img'  :'explorer.png',
-    'link' :'Rewards'
-    }
-
+  $scope.nav = [
+    { link:'/habit',     name:'Habits'  },
+    { link:'/daily',     name:'Dailies' },
+    { link:'/todo',      name:'Todos'   },
+    { link:'/reward',    name:'Rewards' },
+    { link:'/profile',   name:'Profile' },
+    { link:'/settings',  name:'Settings'}
   ]
-
-
-
-
 
 });

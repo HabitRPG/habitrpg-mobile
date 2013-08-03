@@ -4,21 +4,7 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 
     $scope.user = User.user;
 
-    $scope.taskTypeTitle = function () {
-//        show title according to the location
-        switch ($location.path().split('/')[1]) {
-            case 'habit':
-                return 'Habits';
-            case 'daily':
-                return 'Dailies';
-            case 'todo':
-                return 'Todos';
-            case 'reward':
-                return 'Rewards';
-            default :
-                return "";
-        }
-    };
+
 
     $scope.taskTypeTitleSingular = function () {
 //        show title according to the location, singular form
