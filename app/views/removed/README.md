@@ -1,0 +1,1 @@
+These are files we'll delete eventually, just keeping around for reference for now. Depending on git history makes us less likely to reference them.
