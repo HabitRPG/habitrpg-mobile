@@ -27,20 +27,12 @@
         <div id="wrapper" ng-controller='MenuCtrl' ng-swipe-right="menuopen = true" ng-swipe-left="menuopen = true">
 
             <!-- Nav -->
-            <div class="max-width">
-                <div id="sideNav">
-                    <div class="site">
-                        <div class="topcoat-list__container">
-                            <h3 class="topcoat-list__header">Category</h3>
-                            <ul class="topcoat-list">
-                                <li ng-repeat="link in nav" class="topcoat-list__item">
-                                    <a ng-href="#{{link.link}}">{{link.name}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+
+            <nav class="menu" ng-class="{open : menuopen}" style="top:0; left:0; width:100%">
+                <div class="navLinkBlock">
+                    <a class="mainNavLink" ng-repeat="button in nav" ng-click="menuopen != menuopen" href="#{{button.link}}">{{button.name}}</a>
                 </div>
-            </div>
+             </nav>
 
             <!-- Main Content -->
             <div id="site" ng-class="{open: menuopen}" ng-controller="StatsCtrl">
@@ -49,15 +41,14 @@
                 <div class="topcoat-navigation-bar" ng-show="authenticated()">
                     <div class="topcoat-navigation-bar__item left quarter">
                         <a class="topcoat-icon-button--quiet" ng-click="menuopen = !menuopen">
-                            <span class="topcoat-icon topcoat-icon--menu-stack"></span>
+                            <button class="btn btn--icon"><!-- ⚙ -->J</button>
                         </a>
                     </div>
                     <div class="topcoat-navigation-bar__item center half">
-                        <h1 class="topcoat-navigation-bar__title">{{taskContext.name}}</h1>
                     </div>
                     <div class="topcoat-navigation-bar__item right quarter">
                         <a class="topcoat-icon-button--quiet">
-                            <button class="btn btn--icon" ng-click="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
+                            <button class="btn btn--icon btn--large" ng-click="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
                             <!--<span class="topcoat-icon topcoat-icon--edit"></span>-->
                         </a>
                     </div>

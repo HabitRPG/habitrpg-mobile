@@ -2,7 +2,7 @@
 /**
  * I really don't understand CSS - why do we need height 100% in so many locations for it to stick?
  */
-#wrapper, #content, #site, .max-height {height: 100%}
+#wrapper, #content, #site, .max-height {height: 100%; overflow:hidden;}
 
 #content {
     background-color: #F0F1F1;
@@ -49,6 +49,18 @@
 }
 #sideNav .topcoat-list__item:first-child {
     border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.topcoat-navigation-bar__item {
+    line-height:0;
+}
+
+.topcoat-navigation-bar__item a {
+    padding:0;
+}
+
+.topcoat-navigation-bar {
+    padding:0;
 }
 
 /**

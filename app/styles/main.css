@@ -36,21 +36,43 @@
 /* Global Styles
 =============================== */
 
+::-webkit-scrollbar { 
+    display: none; 
+}
+
 html, input {
     /* input is required to override browser default */
     font-family: 'Lato', sans-serif;
     font-weight: 300;
 }
 
-.wrapper_animation {
-    position:fixed !important;
-    position:absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    padding: 1.5em;
+body {
+    margin: 0;
+    height: 100%;
+    z-index: 1;
+    overflow:hidden !important;
+    overflow-x:hidden !important;
+    --webkit-transform:translate3d(0,0,0);
 }
+
+.wrapper {
+  position:fixed !important;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  -webkit-overflow-scroll: touch;
+}
+    .wrapper_animation {
+      position:fixed !important;
+      position:absolute;
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      padding: 1.5em;
+    }
 
 /* buttons */
 .btn {
@@ -65,7 +87,6 @@ html, input {
 }
     .btn--icon {
         font-family: 'android-icons';
-        -webkit-font-smoothing: antialiased;
         padding: 0;
         -webkit-transform-origin: 50% 53%;
     }
@@ -86,6 +107,15 @@ html, input {
 
 /* Top Bar
 =============================== */
+
+.topbar {
+    top: 0;
+    width: 100%;
+    height: 3.75em;
+    background: #f5f5f5;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
+}
 
 .appStatusArea {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAIvHb3TGGF8EEd8/9ZZYAEYB8RmROaABACVRQ3gbQlLJgAAAABJRU5ErkJggg==);
@@ -108,6 +138,49 @@ html, input {
         margin: 0;
     }
 
+/* Nav Panel
+=============================== */
+
+.menu {
+  position:absolute;
+  height: 100%;
+  padding-bottom: 0.75em;
+  background-color: blue;
+  width:15em;
+  left:-15em;
+  background-color:#212121;
+}
+.menuopen, .menuclose {
+  -webkit-transition: 0.3s -webkit-transform ease;
+}
+.menuopen {
+  -webkit-transform: translate3d(15em,0,0);
+}
+.menuclose {
+  -webkit-transform: translate3d(0px,0,0);
+}
+
+/* Navigation Items
+=============================== */
+.menu {
+    -webkit-overflow-scroll: touch;
+    overflow: scroll;
+}
+.navLinkBlock {
+}
+    .mainNavLink {
+        font-size: 1.5em;
+        color: #ddd;
+        padding: 0.75em;
+        border-top:1px solid #4E4E4E;
+        display: block;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
+
+    .lastNavLink {
+        background: #333;
+    }
 
 /* Tasks
 =============================== */
@@ -507,7 +580,7 @@ width:100%;
   background-color: rgb(201, 218, 248)
 }
 .completed {
-  background-color: rgb(217, 217, 217);
+  background-color: rgb(217, 217, 217)
   color: rgb(153, 153, 153)
 }
 .reward {
@@ -729,6 +802,8 @@ width:100%;
   margin-top: 2%;
   min-height: 85px;
 }
+
+
 
 /* ------------------
 Character

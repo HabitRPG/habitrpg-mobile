@@ -33,4 +33,7 @@ habitrpg.controller('MenuCtrl', function($scope, $rootScope, $location) {
     { link:'/settings',  name:'Settings'}
   ]
 
+  $('#main_nav').css('height', $(window).height())
+  $('#wrapper').css('height', $(window).height())
+
 });
