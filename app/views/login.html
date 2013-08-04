@@ -7,8 +7,8 @@
 
         <div class="content-notlogged">
             <form ng-submit="auth()">
-                <input type="text" class="username" id="username" placeholder="Username" />
-                <input type="text" class="password" id="password" placeholder="Password" />
+                <input type="text" class="username" ng-model="loginUsername" placeholder="Username" />
+                <input type="text" class="password" ng-model="loginPassword" placeholder="Password" />
 
                 <input type="submit" class="login_button" value="submit" />
                 <input type="button" class="signup_button" />

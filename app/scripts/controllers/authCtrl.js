@@ -24,12 +24,9 @@ habitrpg.controller('AuthCtrl', function AuthCtrl($scope, $rootScope, Facebook, 
     }, false);
 
     $scope.auth = function() {
-        var username = $('#username').val()
-        var password = $('#password').val()
-
         var data = {
-            username: username,
-            password: password
+            username: $scope.loginUsername,
+            password: $scope.loginPassword
         }
 
         $http.post('http://127.0.0.1:3000/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
