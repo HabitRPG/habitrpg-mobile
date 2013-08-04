@@ -29,7 +29,13 @@
 
                     <!-- Daily, Todo -->
                     <span ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak>
-                        <input class="toggle" type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'/>
+                        <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'/>-->
+                        <div class="topcoat-checkbox">
+                            <input type="checkbox" id="list-task-{{task.id}}" ng-model="task.completed" ng-change='changeCheck(task)'>
+                            <label class="topcoat-checkbox__label--right" for="list-task-{{task.id}}"></label>
+                            &nbsp;
+                        </div>
+
                     </span>
 
                     <!-- Rewards -->

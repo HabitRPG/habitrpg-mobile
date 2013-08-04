@@ -7,7 +7,12 @@
         <a class='topcoat-button' ng-click='goBack()'>Back</a> <a class="topcoat-button" ng-click="edit()">Edit</a>
 
         <h2>
-            <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />
+            <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />-->
+            <div class="topcoat-checkbox" ng-show="task.type == 'daily' || task.type == 'todo'">
+                <input type="checkbox" id="details-task-{{task.id}}" ng-model="task.completed" ng-change='changeCheck(task)'>
+                <label class="topcoat-checkbox__label--right" for="details-task-{{task.id}}"></label>
+                &nbsp;
+            </div>
             <span ng-class="{strikeout: task.completed}">{{task.text}}</span>
         </h2>
         <p>{{task.notes}}</p>
