@@ -56,12 +56,17 @@
 }
 
 .topcoat-navigation-bar__item a {
-    padding:0;
+    padding:0;  
 }
 
 .topcoat-navigation-bar {
     padding:0;
 }
+
+#site.open {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(250px, 0, 0);
+  }
 
 /**
  * Forms
