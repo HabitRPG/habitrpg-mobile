@@ -21,9 +21,62 @@
 
         <!-- TODO move to jade so we can use "include" instead of ng-include, faster -->
 
+
         <!--<ng-include src="'/views/customize.html'" />-->
 
-        <div class='max-height' ng-include="'/views/main.html'"></div>
+        <!-- TODO was using ng-include so we could keep this file clean, but it wouldn't load the first route - have to navigate somewhere & back -->
+        <div id="wrapper" ng-controller='MenuCtrl' ng-swipe-right="menuopen = true" ng-swipe-left="menuopen = true">
+
+            <!-- Nav -->
+            <div class="max-width">
+                <div id="sideNav">
+                    <div class="site">
+                        <div class="topcoat-list__container">
+                            <h3 class="topcoat-list__header">Category</h3>
+                            <ul class="topcoat-list">
+                                <li ng-repeat="link in nav" class="topcoat-list__item">
+                                    <a ng-href="#{{link.link}}">{{link.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div id="site" ng-class="{open: menuopen}" ng-controller="StatsCtrl">
+
+                <!-- Header -->
+                <div class="topcoat-navigation-bar" ng-show="authenticated()">
+                    <div class="topcoat-navigation-bar__item left quarter">
+                        <a class="topcoat-icon-button--quiet" ng-click="menuopen = !menuopen">
+                            <span class="topcoat-icon topcoat-icon--menu-stack"></span>
+                        </a>
+                    </div>
+                    <div class="topcoat-navigation-bar__item center half">
+                        <h1 class="topcoat-navigation-bar__title">{{taskContext.name}}</h1>
+                    </div>
+                    <div class="topcoat-navigation-bar__item right quarter">
+                        <a class="topcoat-icon-button--quiet">
+                            <button class="btn btn--icon" ng-click="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ --></button>
+                            <!--<span class="topcoat-icon topcoat-icon--edit"></span>-->
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div id="content" class="max-width">
+                    <!-- this stuff is just for development? I won't style this right now -->
+                    <div class="appStatusArea">
+                        <input type="button" class="appOnlineToggle" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">
+                        | <output class="queueLengthReporter">{{queueLength()}}</output>
+                    </div>
+
+                    <!-- Main View -->
+                    <div ng-view ng-cloak></div>
+                </div>
+            </div>
+        </div>
 
         <!-- build:js scripts/modules.js -->
         <script src="/bower_components/jquery/jquery.min.js"></script>

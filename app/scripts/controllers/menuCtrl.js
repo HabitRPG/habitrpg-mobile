@@ -33,8 +33,4 @@ habitrpg.controller('MenuCtrl', function($scope, $rootScope, $location) {
     { link:'/settings',  name:'Settings'}
   ]
 
-  if (!$scope.authenticated()) {
-    $location.url('/login');
-  }
-
 });
