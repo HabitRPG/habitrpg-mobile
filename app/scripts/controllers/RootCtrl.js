@@ -13,9 +13,4 @@ habitrpg.controller('RootCtrl', function ($scope, $rootScope, $location, User) {
   $rootScope.authenticated = function() {
     return (User.settings.auth.apiId != '');
   }
-
-  if (!$rootScope.authenticated) {
-    $location.url('/login');
-  }
-
 });
