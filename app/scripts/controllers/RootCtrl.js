@@ -10,22 +10,4 @@ habitrpg.controller('RootCtrl', function ($scope, $rootScope, $location, User) {
   // and then simply _.defaults($scope, Helpers.user) kinda thing
   _.defaults($rootScope, habitrpgShared.helpers);
 
-  /**
-   * Show title according to the location
-   */
-  $rootScope.taskTypeTitle = function () {
-    switch ($location.path().split('/')[1]) {
-      case 'habit':
-        return 'Habits';
-      case 'daily':
-        return 'Dailies';
-      case 'todo':
-        return 'Todos';
-      case 'reward':
-        return 'Rewards';
-      default :
-        return "";
-    }
-  };
-
 });

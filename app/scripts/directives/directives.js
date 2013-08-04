@@ -30,14 +30,14 @@ habitrpg.directive('taskBlur', function() {
  * Add sortable
  */
 habitrpg.directive('sort', function (User) {
-  return function ($scope, element, attrs, ngModel) {
+  return function ($scope, $rootScope, element, attrs, ngModel) {
     $(element).sortable({
       axis: "y",
       start: function (event, ui) {
         ui.item.data('startIndex', ui.item.index());
       },
       stop: function (event, ui) {
-        var taskType = $scope.taskTypeTitle().toLowerCase();
+        var taskType = $rootScope.taskContext.type;
         var startIndex = ui.item.data('startIndex');
         var task = User.user[taskType][startIndex];
         User.log({op: 'sortTask', task: task, from: startIndex, to: ui.item.index()});

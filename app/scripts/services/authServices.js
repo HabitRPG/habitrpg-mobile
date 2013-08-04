@@ -7,7 +7,7 @@
 var facebook = {}
 
 angular.module('authServices', ['userServices']).
-factory('Facebook', function($http, User) {
+factory('Facebook', function($http, $location, User) {
     //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
     var auth, user = User.user;
 

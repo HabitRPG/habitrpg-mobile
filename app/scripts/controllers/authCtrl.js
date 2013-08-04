@@ -33,12 +33,10 @@ habitrpg.controller('AuthCtrl', function AuthCtrl($scope, Facebook, LocalAuth, U
         }
 
         $.post('http://127.0.0.1:3000/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
-            
             User.authenticate(data.id, data.token, function(err) {
-                    alert('Login succesfull!');
-                    $location.path("/habit");
+              alert('Login succesfull!');
+              $location.path("/habit");
             });
-
         }).error(function(data, status, headers, config) {
             alert(status)
         })

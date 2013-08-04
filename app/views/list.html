@@ -15,7 +15,7 @@
             <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="newTaskPrompt">
         </form>
 
-        <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskTypeTitle()}}! Why don't you add some?</p>
+        <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskContext.name}}! Why don't you add some?</p>
 
 
         <div class="topcoat-list__container">
