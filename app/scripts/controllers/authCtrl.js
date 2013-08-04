@@ -32,11 +32,17 @@ habitrpg.controller('AuthCtrl', function AuthCtrl($scope, $rootScope, Facebook, 
             password: password
         }
 
-        $.post('http://127.0.0.1:3000/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
+        $http.post('http://127.0.0.1:3000/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
             User.authenticate(data.id, data.token, function(err) {
               alert('Login succesfull!');
               $location.path("/habit");
             });
+
+            // Angular 1.1.4 bug, see https://github.com/angular/angular.js/issues/2431#issuecomment-18160256
+            // Strange, it only crops up on initial login attempt
+            // if(!$rootScope.$$phase) {
+            //    $rootScope.$apply();
+            // }
         }).error(function(data, status, headers, config) {
             alert(status)
         })
