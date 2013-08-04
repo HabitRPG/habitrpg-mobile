@@ -6,12 +6,13 @@
         </div>
 
         <div class="content-notlogged">
+            <form ng-submit="auth()">
+                <input type="text" class="username" id="username" placeholder="Username" />
+                <input type="text" class="password" id="password" placeholder="Password" />
 
-        	<input type="text" class="username" id="username" placeholder="Username" value="litenull"/>
-        	<input type="text" class="password" id="password" placeholder="Password" value="mr815tx"/>
-
-        	<div class="login_button" ng-click="auth()"></div>
-        	<div class="signup_button"></div>
+                <input type="submit" class="login_button" value="submit" />
+                <input type="button" class="signup_button" />
+            </form>
 
         </div>
 
