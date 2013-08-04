@@ -4,7 +4,6 @@
 
 <div ng-controller="TasksCtrl" class="taskWell">
 
-    <h2 class="taskTypeHeader">{{taskTypeTitle()}}</h2>
     <div class="filterBar" ng-show="taskType()=='todo'">
         <a class="btn btn--small btn--filter current" href="#todo">Active</a>
         <a class="btn btn--small btn--filter" href="#todo/completed">Completed</a>
@@ -16,7 +15,7 @@
             <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="newTaskPrompt">
         </form>
 
-        <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskTypeTitle()}}! Why don't you add some?</p>
+        <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskContext.name}}! Why don't you add some?</p>
 
         <ul id="task-list" ng-hide="tasks().length == 0">
             <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
