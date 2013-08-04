@@ -1,4 +1,4 @@
-<div id="wrapper" ng-controller='MenuCtrl' hm-swiperight="menuopen = true" hm-swipeleft="menuopen = true">
+<div id="wrapper" ng-controller='MenuCtrl' ng-swipe-right="menuopen = true" ng-swipe-left="menuopen = true">
 
     <!-- Nav -->
     <div class="max-width">
@@ -31,7 +31,7 @@
             </div>
             <div class="topcoat-navigation-bar__item right quarter">
                 <a class="topcoat-icon-button--quiet">
-                    <button class="btn btn--icon floatRight" gf-Tap="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
+                    <button class="btn btn--icon floatRight" ng-click="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ --></button>
                     <!--<span class="topcoat-icon topcoat-icon--edit"></span>-->
                 </a>
             </div>
