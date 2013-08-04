@@ -5,7 +5,7 @@
  *
  */
 
-habitrpg.controller( 'userAvatarCtrl', function CharacterCtrl( $scope, $location, filterFilter, User ) {
+habitrpg.controller('userAvatarCtrl', function CharacterCtrl( $scope, $location, filterFilter, User) {
 
         $scope.user = User.user;
 
@@ -32,7 +32,4 @@ habitrpg.controller( 'userAvatarCtrl', function CharacterCtrl( $scope, $location
          $scope.hideUserAvatar = function() {
             $('.userAvatar').hide()
         }
-
-
-
 });
