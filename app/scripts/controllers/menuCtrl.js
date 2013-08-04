@@ -6,7 +6,7 @@
  * - exposes the model to the template and provides event handlers
  */
 
-habitrpg.controller('MenuCtrl', function($scope, $rootScope, $routeParams, $location, User) {
+habitrpg.controller('MenuCtrl', function($scope, $rootScope, $location) {
 
   /**
    * Show title according to the location
@@ -32,5 +32,9 @@ habitrpg.controller('MenuCtrl', function($scope, $rootScope, $routeParams, $loca
     { link:'/profile',   name:'Profile' },
     { link:'/settings',  name:'Settings'}
   ]
+
+  if (!$scope.authenticated()) {
+    $location.url('/login');
+  }
 
 });

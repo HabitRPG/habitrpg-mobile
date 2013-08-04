@@ -10,4 +10,8 @@ habitrpg.controller('RootCtrl', function ($scope, $rootScope, $location, User) {
   // and then simply _.defaults($scope, Helpers.user) kinda thing
   _.defaults($rootScope, habitrpgShared.helpers);
 
+  $rootScope.authenticated = function() {
+    return (User.settings.auth.apiId != '');
+  }
+
 });

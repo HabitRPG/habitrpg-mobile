@@ -20,8 +20,6 @@ habitrpg.controller( 'StatsCtrl', function StatsCtrl( $scope, $location, filterF
         };
         $scope.stats = User.user.stats;
 
-        $scope.authenticated = function() {
-        	return (User.settings.auth.apiId != '');
-        }
+
 
 });

@@ -5,7 +5,7 @@
  *
  */
 
-habitrpg.controller('AuthCtrl', function AuthCtrl($scope, Facebook, LocalAuth, User, $http, $location) {
+habitrpg.controller('AuthCtrl', function AuthCtrl($scope, $rootScope, Facebook, LocalAuth, User, $http, $location) {
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
 
@@ -41,5 +41,4 @@ habitrpg.controller('AuthCtrl', function AuthCtrl($scope, Facebook, LocalAuth, U
             alert(status)
         })
     }
-
 });
