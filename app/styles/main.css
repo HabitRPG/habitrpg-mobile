@@ -103,6 +103,10 @@ body {
         font-size: 1.5em;
     }
 
+.strikeout {
+    text-decoration:line-through;
+}
+
 
 
 /* Top Bar
