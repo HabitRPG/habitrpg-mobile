@@ -117,5 +117,11 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
 
     $('.taskWell').css('height', $(window).height() - 61)
 
+    // TODO this should be somewhere else, but fits the html location better here
+    $rootScope.revive = function() {
+        window.habitrpgShared.algos.revive(User.user);
+        User.log({op:'revive'});
+    }
+
 
 });

@@ -2,7 +2,13 @@
 <div id="notification"><div ng-bind-html-unsafe="data.message"></div></div>
 </div>
 
-<div ng-controller="TasksCtrl" class="taskWell">
+<!-- Don't show tasks if dead -->
+<div ng-show="user.stats.hp <= 0">
+    <h1>You are dead</h1>
+    <a class='topcoat-button--large' ng-click='revive()'>Revive</a>
+</div>
+
+<div ng-show="user.stats.hp > 0" ng-controller="TasksCtrl" class="taskWell">
 
     <div class="filterBar" ng-show="taskType()=='todo'">
         <a class="btn btn--small btn--filter current" href="#todo">Active</a>
