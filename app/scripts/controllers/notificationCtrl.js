@@ -1,7 +1,8 @@
 'use strict';
 
-
-habitrpg.controller('NotificationCtrl', function ($scope, $location, filterFilter, Notification) {
+habitrpg.controller('NotificationCtrl',
+  ['$scope', 'Notification',
+  function ($scope, Notification) {
     $scope.data = Notification.get();
 
     //FIXME replace with ngSwipe, but I don't know how to bind that
@@ -10,5 +11,5 @@ habitrpg.controller('NotificationCtrl', function ($scope, $location, filterFilte
         Notification.hide();
     });
 
-
-});
+  }
+]);

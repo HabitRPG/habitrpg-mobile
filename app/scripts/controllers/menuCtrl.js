@@ -6,7 +6,9 @@
  * - exposes the model to the template and provides event handlers
  */
 
-habitrpg.controller('MenuCtrl', function($scope, $rootScope, $location) {
+habitrpg.controller('MenuCtrl',
+  ['$scope', '$rootScope', '$location',
+  function($scope, $rootScope, $location) {
 
   /**
    * Show title according to the location
@@ -36,4 +38,5 @@ habitrpg.controller('MenuCtrl', function($scope, $rootScope, $location) {
   $('#main_nav').css('height', $(window).height())
   $('#wrapper').css('height', $(window).height())
 
-});
+  }
+]);

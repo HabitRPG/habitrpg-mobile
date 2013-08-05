@@ -5,7 +5,8 @@
  */
 
 angular.module('userServices', []).
-    factory('User', function ($http, $location, Notification) {
+    factory('User', ['$http', '$location', 'Notification',
+      function($http, $location, Notification) {
         var STORAGE_ID = 'habitrpg-user',
             HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
             authenticated = false,
@@ -171,4 +172,5 @@ angular.module('userServices', []).
 
         return userServices;
 
-    });
+    }
+]);

@@ -5,12 +5,12 @@
  */
 
 angular.module('sharedServices', [] ).
-    factory("Items", function($rootScope){
+    factory("Items", ['$rootScope', function($rootScope){
         return window.habitrpgShared.items;
-    }).
-    factory("Algos", function($rootScope){
+    }]).
+    factory("Algos", ['$rootScope', function($rootScope){
         return window.habitrpgShared.algos;
-    }).
-    factory("Helpers", function($rootScope){
+    }]).
+    factory("Helpers", ['$rootScope', function($rootScope){
         return window.habitrpgShared.helpers;
-    });
+    }]);

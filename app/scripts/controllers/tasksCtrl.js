@@ -1,6 +1,8 @@
 'use strict';
 
-habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $location, filterFilter, User, Algos, Helpers, Notification) {
+habitrpg.controller('TasksCtrl',
+  ['$scope', '$rootScope', '$location', 'filterFilter', 'User', 'Algos', 'Helpers', 'Notification',
+  function($scope, $rootScope, $location, filterFilter, User, Algos, Helpers, Notification) {
 
     $scope.user = User.user;
 
@@ -122,6 +124,5 @@ habitrpg.controller('TasksCtrl', function TasksCtrl($scope, $rootScope, $locatio
         window.habitrpgShared.algos.revive(User.user);
         User.log({op:'revive'});
     }
-
-
-});
+  }
+]);

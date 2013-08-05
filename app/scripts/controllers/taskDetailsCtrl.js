@@ -1,6 +1,8 @@
 'use strict';
 
-habitrpg.controller('TaskDetailsCtrl', function TaskDetailsCtrl($scope, $rootScope, $location, User) {
+habitrpg.controller('TaskDetailsCtrl',
+  ['$scope', '$rootScope', '$location', 'User',
+  function($scope, $rootScope, $location, User) {
 
     $scope.task = $rootScope.selectedTask;
     $scope.editing = false;
@@ -45,6 +47,5 @@ habitrpg.controller('TaskDetailsCtrl', function TaskDetailsCtrl($scope, $rootSco
         $scope.goBack();
         delete tasks.splice(tasks.indexOf(task),1);
     };
-
-
-});
+  }
+]);
