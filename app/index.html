@@ -69,6 +69,11 @@
             </div>
         </div>
 
+        <script src="cordova"></script>
+
+        <!-- FIXME This seems to need to be outside the build step for some reason, look into it -->
+        <script src="/bower_components/habitrpg-shared/browser/browser.debug.js"></script>
+
         <!-- build:js scripts/modules.js -->
         <script src="/bower_components/jquery/jquery.min.js"></script>
 
@@ -79,17 +84,13 @@
         <script src="/lib/angular-1.1.5/angular-sanitize.js"></script>
         <script src="/lib/angular-1.1.5/angular-mobile.js"></script>
 
-        <!-- <script src="lib/cordova-2.7.0.js"></script> -->
         <script src="/bower_components/underscore/underscore-min.js"></script>
         <script src="/bower_components/moment/moment.js"></script>
         <script src="/lib/cdv-plugin-fb-connect.js"></script>
         <script src="/lib/facebook-js-sdk.js"></script>
         <script src="/lib/jquery-ui-1.10.3.custom.js"></script>
-        <script src="/lib/jquery-ui-1.10.3.custom.js"></script>
         <script src="/lib/jquery.transit.min.js"></script>
 
-        <!-- HabitRPG Shared -->
-        <script src="/bower_components/habitrpg-shared/browser/browser.debug.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->

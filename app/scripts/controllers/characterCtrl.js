@@ -30,13 +30,13 @@ habitrpg.controller('CharacterCtrl',
         $scope.count = function(arr) {
             return _.size(arr);
         }
-        $scope.tnl = habitrpgShared.algos.tnl;
-//        $scope.userStr = habitrpgShared.helpers.userStr;
-//        $scope.userDef = habitrpgShared.helpers.userDef;
-//        $scope.totalStr = habitrpgShared.helpers.totalStr;
-//        $scope.totalDef = habitrpgShared.helpers.totalDef;
-//        $scope.itemText = habitrpgShared.helpers.itemText;
-//        $scope.itemStat = habitrpgShared.helpers.itemStat;
+        $scope.tnl = window.habitrpgShared.algos.tnl;
+//        $scope.userStr =  window.habitrpgShared.helpers.userStr;
+//        $scope.userDef =  window.habitrpgShared.helpers.userDef;
+//        $scope.totalStr = window.habitrpgShared.helpers.totalStr;
+//        $scope.totalDef = window.habitrpgShared.helpers.totalDef;
+//        $scope.itemText = window.habitrpgShared.helpers.itemText;
+//        $scope.itemStat = window.habitrpgShared.helpers.itemStat;
 
         $scope.showUserAvatar = function() {
             $('.userAvatar').show()

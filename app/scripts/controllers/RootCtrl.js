@@ -11,7 +11,7 @@ habitrpg.controller('RootCtrl',
 
     // FIXME this is dangerous, organize helpers.coffee better, so we can group them by which controller needs them,
     // and then simply _.defaults($scope, Helpers.user) kinda thing
-    _.defaults($rootScope, habitrpgShared.helpers);
+    _.defaults($rootScope, window.habitrpgShared.helpers);
 
     $rootScope.authenticated = function() {
       return (User.settings.auth.apiId != '');
