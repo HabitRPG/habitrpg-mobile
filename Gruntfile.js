@@ -230,7 +230,11 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',
+
+            // HabitRPG Custom Stuff
+            'shared/**/*',
+            'fonts/**/*'
           ]
         }, {
           expand: true,
