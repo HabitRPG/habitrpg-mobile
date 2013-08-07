@@ -6,8 +6,8 @@
  */
 
 habitrpg.controller('AuthCtrl',
-  ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location',
-  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location) {
+  ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location', 'API_URL',
+  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) {
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
 
@@ -31,7 +31,7 @@ habitrpg.controller('AuthCtrl',
             password: $scope.loginPassword
         }
 
-        $http.post('http://127.0.0.1:3000/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
+        $http.post(API_URL + '/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
             User.authenticate(data.id, data.token, function(err) {
               alert('Login succesfull!');
               $location.path("/habit");

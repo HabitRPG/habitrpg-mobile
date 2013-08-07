@@ -5,8 +5,8 @@
  */
 
 angular.module('userServices', []).
-    factory('User', ['$http', '$location', 'Notification',
-      function($http, $location, Notification) {
+    factory('User', ['$http', '$location', 'Notification', 'API_URL',
+      function($http, $location, Notification, API_URL) {
         var STORAGE_ID = 'habitrpg-user',
             HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
             authenticated = false,
@@ -20,7 +20,6 @@ angular.module('userServices', []).
                 online: false
             },
             settings = {}, //habit mobile settings (like auth etc.) to be stored here
-            URL = 'http://127.0.0.1:3000/api/v2',
             schema = {
                 stats: { gp: 0, exp: 0, lvl: 1, hp: 50 },
                 party: { current: null, invitation: null },
@@ -72,7 +71,7 @@ angular.module('userServices', []).
             });
 
             
-            $http.post(URL + '?date=' + new Date().getTime(), sent)
+            $http.post(API_URL + '/api/v2' + '?date=' + new Date().getTime(), sent)
                 .success(function (data, status, heacreatingders, config) {
                     data.tasks = _.toArray(data.tasks);
                     //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.

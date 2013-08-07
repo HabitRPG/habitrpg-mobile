@@ -6,8 +6,13 @@
  * @type {angular.Module}
  */
 
+
 var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'ngMobile'])
-    .config(['$routeProvider', function ($routeProvider, User) {
+
+    .constant('API_URL', 'https://beta.habitrpg.com')
+    //.constant('API_URL', 'http://localhost:3000')
+
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
 
             .when('/login',           {templateUrl: 'views/login.html'})
