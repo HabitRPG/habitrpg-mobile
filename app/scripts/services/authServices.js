@@ -4,79 +4,100 @@
  * Services that persists and retrieves user from localStorage.
  */
 
+var facebook = {}
+
 angular.module('authServices', ['userServices']).
-    factory('Facebook', function($http, User){
-        //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
-        var auth,
-            user;
+factory('Facebook',
+    ['$http', '$location', 'User', 'API_URL',
+    function($http, $location, User, API_URL) {
+      //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
+      var auth, user = User.user;
 
-        User.get(function(data){
-            user = data;
-        })
+      facebook.handleStatusChange = function(session) {
+          if (session.authResponse) {
 
-        return {
+              FB.api('/me', {
+                  fields: 'name, picture, email'
+              }, function(response) {
+                  console.log(response.error)
+                  if (!response.error) {
 
-            getAuth: function() {
-                return auth;
-            },
+                      var data = {
+                          name: response.name,
+                          facebook_id: response.id,
+                          email: response.email
+                      }
 
-            login: function() {
-                user.id = '';
-                user.apiToken = '';
-                User.authenticate();
-                return;
+                      $http.post(API_URL + '/api/v1/user/auth/facebook', data).success(function(data, status, headers, config) {
+                          User.authenticate(data.id, data.token, function(err) {
+                              if (!err) {
+                                  alert('Login succesfull!');
+                                  $location.path("/habit");
+                              }
+                          });
+                      }).error(function(response) {
+                          console.log('error')
+                      })
 
-                FB.login(function(response) {
-                    if (response.authResponse) {
-                        // 1. get userid & accesstoken
-                        // 2. store in user
-                        // 3. authenticate()
-                        debugger;
-                    } else {
-                        console.log('Facebook login failed', response);
-                    }
-                })
-            },
+                  } else {
+                      alert('napaka')
+                  }
+                  //clearAction();
+              });
+          } else {
+              document.body.className = 'not_connected';
+              //clearAction();
+          }
+      }
 
-            logout: function() {
-                FB.logout(function(response) {
-                    if(response) {
-                        // todo what to do here?
-                        debugger;
-                    } else {
-                        console.log('Facebook logout failed.', response);
-                    }
-                })
-            }
-        }
+      return {
 
-    })
+          authUser: function() {
+              FB.Event.subscribe('auth.statusChange', facebook.handleStatusChange);
+          },
 
-   .factory('LocalAuth', function($http, User){
+          getAuth: function() {
+              return auth;
+          },
 
-        var auth,
-            user;
+          login: function() {
 
-        User.get(function(data){
-            user = data;
-        })
+              FB.login(null, {
+                  scope: 'email'
+              });
+          },
 
-        return {
+          logout: function() {
+              FB.logout(function(response) {
+                  window.location.reload();
+              });
+          }
+      }
 
-            getAuth: function() {
-                return auth;
-            },
+  }
+])
 
-            login: function() {
-                user.id = '';
-                user.apiToken = '';
-                User.authenticate();
-                return;
+.factory('LocalAuth',
+    ['$http', 'User',
+    function($http, User) {
+      var auth,
+        user = User.user;
 
-            },
+      return {
+          getAuth: function() {
+              return auth;
+          },
 
-            logout: function() {
-            }
-        }
+          login: function() {
+              user.id = '';
+              user.apiToken = '';
+              User.authenticate();
+              return;
 
-    });
+          },
+
+          logout: function() {}
+      }
+
+  }
+]);

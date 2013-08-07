@@ -1,109 +1,117 @@
 <!doctype html>
-<html lang="en" ng-app="habitrpg">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width"/>
-    <title>HabitRPG</title>
-    <link rel="stylesheet" href="styles/bootstrap.css"/>
-    <link rel="stylesheet" href="styles/main.css"/>
-    <link rel="stylesheet" href="styles/beta.css"/>
-    <link rel="stylesheet" href="shared/css/index.css"/>
-    <style>[ng-cloak] {
-        display: none
-    }</style>
-    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>HabitRPG</title>
+        <link href='//fonts.googleapis.com/css?family=Lato:300,300italic' rel='stylesheet' type='text/css'>
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-<!--<div class="container" ng-view></div>-->
-<div ng-controller="WrapperCtrl" class="wrapper">
+        <link rel="stylesheet" href="/shared/css/index.css">
+        <!-- build:css({.tmp,app}) styles/main.css -->
+        <link rel="stylesheet" type="text/css" href="/bower_components/topcoat/css/topcoat-mobile-light.css">
+        <link rel="stylesheet" type="text/css" href="/styles/topcoat-checkbox.css">
+        <link rel="stylesheet" type="text/css" href="/bower_components/topcoat/css/main.css">
+        <link rel="stylesheet" type="text/css"  href="styles/main.css">
+        <link rel="stylesheet" type="text/css" href="/styles/topcoat-overrides.css">
+        <!-- endbuild -->
+    </head>
+    <body ng-cloak ng-app="habitrpg" ng-controller="RootCtrl" class="light">
 
-    <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
+        <div ng-controller="AuthCtrl">
+        </div>
 
-        <div ng-controller="CharacterCtrl">
+        <!-- TODO move to jade so we can use "include" instead of ng-include, faster -->
 
-            <div class="herobox">
-                <div class='character-sprites'>
-                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
-                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
-                    <span class="{{equipped(user, 'armor')}}"></span>
-                    <span class="{{equipped(user, 'head')}}"></span>
-                    <span class="{{user.preferences.gender}}_head_0"></span>
-                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
-                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
+        <!--<ng-include src="'/views/customize.html'" />-->
+
+        <!-- TODO was using ng-include so we could keep this file clean, but it wouldn't load the first route - have to navigate somewhere & back -->
+        <div id="wrapper" ng-controller='MenuCtrl' ng-swipe-right="menuopen = true" ng-swipe-left="menuopen = true">
+
+            <!-- Nav -->
+
+            <nav class="menu" ng-class="{open : menuopen}" style="top:0; left:0; width:100%">
+                <div class="navLinkBlock">
+                    <a class="mainNavLink" ng-repeat="button in nav" ng-click="menuopen != menuopen" href="#{{button.link}}">{{button.name}}</a>
+                </div>
+             </nav>
+
+            <!-- Main Content -->
+            <div id="site" ng-class="{open: menuopen}" ng-controller="StatsCtrl">
+
+                <!-- Header -->
+                <div class="topcoat-navigation-bar" ng-show="authenticated()">
+                    <div class="topcoat-navigation-bar__item left quarter">
+                        <a class="topcoat-icon-button--quiet" ng-click="menuopen = !menuopen">
+                            <button class="btn btn--icon"><!-- ⚙ -->J</button>
+                        </a>
+                    </div>
+                    <div class="topcoat-navigation-bar__item center half" style="top:50%; font-size:33px">
+                        {{taskContext.name}}
+                    </div>
+                    <div class="topcoat-navigation-bar__item right quarter">
+                        <a class="topcoat-icon-button--quiet">
+                            <button class="btn btn--icon btn--large" ng-click="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div id="content" class="max-width">
+                    <!-- this stuff is just for development? I won't style this right now -->
+                    <div class="appStatusArea">
+                        <input type="button" class="appOnlineToggle" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">
+                        | <output class="queueLengthReporter">{{queueLength()}}</output>
+                    </div>
+
+                    <!-- Main View -->
+                    <div ng-view ng-cloak></div>
                 </div>
             </div>
-
-
-            <div class="user">
-                {{user.auth.local.username}}<br>
-                level {{user.stats.lvl}}
-            </div>
-            <div style="clear:both"></div>
-
-            <div class="meter animate">
-                <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
-            </div>
-
-            <div class="meter animate orange">
-                <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
-            </div>
         </div>
 
-        <div ng-controller="MenuCtrl">
-            <div class="first_block"><b>Navigation</b></div>
-            <div ng-repeat="button in nav" class="link"><a gf-Tap="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
-            <div class="first_block_settings"><b>Settings</b></div>
-            <div class="link"><a ng-click="toggleMenu()" href="#settings">Settings</a></div>
-        </div>
+        <script src="cordova"></script>
 
-    </nav>
-    <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
-    <div ng-view></div>
-    </div>
-</div>
+        <!-- FIXME This seems to need to be outside the build step for some reason, look into it -->
+        <script src="/bower_components/habitrpg-shared/browser/browser.debug.js"></script>
 
-<!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
-<!-- See http://docs.angularjs.org/guide/di "$injection Annotation" for when we're ready to deploy -->
-<script src="components/angular/angular.js"></script>
-<script src="components/angular-resource/angular-resource.js"></script>
-<script src="components/angular-cookies/angular-cookies.js"></script>
-<script src="components/angular-sanitize/angular-sanitize.js"></script>
+        <!-- build:js scripts/modules.js -->
+        <script src="/bower_components/jquery/jquery.min.js"></script>
 
 
-<!-- build:js scripts/scripts.js -->
+        <script src="/lib/angular-1.1.5/angular.js"></script>
+        <script src="/lib/angular-1.1.5/angular-resource.js"></script>
+        <script src="/lib/angular-1.1.5/angular-cookies.js"></script>
+        <script src="/lib/angular-1.1.5/angular-sanitize.js"></script>
+        <script src="/lib/angular-1.1.5/angular-mobile.js"></script>
 
-<!-- Vendor -->
-<script src="components/underscore/underscore-min.js"></script>
-<script src="components/moment/moment.js"></script>
-<!--<script src="scripts/vendor/cdv-plugin-fb-connect.js"></script>-->
-<script src="scripts/vendor/facebook-js-sdk.js"></script>
-<script src="components/jquery/jquery.min.js"></script>
-<script src="scripts/vendor/jquery.sortable.js"></script>
+        <script src="/bower_components/underscore/underscore-min.js"></script>
+        <script src="/bower_components/moment/moment.js"></script>
+        <script src="/lib/cdv-plugin-fb-connect.js"></script>
+        <script src="/lib/facebook-js-sdk.js"></script>
+        <script src="/lib/jquery-ui-1.10.3.custom.js"></script>
+        <script src="/lib/jquery.transit.min.js"></script>
 
-<!-- HabitRPG Shared -->
-<script src="shared/index-browser.js"></script>
-<script src="scripts/vendor/jquery.transit.min.js"></script>
+        <!-- endbuild -->
 
-<!-- App -->
-<script src="scripts/app.js"></script>
-<script src="scripts/controllers/tasksCtrl.js"></script>
-<script src="scripts/controllers/taskDetailsCtrl.js"></script>
-<script src="scripts/directives/taskFocus.js"></script>
-<script src="scripts/directives/taskBlur.js"></script>
-<script src="scripts/controllers/navCtrl.js"></script>
-<script src="scripts/controllers/wrapperCtrl.js"></script>
-<script src="scripts/controllers/statsCtrl.js"></script>
-<script src="scripts/controllers/characterCtrl.js"></script>
-<script src="scripts/controllers/menuCtrl.js"></script>
-<script src="scripts/controllers/authCtrl.js"></script>
-<script src="scripts/services/userServices.js"></script>
-<script src="scripts/services/sharedServices.js"></script>
-<script src="scripts/services/authServices.js"></script>
-<script src="scripts/services/notificationServices.js"></script>
-<script src="scripts/controllers/notificationCtrl.js"></script>
-<script src="scripts/controllers/loginCtrl.js"></script>
-<!-- endbuild -->
-</body>
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="/scripts/app.js"></script>
+        <script src="/scripts/controllers/rootCtrl.js"></script>
+        <script src="/scripts/controllers/settingsCtrl.js"></script>
+        <script src="/scripts/filters/filters.js"></script>
+        <script src="/scripts/controllers/tasksCtrl.js"></script>
+        <script src="/scripts/controllers/taskDetailsCtrl.js"></script>
+        <script src="/scripts/directives/directives.js"></script>
+        <script src="/scripts/controllers/statsCtrl.js"></script>
+        <script src="/scripts/controllers/characterCtrl.js"></script>
+        <script src="/scripts/controllers/menuCtrl.js"></script>
+        <script src="/scripts/controllers/authCtrl.js"></script>
+        <script src="/scripts/services/userServices.js"></script>
+        <script src="/scripts/services/sharedServices.js"></script>
+        <script src="/scripts/services/authServices.js"></script>
+        <script src="/scripts/services/notificationServices.js"></script>
+        <script src="/scripts/controllers/notificationCtrl.js"></script>
+        <script src="/scripts/controllers/userAvatarCtrl.js"></script>
+        <!-- endbuild -->
+
+    </body>
 </html>

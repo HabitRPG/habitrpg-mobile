@@ -5,13 +5,15 @@
  *
  */
 
-habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location, filterFilter, User ) {
+habitrpg.controller('CharacterCtrl',
+  ['$scope', '$location', 'User',
+  function($scope, $location, User) {
 
-    User.get(function(user){
-        $scope.user = user;
+        $scope.user = User.user;
 
         $scope.equipped = function(user, type) {
-            return window.habitrpgShared.helpers.equipped(user, type);
+            var tier = (user.backer && user.backer.tier)
+            return window.habitrpgShared.helpers.equipped(type, user.items[type], user.preferences, tier);
         }
 
         $scope.$watch('user.tasks', function(){
@@ -23,7 +25,22 @@ habitrpg.controller( 'CharacterCtrl', function CharacterCtrl( $scope, $location,
                 return (exp / window.habitrpgShared.algos.tnl(level)) * 100;
             }
         })
-    })
 
+        $scope.floor = Math.floor;
+        $scope.count = function(arr) {
+            return _.size(arr);
+        }
+        $scope.tnl = window.habitrpgShared.algos.tnl;
+//        $scope.userStr =  window.habitrpgShared.helpers.userStr;
+//        $scope.userDef =  window.habitrpgShared.helpers.userDef;
+//        $scope.totalStr = window.habitrpgShared.helpers.totalStr;
+//        $scope.totalDef = window.habitrpgShared.helpers.totalDef;
+//        $scope.itemText = window.habitrpgShared.helpers.itemText;
+//        $scope.itemStat = window.habitrpgShared.helpers.itemStat;
 
-});
+        $scope.showUserAvatar = function() {
+            $('.userAvatar').show()
+        }
+
+  }
+]);

@@ -1,58 +1,59 @@
-<div ng-controller="AuthCtrl">
-</div>
-
 <div ng-controller="NotificationCtrl">
-    <div id="notification">EXP: {{delta.delta}}</div>
+<div id="notification"><div ng-bind-html-unsafe="data.message"></div></div>
 </div>
 
-<div ng-controller="StatsCtrl">
+<!-- Don't show tasks if dead -->
+<div ng-show="user.stats.hp <= 0">
+    <h1>You are dead</h1>
+    <a class='topcoat-button--large' ng-click='revive()'>Revive</a>
+</div>
 
-    <div class="head2">
-        <div id="lines" gf-Tap="toggleMenu()"></div>
+<div ng-show="user.stats.hp > 0" ng-controller="TasksCtrl" class="taskWell">
+
+    <div class="filterBar" ng-show="taskType()=='todo'">
+        <a class="btn btn--small btn--filter current" href="#todo">Active</a>
+        <a class="btn btn--small btn--filter" href="#todo/completed">Completed</a>
     </div>
-
-</div>
-
-<div ng-controller="TasksCtrl">
-
-    <h2>{{taskTypeTitle}}</h2>
 
     <div class="task_wrapper">
 
         <form id="task-form" ng-submit="addTask()">
-            <input type="text" placeholder="Add new {{taskTypeTitle}}" ng-model="newTask">
+            <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="newTaskPrompt">
         </form>
 
-        <div class="task_list">
-            <div class="no_tasks" ng-show="tasks.length == 0">No {{taskTypeTitle}}.</div>
-            <ul id="task-list" class="list" ng-hide="tasks.length == 0" sort>
-                <li ng-repeat="task in tasks | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}">
-                    <div class="lines" ng-hide="tasks.length == 0 || task.type == 'habit' || task.type == 'reward'"></div>
+        <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskContext.name}}! Why don't you add some?</p>
 
+        <ul id="task-list" ng-hide="tasks().length == 0">
+            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
+
+                <div class="taskActions">
                     <!-- Habits -->
                     <span ng-show="task.type == 'habit'" ng-cloak>
-                        <input type="button" value="+" gf-Tap="score(task,'up')"/>
-                        <input type="button" value="-" gf-Tap="score(task,'down')"/>
+                        <button class="btn btn--small taskButton" ng-click="score(task,'up')">＋</button>
+                        <button class="btn btn--small taskButton" ng-click="score(task,'down')">－</button>
                     </span>
-
-                    {{task.title}}
 
                     <!-- Daily, Todo -->
                     <span ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak>
-                        <input class="toggle" type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'/>
+                        <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'/>-->
+                        <div class="topcoat-checkbox">
+                            <input type="checkbox" id="list-task-{{task.id}}" ng-model="task.completed" ng-change='changeCheck(task)'>
+                            <label class="topcoat-checkbox__label--right" for="list-task-{{task.id}}"></label>
+                            &nbsp;
+                        </div>
+
                     </span>
 
                     <!-- Rewards -->
                     <span>
-                        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" gf-Tap="score(task,'down')" ng-cloak />
+                        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak />
                     </span>
+                </div>
 
+                <p class="taskText" ng-click="selectTask(task)">{{task.text}}</p>
 
-                    <span gf-Tap="selectTask(task)" class="text">{{task.text}}</span>
-
-                </li>
-            </ul>
-        </div>
+            </li>
+        </ul>
     </div>
 
    </div>

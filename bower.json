@@ -1,0 +1,15 @@
+{
+  "name": "yo",
+  "version": "0.0.0",
+  "dependencies": {
+    "json3": "~3.2.4",
+    "es5-shim": "~2.0.8",
+    "jquery": "~1.9.1",
+    "underscore": "*",
+    "moment": "*",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git",
+    "topcoat": "~0.5.1"
+  },
+  "devDependencies": {
+  }
+}

@@ -1,31 +1,27 @@
-<div ng-controller="StatsCtrl">
-
-    <div class="head2">
-        <div id="lines" ng-click="toggleMenu()"></div>
-    </div>
-
-</div>
+<div ng-controller="StatsCtrl"></div>
 
 <div ng-controller="TaskDetailsCtrl">
 
     <!-- Details Page -->
     <div ng-hide="editing">
-        <a ng-click='goBack()'>Back</a> | <a ng-click="edit()">Edit</a>
+        <a class='topcoat-button' ng-click='goBack()'>Back</a> <a class="topcoat-button" ng-click="edit()">Edit</a>
 
-        <h2><span ng-show="task.completed">√ </span>{{task.text}}</h2>
+        <h2>
+            <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />-->
+            <div class="topcoat-checkbox" ng-show="task.type == 'daily' || task.type == 'todo'">
+                <input type="checkbox" id="details-task-{{task.id}}" ng-model="task.completed" ng-change='changeCheck(task)'>
+                <label class="topcoat-checkbox__label--right" for="details-task-{{task.id}}"></label>
+                &nbsp;
+            </div>
+            <span ng-class="{strikeout: task.completed}">{{task.text}}</span>
+        </h2>
         <p>{{task.notes}}</p>
-
 
         <!-- Habits -->
         <span ng-show="task.type == 'habit'" ng-cloak>
-            <input type="button" value="+" ng-click="score(task,'up')"/>
-            <input type="button" value="-" ng-click="score(task,'down')"/>
+            <button class="topcoat-button taskButton" ng-click="score(task,'up')">＋</button>
+            <button class="topcoat-button taskButton" ng-click="score(task,'down')">－</button>
         </span>
-
-        {{task.title}}
-
-        <!-- Daily, Todo -->
-        <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />
 
         <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-cloak />
 
@@ -36,10 +32,12 @@
 
     <!-- Edit Page -->
     <div ng-show="editing">
-        <a ng-click='cancel()'>Cancel</a> | <a ng-click='save()'>Save</a> | <a ng-click='delete()'>Delete</a>
+        <a class='topcoat-button' ng-click='cancel()'>Cancel</a> <a class='topcoat-button' ng-click='save()'>Save</a> <a class='topcoat-button' ng-click='delete()'>Delete</a>
 
-        Title: <input type='input' ng-model="task.text" /><br/>
-        Notes: <textarea ng-model="task.notes" />
+        <h4>Title</h4>
+        <input class='topcoat-text-input' type='input' ng-model="task.text" />
+        <h4>Notes</h4>
+        <textarea class="topcoat-textarea" rows="6" cols="36" ng-model="task.notes"></textarea>
 
         <!-- Habits -->
         <span ng-show="task.type == 'habit'" ng-cloak>

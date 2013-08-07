@@ -5,187 +5,171 @@
  */
 
 angular.module('userServices', []).
-    factory('User', function($http){
+    factory('User', ['$http', '$location', 'Notification', 'API_URL',
+      function($http, $location, Notification, API_URL) {
         var STORAGE_ID = 'habitrpg-user',
-            LOG_STORAGE_ID = 'habitrpg-user-log',
-            URL = 'http://127.0.0.1:3000/api/v1',
+            HABIT_MOBILE_SETTINGS = 'habit-mobile-settings',
+            authenticated = false,
+            defaultSettings = {
+                auth: { apiId: '', apiToken: ''},
+                sync: {
+                    queue: [], //here OT will be queued up, this is NOT call-back queue!
+                    sent: [] //here will be OT which have been sent, but we have not got reply from server yet.
+                },
+                fetching: false,  // whether fetch() was called or no. this is to avoid race conditions
+                online: false
+            },
+            settings = {}, //habit mobile settings (like auth etc.) to be stored here
             schema = {
-                stats : { gp:0, exp:0, lvl:1, hp:50 },
-                party : { current:null, invitation:null },
-                items : { weapon:0, armor:0, head:0, shield:0, pets: [], eggs: []},
+                stats: { gp: 0, exp: 0, lvl: 1, hp: 50 },
+                party: { current: null, invitation: null },
+                items: { weapon: 0, armor: 0, head: 0, shield: 0, pets: [], eggs: []},
                 preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1' },
                 auth: { timestamps: {savedAt: +new Date} },
                 tasks: [], // note task-types are differentiated / filtered by type {habit, daily, todo, reward}
                 lastCron: 'new',
-                balance  : 1,
+                balance: 1,
                 flags: {}
             },
-            user, // this is stored as a reference accessible to all controllers, that way updates propagate
-            authenticated = false,
-            actions = [], // A list of all actions done locally that are not yet saved to the server
-            fetched = false, // whether fetch() was called or no. this is to avoid race conditions
-            callbackQue = [], // a queue of callbacks to be called once user is fetched
-            waiting = false; //Indicates if an update was sent to the server and we are waiting for a response
+            user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
+            var apiId, apiToken = ''
 
-        $http.defaults.headers.get = {'Content-Type':"application/json;charset=utf-8"};
+              //first we populate user with schema
+             _.extend(user, schema);
 
-        /**
-        * Synchronizes the current state to the response from the server
-        * Will be called in the success and error callbacks in save().
-        */
-        var sync = function(newUser, cb){
-            if(actions.length == 0){
-                for(var key in newUser){
-                    user[key] = newUser[key];
-                }
-                // save returned user to localstorage
-                localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-                // clear actions since they are now updated. client and server are synced
-                localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
-                // apply call
-                if(cb) cb(user);
-            }else{
-                save({callback: cb});
+              //than we try to load localStorage
+            
+            if (localStorage.getItem(STORAGE_ID)) {
+                _.extend(user, JSON.parse(localStorage.getItem(STORAGE_ID)));
             }
-        }
 
-        var save = function(options) {
-            var self = this;
-            options = options || {};
-            user.auth.timestamps.savedAt = +new Date; //TODO handle this with timezones
-            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
-
-            /**
-             * If not authenticated, just save locally)
-             * If authenticating and only saved locally, create new user on the server
-             * If authenticating and exists on the server, do some crazy merge magic
-             */
-
-            if (authenticated && ! options.skipServer) {
-                if(! waiting){ // Don't perform an action if we are already waiting for a response from the server
-                    var action = actions.shift();
-                    var url = "",method = "", params = {}, validAction = true;
-                    if(action.op == "create_task"){
-                        url = "/tasks";
-                        method = "post"
-                        params = action.task
-                    }else if(action.op == "score"){
-                        url = "/tasks/" + action.task + "/score";
-                        method = "put";
-                        params = {task: action.task, dir: action.dir};
-                    }else if(action.op == "edit_task"){
-                        url = "/tasks/" + action.task ;
-                        method = "put";
-                        params = action.task;
-                    }else if(action.op == "delete_task"){
-                        url = "/tasks/" + action.task ;
-                        method = "delete";
-                    }else if(action.op == "buy_reward"){
-                    }else{
-                        validAction = false;
-                    }
-
-                    if(validAction){
-                        //we are going to send a request to server. so we should set waiting to true
-                        waiting = true;
-                        // TODO only update if actions is empty, otherwise, call save again
-                        $http[method](URL + url, params).success(function(data) {
-                            console.log(data);
-                            waiting = false;
-                            sync(data, options.callback);
-                        }).error(function(data){
-                            console.log(data.message);
-                            console.log(data.state);
-                            waiting = false;
-                            if(data.state){
-                                sync(data.state, options.callback );
-                            }else{
-                                // Failed to connect to server. add the action back to actions
-                                actions.unshift(action);
-                            }
-                        });
-                    }
-                }
+        var syncQueue = function (cb) {
+            if (!authenticated) {
+                alert("Not authenticated, can't sync, go to settings first.");
+                return;
             }
-        }
 
-        return {
+            var queue = settings.sync.queue;
+            var sent = settings.sync.sent;
+            if (queue.length === 0) {
+                console.log('Sync: Queue is empty');
+                return;
+            }
+            if (settings.fetching) {
+                console.log('Sync: Already fetching');
+                return;
+            }
+            if (settings.online!==true) {
+                console.log('Sync: Not online');
+                return;
+            }
 
-            authenticate: function(id, apiToken) {
-                if (!!id && !!apiToken) {
-                    $http.defaults.headers.common['x-api-user'] = id;
-                    $http.defaults.headers.common['x-api-key'] = apiToken;
-                    authenticated = true;
-                    this.fetch(); // now they've authenticated, get that user instead
-                }
-            },
+            settings.fetching = true;
+//                move all actions from queue array to sent array
+            _.times(queue.length, function () {
+                sent.push(queue.shift());
+            });
 
-            fetch: function(cb) {
-                var self = this;
-
-                // see http://docs.angularjs.org/api/ng.$q for promise return
-
-                // If we have auth variables, get the user form the server
-                if (authenticated) {
-                    $http.get(URL + '/user')
-                        .success(function(data, status, heacreatingders, config) {
-                            data.tasks = _.toArray(data.tasks);
-                            user = data;
-                            self.save({skipServer:true});
-                            cb(user);
-                            // loop on all callbacks in the callbackQue and call them with user as argument
-                            _.each(callbackQue, function(callback){
-                                callback(user);
-                            });
-                        })
-                        .error(function(data, status, headers, config) {
-                            authenticated = false;
-                            //alert("Invalid Credentials.");
-			    console.log();
-
-                        });
-
-                // else just work with localStorage user
-                } else {
-                    user = JSON.parse(localStorage.getItem(STORAGE_ID));
-                    if (!user) {
-                        user = schema;
-                        self.save();
+            
+            $http.post(API_URL + '/api/v2' + '?date=' + new Date().getTime(), sent)
+                .success(function (data, status, heacreatingders, config) {
+                    data.tasks = _.toArray(data.tasks);
+                    //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
+                    if (!queue.length) {
+                        //we can't do user=data as it will not update user references in all other angular controllers.
+                        _.extend(user, data);
                     }
-                    user.lastUpdated = user.lastUpdated ? new Date(user.lastUpdated) : undefined ;
-                    cb(user);
-                    // loop on all callbacks in the callbackQue and call them with user as argument
-                    _.each(callbackQue, function(callback){
-                        callback(user);
+                    sent.length = 0;
+                    settings.fetching = false;
+                    save();
+                    if (cb) {
+                        cb(false)
+                    }
+
+                    syncQueue(); // call syncQueue to check if anyone pushed more actions to the queue while we were talking to server.
+                })
+                .error(function (data, status, headers, config) {
+                    //move sent actions back to queue
+                    _.times(sent.length, function () {
+                        queue.push(sent.shift())
                     });
+                    settings.fetching = false;
+                    Notification.push({type:'text', text:"We're offline :("})
+                    console.log(data);
+
+                });
+
                 }
-                actions = JSON.parse( localStorage.getItem(LOG_STORAGE_ID) || "[]" );
+
+
+        var save = function () {
+            localStorage.setItem(STORAGE_ID, JSON.stringify(user));
+            localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(settings));
+        };
+        var userServices = {
+            user: user,
+            online: function (status) {
+                if (status===true) {
+                    settings.online = true;
+                    syncQueue();
+                } else {
+                    settings.online = false;
+                };
             },
 
-            log: function(action) {
-                actions.push(action);
-                localStorage.setItem(LOG_STORAGE_ID, JSON.stringify(actions));
-            },
-
-            get: function(cb) {
-                if(!!user) return cb(user);
-                if(fetched){
-                    // fetch was called but the user is not set yet.
-                    callbackQue.push(cb);
-                }else{
-                    // first call to fetch
-                    fetched = true;
-                    return this.fetch(cb);
+            authenticate: function (uuid, token, cb) {
+                if (!!uuid && !!token) {
+                    $http.defaults.headers.common = {'Content-Type': "application/json;charset=utf-8"};
+                    $http.defaults.headers.common['x-api-user'] = uuid;
+                    $http.defaults.headers.common['x-api-key'] = token;
+                    authenticated = true;
+                    settings.auth.apiId = uuid;
+                    settings.auth.apiToken = token;
+                    settings.online = true;
+                    this.log({}, cb);
+                } else {
+                    alert('Please enter your ID and Token in settings.')
                 }
             },
 
-            save:  save,
+            log: function (action, cb) {
+                //push by one buy one if an array passed in.
+                if (_.isArray(action)) {
+                    action.forEach(function (a) {
+                        settings.sync.queue.push(a);
+                    });
+                } else {
+                    settings.sync.queue.push(action);
+                }
 
-            remove: function(cb) {
-                /*return User.update({id: this._id.$oid},
-                    angular.extend({}, this, {_id:undefined}), cb);
-                    */
-            }
+                save();
+                syncQueue(cb);
+            },
+            settings: settings
+        };
+
+
+        //load settings if we have them
+        if (localStorage.getItem(HABIT_MOBILE_SETTINGS)) {
+            //use extend here to make sure we keep object reference in other angular controllers
+            _.extend(settings, JSON.parse(localStorage.getItem(HABIT_MOBILE_SETTINGS)));
+
+            //if settings were saved while fetch was in process reset the flag.
+            settings.fetching = false;
+            //create and load if not
+        } else {
+            localStorage.setItem(HABIT_MOBILE_SETTINGS, JSON.stringify(defaultSettings));
+            _.extend(settings, defaultSettings);
         }
 
-    })
+        //If user does not have ApiID that forward him to settings.
+        if (!settings.auth.apiId || !settings.auth.apiToken) {
+            $location.path("/login");
+        } else {
+            userServices.authenticate(settings.auth.apiId, settings.auth.apiToken)
+        }
+
+        return userServices;
+
+    }
+]);

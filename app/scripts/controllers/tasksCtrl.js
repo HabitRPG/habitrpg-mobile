@@ -1,116 +1,128 @@
 'use strict';
 
-/**
- * The main controller for the app. The controller:
- * - retrieves and persist the model via the todoStorage service
- * - exposes the model to the template and provides event handlers
- */
+habitrpg.controller('TasksCtrl',
+  ['$scope', '$rootScope', '$location', 'filterFilter', 'User', 'Algos', 'Helpers', 'Notification',
+  function($scope, $rootScope, $location, filterFilter, User, Algos, Helpers, Notification) {
 
-habitrpg.controller( 'TasksCtrl', function TasksCtrl( $scope, $rootScope, $location, filterFilter, User, Algos, Notification) {
-  $scope.newTask = "";
-  $rootScope.selectedTask = null; // FIXME is there a way to pass an object into another controller without rootScope?
+    $scope.user = User.user;
 
-  User.get(function(user){
-      $scope.tasks = user.tasks;
+    $scope.taskTypeTitleSingular = function () {
+//        show title according to the location, singular form
+        return $rootScope.taskContext.type;
+    };
 
-      // FIXME optimize this watch
-      $scope.$watch('tasks', function() {
-          $scope.remainingCount = filterFilter($scope.tasks, {completed: false}).length;
-          $scope.doneCount = $scope.tasks.length - $scope.remainingCount;
-          $scope.allChecked = !$scope.remainingCount
-      }, true);
+    $scope.taskType = function () {
+        return $location.path().split('/')[1]
+    };
 
-      if ( $location.path() === '' ) $location.path('/');
-      $scope.location = $location;
+    $scope.tasks = function () {
+        //return task array based on our location i.e. /habit will return user.habits[]
+        return User.user[$scope.taskType() + 's'];
+    };
 
-      $scope.$watch( 'location.path()', function( path ) {
-          var type = $scope.taskType = path.split('/')[1];
-          var filter = function(task){
-              return task.type === type && !task.del;
-          };
-          $scope.taskFilter = filter;
-          $scope.taskTypeTitle =
-              (type == 'habit')  ? 'Habits' :
-              (type == 'daily')  ? 'Dailies' :
-              (type == 'todo')   ? 'Todos' :
-              (type == 'reward') ? 'Rewards' : null;
+    $scope.taskFilter = function (task) {
+        return ($location.path() == '/todo') ? !task.completed :
+            ($location.path() == '/todo/completed') ? task.completed :
+                true;
+    };
 
-          if (type == 'todo') {
-              $scope.taskFilter = function(task){
-                var display = (path == '/todo/active') ? !task.completed :
-                              (path == '/todo/completed') ? task.completed :
-                              true ;
-                return filter(task) && display;
-              }
-          }
-      });
+    $scope.score = function (task, direction) {
+        //save current stats to compute the difference after scoring.
+        var statsDiff = {};
+        var oldStats = _.clone(User.user.stats);
 
-      $scope.score = function(task, direction) {
-          var delta = Algos.score(user, task.id, direction);
-          Notification.push(delta);
-          
+        Algos.score(User.user, task, direction);
 
-	  User.log({op: 'score', task: task.id, dir: direction});
-          User.save({callback: function(){
-            $scope.tasks = user.tasks;
-          }});
+        //compute the stats change.
+        _.each(oldStats, function (value, key) {
+            var newValue = User.user.stats[key];
+            if (newValue !== value) {
+                statsDiff[key] = newValue - value;
+            }
+        });
+        //notify user if there are changes in stats.
+        if (Object.keys(statsDiff).length > 0) {
+            Notification.push({type: 'stats', stats: statsDiff});
+        }
+        User.log({op: 'score', task: task, dir: direction});
+    };
 
-      }
+    $scope.getClass = function(value) {
+        var out = ''
+        if (value < -20)
+            out += ' color-worst'
+        else if (value < -10)
+            out += ' color-worse'
+        else if (value < -1)
+            out += ' color-bad'
+        else if (value < 1)
+            out += ' color-neutral'
+        else if (value < 5)
+            out += ' color-good'
+        else if (value < 10)
+            out += ' color-better'
+        else
+            out += ' color-best'
+        return out
+    }
 
-      $scope.addTask = function() {
-          if ( !$scope.newTask.length ) {
-              return;
-          }
+    $scope.addTask = function () {
+        if (!$scope.newTask.length) {
+            return;
+        }
 
-          var defaults = {
+        var defaults = {
                 text: $scope.newTask,
-                type: $scope.taskType,
-                value: $scope.taskType == 'reward' ? 20 : 0
-              },
-              extra = {};
+                type: $scope.taskType(),
+                value: $scope.taskType() == 'reward' ? 20 : 0
+            },
+            extra = {};
 
-          switch($scope.taskType) {
-              case 'habit':
-                  extra = {up:true, down:true}
-                  break;
-              case 'daily':
-              case 'todo':
-                  extra = {completed:false}
-                  break;
-          }
+        switch ($scope.taskType()) {
+            case 'habit':
+                extra = {up: true, down: true};
+                break;
+            case 'daily':
+            case 'todo':
+                extra = {completed: false};
+                break;
+        }
 
 
-          var newTask = _.defaults(extra, defaults)
-          $scope.tasks.push(newTask);
-          $scope.newTask = '';
-          //Add the new task to the actions log
-          User.log({op: 'create_task', task: newTask});
+        var newTask = _.defaults(extra, defaults);
+        newTask.id = Helpers.uuid();
+        User.user[newTask.type + 's'].unshift(newTask)
+        User.log({op: 'addTask', task: newTask});
+        $scope.newTask = '';
+        //Add the new task to the actions log
 
-          User.save({callback: function(){
-            $scope.tasks = user.tasks;
-          }});
-      };
+    };
 
-      $scope.clearDoneTodos = function() {
-          $scope.tasks = $scope.tasks.filter(function( val ) {
-              return !val.completed;
-          });
-      };
+    $scope.clearDoneTodos = function () {
+        //We can't alter $scope.user.tasks here. We have to invoke API call.
+        //To be implemented
+    };
 
-      $scope.selectTask = function(task) {
-          $rootScope.selectedTask = task;
-          $location.path('/tasks/' + task.id)
-      }
+    $scope.selectTask = function (task) {
+        $rootScope.selectedTask = task;
+        $location.path('/tasks/' + task.id)
+    }
 
-      $scope.changeCheck = function(task){
-          // This is calculated post-change, so task.completed=true if they just checked it
-          if(task.completed) {
-              $scope.score(task, 'up')
-          } else {
-              $scope.score(task, 'down')
-          }
-      }
+    $scope.changeCheck = function (task) {
+        // This is calculated post-change, so task.completed=true if they just checked it
+        if (task.completed) {
+            $scope.score(task, 'up')
+        } else {
+            $scope.score(task, 'down')
+        }
+    }
 
-  })
+    $('.taskWell').css('height', $(window).height() - 61)
 
-});
+    // TODO this should be somewhere else, but fits the html location better here
+    $rootScope.revive = function() {
+        window.habitrpgShared.algos.revive(User.user);
+        User.log({op:'revive'});
+    }
+  }
+]);

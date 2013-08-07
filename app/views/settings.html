@@ -1,0 +1,10 @@
+<div ng-controller="SettingsCtrl">
+    <form ng-submit="auth(settings.auth.apiId,settings.auth.apiToken)">
+        <p>User Id</p>
+        <input type="text" class='topcoat-text-input' ng-model="settings.auth.apiId" />
+        <p>API Token</p>
+        <input type="text" class='topcoat-text-input' ng-model="settings.auth.apiToken" />
+        <input type="submit" class="topcoat-button--cta" value="Save" />
+        <input type="button" ng-click="resetApp()" class="topcoat-button--cta" value="Reset Application"></a>
+    </form>
+</div>
