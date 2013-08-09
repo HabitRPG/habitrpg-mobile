@@ -31,7 +31,7 @@ habitrpg.controller('AuthCtrl',
             password: $scope.loginPassword
         }
 
-        $http.post(API_URL + '/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
+    $http.post(API_URL + '/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
             User.authenticate(data.id, data.token, function(err) {
               alert('Login succesfull!');
               $location.path("/habit");
@@ -44,7 +44,8 @@ habitrpg.controller('AuthCtrl',
             // }
         }).error(function(data, status, headers, config) {
             alert(status)
-        })
+    })
+
     }
   }
 ]);

@@ -1,18 +1,20 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.habitrpg" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.phonegap.example"
+        versionCode="10" 
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
+
     <name>HabitRPG</name>
+
     <description>
-        Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
+       Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
     </description>
+
     <author email="admin@habitrpg.com" href="https://habitrpg.com">
         HabitRPG
     </author>
 
-    <gap:plugin name="FacebookConnect">
-        <param name="APP_ID" value="149438691882945" />
-    </gap:plugin>
-
-    <access origin="*" />
-    <preference name="fullscreen" value="true" />
-    <preference name="webviewbounce" value="true" />
 </widget>

@@ -11,11 +11,16 @@ habitrpg.controller('MenuCtrl',
   function($scope, $rootScope, $location) {
 
   $scope.swiperight = function(){
-    $rootScope.menuopen = true;
+    $scope.menuopen = true;
   }
 
   $scope.swipeleft = function(){
-    $rootScope.menuopen = false;
+    $scope.menuopen = false;
+  }
+
+  $scope.menuClick = function(button) {
+    $scope.menuopen = false;
+    $location.url(button.link);
   }
 
   /**
