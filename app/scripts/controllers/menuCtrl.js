@@ -10,6 +10,14 @@ habitrpg.controller('MenuCtrl',
   ['$scope', '$rootScope', '$location',
   function($scope, $rootScope, $location) {
 
+  $scope.swiperight = function(){
+    $rootScope.menuopen = true;
+  }
+
+  $scope.swipeleft = function(){
+    $rootScope.menuopen = false;
+  }
+
   /**
    * Show title according to the location
    */
