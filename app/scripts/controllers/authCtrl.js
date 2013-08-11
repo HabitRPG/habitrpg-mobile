@@ -11,8 +11,6 @@ habitrpg.controller('AuthCtrl',
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
 
-    //localStorage.clear()
-
     document.addEventListener('deviceready', function() {
 
         FB.init({
@@ -21,8 +19,6 @@ habitrpg.controller('AuthCtrl',
             useCachedDialogs: false
         });
 
-        //Facebook.authUser();
-        //updateAuthElements();
     }, false);
 
     $scope.auth = function() {

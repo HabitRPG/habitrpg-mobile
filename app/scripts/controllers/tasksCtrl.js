@@ -20,6 +20,8 @@ habitrpg.controller('TasksCtrl',
         return User.user[$scope.taskType() + 's'];
     };
 
+    $scope.showedTasks = []
+
     $scope.taskFilter = function (task) {
         return ($location.path() == '/todo') ? !task.completed :
             ($location.path() == '/todo/completed') ? task.completed :
@@ -44,7 +46,7 @@ habitrpg.controller('TasksCtrl',
         if (Object.keys(statsDiff).length > 0) {
             Notification.push({type: 'stats', stats: statsDiff});
         }
-        User.log({op: 'score', data: task, dir: direction});
+        User.log({op: 'score', task: task, dir: direction});
     };
 
     $scope.getClass = function(value) {
@@ -92,7 +94,8 @@ habitrpg.controller('TasksCtrl',
         var newTask = _.defaults(extra, defaults);
         newTask.id = Helpers.uuid();
         User.user[newTask.type + 's'].unshift(newTask)
-        User.log({op: 'addTask', data: newTask});
+        $scope.showedTasks.unshift(newTask)
+        User.log({op: 'addTask', task: newTask});
         $scope.newTask = '';
         //Add the new task to the actions log
 
@@ -124,5 +127,27 @@ habitrpg.controller('TasksCtrl',
         window.habitrpgShared.algos.revive(User.user);
         User.log({op:'revive'});
     }
+    
+    var counter = 0;
+   
+    /*
+    $scope.loadMore = function() {
+
+        var length = $scope.showedTasks.length
+        if (typeof $scope.tasks() != 'undefined') {
+            for (var i = length; i < length+7; i++) {
+                if (typeof $scope.tasks()[i] != 'undefined') {
+                    $scope.showedTasks.push($scope.tasks()[i]);
+                }
+            }
+        }
+
+
+    };
+
+    $scope.loadMore()
+
+    */
+
   }
 ]);

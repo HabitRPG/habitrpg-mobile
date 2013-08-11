@@ -30,7 +30,10 @@
 
             <nav class="menu" ng-class="{open : menuopen}" style="top:0; left:0; width:100%">
                 <div class="navLinkBlock">
-                    <a class="mainNavLink" ng-repeat="button in nav" ng-click="menuClick(button)">{{button.name}}</a>
+                    <div class="mainNavLink" ng-repeat="button in nav" ng-click="menuClick(button)">
+                        <img src="assets/sidebar-icon-{{button.lowercase}}.png">
+                        {{button.name}}
+                    </div>
                 </div>
              </nav>
 
@@ -55,7 +58,7 @@
                 </div>
 
                 <!-- Content -->
-                <div id="content" class="max-width">
+                <div id="content" class="max-width" ng-controller="TasksCtrl">
                     <!-- this stuff is just for development? I won't style this right now -->
                     <div class="appStatusArea">
                         <input type="button" class="appOnlineToggle" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)">

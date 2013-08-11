@@ -33,9 +33,6 @@ angular.module('notificationServices', []).
 
             push: function (message) {
                 data.message = ''
-                //  TODO implement message growl type notifications instead.
-                //  {type:'stats',stats:stats} and {type:"text", text:"text"} 
-                //  {hp:1,gp:-2.2} 
                 switch(message.type) {
                     case 'stats':
                         var keys = Object.keys(message.stats)
@@ -43,7 +40,7 @@ angular.module('notificationServices', []).
                             if (message.stats[el] < 0) {
                                 data.message += el + ':' + '<font style="color:red">' + message.stats[el] + '</font>'
                             }else{
-                                data.message += el + ':' + message.stats[el]
+                                data.message += '<i class="icon-star"></i> ' + message.stats[el]
                             }
                         })
                     break;

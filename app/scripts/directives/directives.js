@@ -29,6 +29,18 @@ habitrpg.directive('taskBlur', function() {
   };
 });
 
+habitrpg.directive('whenScrolled', function() {
+    return function(scope, elm, attr) {
+        var raw = elm[0];
+        
+        elm.bind('scroll', function() {
+            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                scope.$apply(attr.whenScrolled);
+            }
+        });
+    };
+});
+
 /**
  * Add sortable
  */
@@ -44,7 +56,7 @@ habitrpg.directive('sort', function (User) {
           var taskType = $rootScope.taskContext.type;
           var startIndex = ui.item.data('startIndex');
           var task = User.user[taskType][startIndex];
-          User.log({op: 'sortTask', data: task, from: startIndex, to: ui.item.index()});
+          User.log({op: 'sortTask', task: task, from: startIndex, to: ui.item.index()});
         }
       });
   }]

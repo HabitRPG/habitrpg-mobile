@@ -252,6 +252,14 @@ ngMobile.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     });
 
     element.on('touchend', function(event) {
+
+      if (tapping) {
+        scope.$apply(function() {
+            // TODO(braden): This is sending the touchend, not a tap or click. Is that kosher?
+            clickHandler(scope, {$event: event});
+        });
+      }
+
       var diff = Date.now() - startTime;
 
       var p = getSingleTouchLocation(event);
@@ -284,11 +292,14 @@ ngMobile.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     // Fallback click handler.
     // Busted clicks don't get this far, and adding this handler allows ng-tap to be used on
     // desktop as well, to allow more portable sites.
+    /*
     element.on('click', function(event) {
       scope.$apply(function() {
         clickHandler(scope, {$event: event});
       });
     });
+    */
+    
 
     element.on('mousedown', function(event) {
       element.addClass(ACTIVE_CLASS_NAME);

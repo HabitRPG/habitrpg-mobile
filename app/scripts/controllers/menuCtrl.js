@@ -7,8 +7,8 @@
  */
 
 habitrpg.controller('MenuCtrl',
-  ['$scope', '$rootScope', '$location',
-  function($scope, $rootScope, $location) {
+  ['$scope', '$rootScope', '$location', 'User',
+  function($scope, $rootScope, $location, User) {
 
   $scope.swiperight = function(){
     $scope.menuopen = true;
@@ -40,13 +40,23 @@ habitrpg.controller('MenuCtrl',
   });
 
   $scope.nav = [
-    { link:'/habit',     name:'Habits'  },
-    { link:'/daily',     name:'Dailies' },
-    { link:'/todo',      name:'Todos'   },
-    { link:'/reward',    name:'Rewards' },
-    { link:'/profile',   name:'Profile' },
-    { link:'/settings',  name:'Settings'}
+    { link:'/habit',     name:'Habits',  lowercase:'habits'   },
+    { link:'/daily',     name:'Dailies', lowercase:'dailies'  },
+    { link:'/todo',      name:'Todos',   lowercase:'todos'    },
+    { link:'/reward',    name:'Rewards', lowercase:'rewards'  },
+    { link:'/profile',   name:'Profile', lowercase:'profile'  },
+    { link:'/settings',  name:'Settings',lowercase:'settings' }
   ]
+
+  $scope.refreshing = function () {
+    return User.settings.fetching ? "spin" : ""
+  };
+
+  $scope.queueLength = function () {
+    return User.settings.sync.queue.length || User.settings.sync.sent.length
+  };
+
+  $scope.stats = User.user.stats;
 
   $('#main_nav').css('height', $(window).height())
   $('#wrapper').css('height', $(window).height())

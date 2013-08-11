@@ -8,22 +8,22 @@ habitrpg.controller('userAvatarCtrl',
 
       $scope.changeHair = function(color) {
           User.user.preferences.hair = color;
-          User.log({op:"set",data:{"preferences.hair":color}})
+          User.log({op:"set",path:"preferences.hair",value:color})
       }
 
       $scope.changeSkin = function(color) {
           User.user.preferences.skin = color
-          User.log({op:"set",data:{"preferences.skin":color}})
+          User.log({op:"set",path:"preferences.skin",value:color})
       }
 
       $scope.changeSex = function(gender) {
           User.user.preferences.gender = gender
-          User.log({op:"set",data:{"preferences.gender":gender}})
+          User.log({op:"set",path:"preferences.gender",value:gender})
       }
 
-      $scope.changeArmor = function(armor) {
-          User.user.preferences.armorSet = armor
-          User.log({op:"set",data:{"preferences.armorSet":armor}})
+      $scope.changeArmor = function(set) {
+          User.user.preferences.armorSet = v
+          User.log({op:"set",path:"preferences.armorSet",value:set})
       }
 
        $scope.hideUserAvatar = function() {

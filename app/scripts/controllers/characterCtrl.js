@@ -31,12 +31,6 @@ habitrpg.controller('CharacterCtrl',
             return _.size(arr);
         }
         $scope.tnl = window.habitrpgShared.algos.tnl;
-//        $scope.userStr =  window.habitrpgShared.helpers.userStr;
-//        $scope.userDef =  window.habitrpgShared.helpers.userDef;
-//        $scope.totalStr = window.habitrpgShared.helpers.totalStr;
-//        $scope.totalDef = window.habitrpgShared.helpers.totalDef;
-//        $scope.itemText = window.habitrpgShared.helpers.itemText;
-//        $scope.itemStat = window.habitrpgShared.helpers.itemStat;
 
         $scope.showUserAvatar = function() {
             $('.userAvatar').show()
