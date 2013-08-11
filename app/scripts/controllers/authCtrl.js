@@ -26,6 +26,14 @@ habitrpg.controller('AuthCtrl',
 
     }, false);
 
+    $scope.signup = function() {
+      var confirmed = confirm("For the time being, you'll need to register on habitrpg.com if you don't already have an account. Go there now?")
+      if(confirmed == true) {
+        var win=window.open('https://habitrpg.com', '_blank');
+        win.focus();
+      }
+    }
+
     $scope.auth = function() {
       var data = {
         username: $scope.loginUsername,
@@ -40,22 +48,15 @@ habitrpg.controller('AuthCtrl',
       }
 
       if ($scope.useUUID) {
-        debugger
-        return runAuth($scope.loginUsername, $scope.loginPassword);
+        runAuth($scope.loginUsername, $scope.loginPassword);
+      } else {
+        $http.post(API_URL + '/api/v1/user/auth/local', data)
+          .success(function(data, status, headers, config) {
+            runAuth(data.id, data.token);
+          }).error(function(data, status, headers, config) {
+            alert(status)
+          })
       }
-
-      $http.post(API_URL + '/api/v1/user/auth/local', data).success(function(data, status, headers, config) {
-        runAuth(data.id, data.token);
-
-        // Angular 1.1.4 bug, see https://github.com/angular/angular.js/issues/2431#issuecomment-18160256
-        // Strange, it only crops up on initial login attempt
-        // if(!$rootScope.$$phase) {
-        //    $rootScope.$apply();
-        // }
-      }).error(function(data, status, headers, config) {
-        alert(status)
-      })
-
     }
   }
 ]);
