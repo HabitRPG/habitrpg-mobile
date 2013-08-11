@@ -38,10 +38,10 @@ habitrpg.controller('TaskDetailsCtrl',
           setVal("up", task.up);
           setVal("down", task.down);
         } else if (task.type == 'daily') {
-          //setVal("date", task.repeat);
-          _.each(task.repeat, function(v, k) {
-              setVal("repeat." + k, v);
-          })
+          setVal("repeat", task.repeat);
+//          _.each(task.repeat, function(v, k) {
+//              setVal("repeat." + k, v);
+//          })
         } else if (task.type == 'todo') {
           setVal("date", task.date);
         } else if (task.type == 'reward') {
