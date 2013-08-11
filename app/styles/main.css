@@ -296,7 +296,7 @@ body {
     letter-spacing: 4px;
 }
     .btn--filter {
-        width: 50%;
+        width: 49%;
         float: left;
         letter-spacing: normal;
         margin: 0;
@@ -785,19 +785,6 @@ width:100%;
 }
 
 .home_stats {
-
-
-
-}
-
-.userAvatar {
-  position:absolute;
-  z-index:99999;
-  width:600px;
-  background-color: #fff;
-  left:100px;
-  display:none;
-
 }
 
 .customize-menu {
