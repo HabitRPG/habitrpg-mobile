@@ -1,6 +1,6 @@
 <div ng-controller="StatsCtrl"></div>
 
-<div ng-controller="TaskDetailsCtrl">
+<div ng-controller="TaskDetailsCtrl" class="details-page">
 
     <!-- Details Page -->
     <div ng-hide="editing">
@@ -19,8 +19,8 @@
 
         <!-- Habits -->
         <span ng-show="task.type == 'habit'" ng-cloak>
-            <button class="topcoat-button taskButton" ng-click="score(task,'up')">＋</button>
-            <button class="topcoat-button taskButton" ng-click="score(task,'down')">－</button>
+            <button class="topcoat-button taskButton" ng-show="task.up" ng-click="score(task,'up')">＋</button>
+            <button class="topcoat-button taskButton" ng-show="task.down" ng-click="score(task,'down')">－</button>
         </span>
 
         <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-cloak />
@@ -43,8 +43,14 @@
 
         <!-- Habits -->
         <span ng-show="task.type == 'habit'" ng-cloak>
-            <input type="checkbox" ng-model='task.up'> Up<br/>
-            <input type="checkbox" ng-model='task.down'> Down
+            <div class="topcoat-checkbox">
+                <input type="checkbox" id="edit-task-{{task.id}}-up" ng-model="task.up">
+                <label class="topcoat-checkbox__label--right" for="edit-task-{{task.id}}-up">Up</label>
+            </div>
+            <div class="topcoat-checkbox">
+                <input type="checkbox" id="edit-task-{{task.id}}-down" ng-model="task.down">
+                <label class="topcoat-checkbox__label--right" for="edit-task-{{task.id}}-down">Down</label>
+            </div>
         </span>
 
         <!-- Dailies -->

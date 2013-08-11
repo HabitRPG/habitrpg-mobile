@@ -854,7 +854,7 @@ ul.stats-list {
     white-space: nowrap;
 }
 
-.profile-content {
+.details-page, .profile-content {
   position: absolute;
   top: 63px; /* this is stupid */
   bottom: 0; left: 0; right: 0;

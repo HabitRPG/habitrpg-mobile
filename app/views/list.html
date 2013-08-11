@@ -29,8 +29,8 @@
                 <div class="taskActions">
                     <!-- Habits -->
                     <span ng-show="task.type == 'habit'" ng-cloak>
-                        <button class="btn btn--small taskButton" ng-click="score(task,'up')">＋</button>
-                        <button class="btn btn--small taskButton" ng-click="score(task,'down')">－</button>
+                        <button class="btn btn--small taskButton" ng-click="score(task,'up')" ng-show="task.up">＋</button>
+                        <button class="btn btn--small taskButton" ng-click="score(task,'down')" ng-show="task.down">－</button>
                     </span>
 
                     <!-- Daily, Todo -->

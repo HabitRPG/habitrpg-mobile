@@ -20,55 +20,39 @@ habitrpg.controller('TaskDetailsCtrl',
     };
 
     $scope.save = function () {
-        var task = $scope.task;
-        var log = [{op: 'set', data:{}}, {op: 'set', data: {}}];
+        var task = $scope.task,
+            log = [];
 
-        log[0].data["tasks." + task.id + ".text"] = task.text;
-        log[1].data["tasks." + task.id + ".notes"] = task.notes;
-        log[2].data["tasks." + task.id + ".up"] = task.up;
-        log[3].data["tasks." + task.id + ".down"] = task.down;
-        log[4].data["tasks." + task.id + ".priority"] = task.priority;
-        log[5].data["tasks." + task.id + ".date"] = task.date;
-        log[1].data["tasks." + task.id + ".price"] = task.price;
+        function setVal(k,v){
+          if (typeof v !== "undefined") {
+            var op = {op: 'set', data:{}};
+            op.data["tasks." + task.id + "." + k] = v;
+            log.push(op);
+          }
+        }
 
-        _.each(task.repeat, function(el, key, list) {
-            log.push({op: 'set', path: "tasks." + task.id + ".repeat." + key, value: el})
-        })
+        setVal("text", task.text);
+        setVal("notes", task.notes);
+        setVal("priority", task.priority);
+        if (task.type == 'habit') {
+          setVal("up", task.up);
+          setVal("down", task.down);
+        } else if (task.type == 'daily') {
+          //setVal("date", task.repeat);
+          _.each(task.repeat, function(v, k) {
+              setVal("repeat." + k, v);
+          })
+        } else if (task.type == 'todo') {
+          setVal("date", task.date);
+        } else if (task.type == 'reward') {
+          setVal("value", task.value);
+        }
+
 
         User.log(log);
         $rootScope.selectedTask = null;
         $location.path('/' + $scope.task.type);
         $scope.editing = false;
-
-
-        //////////////////////////////////////////////////
-        
-        /*
-        var ops = ([
-            {op: 'set', path: "tasks." + task.id + ".text", value: task.text},
-            {op: 'set', path: "tasks." + task.id + ".notes", value: task.notes},
-            {op: 'set', path: "tasks." + task.id + ".up", value: task.up},
-            {op: 'set', path: "tasks." + task.id + ".down", value: task.down},
-            {op: 'set', path: "tasks." + task.id + ".priority", value: task.priority},
-            {op: 'set', path: "tasks." + task.id + ".date", value: task.date},
-            {op: 'set', path: "tasks." + task.id + ".price", value: task.price},
-        ])
-
-        */
-
-        /*
-        _.each(task.tags, function(el, key, list) {
-            ops.push({op: 'set', path: "tasks." + task.id + ".tags." + key, value: el})
-        })
-
-        _.each(task.repeat, function(el, key, list) {
-            ops.push({op: 'set', path: "tasks." + task.id + ".repeat." + key, value: el})
-        })
-        */
-
-        //User.log(ops)
-
-        ///////////////////////////////////////////////////
     };
 
     $scope.cancel = function () {
