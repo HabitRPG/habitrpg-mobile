@@ -21,9 +21,9 @@ habitrpg.controller('TaskDetailsCtrl',
 
     $scope.save = function () {
         var task = $scope.task;
-        var log = [{op: 'set'}, {op: 'set'}];
-        log[0]["tasks." + task.id + ".text"] = task.text;
-        log[1]["tasks." + task.id + ".notes"] = task.notes;
+        var log = [{op: 'set', data:{}}, {op: 'set', data: {}}];
+        log[0].data["tasks." + task.id + ".text"] = task.text;
+        log[1].data["tasks." + task.id + ".notes"] = task.notes;
         User.log(log);
         $rootScope.selectedTask = null;
         $location.path('/' + $scope.task.type);
