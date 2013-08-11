@@ -21,10 +21,10 @@ habitrpg.controller('TaskDetailsCtrl',
 
     $scope.save = function () {
         var task = $scope.task;
-        User.log([
-            {op: 'set', path: "tasks." + task.id + ".text", value: task.text},
-            {op: 'set', path: "tasks." + task.id + ".notes", value: task.notes}
-        ]);
+        var log = [{op: 'set'}, {op: 'set'}];
+        log[0]["tasks." + task.id + ".text"] = task.text;
+        log[1]["tasks." + task.id + ".notes"] = task.notes;
+        User.log(log);
         $rootScope.selectedTask = null;
         $location.path('/' + $scope.task.type);
         $scope.editing = false;
@@ -43,7 +43,7 @@ habitrpg.controller('TaskDetailsCtrl',
     $scope.delete = function () {
         var task = $scope.task;
         var tasks = User.user[task.type+'s'];
-        User.log({op: 'delTask', task: task});
+        User.log({op: 'delTask', data: task});
         $scope.goBack();
         delete tasks.splice(tasks.indexOf(task),1);
     };

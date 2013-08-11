@@ -44,7 +44,7 @@ habitrpg.directive('sort', function (User) {
           var taskType = $rootScope.taskContext.type;
           var startIndex = ui.item.data('startIndex');
           var task = User.user[taskType][startIndex];
-          User.log({op: 'sortTask', task: task, from: startIndex, to: ui.item.index()});
+          User.log({op: 'sortTask', data: task, from: startIndex, to: ui.item.index()});
         }
       });
   }]

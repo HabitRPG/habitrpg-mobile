@@ -44,7 +44,7 @@ habitrpg.controller('TasksCtrl',
         if (Object.keys(statsDiff).length > 0) {
             Notification.push({type: 'stats', stats: statsDiff});
         }
-        User.log({op: 'score', task: task, dir: direction});
+        User.log({op: 'score', data: task, dir: direction});
     };
 
     $scope.getClass = function(value) {
@@ -92,7 +92,7 @@ habitrpg.controller('TasksCtrl',
         var newTask = _.defaults(extra, defaults);
         newTask.id = Helpers.uuid();
         User.user[newTask.type + 's'].unshift(newTask)
-        User.log({op: 'addTask', task: newTask});
+        User.log({op: 'addTask', data: newTask});
         $scope.newTask = '';
         //Add the new task to the actions log
 

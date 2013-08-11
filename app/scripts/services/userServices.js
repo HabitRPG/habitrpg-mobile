@@ -20,22 +20,11 @@ angular.module('userServices', []).
                 online: false
             },
             settings = {}, //habit mobile settings (like auth etc.) to be stored here
-            schema = {
-                stats: { gp: 0, exp: 0, lvl: 1, hp: 50 },
-                party: { current: null, invitation: null },
-                items: { weapon: 0, armor: 0, head: 0, shield: 0, pets: [], eggs: []},
-                preferences: { gender: 'm', skin: 'white', hair: 'blond', armorSet: 'v1' },
-                auth: { timestamps: {savedAt: +new Date} },
-                tasks: [], // note task-types are differentiated / filtered by type {habit, daily, todo, reward}
-                lastCron: 'new',
-                balance: 1,
-                flags: {}
-            },
             user = {}; // this is stored as a reference accessible to all controllers, that way updates propagate
-            var apiId, apiToken = ''
 
               //first we populate user with schema
-             _.extend(user, schema);
+            _.extend(user, window.habitrpgShared.helpers.newUser());
+            user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
 
               //than we try to load localStorage
             
@@ -71,7 +60,7 @@ angular.module('userServices', []).
             });
 
             
-            $http.post(API_URL + '/api/v2' + '?date=' + new Date().getTime(), sent)
+            $http.post(API_URL + '/api/v1/user/batch-update' + '?date=' + new Date().getTime(), sent)
                 .success(function (data, status, heacreatingders, config) {
                     data.tasks = _.toArray(data.tasks);
                     //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
