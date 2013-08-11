@@ -193,11 +193,12 @@ body {
     .mainNavLink {
         font-size: 1.5em;
         color: #ddd;
-        padding: 0.75em;
         border-top:1px solid #4E4E4E;
         display: block;
         letter-spacing: 1px;
         text-decoration: none;
+        height:65px;
+        padding-left:12px;
     }
 
     .lastNavLink {
@@ -816,6 +817,24 @@ width:100%;
   background-repeat: no-repeat;
   margin-top: 2%;
   min-height: 85px;
+}
+
+.image_wrapper {
+  display: block;
+  position: absolute;
+  line-height: 47px;
+  float: left;
+  top: 5px;
+  left: 11px;
+}
+
+.image_wrapper_text {
+  display: block;
+  position: absolute;
+  line-height: 47px;
+  float: left;
+  top: 8px;
+  left: 73px;
 }
 
 
