@@ -66,12 +66,15 @@
 
         <!-- Todos -->
         <div ng-show="task.type == 'todo'">
-            TODO: Due Date
+            <!--TODO: Due Date-->
         </div>
 
         <!-- Rewards -->
         <div ng-hide="task.type == 'reward'">
-            TODO: Difficulty
+            <!--TODO: Difficulty-->
+        </div>
+        <div ng-show="task.type == 'reward'">
+            <input type="text" class="topcoat-text-input" ng-model="task.value" placeholder="Price" />
         </div>
 
     </div>
