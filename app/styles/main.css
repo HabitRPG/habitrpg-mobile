@@ -583,32 +583,32 @@ width:100%;
 }
 
 .color-worst {
-  background-color: rgb(230, 184, 175)
+  background-color: rgb(230, 184, 175);
 }
 .color-worse {
-  background-color: rgb(244, 204, 204)
+  background-color: rgb(244, 204, 204);
 }
 .color-bad {
-  background-color: rgb(252, 229, 205)
+  background-color: rgb(252, 229, 205);
 }
 .color-neutral {
-  background-color: rgb(255, 242, 204)
+  background-color: rgb(255, 242, 204);
 }
 .color-good {
-  background-color: rgb(217, 234, 211)
+  background-color: rgb(217, 234, 211);
 }
 .color-better {
-  background-color: rgb(208, 224, 227)
+  background-color: rgb(208, 224, 227);
 }
 .color-best {
-  background-color: rgb(201, 218, 248)
+  background-color: rgb(201, 218, 248);
 }
 .completed {
-  background-color: rgb(217, 217, 217)
+  background-color: rgb(217, 217, 217);
   color: rgb(153, 153, 153)
 }
 .reward {
-  background-color: white
+  background-color: white;
 }
 
 .first_block {

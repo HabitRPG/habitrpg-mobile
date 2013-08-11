@@ -7,12 +7,12 @@
 
         <div class="content-notlogged">
             <form ng-submit="auth()">
-                <input type="text" class="username" ng-model="loginUsername" placeholder="Username" />
-                <input type="password" class="password" ng-model="loginPassword" placeholder="Password" />
+                <input type="text" class="username" ng-model="loginUsername" placeholder="{{useUUID ? 'UUID' : 'Username'}}" />
+                <input type="{{useUUID ? 'text' : 'password'}}" class="password" ng-model="loginPassword" placeholder="{{useUUID ? 'API Token' : 'Password'}}" />
 
                 <input type="submit" class="btn-homescreen btn-login" value="Login" />
-                <input type="submit" class="btn-homescreen btn-api-token" value="Use ID + Token" />
-                <input type="button" class="btn-homescreen btn-signup" value="Signup" />
+                <input type="button" class="btn-homescreen btn-api-token" value="{{useUUID ? 'Use uname / pass' : 'Use ID + Token'}}" ng-click="toggleUUID()"/>
+                <input type="button" class="btn-homescreen btn-signup" value="Signup" ng-click="alert('implement me')"/>
             </form>
 
         </div>
