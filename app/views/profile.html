@@ -1,4 +1,14 @@
-<div ng-controller="CharacterCtrl">
+<div ng-controller="CharacterCtrl" class="profile-container">
+
+    <div class="filterBar" >
+        <a class="btn btn--small btn--filter" ng-click="customize = false">View</a>
+        <a class="btn btn--small btn--filter" ng-click="customize = true">Customize</a>
+    </div>
+
+    <div class="profile-content">
+
+        <!-- Profile Page -->
+        <div ng-hide="customize">
 
             <div class="herobox">
                 <div class='character-sprites' ng-click="showUserAvatar()">
@@ -50,4 +60,8 @@
                 <li><strong>Total Strength</strong>: {{totalStr(user.stats.lvl, user.items.weapon)}} %</li>
                 <li><strong>Total Defense</strong>: {{totalDef(user.stats.lvl, user.items.armor, user.items.head, user.items.shield)}} %</li>
             </ul>
+        </div>
+
+        <ng-include ng-show="customize" src="'/views/customize.html'" />
+    </div>
 </div>

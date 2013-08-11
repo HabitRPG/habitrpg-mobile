@@ -295,9 +295,10 @@ body {
     background: #f5f5f5;
     border-top: 1px solid rgba(0,0,0,0.2);
     letter-spacing: 4px;
+    z-index: 1;
 }
     .btn--filter {
-        width: 50%;
+        width: 49%;
         float: left;
         letter-spacing: normal;
         margin: 0;
@@ -786,19 +787,6 @@ width:100%;
 }
 
 .home_stats {
-
-
-
-}
-
-.userAvatar {
-  position:absolute;
-  z-index:99999;
-  width:600px;
-  background-color: #fff;
-  left:100px;
-  display:none;
-
 }
 
 .customize-menu {
@@ -859,4 +847,12 @@ ul.stats-list {
     margin: 0;
     line-height: 2.1;
     white-space: nowrap;
+}
+
+.profile-content {
+  position: absolute;
+  top: 63px; /* this is stupid */
+  bottom: 0; left: 0; right: 0;
+  overflow-y:auto;
+  -webkit-overflow-scroll: touch;
 }
