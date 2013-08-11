@@ -1,4 +1,5 @@
-<div ng-controller="CharacterCtrl">
+<div ng-controller="CharacterCtrl" class="profile-container">
+    <div class="profile-content">
 
             <div class="herobox">
                 <div class='character-sprites' ng-click="showUserAvatar()">
@@ -50,4 +51,5 @@
                 <li><strong>Total Strength</strong>: {{totalStr(user.stats.lvl, user.items.weapon)}} %</li>
                 <li><strong>Total Defense</strong>: {{totalDef(user.stats.lvl, user.items.armor, user.items.head, user.items.shield)}} %</li>
             </ul>
+    </div>
 </div>
