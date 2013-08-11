@@ -41,11 +41,13 @@ habitrpg.controller('TaskDetailsCtrl',
     };
 
     $scope.delete = function () {
-        var task = $scope.task;
-        var tasks = User.user[task.type+'s'];
-        User.log({op: 'delTask', data: task});
-        $scope.goBack();
-        delete tasks.splice(tasks.indexOf(task),1);
+      var confirmed = window.confirm("Delete this task?");
+      if (confirmed !== true) return;
+      var task = $scope.task;
+      var tasks = User.user[task.type+'s'];
+      User.log({op: 'delTask', data: task});
+      $scope.goBack();
+      delete tasks.splice(tasks.indexOf(task),1);
     };
   }
 ]);
