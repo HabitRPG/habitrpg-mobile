@@ -685,7 +685,7 @@ width:100%;
 
 .content-notlogged {
 
-  background-image:url('../assets/home-scroll.png');
+  background-image:url('../assets/home-scroll2.png');
   width:89%;
   height:70%;
   margin:0 auto;
@@ -705,28 +705,33 @@ width:100%;
 
 }
 
-.login_button {
-  background-image:url('../assets/home-login.png');
+.btn-homescreen {
+  background-color: transparent;
+  border: none;
   width: 69%;
   height: 9%;
   position: absolute;
-  top: 56%;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   left: 16%;
-
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
 }
 
-.signup_button {
-  background-image:url('../assets/home-signup.png');
-  width:100%;
-   width: 69%;
-  height: 9%;
-  position: absolute;
+.btn-login {
+  background-image:url('../assets/btn-login.png');
+  top: 56%;
+}
+
+.btn-api-token {
+  background-image:url('../assets/btn-api-token.png');
+  top: 67%;
+}
+
+.btn-signup {
+  background-image:url('../assets/btn-signup.png');
   top: 78%;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  left: 16%;
 }
 
 /* IM GONNA CHANGE THIS ASAP */
