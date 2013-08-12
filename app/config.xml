@@ -9,6 +9,8 @@
 
     <name>HabitRPG</name>
 
+    <access origin="*" />
+
     <description>
        Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
     </description>
