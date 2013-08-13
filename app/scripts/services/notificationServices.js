@@ -42,8 +42,10 @@ angular.module('notificationServices', []).
                             }else{
                                 data.message += 'Experience. ' + message.stats[el]
                             }
-
-                            data.message = 'Experience: ' + message.stats.exp + '<br />GP: ' +  message.stats.gp.toFixed(2)
+                            if (data.exp && data.gp)
+                                data.message = 'Experience: ' + message.stats.exp + '<br />GP: ' +  message.stats.gp.toFixed(2)
+                            if (data.hp)
+                                data.message = 'HP: ' + message.stats.hp
                         })
                     break;
                     case 'text':
