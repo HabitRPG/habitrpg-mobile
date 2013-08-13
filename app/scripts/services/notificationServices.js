@@ -40,8 +40,10 @@ angular.module('notificationServices', []).
                             if (message.stats[el] < 0) {
                                 data.message += el + ':' + '<font style="color:red">' + message.stats[el] + '</font>'
                             }else{
-                                data.message += '<i class="icon-star"></i> ' + message.stats[el]
+                                data.message += 'Experience. ' + message.stats[el]
                             }
+
+                            data.message = 'Experience: ' + message.stats.exp + '<br />GP: ' +  message.stats.gp.toFixed(2)
                         })
                     break;
                     case 'text':

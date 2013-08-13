@@ -83,7 +83,7 @@ angular.module('userServices', []).
                         queue.push(sent.shift())
                     });
                     settings.fetching = false;
-                    Notification.push({type:'text', text:"We're offline :("})
+                    Notification.push({type:'text', text:"We're offline"})
                     console.log(data);
 
                 });

@@ -375,34 +375,7 @@ width:100%;
 .meter > span {
   display: block;
   height: 100%;
-  background-color: rgb(43,194,83);
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0, rgb(43,194,83)),
-    color-stop(1, rgb(84,240,84))
-   );
-  background-image: -webkit-linear-gradient(
-    center bottom,
-    rgb(43,194,83) 37%,
-    rgb(84,240,84) 69%
-   );
-  background-image: -moz-linear-gradient(
-    center bottom,
-    rgb(43,194,83) 37%,
-    rgb(84,240,84) 69%
-   );
-  background-image: -ms-linear-gradient(
-    center bottom,
-    rgb(43,194,83) 37%,
-    rgb(84,240,84) 69%
-   );
-  background-image: -o-linear-gradient(
-    center bottom,
-    rgb(43,194,83) 37%,
-    rgb(84,240,84) 69%
-   );
+  background-color: #d64040;
   position: relative;
   overflow: hidden;
 }
@@ -644,7 +617,7 @@ width:100%;
 #notification {
 
   position:absolute;
-  height:60px;
+  height:63px;
   top:-60px;
   width:100%;
   background-color:#f9edbe;

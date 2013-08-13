@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="styles/topcoat-overrides.css">
         <!-- endbuild -->
     </head>
-    <body ng-cloak ng-app="habitrpg" ng-controller="RootCtrl" class="light">
+    <body ng-cloak ng-app="habitrpg" ng-controller="RootCtrl" class="light" ontouchstart="">
 
         <div ng-controller="AuthCtrl">
         </div>
@@ -27,6 +27,30 @@
             <!-- Nav -->
 
             <nav class="menu" ng-class="{open : menuopen}" style="top:0; left:0; width:100%">
+
+                <div ng-controller="CharacterCtrl">
+
+                <figure class="herobox" style="top:-24px; left:-43px">
+                <div class='character-sprites'>
+                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
+                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
+                    <span class="{{equipped(user, 'armor')}}"></span>
+                    <span class="{{equipped(user, 'head')}}"></span>
+                    <span class="{{user.preferences.gender}}_head_0"></span>
+                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
+                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
+                </div>
+                </figure>
+
+                <div class="meter animate" style="width:144px; left:87px; top:9px">
+                    <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
+                </div>
+
+                <div class="meter animate orange" style="width:144px; left:87px; top:9px">
+                    <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
+                </div>
+            </div><br>
+
                 <div class="navLinkBlock">
                     <div class="mainNavLink" ng-repeat="button in nav" ng-click="menuClick(button)" style="position:relative">
                         <div class="image_wrapper">
