@@ -861,3 +861,13 @@ ul.stats-list {
   overflow-y:auto;
   -webkit-overflow-scroll: touch;
 }
+
+
+.taskTypeHeader {
+  color: rgb(51,51,51);
+  font-size: 2em;
+  font-weight: 300;
+  margin: 0 0 0.375em 0;
+  padding: 0 0 0.375em 0.75em;
+  border-bottom: 1px solid #ddd;
+}

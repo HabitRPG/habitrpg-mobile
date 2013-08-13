@@ -10,6 +10,7 @@
 
 <div ng-show="user.stats.hp > 0" ng-controller="TasksCtrl" class="taskWell">
 
+    <h2 class='taskTypeHeader' ng-show="taskContext.type == 'reward'">{{user.stats.gp}} GP</h2>
     <div class="filterBar" ng-show="taskType()=='todo'">
         <a class="btn btn--small btn--filter current" href="#todo">Active</a>
         <a class="btn btn--small btn--filter" href="#todo/completed">Completed</a>
