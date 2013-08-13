@@ -55,7 +55,7 @@
 
             </li>
 
-            <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward'" class="taskItem {{item.classes}} {{getClass(0)}}">
+            <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward' && item.text" class="taskItem {{item.classes}} {{getClass(0)}}">
                 <div class="taskActions">
                     <span><input type="button" value="Buy ({{item.value}})" ng-click="buy(item.type)"/></span>
                 </div>
