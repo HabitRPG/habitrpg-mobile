@@ -54,30 +54,11 @@
 
             </li>
 
-            <!-- FIXME-->
-            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
+            <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward'" class="taskItem {{item.classes}} {{getClass(0)}}">
                 <div class="taskActions">
-                    <span><input type="button" value="Buy" ng-click="buy('weapon')"/></span>
+                    <span><input type="button" value="Buy ({{item.value}})" ng-click="buy(item.type)"/></span>
                 </div>
-                <p class="taskText">Upgrade Weapon</p>
-            </li>
-            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
-                <div class="taskActions">
-                    <span><input type="button" value="Buy" ng-click="buy('armor')"/></span>
-                </div>
-                <p class="taskText">Upgrade Armor</p>
-            </li>
-            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
-                <div class="taskActions">
-                    <span><input type="button" value="Buy" ng-click="buy('shield')"/></span>
-                </div>
-                <p class="taskText">Upgrade Shield</p>
-            </li>
-            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
-                <div class="taskActions">
-                    <span><input type="button" value="Buy" ng-click="buy('head')"/></span>
-                </div>
-                <p class="taskText">Upgrade Helm</p>
+                <p class="taskText"><span class="shop_{@item.classes} shop-sprite item-img"></span> {{item.text}} ({{item.strength || item.defense}}% gain)</p>
             </li>
 
         </ul>

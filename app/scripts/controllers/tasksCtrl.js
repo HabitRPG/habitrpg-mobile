@@ -130,6 +130,17 @@ habitrpg.controller('TasksCtrl',
 
     var counter = 0;
 
+
+    /**
+     * ------------------------
+     * Items
+     * ------------------------
+     */
+
+    $scope.$watch('user.items', function(){
+      $scope.itemStore = window.habitrpgShared.items.updateStore($scope.user);
+    });
+
     $scope.buy = function(type) {
       window.habitrpgShared.items.buyItem($scope.user, type);
       User.log({op:'buy', type:type});
