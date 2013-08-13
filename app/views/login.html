@@ -11,7 +11,7 @@
                 <input type="{{useUUID ? 'text' : 'password'}}" class="password" ng-model="loginPassword" placeholder="{{useUUID ? 'API Token' : 'Password'}}" />
 
                 <input type="submit" class="btn-homescreen btn-login" value="Login" />
-                <input type="button" class="btn-homescreen btn-api-token" value="{{useUUID ? 'Use uname / pass' : 'Use ID + Token'}}" ng-click="toggleUUID()"/>
+                <input type="button" class="btn-homescreen btn-api-token" value="{{useUUID ? 'Use username' : 'Use Facebook'}}" ng-click="toggleUUID()"/>
                 <input type="button" class="btn-homescreen btn-signup" value="Signup" ng-click="signup()"/>
             </form>
 

@@ -11,8 +11,13 @@ habitrpg.controller('AuthCtrl',
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
 
+    var showedFacebookMessage = false
     $scope.useUUID = false;
     $scope.toggleUUID = function() {
+      if (showedFacebookMessage == false) {
+        alert("We don't yet have Facebook login, instead enter your UUID and API Token (found at https://habitrpg.com > Options > Settings).")
+        showedFacebookMessage = true;
+      }
       $scope.useUUID = !$scope.useUUID;
     }
 
