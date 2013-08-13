@@ -127,8 +127,13 @@ habitrpg.controller('TasksCtrl',
         window.habitrpgShared.algos.revive(User.user);
         User.log({op:'revive'});
     }
-    
+
     var counter = 0;
+
+    $scope.buy = function(type) {
+      window.habitrpgShared.items.buyItem($scope.user, type);
+      User.log({op:'buy', type:type});
+    }
    
     /*
     $scope.loadMore = function() {

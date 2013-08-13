@@ -23,7 +23,7 @@
 
         <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskContext.name}}! Why don't you add some?</p>
 
-        <ul id="task-list" ng-hide="tasks().length == 0">
+        <ul id="task-list" ng-hide="tasks().length == 0 && taskContext.type != 'reward'">
             <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed, editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
 
                 <div class="taskActions">
@@ -53,6 +53,33 @@
                 <p class="taskText" ng-click="selectTask(task)">{{task.text}}</p>
 
             </li>
+
+            <!-- FIXME-->
+            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
+                <div class="taskActions">
+                    <span><input type="button" value="Buy" ng-click="buy('weapon')"/></span>
+                </div>
+                <p class="taskText">Upgrade Weapon</p>
+            </li>
+            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
+                <div class="taskActions">
+                    <span><input type="button" value="Buy" ng-click="buy('armor')"/></span>
+                </div>
+                <p class="taskText">Upgrade Armor</p>
+            </li>
+            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
+                <div class="taskActions">
+                    <span><input type="button" value="Buy" ng-click="buy('shield')"/></span>
+                </div>
+                <p class="taskText">Upgrade Shield</p>
+            </li>
+            <li ng-show="taskContext.type == 'reward'" class="taskItem {{getClass(0)}}">
+                <div class="taskActions">
+                    <span><input type="button" value="Buy" ng-click="buy('head')"/></span>
+                </div>
+                <p class="taskText">Upgrade Helm</p>
+            </li>
+
         </ul>
     </div>
 
