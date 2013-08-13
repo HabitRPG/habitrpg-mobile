@@ -35,18 +35,10 @@ angular.module('notificationServices', []).
                 data.message = ''
                 switch(message.type) {
                     case 'stats':
-                        var keys = Object.keys(message.stats)
-                        _.each(keys, function(el, index) {
-                            if (message.stats[el] < 0) {
-                                data.message += el + ':' + '<font style="color:red">' + message.stats[el] + '</font>'
-                            }else{
-                                data.message += 'Experience. ' + message.stats[el]
-                            }
-                            if (data.exp && data.gp)
-                                data.message = 'Experience: ' + message.stats.exp + '<br />GP: ' +  message.stats.gp.toFixed(2)
-                            if (data.hp)
-                                data.message = 'HP: ' + message.stats.hp
-                        })
+                        if (message.stats.exp != null && message.stats.gp != null)
+                            data.message = 'Experience: ' + message.stats.exp + '<br />GP: ' +  message.stats.gp.toFixed(2)
+                        if (message.stats.hp)
+                            data.message = 'HP: ' + message.stats.hp
                     break;
                     case 'text':
                         data.message = message.text
