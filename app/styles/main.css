@@ -712,7 +712,7 @@ width:100%;
   left: 15%       !important;
   position: absolute;
   top: 32%        !important;
-  font-size:12px  !important;
+  font-size:21px  !important;
   line-height:0px !important;
   padding:0px     !important;
   opacity:0.2;
@@ -729,33 +729,10 @@ width:100%;
   left: 15%       !important;
   position: absolute;
   top: 44%        !important;
-  font-size:12px  !important;
+  font-size:21px  !important;
   line-height:0px !important;
   padding:0px     !important;
   opacity:0.2;
-
-}
-
-.username::-webkit-input-placeholder
-{
-
-  color:#fff;
-  font-size:200%;
-  line-height:60%;
-  text-align:center;
-  font-weight:bold;
-  padding-top:1%;
-
-}
-
-.password::-webkit-input-placeholder
-{
-
-  color:#fff;
-  font-size:200%;
-  line-height:10%;
-  text-align:center;
-  font-weight:bold;
 
 }
 
