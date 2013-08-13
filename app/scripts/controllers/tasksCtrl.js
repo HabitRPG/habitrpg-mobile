@@ -144,6 +144,7 @@ habitrpg.controller('TasksCtrl',
     $scope.buy = function(type) {
       window.habitrpgShared.items.buyItem($scope.user, type);
       User.log({op:'buy', type:type});
+      Notification.push({type:'text', text:"Item bought!"})
     }
    
     /*
