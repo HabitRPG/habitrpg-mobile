@@ -31,7 +31,7 @@ factory('Facebook',
                       $http.post(API_URL + '/api/v1/user/auth/facebook', data).success(function(data, status, headers, config) {
                           User.authenticate(data.id, data.token, function(err) {
                               if (!err) {
-                                  alert('Login succesfull!');
+                                  alert('Login successful!');
                                   $location.path("/habit");
                               }
                           });

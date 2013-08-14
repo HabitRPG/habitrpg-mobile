@@ -47,7 +47,7 @@ habitrpg.controller('AuthCtrl',
 
       var runAuth = function(id, token){
         User.authenticate(id, token, function(err) {
-          alert('Login succesfull!');
+          alert('Login successful!');
           $location.path("/habit");
         });
       }

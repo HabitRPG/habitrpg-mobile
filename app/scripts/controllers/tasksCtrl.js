@@ -8,7 +8,7 @@ habitrpg.controller('TasksCtrl',
 
     $scope.taskTypeTitleSingular = function () {
 //        show title according to the location, singular form
-        return $rootScope.taskContext.type;
+        return $rootScope.taskContext.type.charAt(0).toUpperCase() + $rootScope.taskContext.type.slice(1);
     };
 
     $scope.taskType = function () {
