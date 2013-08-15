@@ -53,7 +53,7 @@
                 <div class="navLinkBlock">
                     <div class="mainNavLink" ng-repeat="button in nav" ng-click="menuClick(button)" style="position:relative">
                         <div class="image_wrapper">
-                            <img src="assets/sidebar-icon-{{button.lowercase}}.png">
+                            <img ng-src="assets/sidebar-icon-{{button.lowercase}}.png">
                         </div>
                         <div class="image_wrapper_text">
                             {{button.name}}
