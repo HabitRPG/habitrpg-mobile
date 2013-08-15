@@ -6,7 +6,7 @@
     "underscore": "*",
     "moment": "*",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git",
-    "topcoat": "~0.6.0"
+    "topcoat": "~0.5.1"
   },
   "devDependencies": {
   }
