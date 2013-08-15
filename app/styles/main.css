@@ -273,7 +273,7 @@ body {
                 color: #555;
             }
         .taskText {
-            overflow-x: scroll;
+            overflow:hidden;
             margin: 0;
             line-height: 2.1;
             white-space: nowrap;
