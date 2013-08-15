@@ -8,7 +8,13 @@ angular.module('notificationServices', []).
 
             hide: function () {
                 $('#notification').fadeOut(function () {
-                    $('#notification').css('webkit-transform', 'none').css('top', '-63px').show().css('left', '0px');
+                    $('#notification').css('webkit-transform', 'none')
+                    $('#notification').css('top', '-63px')
+                    $('#notification').css('left', '0px');
+
+                    setTimeout(function() {
+                        $('#notification').show()
+                    }, 190)
                 });
 
                 active = false;
@@ -38,7 +44,9 @@ angular.module('notificationServices', []).
                         if (message.stats.exp != null && message.stats.gp != null)
                             data.message = 'Experience: ' + message.stats.exp + '<br />GP: ' +  message.stats.gp.toFixed(2)
                         if (message.stats.hp)
-                            data.message = 'HP: ' + message.stats.hp
+                            data.message = 'HP: ' + message.stats.hp.toFixed(2)
+                        if (message.stats.gp && message.stats.exp == null)
+                            data.message = '<br />GP: ' +  message.stats.gp.toFixed(2)
                     break;
                     case 'text':
                         data.message = message.text

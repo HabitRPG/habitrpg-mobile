@@ -3,3 +3,7 @@
  * 2) http://stackoverflow.com/questions/15105910/angular-ng-view-routing-not-working-in-phonegap
  * They differ, so we may need dto consolidate some stuff?
  */
+
+document.addEventListener('backbutton', function(event) {
+	event.preventDefault()
+})
