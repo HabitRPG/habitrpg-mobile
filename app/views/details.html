@@ -8,11 +8,11 @@
 
         <h2>
             <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />-->
-            <div class="topcoat-checkbox" ng-show="task.type == 'daily' || task.type == 'todo'">
-                <input type="checkbox" id="details-task-{{task.id}}" ng-model="task.completed" ng-change='changeCheck(task)'>
-                <label class="topcoat-checkbox__label--right" for="details-task-{{task.id}}"></label>
-                &nbsp;
-            </div>
+            <label class="topcoat-checkbox__label" ng-show="task.type == 'daily' || task.type == 'todo'">
+                <input type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'>
+                <div class="topcoat-checkbox"></div>
+            </label>
+
             <span ng-class="{strikeout: task.completed}">{{task.text}}</span>
         </h2>
         <p>{{task.notes}}</p>
@@ -43,14 +43,16 @@
         <br><br>
         <!-- Habits -->
         <span ng-show="task.type == 'habit'" ng-cloak>
-            <div class="topcoat-checkbox">
-                <input type="checkbox" id="edit-task-{{task.id}}-up" ng-model="task.up">
-                <label class="topcoat-checkbox__label--right" for="edit-task-{{task.id}}-up">Up</label>
-            </div>
-            <div class="topcoat-checkbox">
-                <input type="checkbox" id="edit-task-{{task.id}}-down" ng-model="task.down">
-                <label class="topcoat-checkbox__label--right" for="edit-task-{{task.id}}-down">Down</label>
-            </div>
+            <label class="topcoat-checkbox__label">
+                <input type="checkbox" ng-model="task.up">
+                <div class="topcoat-checkbox"></div>
+                Up
+            </label>
+            <label class="topcoat-checkbox__label">
+                <input type="checkbox" ng-model="task.down">
+                <div class="topcoat-checkbox"></div>
+                Down
+            </label>
         </span>
 
         <!-- Dailies -->
