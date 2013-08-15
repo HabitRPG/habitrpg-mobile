@@ -1,7 +1,7 @@
 HabitRPG Mobile
 ===============
 
-HabitRPG mobile application under development. Built using Angular + PhoneGap.
+Official HabitRPG mobile app, build with [PhoneGap](http://cordova.apache.org/) and [AngularJS](http://angularjs.org/).
 
 #Installation
 
