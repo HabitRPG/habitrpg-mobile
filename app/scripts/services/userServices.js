@@ -90,7 +90,6 @@ angular.module('userServices', []).
                     });
                     settings.fetching = false;
                     Notification.push({type:'text', text:"We're offline"})
-                    console.log(data);
 
                 });
 
