@@ -8,7 +8,7 @@ habitrpg.controller('TasksCtrl',
 
     $scope.taskTypeTitleSingular = function () {
 //        show title according to the location, singular form
-        return $rootScope.taskContext.type;
+        return $rootScope.taskContext.type.charAt(0).toUpperCase() + $rootScope.taskContext.type.slice(1);
     };
 
     $scope.taskType = function () {
@@ -49,7 +49,16 @@ habitrpg.controller('TasksCtrl',
         User.log({op: 'score', data: task, dir: direction});
     };
 
+    $scope.notDue = function(task) {
+      if (task.type == 'daily') {
+        return !window.habitrpgShared.helpers.shouldDo(moment(), task.repeat);
+      } else {
+        return false
+      }
+    }
+
     $scope.getClass = function(value) {
+
         var out = ''
         if (value < -20)
             out += ' color-worst'

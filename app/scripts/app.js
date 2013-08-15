@@ -9,8 +9,8 @@
 
 var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'ngMobile'])
 
-    .constant('API_URL', 'https://beta.habitrpg.com')
-    //.constant('API_URL', 'http://localhost:3000')
+//    .constant('API_URL', 'https://beta.habitrpg.com')
+    .constant('API_URL', 'http://localhost:3000')
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
