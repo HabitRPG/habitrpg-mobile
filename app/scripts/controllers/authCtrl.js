@@ -59,7 +59,11 @@ habitrpg.controller('AuthCtrl',
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
           }).error(function(data, status, headers, config) {
-            alert(status)
+            if (status == '401') {
+              alert('Login error')
+            }else{
+              alert('ERROR: ' + status)
+            }
           })
       }
     }

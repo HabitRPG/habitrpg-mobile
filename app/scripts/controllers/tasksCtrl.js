@@ -46,6 +46,11 @@ habitrpg.controller('TasksCtrl',
         if (Object.keys(statsDiff).length > 0) {
             Notification.push({type: 'stats', stats: statsDiff});
         }
+
+        if (task.type == 'reward' && _.isEmpty(statsDiff)) {
+            Notification.push({type: 'text', text: 'Not enough GP.'});
+        }
+
         User.log({op: 'score', data: task, dir: direction});
     };
 
