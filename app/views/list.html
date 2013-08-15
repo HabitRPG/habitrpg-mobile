@@ -25,7 +25,7 @@
         <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskContext.name}}! Why don't you add some?</p>
 
         <ul id="task-list" ng-hide="tasks().length == 0 && taskContext.type != 'reward'">
-            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: task.completed || !isDue(task), editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
+            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: (task.completed || notDue(task)), editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
 
                 <div class="taskActions">
                     <!-- Habits -->

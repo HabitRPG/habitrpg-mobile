@@ -49,7 +49,16 @@ habitrpg.controller('TasksCtrl',
         User.log({op: 'score', data: task, dir: direction});
     };
 
+    $scope.notDue = function(task) {
+      if (task.type == 'daily') {
+        return !window.habitrpgShared.helpers.shouldDo(moment(), task.repeat);
+      } else {
+        return false
+      }
+    }
+
     $scope.getClass = function(value) {
+
         var out = ''
         if (value < -20)
             out += ' color-worst'
