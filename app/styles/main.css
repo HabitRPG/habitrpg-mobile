@@ -613,7 +613,7 @@ width:100%;
 
   position:absolute;
   height:63px;
-  top:-60px;
+  top:-63px;
   width:100%;
   background-color:#f9edbe;
   z-index:10;
@@ -713,11 +713,16 @@ width:100%;
   position: absolute;
   top: 32%        !important;
   font-size:21px  !important;
-  line-height:0px !important;
   padding:0px     !important;
-  opacity:0.2;
+  background:transparent;
+  color:#000 !important;
+  border:0;
 
 
+}
+
+.username:focus {
+  outline:0;
 }
 
 /* IM GONNA CHANGE THIS ASAP */
@@ -730,10 +735,15 @@ width:100%;
   position: absolute;
   top: 44%        !important;
   font-size:21px  !important;
-  line-height:0px !important;
   padding:0px     !important;
-  opacity:0.2;
+  background:transparent;
+  color:#000 !important;
+  border:0;
 
+}
+
+.password:focus {
+  outline:0;
 }
 
 .home_stats {

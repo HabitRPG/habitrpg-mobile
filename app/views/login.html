@@ -7,8 +7,8 @@
 
         <div class="content-notlogged">
             <form ng-submit="auth()">
-                <input type="text" class="username" ng-model="loginUsername" />
-                <input type="{{useUUID ? 'text' : 'password'}}" class="password" ng-model="loginPassword" />
+                <input type="text" class="username" ng-model="loginUsername" placeholder="{{useUUID ? 'UUID' : 'username'}}" />
+                <input type="{{useUUID ? 'text' : 'password'}}" class="password" ng-model="loginPassword" placeholder="{{useUUID ? 'token' : 'password'}}" />
 
                 <input type="submit" class="btn-homescreen btn-login" value="Login" />
                 <input type="button" class="btn-homescreen btn-api-token" value="{{useUUID ? 'Use username' : 'Use Facebook'}}" ng-click="toggleUUID()"/>

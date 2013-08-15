@@ -8,7 +8,7 @@ angular.module('notificationServices', []).
 
             hide: function () {
                 $('#notification').fadeOut(function () {
-                    $('#notification').css('top', '-60px').css('webkit-transform', 'none').show().css('left', '0px');
+                    $('#notification').css('webkit-transform', 'none').css('top', '-63px').show().css('left', '0px');
                 });
 
                 active = false;
@@ -25,7 +25,7 @@ angular.module('notificationServices', []).
                 if (active == false) {
                     active = true;
 
-                    $('#notification').transition({ y: 60, x: 0 });
+                    $('#notification').transition({ y: 63, x: 0 });
                     timer = setTimeout(this.hide, 2000);
                 }
 

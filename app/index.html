@@ -70,7 +70,7 @@
                 <div class="topcoat-navigation-bar" ng-show="authenticated()">
                     <div class="topcoat-navigation-bar__item left quarter">
                         <a class="topcoat-icon-button--quiet" ng-click="menuopen = !menuopen">
-                            <button class="btn btn--icon"><!-- ⚙ -->J</button>
+                            <button class="btn btn--icon"><img src="assets/menu.png" style="margin-top:7px"></button>
                         </a>
                     </div>
                     <div class="topcoat-navigation-bar__item center half" style="top:50%; font-size:33px">
@@ -78,7 +78,8 @@
                     </div>
                     <div class="topcoat-navigation-bar__item right quarter">
                         <a class="topcoat-icon-button--quiet">
-                            <button class="btn btn--icon btn--large" ng-click="User.log({})" data-animation="{{refreshing()}}"><!-- ↻ -->M</button>
+                            <button class="btn btn--icon btn--large" ng-click="User.log({})" data-animation="{{refreshing()}}">
+                                <img src="assets/refresh.png" style="margin-top:10px"></button>
                         </a>
                     </div>
                 </div>
