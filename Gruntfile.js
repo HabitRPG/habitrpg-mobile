@@ -233,7 +233,13 @@ module.exports = function (grunt) {
             'styles/fonts/*',
 
             // HabitRPG Custom Stuff
+            '!bower_components/habitrpg-shared/node_modules/**/*',
+            '!bower_components/underscore/docs/**/*',
+            'assets/**/*',
+            'res/**/*',
             'shared/**/*',
+            'lib/**/*',
+            '!lib/angular-1.1.5/docs/**/*',
             'fonts/**/*'
           ]
         }, {
