@@ -666,13 +666,11 @@ width:100%;
 
 }
 
-.text-content {
-
+/*.text-content {
   background-image:url('../assets/text.png');
   width:170px;
   height:45px;
-
-}
+}*/
 
 .btn-homescreen {
   background-color: transparent;
@@ -763,7 +761,7 @@ width:100%;
     overflow-y:scroll;
 }
 
-.habitrpg_logo {
+/*.habitrpg_logo {
   background:url('../assets/habitrpg_pixel.png');
   background-size:100% 90%;
   width: 100%;
@@ -772,7 +770,7 @@ width:100%;
   background-repeat: no-repeat;
   margin-top: 2%;
   min-height: 85px;
-}
+}*/
 
 .image_wrapper {
   display: block;
