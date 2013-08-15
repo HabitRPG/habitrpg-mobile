@@ -67,6 +67,12 @@ angular.module('userServices', []).
                     if (!queue.length) {
                         //we can't do user=data as it will not update user references in all other angular controllers.
                         _.extend(user, data);
+
+                        // FIXME handle this somewhere else, we don't need to check every single time
+                        var offset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
+                        if (!user.preferences.timezoneOffset || user.preferences.timezoneOffset !== offset) {
+                          userServices.log({op:'set', data: {'preferences.timezoneOffset': offset}});
+                        }
                     }
                     sent.length = 0;
                     settings.fetching = false;
