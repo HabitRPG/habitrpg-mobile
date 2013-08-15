@@ -11,7 +11,7 @@ habitrpg.controller('SettingsCtrl',
     $scope.auth = function (id, token) {
         User.authenticate(id, token, function (err) {
             if (!err) {
-                alert('Login succesfull!');
+                alert('Login successful!');
                 $location.path("/habit");
             }
         });
