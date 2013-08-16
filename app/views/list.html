@@ -55,7 +55,7 @@
                 <div class="taskActions">
                     <span><input type="button" value="Buy ({{item.value}})" ng-click="buy(item.type)"/></span>
                 </div>
-                <p class="taskText"><span class="shop_{@item.classes} shop-sprite item-img"></span> {{item.text}} ({{item.strength || item.defense}}% <span ng-show="item.type == 'weapon'">increased XP gain</span> <span ng-show="(item.type == 'armor') || (item.type == 'head') || (item.type == 'shield')">reduced HP loss</span>)</p>
+                <p class="taskText"><span class="shop_{@item.classes} shop-sprite item-img"></span> {{item.text}} ({{item.strength || item.defense}}% <span ng-show="item.type == 'weapon'">increased XP gain</span><span ng-show="(item.type == 'armor') || (item.type == 'head') || (item.type == 'shield')">reduced HP loss</span>)</p>
             </li>
 
         </ul>
