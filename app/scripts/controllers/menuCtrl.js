@@ -45,7 +45,8 @@ habitrpg.controller('MenuCtrl',
     { link:'/todo',      name:'Todos',   lowercase:'todos'    },
     { link:'/reward',    name:'Rewards', lowercase:'rewards'  },
     { link:'/profile',   name:'Profile', lowercase:'profile'  },
-    { link:'/settings',  name:'Settings',lowercase:'settings' }
+    { link:'/settings',  name:'Settings',lowercase:'settings' },
+    { link:'/help',      name:'Help',    lowercase:'help' }
   ]
 
   $scope.refreshing = function () {
