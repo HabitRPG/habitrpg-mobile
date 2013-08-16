@@ -247,6 +247,7 @@ module.exports = function (grunt) {
             'styles/fonts/*',
 
             // HabitRPG Custom Stuff
+            'config.xml',
             '!bower_components/habitrpg-shared/node_modules/**/*',
             '!bower_components/habitrpg-shared/img/unprocessed/**/*',
             '!bower_components/habitrpg-shared/**/*.xcf',
