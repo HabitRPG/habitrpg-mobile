@@ -187,8 +187,20 @@ ngMobile.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     }, PREVENT_DURATION, false);
   }
 
+  var clicks = []
+
+  function preventGhostClick(x, y) {
+    clicks.push(x, y);
+  window.setTimeout(removeghostclick, 2500);
+  };
+
+  function removeghostclick() {
+    clicks.splice(0, 2);
+  }
+
   // On the first call, attaches some event handlers. Then whenever it gets called, it creates a
   // zone around the touchstart where clicks will get busted.
+  /*
   function preventGhostClick(x, y) {
     if (!touchCoordinates) {
       $rootElement[0].addEventListener('click', onClick, true);
@@ -200,6 +212,7 @@ ngMobile.directive('ngClick', ['$parse', '$timeout', '$rootElement',
 
     checkAllowableRegions(touchCoordinates, x, y);
   }
+  */
 
   // Actual linking function.
   return function(scope, element, attr) {
@@ -253,18 +266,14 @@ ngMobile.directive('ngClick', ['$parse', '$timeout', '$rootElement',
 
     element.on('touchend', function(event) {
 
-      if (tapping) {
-        scope.$apply(function() {
-            // TODO(braden): This is sending the touchend, not a tap or click. Is that kosher?
-            clickHandler(scope, {$event: event});
-        });
-      }
-
       var diff = Date.now() - startTime;
 
-      var p = getSingleTouchLocation(event);
+      var p = getSingleTouchLocation(event.originalEvent);
       var dist = Math.sqrt( Math.pow(p.x - touchStartX, 2) + Math.pow(p.y - touchStartY, 2) );
 
+      preventGhostClick(touchStartX, touchStartY)
+
+      /*
       if (tapping && dist < MOVE_TOLERANCE && diff < TAP_DURATION) {
         // Call preventGhostClick so the clickbuster will catch the corresponding click.
         preventGhostClick(p.x, p.y);
@@ -281,6 +290,25 @@ ngMobile.directive('ngClick', ['$parse', '$timeout', '$rootElement',
           clickHandler(scope, {$event: event});
         });
       }
+      */
+     
+     for (var i = 0; i < clicks.length; i += 2) {
+        var x = clicks[i];
+        var y = clicks[i + 1];
+        if (Math.abs(event.originalEvent.changedTouches[0].clientX - x) < 25 && Math.abs(event.originalEvent.changedTouches[0].clientY - y) < 25) {
+          event.stopPropagation();
+          event.preventDefault();
+        }
+        }
+
+      if (tapping) {
+        scope.$apply(function() {
+          // TODO(braden): This is sending the touchend, not a tap or click. Is that kosher?
+          clickHandler(scope, {$event: event});
+        });
+      }
+
+      clicks = []
 
       resetState();
     });
