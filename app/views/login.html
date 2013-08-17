@@ -1,17 +1,17 @@
 <div ng-controller="AuthCtrl">
 
-    <div class="login">
-        <div class="header_notloggedin">
+    <div ng-hide="registering" class="login">
+        <div class="login-header">
             <img src="assets/home-logo.png" width="79%">
         </div>
 
-        <div class="content-notlogged">
+        <div class="login-form">
             <form ng-submit="auth()">
-                <input type="text" class="username" ng-model="loginUsername" placeholder="{{useUUID ? 'UUID' : 'Username'}}" />
-                <input type="{{useUUID ? 'text' : 'password'}}" class="password" ng-model="loginPassword" placeholder="{{useUUID ? 'API Token' : 'Password'}}" />
+                <input type="text" class="login-input username" ng-model="loginUsername" placeholder="{{useUUID ? 'UUID' : 'Username'}}" />
+                <input type="{{useUUID ? 'text' : 'password'}}" class="login-input password" ng-model="loginPassword" placeholder="{{useUUID ? 'API Token' : 'Password'}}" />
 
                 <input type="submit" class="btn-homescreen btn-login" value="Login" />
-                <input type="button" class="btn-homescreen btn-signup" value="Signup" ng-click="signup()"/>
+                <input type="button" class="btn-homescreen btn-signup" value="Signup" ng-click="registering = true"/>
 
             </form>
         </div>
@@ -23,7 +23,24 @@
                 Use Facebook or API Token
             </label>
         </div>
+    </div>
 
+    <div ng-show="registering" class="login">
+        <div class="login-header">
+            <img src="assets/home-logo.png" width="79%">
+        </div>
+
+        <div class="register-form">
+            <form ng-submit="register()">
+                <a class="register-cancel" ng-click="registering = false">< Go Back</a>
+                <input type="text" class="login-input username" ng-model="register.username" placeholder="Username" />
+                <input type="text" class="login-input email" ng-model="register.email" placeholder="Email" />
+                <input type="password" class="login-input password" ng-model="register.password" placeholder="Password" />
+                <input type="password" class="login-input password-confirm" ng-model="register.passwordConfirm" placeholder="Password Confirm" />
+
+                <input type="button" class="btn-homescreen btn-signup" value="Register" ng-click="signup()"/>
+            </form>
+        </div>
     </div>
 
 </div>

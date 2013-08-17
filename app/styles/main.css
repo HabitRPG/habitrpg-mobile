@@ -646,18 +646,15 @@ Login
 
 }
 
-.header_notloggedin {
-
+.login-header {
   margin:0 auto;
   width:90%;
   margin-top:13px;
   text-align:center;
   margin-bottom:20px;
-
 }
 
-.content-notlogged {
-
+.login-form {
   background-image:url('../assets/home-scroll.png');
   width:89%;
   height:70%;
@@ -667,6 +664,21 @@ Login
   background-repeat: no-repeat;
   position:relative;
   min-height:300px;
+}
+
+.register-form {
+  background-image:url('../assets/register.png');
+  width:89%;
+  height:70%;
+  margin:0 auto;
+  margin-top:10px;
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  position:relative;
+  min-height:300px;
+}
+
+.registration-form {
 
 }
 
@@ -709,47 +721,53 @@ Login
   left: 16%;
   color: white;
   position: absolute;
-  bottom : 0px;
+  bottom : 5px;
 }
 
-
-/* IM GONNA CHANGE THIS ASAP */
-
-.username {
-
-  width: 69%      !important;
-  height: 8%      !important;
-  left: 15%       !important;
+.login-input {
+  width: 69%;
+  height: 8%;
+  left: 15%;
   position: absolute;
-  top: 32%        !important;
   font-size:21px  !important;
-  padding:0px     !important;
+  padding:0px;
   background:transparent;
-  color:#000 !important;
+  color:#000;
   border:0;
-
-
 }
 
 .username:focus {
   outline:0;
 }
 
-/* IM GONNA CHANGE THIS ASAP */
+.login-form .username {
+  top: 32%;
+}
 
-.password {
+.login-form .password {
+  top: 44%;
+}
 
-  width: 69%      !important;
-  height: 8%      !important;
-  left: 15%       !important;
+.register-form .username {
+  top: 19%;
+}
+.register-form .email {
+  top: 32%;
+}
+.register-form .password {
+  top: 43%;
+}
+.register-form .password-confirm {
+  top: 55%;
+}
+
+.register-cancel {
+  width: 69%;
+  height: 8%;
+  left: 15%;
+  top: 10%;
   position: absolute;
-  top: 44%        !important;
-  font-size:21px  !important;
-  padding:0px     !important;
-  background:transparent;
-  color:#000 !important;
-  border:0;
-
+  font-weight: bold;
 }
 
 .password:focus {
