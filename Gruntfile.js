@@ -170,7 +170,14 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.{png,jpg,jpeg}',
           dest: '<%= yeoman.dist %>/images'
-        }]
+        },
+        {
+          expand: true,
+          cwd: '<%= yeoman.app %>/assets',
+          src: '{,*/}*.{png,jpg,jpeg}',
+          dest: '<%= yeoman.dist %>/assets'
+        }
+      ]
       }
     },
     svgmin: {
@@ -180,7 +187,14 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.svg',
           dest: '<%= yeoman.dist %>/images'
-        }]
+        },
+        {
+          expand: true,
+          cwd: '<%= yeoman.app %>/assets',
+          src: '{,*/}*.svg',
+          dest: '<%= yeoman.dist %>/assets'
+        }
+        ]
       }
     },
     cssmin: {
@@ -233,6 +247,16 @@ module.exports = function (grunt) {
             'styles/fonts/*',
 
             // HabitRPG Custom Stuff
+            'config.xml',
+            '!bower_components/habitrpg-shared/node_modules/**/*',
+            '!bower_components/habitrpg-shared/img/unprocessed/**/*',
+            '!bower_components/habitrpg-shared/**/*.xcf',
+            '!bower_components/habitrpg-shared/.git/**/*', // I'm using symlink
+            '!bower_components/underscore/docs/**/*',
+            'assets/**/*',
+            'res/icon/ios/**/*',
+            'res/screen/ios/**/*',
+            //'res/**/*',
             'shared/**/*',
             'fonts/**/*'
           ]

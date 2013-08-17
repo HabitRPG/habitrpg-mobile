@@ -31,12 +31,22 @@ habitrpg.controller('AuthCtrl',
 
     }, false);
 
-    $scope.signup = function() {
-      var confirmed = confirm("For the time being, you'll need to register on habitrpg.com if you don't already have an account. Go there now?")
-      if(confirmed == true) {
-        var win=window.open('https://habitrpg.com', '_blank');
-        win.focus();
-      }
+    $scope.register = function() {
+      $http.post(API_URL + '/api/v1/register', $scope.registerVals)
+        .success(function(data, status, headers, config) {
+          User.authenticate(data.id, data.apiToken, function(err) {
+            $location.path("/habit");
+          });
+        })
+        .error(function(data, status, headers, config) {
+          if (status === 0) {
+            alert("Server not currently reachable, try again later");
+          } else if (!!data && !!data.err) {
+            alert(data.err);
+          } else {
+            alert('ERROR: ' + status);
+          }
+        });
     }
 
     $scope.auth = function() {
@@ -47,7 +57,6 @@ habitrpg.controller('AuthCtrl',
 
       var runAuth = function(id, token){
         User.authenticate(id, token, function(err) {
-          alert('Login successful!');
           $location.path("/habit");
         });
       }
@@ -59,12 +68,14 @@ habitrpg.controller('AuthCtrl',
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
           }).error(function(data, status, headers, config) {
-            if (status == '401') {
-              alert('Login error')
-            }else{
-              alert('ERROR: ' + status)
+            if (status === 0) {
+              alert("Server not currently reachable, try again later");
+            } else if (!!data && !!data.err) {
+              alert(data.err);
+            } else {
+              alert('ERROR: ' + status);
             }
-          })
+          });
       }
     }
   }

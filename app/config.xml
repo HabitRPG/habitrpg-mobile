@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-    <widget xmlns = "http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.example"
-        versionCode="10" 
-        version   = "1.0.0">
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.ocdevel.habitrpg"
+        versionCode = "4"
+        version     = "0.0.4">
 
     <!-- versionCode is optional and Android only -->
 
@@ -19,11 +19,29 @@
         HabitRPG
     </author>
 
-    <!-- Res -->
+    <preference name="android-minSdkVersion" value="11" />
+    <preference name="android-targetSdkVersion" value="13" />
+    <preference name="orientation" value="portrait" />
+    <preference name="webviewbounce" value="true" />
 
+    <feature name="http://api.phonegap.com/1.0/network"/>
+
+    <!-- Resourcs -->
     <icon src="icon.png" />
+    <!--<gap:splash src="splash.png" />-->
 
-    <gap:splash src="splash.png" />
+    <icon src="res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
+    <icon src="res/icon/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="res/icon/ios/icon-57-2x.png" gap:platform="ios" width="114" height="114" />
+    <icon src="res/icon/ios/icon-72-2x.png" gap:platform="ios" width="144" height="144" />
+
+    <gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios" width="640" height="960" />
+    <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios" width="640" height="1136" />
+    <gap:splash src="res/screen/ios/1024_748.png" gap:platform="ios" width="1024" height="748" />
+    <gap:splash src="res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1004" />
+    <gap:splash src="res/screen/ios/2048_1496.png" gap:platform="ios" width="2048" height="1496" />
+    <gap:splash src="res/screen/ios/screen-ipad-portrait-2x.png" gap:platform="ios" width="1536" height="2008" />
 
 
 </widget>

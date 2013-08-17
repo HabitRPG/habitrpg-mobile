@@ -33,11 +33,11 @@
                     <!-- Daily, Todo -->
                     <span ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak>
                         <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'/>-->
-                        <div class="topcoat-checkbox">
-                            <input type="checkbox" id="list-task-{{task.id}}" ng-model="task.completed" ng-change='changeCheck(task)'>
-                            <label class="topcoat-checkbox__label--right" for="list-task-{{task.id}}"></label>
-                            &nbsp;
-                        </div>
+
+                        <label class="topcoat-checkbox__label">
+                            <input type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'>
+                            <div class="topcoat-checkbox"></div>
+                        </label>
 
                     </span>
 
@@ -55,7 +55,7 @@
                 <div class="taskActions">
                     <span><input type="button" value="Buy ({{item.value}})" ng-click="buy(item.type)"/></span>
                 </div>
-                <p class="taskText"><span class="shop_{@item.classes} shop-sprite item-img"></span> {{item.text}} ({{item.strength || item.defense}}% gain)</p>
+                <p class="taskText"><span class="shop_{@item.classes} shop-sprite item-img"></span> {{item.text}} ({{item.strength || item.defense}}% <span ng-show="item.type == 'weapon'">increased XP gain</span><span ng-show="(item.type == 'armor') || (item.type == 'head') || (item.type == 'shield')">reduced HP loss</span>)</p>
             </li>
 
         </ul>

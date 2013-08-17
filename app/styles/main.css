@@ -626,6 +626,10 @@ width:100%;
   WebkitTransition : 'left 0.5s ease-in-out'
 }
 
+/* ------------------
+Login
+--------------------*/
+
 .login {
 
   background-image:url('../assets/background.svg');
@@ -642,19 +646,16 @@ width:100%;
 
 }
 
-.header_notloggedin {
-
+.login-header {
   margin:0 auto;
   width:90%;
   margin-top:13px;
   text-align:center;
   margin-bottom:20px;
-
 }
 
-.content-notlogged {
-
-  background-image:url('../assets/home-scroll2.png');
+.login-form {
+  background-image:url('../assets/home-scroll.png');
   width:89%;
   height:70%;
   margin:0 auto;
@@ -663,16 +664,29 @@ width:100%;
   background-repeat: no-repeat;
   position:relative;
   min-height:300px;
+}
+
+.register-form {
+  background-image:url('../assets/register.png');
+  width:89%;
+  height:70%;
+  margin:0 auto;
+  margin-top:10px;
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  position:relative;
+  min-height:300px;
+}
+
+.registration-form {
 
 }
 
-.text-content {
-
+/*.text-content {
   background-image:url('../assets/text.png');
   width:170px;
   height:45px;
-
-}
+}*/
 
 .btn-homescreen {
   background-color: transparent;
@@ -703,48 +717,67 @@ width:100%;
   top: 78%;
 }
 
-/* IM GONNA CHANGE THIS ASAP */
-
-.username {
-
-  width: 69%      !important;
-  height: 8%      !important;
-  left: 15%       !important;
+.use-facebook {
+  left: 16%;
+  color: white;
   position: absolute;
-  top: 32%        !important;
+  bottom : 10px;
+}
+
+.login-input {
+  width: 69%;
+  height: 8%;
+  left: 15%;
+  position: absolute;
   font-size:21px  !important;
-  padding:0px     !important;
+  padding:0px;
   background:transparent;
-  color:#000 !important;
+  color:#000;
   border:0;
-
-
 }
 
 .username:focus {
   outline:0;
 }
 
-/* IM GONNA CHANGE THIS ASAP */
+.login-form .username {
+  top: 32%;
+}
 
-.password {
+.login-form .password {
+  top: 44%;
+}
 
-  width: 69%      !important;
-  height: 8%      !important;
-  left: 15%       !important;
+.register-form .username {
+  top: 19%;
+}
+.register-form .email {
+  top: 32%;
+}
+.register-form .password {
+  top: 43%;
+}
+.register-form .password-confirm {
+  top: 55%;
+}
+
+.register-cancel {
+  width: 69%;
+  height: 8%;
+  left: 15%;
+  top: 10%;
   position: absolute;
-  top: 44%        !important;
-  font-size:21px  !important;
-  padding:0px     !important;
-  background:transparent;
-  color:#000 !important;
-  border:0;
-
+  font-weight: bold;
 }
 
 .password:focus {
   outline:0;
 }
+
+
+/* ------------------
+Menu
+--------------------*/
 
 .home_stats {
 }
@@ -752,6 +785,10 @@ width:100%;
 .customize-menu {
   list-style: none;
 }
+
+/* ------------------
+Tasks
+--------------------*/
 
 #task-list {
     margin:0px;
@@ -763,7 +800,7 @@ width:100%;
     overflow-y:scroll;
 }
 
-.habitrpg_logo {
+/*.habitrpg_logo {
   background:url('../assets/habitrpg_pixel.png');
   background-size:100% 90%;
   width: 100%;
@@ -772,7 +809,7 @@ width:100%;
   background-repeat: no-repeat;
   margin-top: 2%;
   min-height: 85px;
-}
+}*/
 
 .image_wrapper {
   display: block;
