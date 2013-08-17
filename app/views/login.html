@@ -33,12 +33,12 @@
         <div class="register-form">
             <form ng-submit="register()">
                 <a class="register-cancel" ng-click="registering = false">< Go Back</a>
-                <input type="text" class="login-input username" ng-model="register.username" placeholder="Username" />
-                <input type="text" class="login-input email" ng-model="register.email" placeholder="Email" />
-                <input type="password" class="login-input password" ng-model="register.password" placeholder="Password" />
-                <input type="password" class="login-input password-confirm" ng-model="register.passwordConfirm" placeholder="Password Confirm" />
+                <input type="text" class="login-input username" ng-model="registerVals.username" placeholder="Username" required />
+                <input type="email" class="login-input email" ng-model="registerVals.email" placeholder="Email" required />
+                <input type="password" class="login-input password" ng-model="registerVals.password" placeholder="Password" required />
+                <input type="password" class="login-input password-confirm" ng-model="registerVals.confirmPassword" placeholder="Password Confirm" required />
 
-                <input type="button" class="btn-homescreen btn-signup" value="Register" ng-click="signup()"/>
+                <input type="submit" class="btn-homescreen btn-signup" value="Register"/>
             </form>
         </div>
     </div>
