@@ -626,6 +626,10 @@ width:100%;
   WebkitTransition : 'left 0.5s ease-in-out'
 }
 
+/* ------------------
+Login
+--------------------*/
+
 .login {
 
   background-image:url('../assets/background.svg');
@@ -654,7 +658,7 @@ width:100%;
 
 .content-notlogged {
 
-  background-image:url('../assets/home-scroll2.png');
+  background-image:url('../assets/home-scroll.png');
   width:89%;
   height:70%;
   margin:0 auto;
@@ -701,6 +705,14 @@ width:100%;
   top: 78%;
 }
 
+.use-facebook {
+  left: 16%;
+  color: white;
+  position: absolute;
+  bottom : 0px;
+}
+
+
 /* IM GONNA CHANGE THIS ASAP */
 
 .username {
@@ -744,12 +756,21 @@ width:100%;
   outline:0;
 }
 
+
+/* ------------------
+Menu
+--------------------*/
+
 .home_stats {
 }
 
 .customize-menu {
   list-style: none;
 }
+
+/* ------------------
+Tasks
+--------------------*/
 
 #task-list {
     margin:0px;
