@@ -44,7 +44,7 @@ habitrpg.controller('AuthCtrl',
           } else if (!!data && !!data.err) {
             alert(data.err);
           } else {
-            alert(status);
+            alert('ERROR: ' + status);
           }
         });
     }
@@ -68,12 +68,14 @@ habitrpg.controller('AuthCtrl',
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
           }).error(function(data, status, headers, config) {
-            if (status == '401') {
-              alert('Login error')
-            }else{
-              alert('ERROR: ' + status)
+            if (status === 0) {
+              alert("Server not currently reachable, try again later");
+            } else if (!!data && !!data.err) {
+              alert(data.err);
+            } else {
+              alert('ERROR: ' + status);
             }
-          })
+          });
       }
     }
   }
