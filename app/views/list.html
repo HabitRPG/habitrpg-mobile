@@ -43,7 +43,7 @@
 
                     <!-- Rewards -->
                     <span>
-                        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak />
+                        <button ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak class="topcoat-button buy-button">{{task.value}}gp</button>
                     </span>
                 </div>
 
@@ -53,7 +53,7 @@
 
             <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward' && item.text" class="taskItem {{item.classes}} {{getClass(0)}}">
                 <div class="taskActions">
-                    <span><input type="button" value="Buy ({{item.value}})" ng-click="buy(item.type)"/></span>
+                    <button ng-click="buy(item.type)" ng-cloak class="topcoat-button buy-button">{{item.value}}gp</button>
                 </div>
                 <p class="taskText"><span class="shop_{@item.classes} shop-sprite item-img"></span> {{item.text}} ({{item.strength || item.defense}}% <span ng-show="item.type == 'weapon'">increased XP gain</span><span ng-show="(item.type == 'armor') || (item.type == 'head') || (item.type == 'shield')">reduced HP loss</span>)</p>
             </li>
