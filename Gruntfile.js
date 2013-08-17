@@ -255,6 +255,7 @@ module.exports = function (grunt) {
             '!bower_components/underscore/docs/**/*',
             'assets/**/*',
             'res/icon/ios/**/*',
+            'res/screen/ios/**/*',
             //'res/**/*',
             'shared/**/*',
             'fonts/**/*'
