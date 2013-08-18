@@ -31,7 +31,7 @@
         </div>
 
         <div class="register-form">
-            <form ng-submit="register()">
+            <form ng-submit="register()" name="registrationForm">
                 <a class="register-cancel" ng-click="registering = false">&lt; Go Back</a>
                 <input type="text" class="login-input username" ng-model="registerVals.username" placeholder="Username" required />
                 <input type="email" class="login-input email" ng-model="registerVals.email" placeholder="Email" required />

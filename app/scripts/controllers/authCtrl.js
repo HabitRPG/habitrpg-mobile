@@ -15,7 +15,7 @@ habitrpg.controller('AuthCtrl',
     $scope.useUUID = false;
     $scope.toggleUUID = function() {
       if (showedFacebookMessage == false) {
-        alert("We don't yet have Facebook login, instead enter your UUID and API Token (found at https://habitrpg.com > Options > Settings).")
+        alert("Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings).")
         showedFacebookMessage = true;
       }
       $scope.useUUID = !$scope.useUUID;
@@ -32,6 +32,11 @@ habitrpg.controller('AuthCtrl',
     }, false);
 
     $scope.register = function() {
+      if ($scope.registrationForm.$invalid) {
+        //TODO highlight invalid inputs
+        // we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
+        return;
+      }
       $http.post(API_URL + '/api/v1/register', $scope.registerVals)
         .success(function(data, status, headers, config) {
           User.authenticate(data.id, data.apiToken, function(err) {
