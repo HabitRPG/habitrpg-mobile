@@ -867,3 +867,7 @@ ul.stats-list {
   padding: 0 0 0.375em 0.75em;
   border-bottom: 1px solid #ddd;
 }
+
+.help-page {
+  margin: 10px;
+}
