@@ -9,9 +9,11 @@ angular.module('notificationServices', []).
 
             hide: function () {
                 $('#notification').fadeOut(function () {
-                    $('#notification').css('webkit-transform', 'none')
-                    $('#notification').css('top', '-'+notifyheight+'px')
-                    $('#notification').css('left', '0px');
+                    $('#notification').css({
+                        'webkit-transform': 'none',
+                        'top': '-'+notifyheight+'px',
+                        'left': '0px'
+                });
 
                     setTimeout(function() {
                         $('#notification').show()
