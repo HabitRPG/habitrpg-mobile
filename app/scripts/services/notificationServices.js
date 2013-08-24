@@ -48,7 +48,12 @@ angular.module('notificationServices', []).
                     case 'stats':
                         /* might want to eventually move this into a view or template of some kind,
                         as it gets more complex? */
-                        var rewards = goldFilter(message.stats.gp) < 1 ? '<p><span class="silver-label">Silver:</span> ' +  silverFilter(message.stats.gp) + '</p>' : '<p><span class="gold-label">Gold:</span> ' +  goldFilter(message.stats.gp) + '<span class="silver-label">Silver:</span> ' +  silverFilter(message.stats.gp) + '</p>' ;
+                        var silverAmt = silverFilter(message.stats.gp) + '<span class="silver-label">Silver:</span> ';
+                        var rewards = goldFilter(message.stats.gp) < 1 ? '<p>+'+silverAmt+'</p>' :
+                            '<p>+' + goldFilter(message.stats.gp) +
+                                '<span class="gold-label">Gold</span> '
+                                + silverAmt +
+                            '</p>';
 
                         if (message.stats.exp != null && message.stats.gp != null)
                             data.message = '<strong>Experience:</strong> ' + message.stats.exp + rewards
