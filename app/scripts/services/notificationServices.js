@@ -3,13 +3,14 @@ angular.module('notificationServices', []).
         var data = {message:''};
         var active = false;
         var timer = null;
+        var notifyheight = 113;
 
         return {
 
             hide: function () {
                 $('#notification').fadeOut(function () {
                     $('#notification').css('webkit-transform', 'none')
-                    $('#notification').css('top', '-63px')
+                    $('#notification').css('top', '-'+notifyheight+'px')
                     $('#notification').css('left', '0px');
 
                     setTimeout(function() {
@@ -31,7 +32,7 @@ angular.module('notificationServices', []).
                 if (active == false) {
                     active = true;
 
-                    $('#notification').transition({ y: 63, x: 0 });
+                    $('#notification').transition({ y: notifyheight, x: 0 });
                     timer = setTimeout(this.hide, 2000);
                 }
 
@@ -42,11 +43,11 @@ angular.module('notificationServices', []).
                 switch(message.type) {
                     case 'stats':
                         if (message.stats.exp != null && message.stats.gp != null)
-                            data.message = 'Experience: ' + message.stats.exp + '<br />GP: ' +  message.stats.gp.toFixed(2)
+                            data.message = '<strong>Experience:</strong> ' + message.stats.exp + '<br /><strong>GP</strong>: ' +  message.stats.gp.toFixed(2)
                         if (message.stats.hp)
-                            data.message = 'HP: ' + message.stats.hp.toFixed(2)
+                            data.message = '<strong>HP:</strong> ' + message.stats.hp.toFixed(2)
                         if (message.stats.gp && message.stats.exp == null)
-                            data.message = '<br />GP: ' +  message.stats.gp.toFixed(2)
+                            data.message = '<br /><strong>GP:</strong> ' +  message.stats.gp.toFixed(2)
                     break;
                     case 'text':
                         data.message = message.text

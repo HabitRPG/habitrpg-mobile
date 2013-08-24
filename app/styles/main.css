@@ -298,21 +298,27 @@ body {
     z-index: 1;
 }
     .btn--filter {
-        width: 49%;
         float: left;
-        letter-spacing: normal;
         margin: 0;
-        font-size: 1.25em;
-        text-align: center;
+        width: 49%;
         height: 3.75rem;
-        line-height: 3.75rem;
+        outline: 1px solid #fff;
+        border-top: 1px solid #eee;
+        background: #ddd;
+        color: #666;
+        text-align: center;
         text-decoration: none;
+        letter-spacing: normal;
+        font-size: 1.25em;
+        line-height: 3.75rem;
     }
         .btn--filter.current {
             color: cornflowerblue;
+            background: #f0f0f0;
         }
         .btn--filter:first-of-type {
             border-right: 1px solid rgba(0,0,0,0.2);
+            
         }
 
 
@@ -362,6 +368,34 @@ width:100%;
   text-align:center;
 
 
+}
+
+.profile-content .meter {
+  height: auto;
+  position: relative;
+  background: #f7f7f7;
+  margin:10px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.02);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.profile-content .meter > span {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-content .meter .meter-text {
+  padding: 10px 0 10px 10px;
+  display: block;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0px 0px 5px #956722;
+  font-size: 20px;
+}
+
+.profile-content .red .meter-text {
+  text-shadow: 0px 0px 5px #b10f18;
 }
 
 .meter {
@@ -613,12 +647,19 @@ width:100%;
 
   position:absolute;
   height:63px;
-  top:-63px;
+  top:-113px;
   width:100%;
-  background-color:#f9edbe;
+  background: rgb(249,246,209); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(249,246,209,1) 0%, rgba(248,252,174,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,246,209,1)), color-stop(100%,rgba(248,252,174,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(249,246,209,1) 0%,rgba(248,252,174,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(249,246,209,1) 0%,rgba(248,252,174,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(249,246,209,1) 0%,rgba(248,252,174,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(249,246,209,1) 0%,rgba(248,252,174,1) 100%); /* W3C */
   z-index:10;
   font-size:20px;
   opacity:0.9;
+  padding: 20px;
 
 }
 
@@ -856,6 +897,14 @@ ul.stats-list {
   bottom: 0; left: 0; right: 0;
   overflow-y:auto;
   -webkit-overflow-scroll: touch;
+}
+
+.profile-content h3, .profile-content .stats-list {
+  margin: 0 15px;
+}
+
+.profile-content h3 {
+  color:#666;
 }
 
 
