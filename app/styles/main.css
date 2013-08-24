@@ -358,7 +358,7 @@ body {
   margin: .25em 0;
 }
 
-.profile-content .user .gold-label, .profile-content .user .silver-label {
+.gold-label, .silver-label {
   text-indent: -10000px;
   text-align: left;
   display: inline-block;
@@ -367,11 +367,11 @@ body {
   height: 25px;
 }
 
-.profile-content .user .gold-label {
+.gold-label {
   background: url(/shared/img/coin_single_gold.png) no-repeat;
 }
 
-.profile-content .user .silver-label {
+.silver-label {
   background: url(/shared/img/coin_single_silver.png) no-repeat;
 }
 

@@ -1,9 +1,11 @@
 angular.module('notificationServices', []).
-    factory('Notification', function () {
+    factory('Notification', function ($filter) {
         var data = {message:''};
         var active = false;
         var timer = null;
         var notifyheight = 113;
+        var goldFilter = $filter('gold');
+        var silverFilter = $filter('silver');
 
         return {
 
@@ -13,7 +15,7 @@ angular.module('notificationServices', []).
                         'webkit-transform': 'none',
                         'top': '-'+notifyheight+'px',
                         'left': '0px'
-                });
+                    });
 
                     setTimeout(function() {
                         $('#notification').show()
@@ -44,12 +46,16 @@ angular.module('notificationServices', []).
                 data.message = ''
                 switch(message.type) {
                     case 'stats':
+                        /* might want to eventually move this into a view or template of some kind,
+                        as it gets more complex? */
+                        var rewards = goldFilter(message.stats.gp) < 1 ? '<p><span class="silver-label">Silver:</span> ' +  silverFilter(message.stats.gp) + '</p>' : '<p><span class="gold-label">Gold:</span> ' +  goldFilter(message.stats.gp) + '<span class="silver-label">Silver:</span> ' +  silverFilter(message.stats.gp) + '</p>' ;
+
                         if (message.stats.exp != null && message.stats.gp != null)
-                            data.message = '<strong>Experience:</strong> ' + message.stats.exp + '<br /><strong>GP</strong>: ' +  message.stats.gp.toFixed(2)
+                            data.message = '<strong>Experience:</strong> ' + message.stats.exp + rewards
                         if (message.stats.hp)
                             data.message = '<strong>HP:</strong> ' + message.stats.hp.toFixed(2)
                         if (message.stats.gp && message.stats.exp == null)
-                            data.message = '<br /><strong>GP:</strong> ' +  message.stats.gp.toFixed(2)
+                            data.message = rewards
                     break;
                     case 'text':
                         data.message = message.text
