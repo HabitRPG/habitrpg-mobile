@@ -276,7 +276,8 @@ body {
             overflow:hidden;
             margin: 0;
             line-height: 2.1;
-            white-space: nowrap;
+            /*white-space: nowrap;*/
+            max-height: 6em;
         }
 
     .emptyStateMsg {
