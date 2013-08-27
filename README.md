@@ -8,8 +8,8 @@ Official HabitRPG mobile app, build with [PhoneGap](http://cordova.apache.org/) 
 ##Install the mobile app
  * [Install Node](http://nodejs.org/)
  * `npm install -g yo generator-angular grunt-cli bower`
- * `npm install && bower install`
- * `grunt server`
+ * `npm install`
+ * `npm start`
  * Run the Ripple Emulator in your browser open browser at http://localhost:9000
    * Turn off tooltips
    * Disable cross domain proxy

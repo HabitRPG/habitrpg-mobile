@@ -1,6 +1,6 @@
 {
-  "name": "yo",
-  "version": "0.0.0",
+  "name": "habitrpg-mobile",
+  "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -27,10 +27,18 @@
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2"
   },
+  "peerDependencies": {
+    "grunt-cli": "*",
+    "yo": "*",
+    "generator-angular": "*",
+    "bower": "*"
+  },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
+    "start": "grunt server",
+    "postinstall": "bower install",
     "test": "grunt test"
   }
 }
