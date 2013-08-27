@@ -5,7 +5,7 @@
     "jquery": "~1.9.1",
     "underscore": "*",
     "moment": "*",
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#rewrite",
     "topcoat": "~0.6.0",
     "jquery.transit": "~0.9.9"
   },

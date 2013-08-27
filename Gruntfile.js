@@ -250,7 +250,7 @@ module.exports = function (grunt) {
             'config.xml',
             '!bower_components/habitrpg-shared/node_modules/**/*',
             '!bower_components/habitrpg-shared/img/unprocessed/**/*',
-            '!bower_components/habitrpg-shared/**/*.xcf',
+            '!bower_components/habitrpg-shared/img/project_files/**/*',
             '!bower_components/habitrpg-shared/.git/**/*', // I'm using symlink
             '!bower_components/underscore/docs/**/*',
             'assets/**/*',
