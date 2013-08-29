@@ -2,12 +2,17 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$location',
-  function($scope, User, $location) {
+  ['$scope', 'User', '$location', 'API_URL',
+  function($scope, User, $location, apiUrl) {
     $scope.resetApp = function () {
         localStorage.clear();
         location.reload();
     };
+    $scope.apiEndpoint = apiUrl;
+    $scope.setApiEndpoint = function (newEndpoint) {
+      habitrpg.constant('API_URL', newEndpoint);
+    };
+
     $scope.auth = function (id, token) {
         User.authenticate(id, token, function (err) {
             if (!err) {
@@ -15,7 +20,7 @@ habitrpg.controller('SettingsCtrl',
                 $location.path("/habit");
             }
         });
-    }
+    };
 
   }
 ]);
