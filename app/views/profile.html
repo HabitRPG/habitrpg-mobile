@@ -12,6 +12,7 @@
 
             <div class="herobox">
                 <div class='character-sprites' ng-click="showUserAvatar()">
+                    <span class='zzz' ng-show='user.flags.rest'></span>
                     <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
                     <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
                     <span class="{{equipped(user, 'armor')}}"></span>
