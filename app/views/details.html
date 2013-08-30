@@ -12,6 +12,7 @@
                 <input type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'>
                 <div class="topcoat-checkbox"></div>
             </label>
+            <button ng-hide="task.id" ng-click="buy(task.type)" ng-cloak class="topcoat-button buy-button">{{task.value}}gp</button>
 
             <span ng-class="{strikeout: task.completed}">{{task.text}}</span>
         </h2>
