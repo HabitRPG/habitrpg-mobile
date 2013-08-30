@@ -26,6 +26,9 @@ angular.module('userServices', []).
             _.extend(user, window.habitrpgShared.helpers.newUser());
             user.apiToken = user._id = ''; // we use id / apitoken to determine if registered
 
+            // set up apiEndpoint to be a previous value of it or API_URL
+            settings.apiEndpoint = settings.apiEndpoint || API_URL;
+
               //than we try to load localStorage
             
             if (localStorage.getItem(STORAGE_ID)) {

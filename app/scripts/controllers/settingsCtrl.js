@@ -8,7 +8,7 @@ habitrpg.controller('SettingsCtrl',
         localStorage.clear();
         location.reload();
     };
-    $scope.apiEndpoint = apiUrl;
+
     $scope.setApiEndpoint = function (newEndpoint) {
       habitrpg.constant('API_URL', newEndpoint);
     };
