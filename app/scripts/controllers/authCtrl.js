@@ -6,12 +6,14 @@
  */
 
 habitrpg.controller('AuthCtrl',
-  ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location', 'API_URL',
-  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) {
+  ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location',
+  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location) {
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
 
-    var showedFacebookMessage = false
+
+    var showedFacebookMessage = false,
+      API_URL = User.settings.apiEndpoint;
     $scope.useUUID = false;
     $scope.toggleUUID = function() {
       if (showedFacebookMessage == false) {

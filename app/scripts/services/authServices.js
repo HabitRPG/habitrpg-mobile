@@ -11,7 +11,7 @@ factory('Facebook',
     ['$http', '$location', 'User', 'API_URL',
     function($http, $location, User, API_URL) {
       //TODO FB.init({appId: '${section.parameters['facebook.app.id']}', status: true, cookie: true, xfbml: true});
-      var auth, user = User.user;
+      var auth, user = User.user, API_URL = User.settings.apiEndpoint;
 
       facebook.handleStatusChange = function(session) {
           if (session.authResponse) {

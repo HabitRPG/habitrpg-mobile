@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$location', 'API_URL',
-  function($scope, User, $location, apiUrl) {
+  ['$scope', 'User', '$location',
+  function($scope, User, $location) {
     $scope.resetApp = function () {
         localStorage.clear();
         location.reload();
