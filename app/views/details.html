@@ -12,7 +12,6 @@
                 <input type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'>
                 <div class="topcoat-checkbox"></div>
             </label>
-            <button ng-hide="task.id" ng-click="buy(task.type)" ng-cloak class="topcoat-button buy-button">{{task.value}}gp</button>
 
             <span ng-class="{strikeout: task.completed}">{{task.text}}</span>
         </h2>
@@ -24,9 +23,9 @@
             <button class="topcoat-button taskButton" ng-show="task.down" ng-click="score(task,'down')">－</button>
         </span>
 
-        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-cloak />
-
-        <!-- Rewards -->
+        <!-- Rewards and items-->
+        <input type="button" value="Buy ({{task.value}}gp)" ng-click="score(task,'down')" ng-show="task.type == 'reward'" ng-cloak />
+        <input type="button" value="Buy ({{task.value}}gp)" ng-click="buy(task.type)" ng-hide="task.id" ng-cloak />
         <span></span>
 
     </div>
