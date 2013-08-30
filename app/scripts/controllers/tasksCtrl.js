@@ -122,7 +122,7 @@ habitrpg.controller('TasksCtrl',
 
     $scope.selectTask = function (task) {
         $rootScope.selectedTask = task;
-        $location.path('/tasks/' + task.id)
+        $location.path('/tasks/' + (task.id ? task.id : 'reward'));
     }
 
     $scope.changeCheck = function (task) {

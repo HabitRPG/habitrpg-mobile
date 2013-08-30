@@ -280,6 +280,11 @@ body {
             max-height: 6em;
         }
 
+            .taskText .item-img {
+              display: inline-block;
+              vertical-align: top;
+            }
+
     .emptyStateMsg {
         font-size: 1.25em;
         padding: 0 1.5em;
