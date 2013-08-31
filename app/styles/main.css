@@ -859,6 +859,19 @@ ul.stats-list {
   -webkit-overflow-scroll: touch;
 }
 
+.profile-content .herobox .hasPet{
+  margin-left: 20px;
+}
+
+.profile-content .herobox .current-pet{
+  display: none;
+}
+
+.profile-content .herobox .hasPet .current-pet{
+  display: block;
+  margin-top: 24px;
+  margin-left: -25px;
+}
 
 .taskTypeHeader {
   color: rgb(51,51,51);
