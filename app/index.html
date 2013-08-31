@@ -95,6 +95,9 @@
                     </div>
 
                     <!-- Main View -->
+                    <div ng-controller="NotificationCtrl">
+                        <div id="notification"><div ng-bind-html-unsafe="data.message"></div></div>
+                    </div>
                     <div ng-view ng-cloak></div>
                 </div>
             </div>
