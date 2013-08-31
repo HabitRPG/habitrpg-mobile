@@ -4,7 +4,7 @@
 
     <!-- Details Page -->
     <div ng-hide="editing" style="margin:17px">
-        <a class='topcoat-button' ng-click='goBack()'>Back</a> <a class="topcoat-button" ng-click="edit()">Edit</a>
+        <a class='topcoat-button' ng-click='goBack()'>Back</a> <a class="topcoat-button" ng-show="task.id" ng-click="edit()">Edit</a>
 
         <h2>
             <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />-->
@@ -23,9 +23,9 @@
             <button class="topcoat-button taskButton" ng-show="task.down" ng-click="score(task,'down')">－</button>
         </span>
 
-        <input type="button" value="Buy ({{task.value}})" ng-show="task.type == 'reward'" ng-cloak />
-
-        <!-- Rewards -->
+        <!-- Rewards and items-->
+        <input type="button" value="Buy ({{task.value}}gp)" ng-click="score(task,'down')" ng-show="task.type == 'reward'" ng-cloak />
+        <input type="button" value="Buy ({{task.value}}gp)" ng-click="buy(task.type)" ng-hide="task.id" ng-cloak />
         <span></span>
 
     </div>

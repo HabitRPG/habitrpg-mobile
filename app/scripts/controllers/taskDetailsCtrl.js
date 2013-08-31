@@ -10,7 +10,7 @@ habitrpg.controller('TaskDetailsCtrl',
 
     $scope.goBack = function () {
         $rootScope.selectedTask = null;
-        $location.path('/' + $scope.task.type);
+        $location.path('/' + ($scope.task.id ? $scope.task.type : 'reward'));
     };
 
     $scope.edit = function () {
