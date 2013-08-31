@@ -287,6 +287,7 @@ body {
         line-height: 1.5;
     }
 
+
 .filterBar {
     position: absolute;
     bottom: 0;
@@ -316,6 +317,10 @@ body {
             border-right: 1px solid rgba(0,0,0,0.2);
         }
 
+/* To Dos, or any other screens with tabs at the bottom*/
+.todo .last {
+margin-bottom: 94px;
+}
 
 /* UNTOUCHED BY ZAK CSS BELOW */
 /* -==============================- */
@@ -854,7 +859,8 @@ ul.stats-list {
 .details-page, .profile-content {
   position: absolute;
   top: 63px; /* this is stupid */
-  bottom: 0; left: 0; right: 0;
+  bottom: 83px; /*tabs*/
+  left: 0; right: 0;
   overflow-y:auto;
   -webkit-overflow-scroll: touch;
 }
