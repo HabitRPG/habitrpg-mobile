@@ -71,10 +71,14 @@
             <!--TODO: Due Date-->
         </div>
 
-        <!-- Rewards -->
         <div ng-hide="task.type == 'reward'">
-            <!--TODO: Difficulty-->
+            <h4>Difficulty</h4>
+            <a class='topcoat-button' ng-click="task.priority = '!'" ng-class="{'is-active':task.priority == '!'}">Easy</a>
+            <a class='topcoat-button' ng-click="task.priority = '!!'" ng-class="{'is-active':task.priority == '!!'}">Medium</a>
+            <a class='topcoat-button' ng-click="task.priority = '!!!'" ng-class="{'is-active':task.priority == '!!!'}">Difficult</a>
         </div>
+
+        <!-- Rewards -->
         <div ng-show="task.type == 'reward'">
             <input type="text" class="topcoat-text-input" ng-model="task.value" placeholder="Price" />
         </div>
