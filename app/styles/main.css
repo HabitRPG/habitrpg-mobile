@@ -280,12 +280,18 @@ body {
             max-height: 6em;
         }
 
+            .taskText .item-img {
+              display: inline-block;
+              vertical-align: top;
+            }
+
     .emptyStateMsg {
         font-size: 1.25em;
         padding: 0 1.5em;
         color: rgb(51,51,51);
         line-height: 1.5;
     }
+
 
 .filterBar {
     position: absolute;
@@ -322,6 +328,10 @@ body {
             
         }
 
+/* To Dos, or any other screens with tabs at the bottom*/
+.todo .last {
+margin-bottom: 94px;
+}
 
 
 /* Profile
@@ -359,21 +369,11 @@ body {
   margin: .25em 0;
 }
 
-.gold-label, .silver-label {
+.shop_gold, .shop_silver {
   text-indent: -10000px;
   text-align: left;
   display: inline-block;
-  background: url(/shared/img/coin_single_gold.png) no-repeat;
-  width: 30px;
-  height: 25px;
-}
-
-.gold-label {
-  background: url(/shared/img/coin_single_gold.png) no-repeat;
-}
-
-.silver-label {
-  background: url(/shared/img/coin_single_silver.png) no-repeat;
+  margin-right: 20px;
 }
 
 .profile-content  .username {
@@ -937,7 +937,8 @@ ul.stats-list {
 .details-page, .profile-content {
   position: absolute;
   top: 63px; /* this is stupid */
-  bottom: 0; left: 0; right: 0;
+  bottom: 83px; /*tabs*/
+  left: 0; right: 0;
   overflow-y:auto;
   -webkit-overflow-scroll: touch;
 }
@@ -950,6 +951,19 @@ ul.stats-list {
   color:#666;
 }
 
+.profile-content .herobox .hasPet{
+  margin-left: 20px;
+}
+
+.profile-content .herobox .current-pet{
+  display: none;
+}
+
+.profile-content .herobox .hasPet .current-pet{
+  display: block;
+  margin-top: 24px;
+  margin-left: -25px;
+}
 
 .taskTypeHeader {
   color: rgb(51,51,51);

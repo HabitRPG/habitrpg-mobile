@@ -5,8 +5,9 @@
         <title>HabitRPG</title>
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="shared/css/index.css">
+        <link rel="stylesheet" href="bower_components/habitrpg-shared/spritesheets.css">
         <!-- build:css({.tmp,app}) styles/main.css -->
+        <link rel="stylesheet" href="styles/fixme.css">
         <link rel="stylesheet" type="text/css" href="bower_components/topcoat/css/topcoat-mobile-light.css">
         <link rel="stylesheet" type="text/css" href="bower_components/topcoat/css/main.css">
         <link rel="stylesheet" type="text/css" href="styles/topcoat-overrides.css">
@@ -16,8 +17,7 @@
     </head>
     <body ng-cloak ng-app="habitrpg" ng-controller="RootCtrl" class="light" ontouchstart="">
 
-        <div ng-controller="AuthCtrl">
-        </div>
+        <div ng-controller="AuthCtrl"></div>
 
         <!-- TODO move to jade so we can use "include" instead of ng-include, faster -->
 
@@ -27,29 +27,8 @@
             <!-- Nav -->
 
             <nav class="menu" ng-class="{open : menuopen}" style="top:0; left:0; width:100%">
-
-                <div ng-controller="CharacterCtrl">
-
-                <figure class="herobox" style="top:-24px; left:-43px">
-                <div class='character-sprites'>
-                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
-                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
-                    <span class="{{equipped(user, 'armor')}}"></span>
-                    <span class="{{user.preferences.gender}}_head_0"></span>
-                    <span class="{{equipped(user, 'head')}}"></span>
-                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
-                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
-                </div>
-                </figure>
-
-                <div class="meter animate" style="width:144px; left:87px; top:9px">
-                    <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
-                </div>
-
-                <div class="meter animate orange" style="width:144px; left:87px; top:9px">
-                    <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
-                </div>
-            </div><br>
+                <ng-include src="'views/avatar.html'"></ng-include>
+                <br>
 
                 <div class="navLinkBlock">
                     <div class="mainNavLink" ng-repeat="button in nav" ng-click="menuClick(button)" style="position:relative">
@@ -93,13 +72,16 @@
                     </div>
 
                     <!-- Main View -->
+                    <div ng-controller="NotificationCtrl">
+                        <div id="notification"><div ng-bind-html-unsafe="data.message"></div></div>
+                    </div>
                     <div ng-view ng-cloak></div>
                 </div>
             </div>
         </div>
 
         <!-- FIXME This seems to need to be outside the build step for some reason, look into it -->
-        <script src="bower_components/habitrpg-shared/browser/browser.debug.js"></script>
+        <script src="bower_components/habitrpg-shared/dist/habitrpg-shared.js"></script>
 
         <!-- build:js scripts/modules.js -->
         <script src="bower_components/jquery/jquery.min.js"></script>

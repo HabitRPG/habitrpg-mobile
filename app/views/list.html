@@ -1,7 +1,3 @@
-<div ng-controller="NotificationCtrl">
-<div id="notification"><div ng-bind-html-unsafe="data.message"></div></div>
-</div>
-
 <!-- Don't show tasks if dead -->
 <div ng-show="user.stats.hp <= 0">
     <h1>You are dead</h1>
@@ -10,7 +6,7 @@
 
 <div ng-show="user.stats.hp > 0" ng-controller="TasksCtrl" class="taskWell">
 
-    <h2 class='taskTypeHeader' ng-show="taskContext.type == 'reward'">{{user.stats.gp|gold}} <span class="gold-label">Gold</span>{{user.stats.gp|silver}} <span class="silver-label">Silver</span></h2>
+    <h2 class='taskTypeHeader' ng-show="taskContext.type == 'reward'">{{user.stats.gp|gold}} <span class="shop_gold">Gold</span>{{user.stats.gp|silver}} <span class="shop_silver">Silver</span></h2>
 
     <div class="task_wrapper">
 
@@ -20,8 +16,8 @@
 
         <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskContext.name}}! Why don't you add some?</p>
 
-        <ul id="task-list" ng-hide="tasks().length == 0 && taskContext.type != 'reward'">
-            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: (task.completed || notDue(task)), editing: task == editedTask}" class="taskItem {{getClass(task.value)}}">
+        <ul id="task-list" ng-hide="tasks().length == 0 && taskContext.type != 'reward'" class="{{taskContext.type}}">
+            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: (task.completed || notDue(task)), editing: task == editedTask, last:$last}" class="taskItem {{getClass(task.value)}}">
 
                 <div class="taskActions">
                     <!-- Habits -->
@@ -55,7 +51,7 @@
                 <div class="taskActions">
                     <button ng-click="buy(item.type)" ng-cloak class="topcoat-button buy-button">{{item.value}}gp</button>
                 </div>
-                <p class="taskText"><span class="shop_{@item.classes} shop-sprite item-img"></span> {{item.text}} ({{item.strength || item.defense}}% <span ng-show="item.type == 'weapon'">increased XP gain</span><span ng-show="(item.type == 'armor') || (item.type == 'head') || (item.type == 'shield')">reduced HP loss</span>)</p>
+                <p class="taskText" ng-click="selectTask(item)"><span class="shop_{{item.classes}} shop-sprite item-img"></span> {{item.text}}</p>
             </li>
 
         </ul>
