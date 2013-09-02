@@ -369,12 +369,10 @@ margin-bottom: 94px;
   margin: .25em 0;
 }
 
-.shop_gold, .shop_silver {
-  text-indent: -10000px;
-  text-align: left;
-  display: inline-block;
-  margin-right: 20px;
+.profile-content .shop_gold, .profile-content .shop_silver {
+  margin-right: 0;
 }
+
 
 .profile-content  .username {
   text-transform: uppercase;
@@ -395,6 +393,14 @@ margin-bottom: 94px;
 .stats-list li {
   padding: 0;
 }
+
+.shop_gold, .shop_silver {
+  text-indent: -10000px;
+  text-align: left;
+  display: inline-block;
+  margin-right: 20px;
+}
+
 
 
 /* UNTOUCHED BY ZAK CSS BELOW */
