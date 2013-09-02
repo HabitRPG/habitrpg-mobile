@@ -896,3 +896,7 @@ ul.stats-list {
 .help-page {
   margin: 10px;
 }
+
+.customize-content .herobox {
+  position: relative;
+}
