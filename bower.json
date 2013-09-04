@@ -2,7 +2,7 @@
   "name": "yo",
   "version": "0.0.0",
   "dependencies": {
-    "jquery": "~1.9.1",
+    "jquery": "~2.0.3",
     "underscore": "*",
     "moment": "*",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#rewrite",
