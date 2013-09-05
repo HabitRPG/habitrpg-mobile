@@ -61,7 +61,7 @@
 
    <div ng-controller="TasksCtrl">
         <div class="filterBar" ng-show="taskType()=='todo'">
-            <a class="btn btn--small btn--filter current" href="#todo">Active</a>
-            <a class="btn btn--small btn--filter" href="#todo/completed">Completed</a>
+            <a class="btn btn--small btn--filter" ng-class="{current: isActive('/todo')}" href="#todo">Active</a>
+            <a class="btn btn--small btn--filter" ng-class="{current: isActive('/todo/completed')}" href="#todo/completed">Completed</a>
         </div>
     </div>
