@@ -28,6 +28,10 @@ habitrpg.controller('TasksCtrl',
                 true;
     };
 
+    $scope.isActive = function(path){
+        return $location.path() == path;
+    }
+
     $scope.score = function (task, direction) {
         //save current stats to compute the difference after scoring.
         var statsDiff = {};
