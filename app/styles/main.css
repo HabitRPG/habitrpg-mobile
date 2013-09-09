@@ -630,8 +630,11 @@ width:100%;
   z-index:10;
   font-size:20px;
   opacity:0.9;
-  padding: 0.7rem;
 
+}
+
+#notification div{
+    padding: 0.7rem;
 }
 
 .transition-1 {
