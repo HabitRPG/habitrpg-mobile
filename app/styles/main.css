@@ -864,11 +864,13 @@ ul.stats-list {
 .details-page, .profile-content {
   position: absolute;
   top: 63px; /* this is stupid */
-  bottom: 83px; /*tabs*/
   left: 0; right: 0;
   overflow-y:auto;
   -webkit-overflow-scroll: touch;
 }
+
+.details-page{bottom: 0px;}
+.profile-content{bottom: 83px;}
 
 .profile-content .herobox .hasPet{
   margin-left: 20px;
