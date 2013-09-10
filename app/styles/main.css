@@ -254,6 +254,7 @@ body {
     margin: 0;
 }
     .taskItem {
+        width: 100%;
         font-size: 1.25em;
         list-style: none;
         padding: 1em 0.75em;
