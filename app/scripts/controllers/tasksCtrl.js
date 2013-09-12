@@ -138,7 +138,7 @@ habitrpg.controller('TasksCtrl',
         }
     }
 
-    $('.taskWell').css('height', $(window).height() - 61)
+    $('.taskWell').css('height', $(window).height() - 76)
 
     // TODO this should be somewhere else, but fits the html location better here
     $rootScope.revive = function() {
