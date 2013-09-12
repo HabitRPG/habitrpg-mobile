@@ -254,9 +254,7 @@ module.exports = function (grunt) {
             '!bower_components/habitrpg-shared/.git/**/*', // I'm using symlink
             '!bower_components/underscore/docs/**/*',
             'assets/**/*',
-            'res/icon/ios/**/*',
-            'res/screen/ios/**/*',
-            //'res/**/*',
+            'res/**/*',
             'shared/**/*',
             'fonts/**/*'
           ]
