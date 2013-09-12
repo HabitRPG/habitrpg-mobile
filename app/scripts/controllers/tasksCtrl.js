@@ -60,7 +60,7 @@ habitrpg.controller('TasksCtrl',
 
     $scope.notDue = function(task) {
       if (task.type == 'daily') {
-        return !window.habitrpgShared.helpers.shouldDo(moment(), task.repeat);
+        return !window.habitrpgShared.helpers.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
       } else {
         return false
       }
