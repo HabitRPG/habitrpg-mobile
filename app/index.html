@@ -75,7 +75,7 @@
 
                     <!-- Main View -->
                     <div ng-controller="NotificationCtrl">
-                        <div id="notification"><div ng-bind-html-unsafe="data.message"></div></div>
+                        <div id="notification"><div ng-bind-html="data.message"></div></div>
                     </div>
                     <div ng-view ng-cloak></div>
                 </div>
@@ -86,10 +86,10 @@
         <script src="bower_components/habitrpg-shared/dist/habitrpg-shared.js"></script>
         <script src="bower_components/jquery/jquery.min.js"></script>
 
-        <script src="lib/angular-1.1.5/angular.js"></script>
-        <script src="lib/angular-1.1.5/angular-cookies.js"></script>
-        <script src="lib/angular-1.1.5/angular-sanitize.js"></script>
-        <script src="lib/angular-1.1.5/angular-mobile.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 
         <script src="lib/cdv-plugin-fb-connect.js"></script>
         <script src="lib/facebook-js-sdk.js"></script>
