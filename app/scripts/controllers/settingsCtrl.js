@@ -8,6 +8,11 @@ habitrpg.controller('SettingsCtrl',
         localStorage.clear();
         location.reload();
     };
+
+    $scope.setApiEndpoint = function (newEndpoint) {
+      habitrpg.constant('API_URL', newEndpoint);
+    };
+
     $scope.auth = function (id, token) {
         User.authenticate(id, token, function (err) {
             if (!err) {
@@ -15,7 +20,7 @@ habitrpg.controller('SettingsCtrl',
                 $location.path("/habit");
             }
         });
-    }
+    };
 
   }
 ]);
