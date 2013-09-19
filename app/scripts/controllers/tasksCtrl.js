@@ -28,6 +28,10 @@ habitrpg.controller('TasksCtrl',
                 true;
     };
 
+    $scope.isActive = function(path){
+        return $location.path() == path;
+    }
+
     $scope.score = function (task, direction) {
         //save current stats to compute the difference after scoring.
         var statsDiff = {};
@@ -56,7 +60,7 @@ habitrpg.controller('TasksCtrl',
 
     $scope.notDue = function(task) {
       if (task.type == 'daily') {
-        return !window.habitrpgShared.helpers.shouldDo(moment(), task.repeat);
+        return !window.habitrpgShared.helpers.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
       } else {
         return false
       }
@@ -134,7 +138,7 @@ habitrpg.controller('TasksCtrl',
         }
     }
 
-    $('.taskWell').css('height', $(window).height() - 61)
+    $('.taskWell').css('height', $(window).height() - 76)
 
     // TODO this should be somewhere else, but fits the html location better here
     $rootScope.revive = function() {

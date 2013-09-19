@@ -9,6 +9,8 @@ habitrpg.controller('CharacterCtrl',
   ['$scope', '$location', 'User',
   function($scope, $location, User) {
 
+        $scope.customize = false;
+
         $scope.user = User.user;
 
         $scope.equipped = function(user, type) {

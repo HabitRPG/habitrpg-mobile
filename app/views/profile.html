@@ -1,8 +1,8 @@
 <div ng-controller="CharacterCtrl" class="profile-container">
 
     <div class="filterBar" >
-        <a class="btn btn--small btn--filter" ng-click="customize = false">View</a>
-        <a class="btn btn--small btn--filter" ng-click="customize = true">Customize</a>
+        <a class="btn btn--small btn--filter" ng-click="customize = false" ng-class="{current: customize == false}">View</a>
+        <a class="btn btn--small btn--filter" ng-click="customize = true" ng-class="{current: customize == true}">Customize</a>
     </div>
 
     <div class="profile-content">

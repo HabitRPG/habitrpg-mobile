@@ -79,3 +79,9 @@ form input {
 form label {
     color: black;
 }
+
+.topcoat-textarea{
+    font-size: 1rem;
+    padding: 1rem;
+    line-height: 1.3rem;
+}

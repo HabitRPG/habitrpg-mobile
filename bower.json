@@ -2,12 +2,14 @@
   "name": "yo",
   "version": "0.0.0",
   "dependencies": {
-    "jquery": "~1.9.1",
-    "underscore": "*",
-    "moment": "*",
+    "jquery": "~2.0.3",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#rewrite",
     "topcoat": "~0.6.0",
-    "jquery.transit": "~0.9.9"
+    "jquery.transit": "~0.9.9",
+    "angular": "1.2.0-rc.2",
+    "angular-touch": "1.2.0-rc.2",
+    "angular-route": "1.2.0-rc.2",
+    "angular-sanitize": "1.2.0-rc.2"
   },
   "devDependencies": {}
 }
