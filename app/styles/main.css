@@ -254,6 +254,7 @@ body {
     margin: 0;
 }
     .taskItem {
+        width: 100%;
         font-size: 1.25em;
         list-style: none;
         padding: 1em 0.75em;
@@ -712,6 +713,10 @@ background: linear-gradient(to bottom, rgba(249,246,209,1) 0%,rgba(248,252,174,1
 
 }
 
+#notification div{
+  padding: 0.7rem;
+}
+
 .transition-1 {
   WebkitTransition : 'left 0.5s ease-in-out'
 }
@@ -943,7 +948,6 @@ ul.stats-list {
 .details-page, .profile-content {
   position: absolute;
   top: 63px; /* this is stupid */
-  bottom: 83px; /*tabs*/
   left: 0; right: 0;
   overflow-y:auto;
   -webkit-overflow-scroll: touch;
@@ -956,6 +960,10 @@ ul.stats-list {
 .profile-content h3 {
   color:#666;
 }
+
+.details-page{bottom: 0px;}
+.profile-content{bottom: 83px;}
+
 
 .profile-content .herobox .hasPet{
   margin-left: 20px;

@@ -5,7 +5,9 @@
         <title>HabitRPG</title>
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="bower_components/habitrpg-shared/spritesheets.css">
+        <!-- Do not include in build because already minified and can't be put minified here because it would end with wrong paths !-->
+        <link rel="stylesheet" href="bower_components/habitrpg-shared/dist/spritesheets.css">
+
         <!-- build:css({.tmp,app}) styles/main.css -->
         <link rel="stylesheet" href="styles/fixme.css">
         <link rel="stylesheet" type="text/css" href="bower_components/topcoat/css/topcoat-mobile-light.css">
@@ -73,26 +75,22 @@
 
                     <!-- Main View -->
                     <div ng-controller="NotificationCtrl">
-                        <div id="notification"><div ng-bind-html-unsafe="data.message"></div></div>
+                        <div id="notification"><div ng-bind-html="data.message"></div></div>
                     </div>
                     <div ng-view ng-cloak></div>
                 </div>
             </div>
         </div>
 
-        <!-- FIXME This seems to need to be outside the build step for some reason, look into it -->
-        <script src="bower_components/habitrpg-shared/dist/habitrpg-shared.js"></script>
-
         <!-- build:js scripts/modules.js -->
+        <script src="bower_components/habitrpg-shared/dist/habitrpg-shared.js"></script>
         <script src="bower_components/jquery/jquery.min.js"></script>
 
-        <script src="lib/angular-1.1.5/angular.js"></script>
-        <script src="lib/angular-1.1.5/angular-cookies.js"></script>
-        <script src="lib/angular-1.1.5/angular-sanitize.js"></script>
-        <script src="lib/angular-1.1.5/angular-mobile.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 
-        <script src="bower_components/underscore/underscore-min.js"></script>
-        <script src="bower_components/moment/moment.js"></script>
         <script src="lib/cdv-plugin-fb-connect.js"></script>
         <script src="lib/facebook-js-sdk.js"></script>
         <script src="lib/jquery-ui-1.10.3.custom.js"></script>

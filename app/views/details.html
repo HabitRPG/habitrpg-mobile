@@ -57,13 +57,13 @@
 
         <!-- Dailies -->
         <div ng-show="task.type == 'daily'">
+            <a class='topcoat-button' ng-click='task.repeat.su = !task.repeat.su' ng-class="{'is-active':task.repeat.su}">Sun</a>
             <a class='topcoat-button' ng-click='task.repeat.m = !task.repeat.m' ng-class="{'is-active':task.repeat.m}">M</a>
             <a class='topcoat-button' ng-click='task.repeat.t = !task.repeat.t' ng-class="{'is-active':task.repeat.t}">T</a>
             <a class='topcoat-button' ng-click='task.repeat.w = !task.repeat.w' ng-class="{'is-active':task.repeat.w}">W</a>
             <a class='topcoat-button' ng-click='task.repeat.th = !task.repeat.th' ng-class="{'is-active':task.repeat.th}">Th</a>
             <a class='topcoat-button' ng-click='task.repeat.f = !task.repeat.f' ng-class="{'is-active':task.repeat.f}">F</a>
             <a class='topcoat-button' ng-click='task.repeat.s = !task.repeat.s' ng-class="{'is-active':task.repeat.s}">S</a>
-            <a class='topcoat-button' ng-click='task.repeat.su = !task.repeat.su' ng-class="{'is-active':task.repeat.su}">Sun</a>
         </div>
 
         <!-- Todos -->

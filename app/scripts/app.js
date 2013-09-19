@@ -7,7 +7,7 @@
  */
 
 
-var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'ngMobile'])
+var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'ngTouch', 'ngRoute', 'ngSanitize'])
 
 //    .constant('API_URL', 'https://beta.habitrpg.com')
     .constant('API_URL', 'https://beta.habitrpg.com')
@@ -33,7 +33,11 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'au
 
             .otherwise({redirectTo: '/habit'}); // userServices handles redirect to /login if not authenticated
     }])
-    .config(['$compileProvider', function ($compileProvider) {
-        $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
-    }]);
+
+    // FIXME remove? Looks like this was now added as the default: https://github.com/angular/angular.js/commit/3e39ac7e1b10d4812a44dad2f959a93361cd823b
+    // also, urlSanitizationWhitelist has been replaced with aHrefSanitizationWhitelist and imgSrcSanitizationWhitelist ,
+    // so if this is *not* the case we'll need to update this code after uncommenting (see https://github.com/angular/angular.js/blob/master/CHANGELOG.md)
+//    .config(['$compileProvider', function ($compileProvider) {
+//        $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+//    }]);
 
