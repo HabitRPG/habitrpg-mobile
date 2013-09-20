@@ -60,7 +60,7 @@ habitrpg.controller('TasksCtrl',
 
     $scope.notDue = function(task) {
       if (task.type == 'daily') {
-        return !window.habitrpgShared.helpers.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
+        return !Helpers.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
       } else {
         return false
       }
@@ -91,26 +91,8 @@ habitrpg.controller('TasksCtrl',
             return;
         }
 
-        var defaults = {
-                text: $scope.newTask,
-                type: $scope.taskType(),
-                value: $scope.taskType() == 'reward' ? 20 : 0
-            },
-            extra = {};
+        var newTask = Helpers.taskDefaults({text: $scope.newTask, type: $scope.taskType()}, User.user.filters);
 
-        switch ($scope.taskType()) {
-            case 'habit':
-                extra = {up: true, down: true};
-                break;
-            case 'daily':
-            case 'todo':
-                extra = {completed: false};
-                break;
-        }
-
-
-        var newTask = _.defaults(extra, defaults);
-        newTask.id = Helpers.uuid();
         User.user[newTask.type + 's'].unshift(newTask)
         $scope.showedTasks.unshift(newTask)
         User.log({op: 'addTask', data: newTask});
