@@ -35,11 +35,15 @@
             <div style="clear:both"></div>
 
             <div class="meter animate">
-                <span style="width: {{hpPercent(user.stats.hp)}}%"><span class="meter-text">{{floor(user.stats.hp)}} / 50</span></span>
+                
+                <span class="meter-width" style="width: {{hpPercent(user.stats.hp)}}%"></span>
+                <span class="meter-text">{{floor(user.stats.hp)}} / 50</span>
             </div>
 
             <div class="meter animate orange">
-                <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span class="meter-text">{{floor(user.stats.exp)}} / {{tnl(user.stats.lvl)}}</span></span>
+                
+                <span class="meter-width" style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"></span>
+                <span class="meter-text">{{floor(user.stats.exp)}} / {{tnl(user.stats.lvl)}}</span>
             </div>
 
             <h3>Items</h3>

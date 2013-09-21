@@ -339,7 +339,7 @@ margin-bottom: 94px;
 ====================*/
 
 .profile-content .meter {
-  height: auto;
+  height: 40px;
   position: relative;
   background: #f7f7f7;
   margin:10px;
@@ -347,9 +347,9 @@ margin-bottom: 94px;
   border: 1px solid rgba(0,0,0,0.1);
 }
 
-.profile-content .meter > span {
+.profile-content .meter-width {
   display: block;
-  position: relative;
+  /*position: relative;*/
   overflow: hidden;
 }
 
@@ -358,8 +358,11 @@ margin-bottom: 94px;
   display: block;
   color: white;
   font-weight: bold;
-  text-shadow: 0px 0px 5px #956722;
+  text-shadow: 0 0 7px #534637, 0 0 4px #4E473A, 0 0 1px #4E473A;
   font-size: 20px;
+  position: absolute;
+  top: 0;
+  left:0;
 }
 
 .profile-content .red .meter-text {
@@ -401,11 +404,6 @@ margin-bottom: 94px;
   display: inline-block;
   margin-right: 20px;
 }
-
-
-
-/* UNTOUCHED BY ZAK CSS BELOW */
-/* -==============================- */
 
 
 .head {
@@ -460,7 +458,7 @@ width:100%;
   margin:10px;
 }
 
-.meter > span {
+.meter-width {
   display: block;
   height: 100%;
   background-color: #d64040;
@@ -468,7 +466,7 @@ width:100%;
   overflow: hidden;
 }
 
-.red > span {
+.red .meter-width {
   background-color: #f0a3a3;
   background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f0a3a3),color-stop(1, #f42323));
   background-image: -webkit-linear-gradient(top, #f0a3a3, #f42323);
@@ -490,7 +488,7 @@ width:100%;
     }
 }
 
-.orange > span {
+.orange .meter-width {
   background-color: #ffcf42;
 }
 
