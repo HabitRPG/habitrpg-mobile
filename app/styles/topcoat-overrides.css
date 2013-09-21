@@ -85,3 +85,11 @@ form label {
     padding: 1rem;
     line-height: 1.3rem;
 }
+
+.menu {
+    z-index: -1;
+}
+
+.menu.open {
+    z-index: 0;
+}

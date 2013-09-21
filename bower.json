@@ -4,7 +4,7 @@
   "dependencies": {
     "jquery": "~2.0.3",
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#rewrite",
-    "topcoat": "~0.6.0",
+    "topcoat": "~0.7.0",
     "jquery.transit": "~0.9.9",
     "angular": "1.2.0-rc.2",
     "angular-touch": "1.2.0-rc.2",
