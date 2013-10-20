@@ -17,7 +17,7 @@
         <p class="emptyStateMsg" ng-show="tasks().length == 0">Hey, you have no {{taskContext.name}}! Why don't you add some?</p>
 
         <ul id="task-list" ng-hide="tasks().length == 0 && taskContext.type != 'reward'" class="{{taskContext.type}}">
-            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: (task.completed || notDue(task)), editing: task == editedTask, last:$last}" class="taskItem {{getClass(task.value)}}">
+            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: (task.completed || notDue(task)), editing: task == editedTask, last:$last}" class="cf taskItem {{getClass(task.value)}}">
 
                 <div class="taskActions">
                     <!-- Habits -->
@@ -46,7 +46,7 @@
 
             </li>
 
-            <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward' && item.text" class="taskItem {{item.classes}} {{getClass(0)}}">
+            <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward' && item.text" class="cf taskItem {{item.classes}} {{getClass(0)}}">
                 <div class="taskActions">
                     <button ng-click="buy(item.type)" ng-cloak class="topcoat-button buy-button">{{item.value}}gp</button>
                 </div>

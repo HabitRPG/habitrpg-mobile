@@ -4,9 +4,9 @@
 
     <!-- Details Page -->
     <div ng-hide="editing" style="margin:17px">
-        <a class='topcoat-button' ng-click='goBack()'>Back</a> <a class="topcoat-button" ng-show="task.id" ng-click="edit()">Edit</a>
+        <a class='topcoat-button' ng-click='goBack()'>Back</a>  <a class="topcoat-button" ng-show="task.id" ng-click="edit()">Edit</a>
 
-        <h2>
+        <p>
             <!--<input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />-->
             <label class="topcoat-checkbox__label" ng-show="task.type == 'daily' || task.type == 'todo'">
                 <input type="checkbox" ng-model="task.completed" ng-change='changeCheck(task)'>
@@ -14,7 +14,7 @@
             </label>
 
             <span ng-class="{strikeout: task.completed}">{{task.text}}</span>
-        </h2>
+        </p>
         <p>{{task.notes}}</p>
 
         <!-- Habits -->
@@ -40,18 +40,21 @@
         <input class='topcoat-text-input' type='input' ng-model="task.text" />
         <h4>Notes</h4>
         <textarea class="topcoat-textarea" rows="6" cols="36" ng-model="task.notes" style="width:100%; height:130px"></textarea>
-        <br><br>
+        <br>
+        <br>
         <!-- Habits -->
         <span ng-show="task.type == 'habit'" ng-cloak>
-            <label class="topcoat-checkbox__label">
-                <input type="checkbox" ng-model="task.up">
-                <div class="topcoat-checkbox"></div>
-                Up
+
+            <label class="topcoat-checkbox">
+                <input type="checkbox"  ng-model="task.up">
+                 <div class="topcoat-checkbox__checkmark"></div>
+                <span>+</span>
             </label>
-            <label class="topcoat-checkbox__label">
-                <input type="checkbox" ng-model="task.down">
-                <div class="topcoat-checkbox"></div>
-                Down
+
+            <label class="topcoat-checkbox">
+                <input type="checkbox"  ng-model="task.down">
+                 <div class="topcoat-checkbox__checkmark"></div>
+                <span>-</span>
             </label>
         </span>
 

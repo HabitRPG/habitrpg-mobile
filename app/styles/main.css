@@ -45,6 +45,18 @@
     to { -webkit-transform: rotate(360deg);}
 }
 
+/*Clearfix*/
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
 
 /* Global Styles
 =============================== */
@@ -255,7 +267,7 @@ body {
 }
     .taskItem {
         width: 100%;
-        font-size: 1.25em;
+        font-size: 1.1em;
         list-style: none;
         padding: 1em 0.75em;
         background: #eee;
@@ -276,7 +288,7 @@ body {
         .taskText {
             overflow:hidden;
             margin: 0;
-            line-height: 2.1;
+            /*line-height: 2.1;*/
             /*white-space: nowrap;*/
             max-height: 6em;
         }
@@ -331,12 +343,16 @@ body {
 
 /* To Dos, or any other screens with tabs at the bottom*/
 .todo .last {
-margin-bottom: 94px;
+margin-bottom: 70px;
 }
 
 
 /* Profile
 ====================*/
+
+.profile-content .customizations {
+  margin: .5em 2em 0;
+}
 
 .profile-content .meter {
   height: 40px;
@@ -619,7 +635,7 @@ width:100%;
 
 #task-list li label {
 
-  padding:10px;
+  /*padding:10px;*/
   font-size:16px;
 
 }
@@ -945,7 +961,7 @@ ul.stats-list {
 
 .details-page, .profile-content {
   position: absolute;
-  top: 63px; /* this is stupid */
+  top: 69px; /* this is stupid */
   left: 0; right: 0;
   overflow-y:auto;
   -webkit-overflow-scroll: touch;
@@ -960,11 +976,12 @@ ul.stats-list {
 }
 
 .details-page{bottom: 0px;}
-.profile-content{bottom: 83px;}
+.profile-content{bottom: 61px;}
 
 
 .profile-content .herobox .hasPet{
   margin-left: 20px;
+  min-height: 120px;
 }
 
 .profile-content .herobox .current-pet{
@@ -992,4 +1009,8 @@ ul.stats-list {
 
 .customize-content .herobox {
   position: relative;
+}
+
+menu {
+  padding: 0;
 }
