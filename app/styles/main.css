@@ -33,7 +33,7 @@
     font-style: normal;
 }
 [data-animation="spin"] {
-    -webkit-animation: spin 1s infinite linear;
+    -webkit-animation: spin 1.25s infinite linear;
 }
 @-webkit-keyframes spin {
     from {
@@ -149,6 +149,12 @@ body {
     padding: 0;
     margin: 0;
 }
+
+.refresh {
+    border: 0;margin: 0;
+    background: none;
+    padding:19px;
+}
 /* Nav Panel
 =============================== */
  .menu {
@@ -191,6 +197,8 @@ body {
 .lastNavLink {
     background: #333;
 }
+
+
 /* Tasks
 =============================== */
  .taskWell * {
@@ -331,9 +339,8 @@ body {
 .profile-content .meter-text {
     padding: 10px 0 10px 10px;
     display: block;
-    color: white;
+    color: black;
     font-weight: bold;
-    text-shadow: 0 0 7px #534637, 0 0 4px #4E473A, 0 0 1px #4E473A;
     font-size: 20px;
     position: absolute;
     top: 0;
