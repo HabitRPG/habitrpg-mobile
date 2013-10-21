@@ -161,7 +161,6 @@ body {
  .menu {
     position:absolute;
     height: 100%;
-    padding-bottom: 0.75em;
     background-color: blue;
     width:15em;
     left:-15em;
