@@ -1,23 +1,21 @@
 /**
 Move this stuff from the website into habitrpg-shared so we don't need this one-off css file
 **/
-
-.herobox {
-  position: absolute;
+ .herobox {
+    position: absolute;
 }
 .herobox:after {
-  content: attr(data-name);
-  position: absolute;
-  top: 0;
-  display: block;
-  width: 100%;
-  line-height: 2;
-  color: #000;
-  text-align: center;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  transition: opacity 0.2s ease-out;
+    content: attr(data-name);
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    line-height: 2;
+    color: #000;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: opacity 0.2s ease-out;
 }
-
 /** WTF happened here: ? **/
 /*.character-sprites span,*/
 /*position: absolute,*/
@@ -25,103 +23,116 @@ Move this stuff from the website into habitrpg-shared so we don't need this one-
 /*.active,*/
 /*border 1pxsolid black,*/
 /*,*/
-.herobox[data-checkpet="hasPet"] {
-  padding-top: 2em;
+ .herobox[data-checkpet="hasPet"] {
+    padding-top: 2em;
 }
 .herobox:not([data-checkpet="hasPet"]) {
 }
-
 .herobox[data-checkpet="hasPet"][data-checkuser="isUser"] {
-  padding-top: 3.25em;
+    padding-top: 3.25em;
 }
 .herobox:not([data-checkuser="isUser"]) {
-
 }
-.herobox .character-sprites {
-  width: 6.428571429em;
-  height: 6.428571429em;
-  margin: 0 auto;
+.customize-content .herobox .character-sprites {
+    width: 6.428571429em;
+    height: 6.428571429em;
+    margin: 0 auto!important;
 }
-.herobox .character-sprites span,
-.herobox .pet {
-  position: absolute;
+.herobox .character-sprites span, .herobox .pet {
+    position: absolute;
 }
-.customize-menu [class^="f_hair"],
-.customize-menu [class^="f_skin"],
-.customize-menu [class^="f_armor"],
-.customize-menu .f_head_0 {
-  width: 60px;
-  height: 60px;
+.customize-menu[class^="f_hair"], .customize-menu[class^="f_skin"], .customize-menu[class^="f_armor"], .customize-menu .f_head_0 {
+    width: 60px;
+    height: 60px;
 }
 .customize-menu .f_head_0 {
-  background-position: -1917px -9px;
+    background-position: -1917px -9px;
 }
 .customize-menu .f_hair_white {
-  background-position: -2009px -8px;
+    background-position: -2009px -8px;
 }
 .customize-menu .f_hair_brown {
-  background-position: -2099px -8px;
+    background-position: -2099px -8px;
 }
 .customize-menu .f_hair_black {
-  background-position: -2189px -8px;
+    background-position: -2189px -8px;
 }
 .customize-menu .f_hair_blond {
-  background-position: -2279px -8px;
+    background-position: -2279px -8px;
 }
 .customize-menu .f_skin_dead {
-  background-position: -2997px -20px;
+    background-position: -2997px -20px;
 }
 .customize-menu .f_skin_orc {
-  background-position: -3087px -20px;
+    background-position: -3087px -20px;
 }
 .customize-menu .f_skin_asian {
-  background-position: -3177px -20px;
+    background-position: -3177px -20px;
 }
 .customize-menu .f_skin_black {
-  background-position: -3267px -20px;
+    background-position: -3267px -20px;
 }
 .customize-menu .f_skin_white {
-  background-position: -3357px -20px;
+    background-position: -3357px -20px;
 }
 .customize-menu .f_armor_0_v2 {
-  background-position: -2819px -38px;
+    background-position: -2819px -38px;
 }
 .customize-menu .f_armor_0_v1 {
-  background-position: -2909px -38px;
+    background-position: -2909px -38px;
 }
-.customize-menu [class^="m_hair"],
-.customize-menu [class^="m_skin"],
-.customize-menu .m_head_0 {
-  width: 60px;
-  height: 60px;
+.customize-menu[class^="m_hair"], .customize-menu[class^="m_skin"], .customize-menu .m_head_0 {
+    width: 60px;
+    height: 60px;
 }
 .customize-menu .m_head_0 {
-  background-position: -1557px -9px;
+    background-position: -1557px -9px;
 }
 .customize-menu .m_hair_blond {
-  background-position: -1647px -4px;
+    background-position: -1649px -6px;
 }
 .customize-menu .m_hair_black {
-  background-position: -1737px -4px;
+    background-position: -1737px -6px;
 }
 .customize-menu .m_hair_brown {
-  background-position: -1827px -4px;
+    background-position: -1827px -6px;
 }
 .customize-menu .m_hair_white {
-  background-position: -1917px -4px;
+    background-position: -1917px -6px;
 }
 .customize-menu .m_skin_dead {
-  background-position: -2547px -20px;
+    background-position: -2547px -20px;
 }
 .customize-menu .m_skin_orc {
-  background-position: -2637px -20px;
+    background-position: -2637px -20px;
 }
 .customize-menu .m_skin_asian {
-  background-position: -2727px -20px;
+    background-position: -2727px -20px;
 }
 .customize-menu .m_skin_black {
-  background-position: -2817px -20px;
+    background-position: -2817px -20px;
 }
 .customize-menu .m_skin_white {
-  background-position: -2907px -20px;
+    background-position: -2907px -20px;
+}
+.customize-menu .m_skin_ea8349 {
+    background-position: -2999px -21px;
+}
+.customize-menu .m_skin_98461a {
+    background-position: -3178px -21px;
+}
+.customize-menu .m_skin_c06534 {
+    background-position: -3087px -21px;
+}
+.customize-menu .f_skin_ea8349 {
+    background-position: -3448px -21px;
+}
+.customize-menu .f_skin_c06534 {
+    background-position: -3539px -21px;
+}
+.customize-menu .f_skin_98461a {
+    background-position: -3629px -21px;
+}
+.shop_armor_2 {
+background-position: -759px -6px;
 }

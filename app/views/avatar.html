@@ -1,6 +1,6 @@
 <div ng-controller="CharacterCtrl">
     <figure class="herobox" style="top:-24px; left:-43px">
-        <div class='character-sprites'>
+        <div class='character-sprites' ng-click="menuClick(nav[4]);">
             <span class='zzz_light' ng-show='user.flags.rest'></span>
             <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
             <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
@@ -13,10 +13,10 @@
     </figure>
 
     <div class="meter animate" style="width:144px; left:87px; top:9px">
-        <span style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
+        <span class="meter-width" style="width: {{hpPercent(user.stats.hp)}}%"><span></span></span>
     </div>
 
     <div class="meter animate orange" style="width:144px; left:87px; top:9px">
-        <span style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
+        <span class="meter-width" style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"><span></span></span>
     </div>
 </div>
