@@ -151,7 +151,8 @@ body {
 }
 
 .refresh {
-    border: 0;margin: 0;
+    border: 0;
+    margin: 0 12px 0 0;
     background: none;
     padding:19px;
 }
@@ -730,7 +731,7 @@ Login
     top: 78%;
 }
 .use-facebook {
-    left: 16%;
+    left: 13%;
     color: white;
     position: absolute;
     bottom : 10px;
