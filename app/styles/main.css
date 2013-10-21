@@ -328,7 +328,7 @@ body {
 .btn--filter {
     float: left;
     margin: 0;
-    width: 49%;
+    width: 50%;
     height: 3.75rem;
     outline: 1px solid #fff;
     border-top: 1px solid #eee;
@@ -343,9 +343,6 @@ body {
 .btn--filter.current {
     color: cornflowerblue;
     background: #f0f0f0;
-}
-.btn--filter:first-of-type {
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 /* To Dos, or any other screens with tabs at the bottom*/
  .todo .last {
