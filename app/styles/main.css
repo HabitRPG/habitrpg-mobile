@@ -253,28 +253,60 @@ body {
     border-bottom: 1px solid #ddd;
     letter-spacing: -4px;
 }
+
 .taskActions, .taskText {
     letter-spacing: normal;
     vertical-align: middle;
 }
 .taskActions {
     float: left;
+    /*display: inline-block;*/
     margin-right: 0.75em;
 }
 .taskButton {
     color: #555;
 }
+
 .taskText {
     overflow:hidden;
     margin: 0;
-    /*line-height: 2.1;*/
+    display: inline-block;
+    line-height: 2.1;
     /*white-space: nowrap;*/
     max-height: 6em;
+    display: inherit;
 }
 .taskText .item-img {
     display: inline-block;
     vertical-align: top;
 }
+
+/*Reward Specific*/
+
+.shop-sprite {
+    float: left;
+    margin-right: 10px;
+}
+
+.buy-button {
+    padding: 0 .25rem;
+    float: right;
+
+}
+.buy-button .shop_gold {
+    margin: 8px 0 -5px -5px
+}
+
+.reward .taskActions{
+    float: right;
+    margin: 0;
+}
+
+.reward .taskText {
+    float: left;
+    max-width: 76%;
+}
+
 .emptyStateMsg {
     font-size: 1.25em;
     padding: 0 1.5em;
@@ -791,9 +823,7 @@ Tasks
     top: 8px;
     left: 73px;
 }
-.buy-button {
-    padding: 0 .25rem;
-}
+
 /* ------------------
 Character
 --------------------*/

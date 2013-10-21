@@ -8,7 +8,7 @@
 
     <h2 class='taskTypeHeader' ng-show="taskContext.type == 'reward'">{{user.stats.gp|gold}} <span class="shop_gold">Gold</span>{{user.stats.gp|silver}} <span class="shop_silver">Silver</span></h2>
 
-    <div class="task_wrapper">
+    <div class="task_wrapper" ng-class="taskContext.type">
 
         <form id="task-form" ng-submit="addTask()">
             <input type="text" placeholder="＋ Add New {{taskTypeTitleSingular()}}" ng-model="newTask" class="newTaskPrompt">
@@ -37,20 +37,19 @@
                     </span>
 
                     <!-- Rewards -->
-                    <span>
-                        <button ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak class="topcoat-button buy-button">{{task.value}}gp</button>
-                    </span>
                 </div>
 
                 <p class="taskText" ng-click="selectTask(task)">{{task.text}}</p>
 
+                        <button ng-show="task.type == 'reward'" ng-click="score(task,'down')" ng-cloak class="topcoat-button buy-button">{{task.value}} <span class="shop_gold"></span> </button>
             </li>
 
             <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward' && item.text" class="cf taskItem {{item.classes}} {{getClass(0)}}">
+                <div class="shop_{{item.classes}} shop-sprite item-img"></div>
+                <p class="taskText" ng-click="selectTask(item)"> {{item.text}}</p>
                 <div class="taskActions">
-                    <button ng-click="buy(item.type)" ng-cloak class="topcoat-button buy-button">{{item.value}}gp</button>
+                    <button ng-click="buy(item.type)" ng-cloak class="topcoat-button buy-button">{{item.value}}<span class="shop_gold"></span></button>
                 </div>
-                <p class="taskText" ng-click="selectTask(item)"><span class="shop_{{item.classes}} shop-sprite item-img"></span> {{item.text}}</p>
             </li>
 
         </ul>
