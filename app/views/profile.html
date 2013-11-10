@@ -112,10 +112,6 @@
                         </menu>
                     </li>
 
-                    <hr/>
-                    <strong>New Skins Available! Purchase them at <a href="https://habitrpg.com" target="_system">https://habitrpg.com</a></strong>
-                    <hr/>
-
                     <li class="customize-menu">
                         <menu label="Crazy Skin">
                             <button ng-if='user.purchased.skin.eb052b' type="button" class="btn--large {{user.preferences.gender}}_skin_eb052b customize-option" ng-click="changeSkin('eb052b')"></button>
@@ -139,6 +135,10 @@
                             <button ng-if='user.purchased.skin.shadow' type="button" class="btn--large {{user.preferences.gender}}_skin_shadow customize-option"  ng-click="changeSkin('shadow')"></button>
                         </menu>
                     </li>
+
+                    <hr/>
+                    <strong>New Skins Available! Purchase them at <a onclick="window.open('https://habitrpg.com', '_system');" href="">https://habitrpg.com</a></strong>
+                    <hr/>
 
                     <li class="customize-menu">
                         <menu label="Clothing" ng-show="user.preferences.gender == 'f'">

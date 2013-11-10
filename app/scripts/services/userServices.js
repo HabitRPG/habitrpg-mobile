@@ -62,7 +62,7 @@ angular.module('userServices', []).
             
             $http.post(API_URL + '/api/v1/user/batch-update' + '?date=' + new Date().getTime(), sent)
                 .success(function (data, status, heacreatingders, config) {
-                    data.tasks = _.toArray(data.tasks);
+                    //data.tasks = _.toArray(data.tasks);
                     //make sure there are no pending actions to sync. If there are any it is not safe to apply model from server as we may overwrite user data.
                     if (!queue.length) {
                         //we can't do user=data as it will not update user references in all other angular controllers.
