@@ -11,17 +11,8 @@
         <div ng-hide="customize">
 
             <div class="herobox">
-                <div class='character-sprites' ng-class='{hasPet: user.items.currentPet}' ng-click="showUserAvatar()">
-                    <span class='zzz' ng-show='user.flags.rest'></span>
-                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
-                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
-                    <span class="{{equipped(user, 'armor')}}"></span>
-                    <span class="{{user.preferences.gender}}_head_0"></span>
-                    <span class="{{equipped(user, 'head')}}" ng-show="user.preferences.showHelm"></span>
-                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
-                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
-                    <!-- current-pet class is used also on the website, in case it's moved from the website to habitrpg-shared, change it to another name here because they use different css !-->
-                    <span class='Pet-{{user.items.currentPet.str}} current-pet'></span>
+                <div class='character-sprites' ng-class='{hasPet: user.items.currentPet}'>
+                    <div ng-include="'partials/avatar-sprites.html'"></div>
                 </div>
             </div>
 
@@ -34,19 +25,9 @@
             </div>
             <div style="clear:both"></div>
 
-            <div class="meter animate">
-                
-                <span class="meter-width" style="width: {{hpPercent(user.stats.hp)}}%"></span>
-                <span class="meter-text">{{floor(user.stats.hp)}} / 50</span>
-            </div>
+           <div ng-include="'partials/avatar-meters.html'"></div>
 
-            <div class="meter animate orange">
-                
-                <span class="meter-width" style="width: {{expPercent(user.stats.exp, user.stats.lvl)}}%"></span>
-                <span class="meter-text">{{floor(user.stats.exp)}} / {{tnl(user.stats.lvl)}}</span>
-            </div>
-
-            <h3>Items</h3>
+            <!--<h3>Items</h3>
             <ul class="stats-list">
                 <li><strong>{{itemText('weapon',user.items.weapon)}}</strong>: {{itemStat('weapon',user.items.weapon)}}% Exp gain</li>
                 <li><strong>{{itemText('armor',user.items.armor)}}</strong>: {{itemStat('armor',user.items.armor)}}% Defense</li>
@@ -61,28 +42,19 @@
                 <li><strong>Pets Found</strong>: {{count(user.items.pets)}}</li>
                 <li><strong>Total Strength</strong>: {{totalStr(user.stats.lvl, user.items.weapon)}} %</li>
                 <li><strong>Total Defense</strong>: {{totalDef(user.stats.lvl, user.items.armor, user.items.head, user.items.shield)}} %</li>
-            </ul>
+            </ul>-->
+            <h3>Stats returning soon!</h3>
         </div>
 
         <!-- Customization -->
-        <!-- TODO it looks like mobile isn't digging ng-include? if that's not the issue here, revert this commit -->
         <div ng-show="customize" ng-controller="userAvatarCtrl" class="customize-content">
             <div class="herobox">
-                <div class='character-sprites' ng-class='{hasPet: user.items.currentPet}' ng-click="showUserAvatar()">
-                    <span class='zzz' ng-show='user.flags.rest'></span>
-                    <span class='{{user.preferences.gender}}_skin_{{user.preferences.skin}}'></span>
-                    <span class='{{user.preferences.gender}}_hair_{{user.preferences.hair}}'></span>
-                    <span class="{{equipped(user, 'armor')}}"></span>
-                    <span class="{{user.preferences.gender}}_head_0"></span>
-                    <span class="{{equipped(user, 'head')}}" ng-show="user.preferences.showHelm"></span>
-                    <span class='{{user.preferences.gender}}_shield_{{user.items.shield}}'></span>
-                    <span class='{{user.preferences.gender}}_weapon_{{user.items.weapon}}'></span>
-                    <!-- current-pet class is used also on the website, in case it's moved from the website to habitrpg-shared, change it to another name here because they use different css !-->
-                    <span class='Pet-{{user.items.currentPet.str}} current-pet'></span>
+                <div class='character-sprites' ng-class='{hasPet: user.items.currentPet}'>
+                    <div ng-include="'partials/avatar-sprites.html'"></div>
                 </div>
             </div>
             <div>
-                <menu type="list" class="customizations">
+                <!--<menu type="list" class="customizations">
                     <li class="customize-menu">
                         <menu label="Head">
                             <button type="button" class="m_head_0 customize-option" data-value="m" ng-click="changeSex('m')"></button>
@@ -156,7 +128,8 @@
 
                         </menu>
                     </li>
-                </menu>
+                </menu>-->
+                <h3>Customization options returning soon! For now, use the website to customize your avatar.</h3>
             </div>
         </div>
     </div>

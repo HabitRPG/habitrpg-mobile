@@ -1,10 +1,8 @@
 'use strict';
 
 habitrpg.controller('TasksCtrl',
-  ['$scope', '$rootScope', '$location', 'filterFilter', 'User', 'Algos', 'Helpers', 'Notification',
-  function($scope, $rootScope, $location, filterFilter, User, Algos, Helpers, Notification) {
-
-    $scope.user = User.user;
+  ['$scope', '$rootScope', '$location', 'filterFilter', 'User', 'Notification',
+  function($scope, $rootScope, $location, filterFilter, User, Notification) {
 
     $scope.taskTypeTitleSingular = function () {
 //        show title according to the location, singular form
@@ -33,34 +31,27 @@ habitrpg.controller('TasksCtrl',
     }
 
     $scope.score = function (task, direction) {
-        //save current stats to compute the difference after scoring.
-        var statsDiff = {};
-        var oldStats = _.clone(User.user.stats);
+      //save current stats to compute the difference after scoring.
+      var statsDiff = {};
+      var oldStats = _.clone(User.user.stats);
+      User.user.ops.score({params:{id:task.id,direction:direction}});
 
-        Algos.score(User.user, task, direction);
-
-        //compute the stats change.
-        _.each(oldStats, function (value, key) {
-            var newValue = User.user.stats[key];
-            if (newValue !== value) {
-                statsDiff[key] = newValue - value;
-            }
-        });
-        //notify user if there are changes in stats.
-        if (Object.keys(statsDiff).length > 0) {
-            Notification.push({type: 'stats', stats: statsDiff});
-        }
-
-        if (task.type == 'reward' && _.isEmpty(statsDiff)) {
-            Notification.push({type: 'text', text: 'Not enough GP.'});
-        }
-
-        User.log({op: 'score', data: task, dir: direction});
+      //compute the stats change.
+      _.each(oldStats, function (value, key) {
+          var newValue = User.user.stats[key];
+          if (newValue !== value) {
+              statsDiff[key] = newValue - value;
+          }
+      });
+      //notify user if there are changes in stats.
+      if (Object.keys(statsDiff).length > 0) {
+        Notification.push({type: 'stats', stats: statsDiff});
+      }
     };
 
     $scope.notDue = function(task) {
       if (task.type == 'daily') {
-        return !Helpers.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
+        return !$rootScope.Shared.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
       } else {
         return false
       }
@@ -87,18 +78,10 @@ habitrpg.controller('TasksCtrl',
     }
 
     $scope.addTask = function () {
-        if (!$scope.newTask.length) {
-            return;
-        }
-
-        var newTask = Helpers.taskDefaults({text: $scope.newTask, type: $scope.taskType()}, User.user.filters);
-
-        User.user[newTask.type + 's'].unshift(newTask)
-        $scope.showedTasks.unshift(newTask)
-        User.log({op: 'addTask', data: newTask});
-        $scope.newTask = '';
-        //Add the new task to the actions log
-
+      if (!$scope.newTask.length) return;
+      var newTask = User.user.ops.addTask({body:{text: $scope.newTask, type: $scope.taskType()}});
+      $scope.showedTasks.unshift(newTask); // ???
+      $scope.newTask = '';
     };
 
     $scope.clearDoneTodos = function () {
@@ -122,12 +105,6 @@ habitrpg.controller('TasksCtrl',
 
     $('.taskWell').css('height', $(window).height() - 76)
 
-    // TODO this should be somewhere else, but fits the html location better here
-    $rootScope.revive = function() {
-        window.habitrpgShared.algos.revive(User.user);
-        User.log({op:'revive'});
-    }
-
     var counter = 0;
 
 
@@ -137,19 +114,14 @@ habitrpg.controller('TasksCtrl',
      * ------------------------
      */
 
-    $scope.$watch('user.items', function(){
-      $scope.itemStore = window.habitrpgShared.items.updateStore($scope.user);
-    });
+    $scope.$watch('user.items.gear.equipped', function(){
+      $scope.itemStore = $rootScope.Shared.updateStore(User.user);
+    }, true);
 
-    $scope.buy = function(type) {
-      var hasEnough = window.habitrpgShared.items.buyItem($scope.user, type);
-      if (hasEnough) {
-        User.log({op:'buy', type:type});
-        Notification.push({type:'text', text:"Item bought!"})
-      } else {
-        Notification.push({type:'text', text:"Not enough GP."})
-      }
-    }
+
+    $scope.buy = function(key) {
+      User.user.ops.buy({params:{key:key}});
+    };
    
     /*
     $scope.loadMore = function() {

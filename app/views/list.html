@@ -1,7 +1,7 @@
 <!-- Don't show tasks if dead -->
 <div ng-show="user.stats.hp <= 0">
     <h1>You are dead</h1>
-    <a class='topcoat-button--large' ng-click='revive()'>Revive</a>
+    <a class='topcoat-button--large' ng-click='user.ops.revive({})'>Revive</a>
 </div>
 
 <div ng-show="user.stats.hp > 0" ng-controller="TasksCtrl" class="taskWell">
@@ -45,10 +45,10 @@
             </li>
 
             <li ng-repeat='item in itemStore' ng-show="taskContext.type == 'reward' && item.text" class="cf taskItem {{item.classes}} {{getClass(0)}}">
-                <div class="shop_{{item.classes}} shop-sprite item-img"></div>
+                <div class="shop_{{item.key}} shop-sprite item-img"></div>
                 <p class="taskText" ng-click="selectTask(item)"> {{item.text}}</p>
                 <div class="taskActions">
-                    <button ng-click="buy(item.type)" ng-cloak class="topcoat-button buy-button">{{item.value}}<span class="shop_gold"></span></button>
+                    <button ng-click="buy(item.key)" ng-cloak class="topcoat-button buy-button">{{item.value}}<span class="shop_gold"></span></button>
                 </div>
             </li>
 

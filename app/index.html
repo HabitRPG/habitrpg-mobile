@@ -6,7 +6,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <!-- Do not include in build because already minified and can't be put minified here because it would end with wrong paths !-->
-        <link rel="stylesheet" href="bower_components/habitrpg-shared/dist/spritesheets.css">
+        <link rel="stylesheet" href="bower_components/habitrpg-shared/dist/habitrpg-shared.css">
 
         <!-- build:css({.tmp,app}) styles/main.css -->
         <link rel="stylesheet" href="styles/fixme.css">
@@ -17,6 +17,43 @@
         <!-- endbuild -->
     </head>
     <body ng-cloak ng-app="habitrpg" ng-controller="RootCtrl" class="light" ontouchstart="">
+
+        <!-- Partials -->
+        <script id='partials/avatar-sprites.html' type="text/ng-template">
+            <span class='skin_{{user.preferences.skin}}'></span>
+
+            <span class='{{user.preferences.size}}_shirt_{{user.preferences.shirt}}'></span>
+            <span class='{{user.preferences.size}}_{{user.items.gear.equipped.armor}}' ng-if='!user.preferences.costume'></span>
+            <span class='{{user.preferences.size}}_{{user.items.gear.costume.armor}}' ng-if='user.preferences.costume'></span>
+
+            <span class='head_base_0'></span>
+            <span class='hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}'></span>
+            <span class='hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}'></span>
+
+            <span class='hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}'></span>
+            <span class='hair_mustache_{{user.preferences.hair.mustache}}_{{user.preferences.hair.color}}'></span>
+
+            <span class='{{user.items.gear.equipped.head}}' ng-if='!user.preferences.costume'></span>
+            <span class='{{user.items.gear.costume.head}}' ng-if='user.preferences.costume'></span>
+
+            <span class='{{user.items.gear.equipped.shield}}' ng-if='!user.preferences.costume'></span>
+            <span class='{{user.items.gear.costume.shield}}' ng-if='user.preferences.costume'></span>
+
+            <span class='{{user.items.gear.equipped.weapon}}' ng-if='!user.preferences.costume'></span>
+            <span class='{{user.items.gear.costume.weapon}}' ng-if='user.preferences.costume'></span>
+
+            <span ng-class='{zzz:user.preferences.sleep}'></span>
+            <span class='current-pet Pet-{{user.items.currentPet}}' ng-show='user.items.currentPet'></span>
+        </script>
+        <script id="partials/avatar-meters.html" type="text/ng-template">
+            <div class="meter animate">
+                <span class="meter-width" style="width: {{user.stats.hp/50*100}}%"><span></span></span>
+            </div>
+
+            <div class="meter animate orange">
+                <span class="meter-width" style="width: {{user.stats.exp / Shared.tnl(user.stats.lvl) * 100}}%"><span></span></span>
+            </div>
+        </script>
 
         <div ng-controller="AuthCtrl"></div>
 
@@ -109,8 +146,7 @@
         <script src="scripts/controllers/characterCtrl.js"></script>
         <script src="scripts/controllers/menuCtrl.js"></script>
         <script src="scripts/controllers/authCtrl.js"></script>
-        <script src="scripts/services/userServices.js"></script>
-        <script src="scripts/services/sharedServices.js"></script>
+        <script src="bower_components/habitrpg-shared/script/userServices.js"></script>
         <script src="scripts/services/authServices.js"></script>
         <script src="scripts/services/notificationServices.js"></script>
         <script src="scripts/controllers/notificationCtrl.js"></script>

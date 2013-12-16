@@ -884,3 +884,7 @@ ul.stats-list {
 menu {
     padding: 0;
 }
+
+.large-meters .meter {
+  width:144px; left:87px; top:9px
+}

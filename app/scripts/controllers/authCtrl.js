@@ -11,7 +11,7 @@ habitrpg.controller('AuthCtrl',
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
 
-    var showedFacebookMessage = false
+    var showedFacebookMessage = false;
     $scope.useUUID = false;
     $scope.toggleUUID = function() {
       if (showedFacebookMessage == false) {
@@ -37,7 +37,7 @@ habitrpg.controller('AuthCtrl',
         // we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
         return;
       }
-      $http.post(API_URL + '/api/v1/register', $scope.registerVals)
+      $http.post(API_URL + '/api/v2/register', $scope.registerVals)
         .success(function(data, status, headers, config) {
           User.authenticate(data.id, data.apiToken, function(err) {
             $location.path("/habit");
@@ -69,7 +69,7 @@ habitrpg.controller('AuthCtrl',
       if ($scope.useUUID) {
         runAuth($scope.loginUsername, $scope.loginPassword);
       } else {
-        $http.post(API_URL + '/api/v1/user/auth/local', data)
+        $http.post(API_URL + '/api/v2/user/auth/local', data)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
           }).error(function(data, status, headers, config) {

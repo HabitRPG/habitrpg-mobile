@@ -7,10 +7,13 @@
  */
 
 
-var habitrpg = angular.module('habitrpg', ['userServices', 'sharedServices', 'authServices', 'notificationServices', 'ngTouch', 'ngRoute', 'ngSanitize'])
+var habitrpg = angular.module('habitrpg', ['userServices', 'authServices', 'notificationServices', 'ngTouch', 'ngRoute', 'ngSanitize'])
 
 //    .constant('API_URL', 'https://beta.habitrpg.com')
-    .constant('API_URL', 'https://beta.habitrpg.com')
+    .constant('API_URL', 'http://localhost:3000')
+    .constant("STORAGE_USER_ID", 'habitrpg-user')
+    .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
+    .constant("MOBILE_APP", true)
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
