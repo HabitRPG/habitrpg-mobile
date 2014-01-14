@@ -39,6 +39,6 @@ script(id='views/list.html',type='text/ng-template')
               | {{item.value}}
               span.shop_gold
   div(ng-controller='TasksCtrl')
-    .filterBar(ng-show='taskType()=="todo"')
-      a.btn.btn--small.btn--filter(ng-class='{current: isActive("/todo")}', href='#todo') Active
-      a.btn.btn--small.btn--filter(ng-class='{current: isActive("/todo/completed")}', href='#todo/completed') Completed
+    .filterBar(ng-if='$state.includes("todo")')
+      a.btn.btn--small.btn--filter(ng-class='{current: $state.is("todo")}', ui-sref='todo') Active
+      a.btn.btn--small.btn--filter(ng-class='{current: $state.is("todo.completed")}', ui-sref='todo.completed') Completed

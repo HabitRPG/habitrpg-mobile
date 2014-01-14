@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('TasksCtrl',
-  ['$scope', '$rootScope', '$location', 'filterFilter', 'User', 'Notification',
-  function($scope, $rootScope, $location, filterFilter, User, Notification) {
+  ['$scope', '$rootScope', '$location', 'filterFilter', 'User', 'Notification', '$state',
+  function($scope, $rootScope, $location, filterFilter, User, Notification, $state) {
 
     $scope.taskType = function () {
         return $location.path().split('/')[1]
@@ -16,14 +16,9 @@ habitrpg.controller('TasksCtrl',
     $scope.showedTasks = []
 
     $scope.taskFilter = function (task) {
-        return ($location.path() == '/todo') ? !task.completed :
-            ($location.path() == '/todo/completed') ? task.completed :
-                true;
+      return $state.is('todo') ? !task.completed :
+        $state.is('todo.completed') ? task.completed : true;
     };
-
-    $scope.isActive = function(path){
-        return $location.path() == path;
-    }
 
     $scope.score = function (task, direction) {
       //save current stats to compute the difference after scoring.
