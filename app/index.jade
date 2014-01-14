@@ -8,6 +8,7 @@ html
     link(rel='stylesheet', href='bower_components/habitrpg-shared/dist/habitrpg-shared.css')
     // build:css({.tmp,app}) styles/main.css
     link(rel='stylesheet', href='styles/fixme.css')
+    link(rel='stylesheet', type='text/css', href='bower_components/js-emoji/emoji.css')
     link(rel='stylesheet', type='text/css', href='bower_components/topcoat/css/topcoat-mobile-light.css')
     link(rel='stylesheet', type='text/css', href='styles/topcoat-overrides.css')
     link(rel='stylesheet', type='text/css', href='styles/facebook-checkbox.css')
@@ -72,6 +73,8 @@ html
     script(src='lib/cdv-plugin-fb-connect.js')
     script(src='lib/facebook-js-sdk.js')
     script(src='lib/jquery-ui-1.10.3.custom.js')
+    script(src='bower_components/js-emoji/emoji.js')
+    script(src='bower_components/marked/lib/marked.js')
     // endbuild
     // also seems to not like min / cat
     script(src='bower_components/jquery.transit/jquery.transit.js')
@@ -88,6 +91,7 @@ html
     script(src='scripts/controllers/menuCtrl.js')
     script(src='scripts/controllers/authCtrl.js')
     script(src='bower_components/habitrpg-shared/script/userServices.js')
+    script(src='bower_components/habitrpg-shared/script/directives.js')
     script(src='scripts/services/authServices.js')
     script(src='scripts/services/notificationServices.js')
     script(src='scripts/controllers/notificationCtrl.js')

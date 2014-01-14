@@ -10,7 +10,8 @@ script(id="views/details.html",type='text/ng-template')
           label.topcoat-checkbox__label(ng-show='task.type == "daily" || task.type == "todo"')
             input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
             .topcoat-checkbox
-          span(ng-class='{strikeout: task.completed}') {{task.text}}
+          span(ng-class='{strikeout: task.completed}')
+            markdown(ng-model='task.text')
         p {{task.notes}}
         // Habits
         span(ng-show='task.type == "habit"', ng-cloak='ng-cloak')

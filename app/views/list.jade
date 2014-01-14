@@ -26,7 +26,8 @@ script(id='views/list.html',type='text/ng-template')
                   input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
                   .topcoat-checkbox__checkmark
               // Rewards
-            p.taskText(ng-click='selectTask(task)') {{task.text}}
+            p.taskText(ng-click='selectTask(task)')
+              markdown(ng-model='task.text',style='display: inline-block')
             button.topcoat-button.buy-button(ng-show='task.type == "reward"', ng-click='score(task,"down")', ng-cloak='ng-cloak')
               | {{task.value}}
               span.shop_gold
