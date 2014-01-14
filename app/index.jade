@@ -14,7 +14,7 @@ html
     link(rel='stylesheet', type='text/css', href='styles/facebook-checkbox.css')
     link(rel='stylesheet', type='text/css', href='styles/main.css')
     // endbuild
-  body.light(ng-cloak='ng-cloak', ng-app='habitrpg', ng-controller='RootCtrl', ontouchstart)
+  body.light(ng-cloak='ng-cloak', ng-app='habitrpg', ng-controller='RootCtrl', ontouchstart='')
     // Partials
     include ./views/avatar-sprites
     include ./views/avatar-meters
@@ -26,10 +26,17 @@ html
     include ./views/settings
     include ./views/customize
 
-
+    div(ng-controller='AuthCtrl')
     #wrapper(ng-controller='MenuCtrl', ng-swipe-right='swiperight()', ng-swipe-left='swipeleft()')
-      include ./views/menu
-
+      // Nav
+      nav.menu(ng-class='{open : menuopen}', style='top: 0; left: 0; width: 100%;')
+        include ./views/avatar
+        .navLinkBlock
+          .mainNavLink(ng-repeat='button in nav', ng-click='menuClick(button)', style='position: relative;')
+            .image_wrapper
+              img(ng-src='assets/sidebar-icon-{{button.lowercase}}.png')
+            .image_wrapper_text
+              | {{button.name}}
       // Main Content
       #site(ng-class='{open: menuopen}')
         // Header
@@ -55,9 +62,7 @@ html
           div(ng-controller='NotificationCtrl')
             #notification
               div(ng-bind-html='data.message')
-
           div(ng-view='ng-view', ng-cloak='ng-cloak')
-
     // build:js scripts/modules.js
     script(src='bower_components/habitrpg-shared/dist/habitrpg-shared.js')
     script(src='bower_components/jquery/jquery.min.js')
