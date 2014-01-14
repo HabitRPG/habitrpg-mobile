@@ -1,13 +1,14 @@
 script(id="views/settings.html",type='text/ng-template')
-  div(ng-controller='SettingsCtrl', style='text-align: center;')
-    //-form(ng-submit='auth(settings.auth.apiId,settings.auth.apiToken)')
-      p User Id
-      input.topcoat-text-input(type='text', ng-model='settings.auth.apiId')
-      p API Token
-      input.topcoat-text-input(type='text', ng-model='settings.auth.apiToken')
-      br
-      br
-      input.topcoat-button--cta(type='submit', value='Save')
-      input.topcoat-button--cta(type='button', ng-click='resetApp()', value='Logout', style='margin-top: 10px;')
+  div(ng-controller='SettingsCtrl', style='text-align:center')
+    .topcoat-list
+      ul.topcoat-list__container
+        li.topcoat-list__item
+          strong UUID:&nbsp;
+          | {{settings.auth.apiId}}
+        li.topcoat-list__item
+          strong API Token:&nbsp;
+          | {{settings.auth.apiToken}}
+
+    br
 
     input.topcoat-button--cta(type='button', ng-click='resetApp()', value='Logout', style='margin-top: 10px;')
