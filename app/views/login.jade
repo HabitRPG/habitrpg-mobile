@@ -1,0 +1,28 @@
+script(id='views/login.html',type='text/ng-template')
+  div(ng-controller='AuthCtrl')
+    .login(ng-hide='registering')
+      .login-header
+        img(src='assets/home-logo.png', width='79%')
+      .login-form
+        form(ng-submit='auth()')
+          input.login-input.username(type='text', ng-model='loginUsername', placeholder='{{useUUID ? "UUID" : "Username"}}')
+          input.login-input.password(type='{{useUUID ? "text" : "password"}}', ng-model='loginPassword', placeholder='{{useUUID ? "API Token" : "Password"}}')
+          input.btn-homescreen.btn-login(type='submit', value='Login')
+          input.btn-homescreen.btn-signup(type='button', value='Signup', ng-click='registering = true')
+      .use-facebook
+        label.topcoat-checkbox__label
+          // note ng-model is required for ng-change on checkbox?
+          input(type='checkbox', ng-model='nothing', ng-change='toggleUUID()')
+          .topcoat-checkbox
+          | Login with Facebook or API Token
+    .login(ng-show='registering')
+      .login-header
+        img(src='assets/home-logo.png', width='79%')
+      .register-form
+        form(ng-submit='register()', name='registrationForm')
+          a.register-cancel(ng-click='registering = false') < Go Back
+          input.login-input.username(type='text', ng-model='registerVals.username', placeholder='Username', required='required')
+          input.login-input.email(type='email', ng-model='registerVals.email', placeholder='Email', required='required')
+          input.login-input.password(type='password', ng-model='registerVals.password', placeholder='Password', required='required')
+          input.login-input.password-confirm(type='password', ng-model='registerVals.confirmPassword', placeholder='Password Confirm', required='required')
+          input.btn-homescreen.btn-signup(type='submit', value='Register')

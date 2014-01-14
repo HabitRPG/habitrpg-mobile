@@ -1,0 +1,30 @@
+script(id='views/profile.html',type='text/ng-template')
+  .profile-container(ng-controller='CharacterCtrl')
+    .filterBar
+      a.btn.btn--small.btn--filter(ng-click='customize = false', ng-class='{current: customize == false}') View
+      a.btn.btn--small.btn--filter(ng-click='customize = true', ng-class='{current: customize == true}') Customize
+    .profile-content
+      // Profile Page
+      div(ng-hide='customize')
+        .herobox
+          .character-sprites(ng-class='{hasPet: user.items.currentPet}')
+            div(ng-include='"views/avatar-sprites.html"')
+        .user
+          p.username {{user.auth.local.username}}
+          p.level LEVEL {{user.stats.lvl}}
+          p.gold
+            span.shop_gold Gold:
+            | {{user.stats.gp | gold}}
+            span.shop_silver Silver:
+            | {{user.stats.gp | silver}}
+        div(style='clear: both;')
+        div(ng-include='"views/avatar-meters.html"')
+        h3 Stats returning soon!
+      // Customization
+      .customize-content(ng-show='customize', ng-controller='userAvatarCtrl')
+        .herobox
+          .character-sprites(ng-class='{hasPet: user.items.currentPet}')
+            div(ng-include='"views/avatar-sprites.html"')
+        div
+          h3
+            | Customization options returning soon! For now, use the website to customize your avatar.

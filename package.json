@@ -15,7 +15,6 @@
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-htmlmin": "~0.1.3",
     "grunt-contrib-imagemin": "~0.1.4",
-    "grunt-contrib-watch": "~0.4.0",
     "grunt-usemin": "~0.1.11",
     "grunt-svgmin": "~0.2.0",
     "grunt-rev": "~0.1.0",
@@ -25,7 +24,9 @@
     "matchdep": "~0.1.2",
     "connect-livereload": "~0.2.0",
     "grunt-google-cdn": "~0.2.0",
-    "grunt-ngmin": "~0.0.2"
+    "grunt-ngmin": "~0.0.2",
+    "grunt-contrib-jade": "~0.9.1",
+    "grunt-contrib-watch": "~0.5.3"
   },
   "peerDependencies": {
     "grunt-cli": "*",
