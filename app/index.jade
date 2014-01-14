@@ -14,7 +14,7 @@ html
     link(rel='stylesheet', type='text/css', href='styles/facebook-checkbox.css')
     link(rel='stylesheet', type='text/css', href='styles/main.css')
     // endbuild
-  body.light(ng-cloak='ng-cloak', ng-app='habitrpg', ng-controller='RootCtrl', ontouchstart='')
+  body.light(ng-cloak, ng-app='habitrpg', ng-controller='RootCtrl', ontouchstart)
     // Partials
     include ./views/avatar-sprites
     include ./views/avatar-meters
@@ -32,11 +32,12 @@ html
       nav.menu(ng-class='{open : menuopen}', style='top: 0; left: 0; width: 100%;')
         include ./views/avatar
         .navLinkBlock
-          .mainNavLink(ng-repeat='button in nav', ng-click='menuClick(button)', style='position: relative;')
-            .image_wrapper
-              img(ng-src='assets/sidebar-icon-{{button.lowercase}}.png')
-            .image_wrapper_text
-              | {{button.name}}
+          each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',help:'Help'}
+            .mainNavLink(ng-click='menuClick("#{k}")', style='position: relative;')
+              .image_wrapper
+                img(ng-src='assets/sidebar-icon-#{k}.png')
+              .image_wrapper_text
+                | #{v}
       // Main Content
       #site(ng-class='{open: menuopen}')
         // Header
@@ -46,7 +47,7 @@ html
               button.btn.btn--icon
                 img(src='assets/menu.png', style='margin-top: 7px;')
           .topcoat-navigation-bar__item.center.half(style='top: 50%; font-size: 33px;')
-            | {{taskContext.name}}
+            | {{nav.name}}
           .topcoat-navigation-bar__item.right.quarter
             a
               button.refresh(ng-click='User.log({})', data-animation='{{refreshing()}}')
@@ -62,13 +63,16 @@ html
           div(ng-controller='NotificationCtrl')
             #notification
               div(ng-bind-html='data.message')
-          div(ng-view='ng-view', ng-cloak='ng-cloak')
+
+          div(ui-view='')
+
+
     // build:js scripts/modules.js
     script(src='bower_components/habitrpg-shared/dist/habitrpg-shared.js')
     script(src='bower_components/jquery/jquery.min.js')
     script(src='bower_components/angular/angular.js')
     script(src='bower_components/angular-touch/angular-touch.js')
-    script(src='bower_components/angular-route/angular-route.js')
+    script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
     script(src='bower_components/angular-sanitize/angular-sanitize.js')
     script(src='lib/cdv-plugin-fb-connect.js')
     script(src='lib/facebook-js-sdk.js')

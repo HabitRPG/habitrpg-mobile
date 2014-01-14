@@ -7,8 +7,8 @@
  */
 
 habitrpg.controller('MenuCtrl',
-  ['$scope', '$rootScope', '$location', 'User',
-  function($scope, $rootScope, $location, User) {
+  ['$scope', '$rootScope', '$location', 'User', '$state',
+  function($scope, $rootScope, $location, User, $state) {
 
   $scope.swiperight = function(){
     $scope.menuopen = true;
@@ -18,36 +18,18 @@ habitrpg.controller('MenuCtrl',
     $scope.menuopen = false;
   }
 
-  $scope.menuClick = function(button) {
+  $scope.menuClick = function(state) {
     $scope.menuopen = false;
-    $location.url(button.link);
+    $state.go(state);
   }
 
   /**
    * Show title according to the location
    */
-  $rootScope.$on('$routeChangeSuccess', function(){
-    var found = _.find($scope.nav, function(obj){
-      return obj.link === $location.path();
-    });
-    if (found) {
-      $rootScope.taskContext = {
-        name: found.name,
-        type: found.link.substr(1) // remove trailing /
-      };
-      $rootScope.menuopen = false;
-    }
-  });
+//  $rootScope.$on('$routeChangeSuccess', function(){
+//    $rootScope.menuopen = false;
+//  });
 
-  $scope.nav = [
-    { link:'/habit',     name:'Habits',  lowercase:'habits'   },
-    { link:'/daily',     name:'Dailies', lowercase:'dailies'  },
-    { link:'/todo',      name:'Todos',   lowercase:'todos'    },
-    { link:'/reward',    name:'Rewards', lowercase:'rewards'  },
-    { link:'/profile',   name:'Profile', lowercase:'profile'  },
-    { link:'/settings',  name:'Settings',lowercase:'settings' },
-    { link:'/help',      name:'Help',    lowercase:'help' }
-  ]
 
   $scope.refreshing = function () {
     return User.settings.fetching ? "spin" : ""

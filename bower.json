@@ -9,7 +9,6 @@
     "marked": "~0.3.0",
     "js-emoji": "git://github.com/snicker/js-emoji#master",
     "angular-touch": "~1.2.8",
-    "angular-route": "~1.2.8",
     "angular-sanitize": "~1.2.8",
     "angular-ui-router": "~0.2.7"
   },

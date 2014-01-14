@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('TaskDetailsCtrl',
-  ['$scope', '$rootScope', '$location', 'User',
-  function($scope, $rootScope, $location, User) {
+  ['$scope', '$rootScope', '$location', 'User', '$state',
+  function($scope, $rootScope, $location, User, $state) {
 
     $scope.task = $rootScope.selectedTask;
     $scope.editing = false;
@@ -10,7 +10,7 @@ habitrpg.controller('TaskDetailsCtrl',
 
     $scope.goBack = function () {
         $rootScope.selectedTask = null;
-        $location.path('/' + ($scope.task.id ? $scope.task.type : 'reward'));
+        $state.go($scope.task.type);
     };
 
     $scope.edit = function () {

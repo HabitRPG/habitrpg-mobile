@@ -2,12 +2,8 @@
 
 /**
  * The main HabitRPG app module.
- *
- * @type {angular.Module}
  */
-
-
-var habitrpg = angular.module('habitrpg', ['userServices', 'authServices', 'notificationServices', 'ngTouch', 'ngRoute', 'ngSanitize'])
+var habitrpg = angular.module('habitrpg', ['userServices', 'authServices', 'notificationServices', 'ngTouch', 'ngSanitize', 'ui.router'])
 
 //    .constant('API_URL', 'https://beta.habitrpg.com')
     .constant('API_URL', 'http://localhost:3000')
@@ -15,26 +11,52 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'authServices', 'noti
     .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
     .constant("MOBILE_APP", true)
 
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+      $urlRouterProvider.otherwise("/habit");
 
-            .when('/login',           {templateUrl: 'views/login.html'})
-            .when('/settings',        {templateUrl: 'views/settings.html'})
-            .when('/profile',         {templateUrl: 'views/profile.html'})
+      $stateProvider
+        .state('login',    {url: "/login",     templateUrl: 'views/login.html'})
+        .state('settings', {url: '/settings',  templateUrl: 'views/settings.html'})
+        .state('profile',  {url: '/profile',   templateUrl: 'views/profile.html'})
+        .state('help',     {url: '/help',      templateUrl: 'views/help.html'})
 
-            .when('/tasks/:taskId',   {templateUrl: 'views/details.html'})
+        .state('task', {
+          url:'/tasks/:taskId',
+          templateUrl: 'views/details.html'
+        })
 
-            .when('/habit',           {templateUrl: 'views/list.html'})
-            .when('/daily',           {templateUrl: 'views/list.html'})
-            .when('/todo',            {templateUrl: 'views/list.html'})
-            .when('/reward',          {templateUrl: 'views/list.html'})
+        .state('habit', {
+          url: '/habit',
+          templateUrl: 'views/list.html',
+          controller: ['$scope', function($scope){
+            $scope.nav = {name:'Habits',type:'habit',singular:'Habit'};
+            console.log('test');
+          }]
+        })
+        .state('daily', {
+          url: '/daily',
+          templateUrl: 'views/list.html',
+          controller: ['$scope', function($scope){
+            $scope.nav = {name:'Dailies',type:'daily',singular:'Daily'};
+          }]
+        })
+        .state('todo', {
+          url: '/todo',
+          templateUrl: 'views/list.html',
+          controller: ['$scope', function($scope){
+            $scope.nav = {name:'To-Dos',type:'todo',singular:'To-Do'};
+          }]
+        })
+        .state('reward', {
+          url: '/reward',
+          templateUrl: 'views/list.html',
+          controller: ['$scope', function($scope){
+            $scope.nav = {name:'Rewards',type:'reward',singular:'Reward'};
+          }]
+        })
 
-            .when('/todo/active',     {templateUrl: 'views/list.html'})
-            .when('/todo/completed',  {templateUrl: 'views/list.html'})
-
-            .when('/help',            {templateUrl: 'views/help.html'})
-
-            .otherwise({redirectTo: '/habit'}); // userServices handles redirect to /login if not authenticated
+        .state('todo.active',      {url: '/active', templateUrl: 'views/list.html'})
+        .state('todo.completed',   {url: '/completed', templateUrl: 'views/list.html'})
     }])
 
     // FIXME remove? Looks like this was now added as the default: https://github.com/angular/angular.js/commit/3e39ac7e1b10d4812a44dad2f959a93361cd823b
