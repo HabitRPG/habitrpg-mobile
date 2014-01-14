@@ -18,9 +18,9 @@ habitrpg.controller('MenuCtrl',
     $scope.menuopen = false;
   }
 
-  $scope.menuClick = function(button) {
+  $scope.menuClick = function(link) {
     $scope.menuopen = false;
-    $location.url(button.link);
+    $location.url(link);
   }
 
   /**
@@ -38,16 +38,6 @@ habitrpg.controller('MenuCtrl',
       $rootScope.menuopen = false;
     }
   });
-
-  $scope.nav = [
-    { link:'/habit',     name:'Habits',  lowercase:'habits'   },
-    { link:'/daily',     name:'Dailies', lowercase:'dailies'  },
-    { link:'/todo',      name:'Todos',   lowercase:'todos'    },
-    { link:'/reward',    name:'Rewards', lowercase:'rewards'  },
-    { link:'/profile',   name:'Profile', lowercase:'profile'  },
-    { link:'/settings',  name:'Settings',lowercase:'settings' },
-    { link:'/help',      name:'Help',    lowercase:'help' }
-  ]
 
   $scope.refreshing = function () {
     return User.settings.fetching ? "spin" : ""
