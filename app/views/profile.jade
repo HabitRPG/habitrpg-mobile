@@ -25,6 +25,4 @@ script(id='views/profile.html',type='text/ng-template')
         .herobox
           .character-sprites(ng-class='{hasPet: user.items.currentPet}')
             div(ng-include='"views/avatar-sprites.html"')
-        div
-          h3
-            | Customization options returning soon! For now, use the website to customize your avatar.
+        div(ng-include="'views/customize.html'")
