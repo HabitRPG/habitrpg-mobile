@@ -19,11 +19,13 @@ habitrpg.controller('TaskDetailsCtrl',
         $scope.editing = true;
     };
 
-    $scope.save = function () {
-        User.user.ops.updateTask({params:{id:$scope.task.id},body:$scope.task});
+    $scope.save = function (keepOpen) {
+      User.user.ops.updateTask({params:{id:$scope.task.id},body:$scope.task});
+      if (!keepOpen) {
         $rootScope.selectedTask = null;
         $location.path('/' + $scope.task.type);
         $scope.editing = false;
+      }
     };
 
     $scope.cancel = function () {

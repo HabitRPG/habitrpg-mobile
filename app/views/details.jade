@@ -13,6 +13,16 @@ script(id="views/details.html",type='text/ng-template')
           span(ng-class='{strikeout: task.completed}')
             markdown(ng-model='task.text')
         p {{task.notes}}
+
+        // Checklists
+        div(ng-if='task.checklist')
+          span(ng-repeat='item in task.checklist')
+            label.topcoat-checkbox
+              input(type='checkbox',ng-model='item.completed',ng-change='save(true)')
+              .topcoat-checkbox__checkmark
+              | {{item.text}}
+            br
+
         // Habits
         span(ng-show='task.type == "habit"', ng-cloak='ng-cloak')
           button.topcoat-button.taskButton(ng-show='task.up', ng-click='score(task,"up")') ＋
