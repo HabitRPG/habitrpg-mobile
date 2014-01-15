@@ -11,4 +11,12 @@ script(id="views/settings.html",type='text/ng-template')
 
     br
 
-    input.topcoat-button--cta(type='button', ng-click='resetApp()', value='Logout', style='margin-top: 10px;')
+    button.topcoat-button--cta(ng-click='User.user.ops.sleep({})')
+        span(ng-show='user.preferences.sleep') Check Out of Inn
+        span(ng-hide='user.preferences.sleep') Rest in the Inn
+
+    br
+    br
+
+    button.topcoat-button--cta(type='button', ng-click='resetApp()') Logout
+

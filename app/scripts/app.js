@@ -3,22 +3,31 @@
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['userServices', 'authServices', 'notificationServices', 'ngTouch', 'ngSanitize', 'ui.router'])
+var habitrpg = angular.module('habitrpg', ['userServices', 'authServices', 'notificationServices', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router'])
 
-//    .constant('API_URL', 'https://habitrpg.com')
-    .constant('API_URL', 'http://localhost:3000')
+    .constant('API_URL', 'https://habitrpg.com')
+//    .constant('API_URL', 'http://localhost:3000')
     .constant("STORAGE_USER_ID", 'habitrpg-user')
     .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
     .constant("MOBILE_APP", true)
 
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise("/habit");
+      $urlRouterProvider
+        .when('/profile', '/profile/view')
+        .when('/login', '/login/login')
+        .otherwise("/habit");
 
       $stateProvider
-        .state('login',    {url: "/login",     templateUrl: 'views/login.html'})
+        .state('login', {url: "/login", abstract:true, template: '<div ui-view></div>'})
+        .state('login.login', {url: "/login",     templateUrl: 'views/login.login.html', controller: 'AuthCtrl'})
+        .state('login.register', {url: "/register",     templateUrl: 'views/login.register.html', controller: 'AuthCtrl'})
+
         .state('settings', {url: '/settings',  templateUrl: 'views/settings.html'})
-        .state('profile',  {url: '/profile',   templateUrl: 'views/profile.html'})
         .state('help',     {url: '/help',      templateUrl: 'views/help.html'})
+
+        .state('profile',  {url: '/profile',   templateUrl: 'views/profile.html'})
+        .state('profile.view',  {url: '/view',   templateUrl: 'views/profile.view.html'})
+        .state('profile.customize',  {url: '/customize',   templateUrl: 'views/profile.customize.html'})
 
         .state('task', {
           url:'/tasks/:taskId',
@@ -55,8 +64,9 @@ var habitrpg = angular.module('habitrpg', ['userServices', 'authServices', 'noti
           }]
         })
 
-        .state('todo.active',      {url: '/active', templateUrl: 'views/list.html'})
+        //.state('todo.active',      {url: '/active', templateUrl: 'views/list.html'})
         .state('todo.completed',   {url: '/completed', templateUrl: 'views/list.html'})
+
     }])
 
     // FIXME remove? Looks like this was now added as the default: https://github.com/angular/angular.js/commit/3e39ac7e1b10d4812a44dad2f959a93361cd823b

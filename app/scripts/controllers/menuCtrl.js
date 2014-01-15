@@ -23,13 +23,6 @@ habitrpg.controller('MenuCtrl',
     $state.go(state);
   }
 
-  /**
-   * Show title according to the location
-   */
-//  $rootScope.$on('$routeChangeSuccess', function(){
-//    $rootScope.menuopen = false;
-//  });
-
 
   $scope.refreshing = function () {
     return User.settings.fetching ? "spin" : ""

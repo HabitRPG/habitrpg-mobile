@@ -888,3 +888,7 @@ menu {
 .large-meters .meter {
   width:144px; left:87px; top:9px
 }
+
+markdown p {
+  margin: 0px;
+}
