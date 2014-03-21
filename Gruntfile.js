@@ -28,6 +28,17 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    phonegap: {
+      config: {
+        root: 'dist',
+        config: 'config.xml',
+        name: 'HabitRPG',
+        path: 'phonegap',
+        platforms: ['android', 'ios'],
+        verbose: false,
+        versionCode: function(){ return(3) }
+      }
+    },
     watch: {
       jade: {
         files: ['<%= yeoman.app %>/index.jade', '<%= yeoman.app %>/views/{,*/}*.jade'],
@@ -373,5 +384,15 @@ module.exports = function (grunt) {
     'jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('build:ios', [
+    'build',
+    'phonegap:build:ios'
+  ]);
+
+  grunt.registerTask('build:android', [
+    'build',
+    'phonegap:build:android'
   ]);
 };
