@@ -28,6 +28,42 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    phonegap: {
+      config: {
+        root: 'dist',
+        config: 'config.xml',
+        name: 'HabitRPG',
+        path: 'phonegap',
+        platforms: ['android', 'ios'],
+        verbose: false,
+        versionCode: function(){ return(3) },
+        icons: {
+          android: {
+            ldpi: 'dist/res/icon/android/icon-36-ldpi.png',
+            mdpi: 'dist/res/icon/android/icon-48-mdpi.png',
+            hdpi: 'dist/res/icon/android/icon-72-hdpi.png',
+            xhdpi: 'dist/res/icon/android/icon-96-xhdpi.png'
+          },
+          ios: {
+            icon57: 'dist/res/icon/ios/icon-57.png',
+            icon57x2: 'dist/res/icon/ios/icon-57-2x.png',
+            icon72: 'dist/res/icon/ios/icon-72.png',
+            icon72x2: 'dist/res/icon/ios/icon-72-2x.png',
+          }
+        },
+        screens: {
+          android: {
+            hdpiLand: 'dist/res/screen/480_800.png',
+            hdpi: 'dist/res/screen/480_800.png',
+          },
+          ios: {
+            iphonePortrait: 'dist/res/screen/320_480.png',
+            iphonePortraitx2: 'dist/res/screen/640_960.png',
+            iphone568hx2: 'dist/res/screen/640_1136.png'
+          }
+        }
+      }
+    },
     watch: {
       jade: {
         files: ['<%= yeoman.app %>/index.jade', '<%= yeoman.app %>/views/{,*/}*.jade'],
@@ -373,5 +409,15 @@ module.exports = function (grunt) {
     'jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('build:ios', [
+    'build',
+    'phonegap:build:ios'
+  ]);
+
+  grunt.registerTask('build:android', [
+    'build',
+    'phonegap:build:android'
   ]);
 };
