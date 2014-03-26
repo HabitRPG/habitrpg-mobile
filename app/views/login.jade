@@ -8,12 +8,14 @@ script(id='views/login.login.html',type='text/ng-template')
           input.login-input.password(type='{{useUUID ? "text" : "password"}}', ng-model='loginPassword', placeholder='{{useUUID ? "API Token" : "Password"}}')
           input.btn-homescreen.btn-login(type='submit', value='Login')
           input.btn-homescreen.btn-signup(type='button', value='Signup', ui-sref='login.register')
-      .use-facebook
+      //-.use-facebook
         label.topcoat-checkbox__label
           // note ng-model is required for ng-change on checkbox?
           input(type='checkbox', ng-model='nothing', ng-change='toggleUUID()')
           .topcoat-checkbox
           | Login with Facebook or API Token
+
+      img(src='bower_components/habitrpg-shared/img/facebook-login-register.jpeg', ng-click='Facebook.login()')
 
 script(id='views/login.register.html',type='text/ng-template')
     .login

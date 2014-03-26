@@ -21,16 +21,6 @@ habitrpg.controller('AuthCtrl',
       $scope.useUUID = !$scope.useUUID;
     }
 
-    document.addEventListener('deviceready', function() {
-
-      FB.init({
-        appId: '374812825970494',
-        nativeInterface: CDV.FB,
-        useCachedDialogs: false
-      });
-
-    }, false);
-
     $scope.register = function() {
       if ($scope.registrationForm.$invalid) {
         //TODO highlight invalid inputs

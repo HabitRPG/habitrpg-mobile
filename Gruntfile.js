@@ -343,7 +343,7 @@ module.exports = function (grunt) {
       'clean:server',
       'concurrent:server',
       'connect:livereload',
-      'open',
+      //'open',
       'watch'
     ]);
   });

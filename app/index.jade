@@ -65,6 +65,12 @@ html
 
           div(ui-view='')
 
+    #fb-root
+
+    // -------------------------
+    // Scripts
+    // -------------------------
+
     // build:js scripts/modules.js
     script(src='bower_components/habitrpg-shared/dist/habitrpg-shared.js')
     script(src='bower_components/jquery/jquery.min.js')
@@ -75,9 +81,15 @@ html
     script(src='bower_components/angular-resource/angular-resource.js')
     script(src='bower_components/js-emoji/emoji.js')
     script(src='bower_components/marked/lib/marked.js')
+
+    //script(src='cordova.js')
+    script(src='bower_components/phonegap-facebook-plugin/www/cdv-plugin-fb-connect.js')
+    script(src="bower_components/phonegap-facebook-plugin/www/facebook-js-sdk.js")
     // endbuild
+
     // also seems to not like min / cat
     script(src='bower_components/jquery.transit/jquery.transit.js')
+
     // build:js({.tmp,app}) scripts/scripts.js
     script(src='scripts/app.js')
     script(src='scripts/controllers/rootCtrl.js')

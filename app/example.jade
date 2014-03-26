@@ -1,0 +1,103 @@
+!!! 5
+button(onclick='login()') Login
+button(onclick='me()') Me
+// <button onclick="getSession()">Get session</button>
+button(onclick='getLoginStatus()') Get login
+button(onclick='logout()') Logout
+#data loading ...
+// <script src="http://localhost:8080/target/target-script-min.js#anonymous"></script>
+#fb-root
+script(src='phonegap.js')
+script(src='/bower_components/www/phonegap-facebook-plugin/cdv-plugin-fb-connect.js')
+script(src='/bower_components/www/phonegap-facebook-plugin/facebook-js-sdk.js')
+script
+  <!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory-->
+  if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+  if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+  if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+  FB.Event.subscribe('auth.login', function (response) {
+      alert('auth.login event');
+  });
+  FB.Event.subscribe('auth.logout', function (response) {
+      alert('auth.logout event');
+  });
+  FB.Event.subscribe('auth.sessionChange', function (response) {
+      alert('auth.sessionChange event');
+  });
+  FB.Event.subscribe('auth.statusChange', function (response) {
+      alert('auth.statusChange event');
+  });
+  /*function getSession() {
+    alert("session: " + JSON.stringify(FB.getSession()));
+    }
+    */
+  function getLoginStatus() {
+      FB.getLoginStatus(function (response) {
+          if (response.status == 'connected') {
+              alert('logged in');
+          } else {
+              alert('not logged in');
+          }
+      });
+  }
+  var friendIDs = [];
+  var fdata;
+  function me() {
+      FB.api('/me/friends', {
+          fields: 'id, name, picture'
+      }, function (response) {
+          if (response.error) {
+              alert(JSON.stringify(response.error));
+          } else {
+              var data = document.getElementById('data');
+              fdata = response.data;
+              console.log("fdata: " + fdata);
+              response.data.forEach(function (item) {
+                  var d = document.createElement('div');
+                  d.innerHTML = "<img src=" + item.picture + "/>" + item.name;
+                  data.appendChild(d);
+              });
+          }
+          var friends = response.data;
+          console.log(friends.length);
+          for (var k = 0; k < friends.length && k < 200; k++) {
+              var friend = friends[k];
+              var index = 1;
+              friendIDs[k] = friend.id;
+              //friendsInfo[k] = friend;
+          }
+          console.log("friendId's: " + friendIDs);
+      });
+  }
+  function logout() {
+      FB.logout(function (response) {
+          alert('logged out');
+      });
+  }
+  function login() {
+      FB.login(
+          function (response) {
+              if (response.session) {
+                  alert('logged in');
+              } else {
+                  alert('not logged in');
+              }
+          }, {
+              scope: "email"
+          }
+      );
+  }
+  document.addEventListener('deviceready', function () {
+      try {
+          alert('Device is ready! Make sure you set your app_id below this alert.');
+          FB.init({
+              appId: "appid",
+              nativeInterface: CDV.FB,
+              useCachedDialogs: false
+          });
+          document.getElementById('data').innerHTML = "";
+      } catch (e) {
+          alert(e);
+      }
+  }, false);
+#log

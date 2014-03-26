@@ -11,7 +11,8 @@
     "angular-touch": "~1.2.8",
     "angular-sanitize": "~1.2.8",
     "angular-ui-router": "~0.2.7",
-    "angular-resource": "~1.2.8"
+    "angular-resource": "~1.2.8",
+    "phonegap-facebook-plugin": "https://github.com/phonegap/phonegap-facebook-plugin.git#~0.4.0"
   },
   "devDependencies": {}
 }

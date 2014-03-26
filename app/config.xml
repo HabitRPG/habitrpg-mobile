@@ -19,7 +19,7 @@
         HabitRPG
     </author>
 
-    <preference name="phonegap-version" value="3.1.0" />
+    <preference name="phonegap-version" value="3.4.0" />
 
     <preference name="prerendered-icon" value="true" />
     <preference name="android-minSdkVersion" value="11" />
@@ -56,6 +56,13 @@
     <gap:splash src="res/screen/320_480.png" gap:platform="android" gap:density="mdpi" /><!--320x480-->
     <gap:splash src="res/screen/480_800.png" gap:platform="android" gap:density="hdpi" /><!--480x800-->
     <gap:splash src="res/screen/640_960.png" gap:platform="android" gap:density="xhdpi" /><!--640x960-->
+
+    <!-- Plugins -->
+    <gap:plugin name="com.phonegap.plugins.facebookconnect">
+        <!--<param name="APP_ID" value="128307497299777" />--> <!-- production -->
+        <param name="APP_ID" value="439694562721556" /> <!-- development -->
+        <param name="APP_NAME" value="HabitRPG" />
+    </gap:plugin>
 
 
 </widget>
