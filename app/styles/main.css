@@ -471,6 +471,9 @@ body {
 .orange .meter-width {
     background-color: #ffcf42;
 }
+.blue .meter-width{
+    background-color: #5288e9;
+}
 .click {
     text-align:left;
     width:10px;

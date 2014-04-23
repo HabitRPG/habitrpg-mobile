@@ -5,3 +5,6 @@ script(id="views/avatar-meters.html",type='text/ng-template')
   .meter.animate.orange
     span.meter-width(style="width:{{user.stats.exp / Shared.tnl(user.stats.lvl) * 100}}%")
       span
+  .meter.animate.blue(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+    span.meter-width(style="width:{{user.stats.mp / user._statsComputed.maxMP * 100}}%")
+      span

@@ -22,6 +22,7 @@
     <script id="views/avatar-meters.html" type="text/ng-template">
       <div class="meter animate"><span style="width:{{user.stats.hp/50*100}}%" class="meter-width"><span></span></span></div>
       <div class="meter animate orange"><span style="width:{{user.stats.exp / Shared.tnl(user.stats.lvl) * 100}}%" class="meter-width"><span></span></span></div>
+      <div ng-if="user.flags.classSelected &amp;&amp; !user.preferences.disableClasses" class="meter animate blue"><span style="width:{{user.stats.mp / user._statsComputed.maxMP * 100}}%" class="meter-width"><span></span></span></div>
     </script>
     <script id="views/details.html" type="text/ng-template">
       <div ng-controller="StatsCtrl">
