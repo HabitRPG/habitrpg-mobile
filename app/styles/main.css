@@ -184,13 +184,13 @@ body {
     margin-top: 2em;
 }
 .mainNavLink {
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #ddd;
     border-top:1px solid #4E4E4E;
     display: block;
     letter-spacing: 1px;
     text-decoration: none;
-    height:65px;
+    height:50px;
     padding-left:12px;
 }
 .lastNavLink {
@@ -808,7 +808,7 @@ Tasks
     position: absolute;
     line-height: 47px;
     float: left;
-    top: 5px;
+    top: 4px;
     left: 11px;
 }
 .image_wrapper_text {
@@ -816,7 +816,7 @@ Tasks
     position: absolute;
     line-height: 47px;
     float: left;
-    top: 8px;
+    top: 4px;
     left: 73px;
 }
 
