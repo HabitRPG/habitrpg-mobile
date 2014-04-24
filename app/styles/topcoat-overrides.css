@@ -12,6 +12,11 @@
 .topcoat-navigation-bar {
     background: #f5f5f5;
     border-bottom: 1px solid rgba(0,0,0,0.2);
+    height: 3rem;
+}
+
+.topcoat-navigation-bar__item {
+  line-height: 3rem;
 }
 
 /**
