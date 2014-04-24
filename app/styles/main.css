@@ -229,9 +229,9 @@ body {
     border: 0;
     margin: 0 0 0.75em;
     width: 100%;
-    padding: 0.75em 1em;
+    padding: 0.2em 1em;
     font-size: 1.25em;
-    line-height: 1.5;
+    line-height: 1;
     color: rgb(51, 51, 51);
 }
 .newTaskPrompt:focus {
@@ -248,7 +248,7 @@ body {
     width: 100%;
     font-size: 1.1em;
     list-style: none;
-    padding: 1em 0.75em;
+    padding: .3em 0.75em;
     background: #eee;
     border-bottom: 1px solid #ddd;
     letter-spacing: -4px;
