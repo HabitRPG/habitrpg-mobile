@@ -1,0 +1,17 @@
+{
+    "version": "0.1.3",
+    "name": "org.apache.cordova.statusbar",
+    "cordova_name": "StatusBar",
+    "description": "Cordova StatusBar Plugin",
+    "license": "Apache 2.0",
+    "keywords": [
+        "cordova",
+        "statusbar"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}
