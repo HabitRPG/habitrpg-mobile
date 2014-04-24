@@ -1,0 +1,459 @@
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <title>HabitRPG</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory-->
+    <!-- Do not include in build because already minified and can't be put minified here because it would end with wrong paths !-->
+    <link rel="stylesheet" href="bower_components/habitrpg-shared/dist/habitrpg-shared.css"/>
+    <!-- build:css({.tmp,app}) styles/main.css-->
+    <link rel="stylesheet" href="styles/fixme.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/js-emoji/emoji.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/topcoat/css/topcoat-mobile-light.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/topcoat-overrides.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/facebook-checkbox.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/main.css"/>
+    <!-- endbuild-->
+  </head>
+  <body ng-cloak="ng-cloak" ng-app="habitrpg" ng-controller="RootCtrl" ontouchstart="ontouchstart" class="light">
+    <!-- Partials-->
+    <script id="views/avatar-sprites.html" type="text/ng-template"><span class="skin_{{user.preferences.skin}}"></span><span class="{{user.preferences.size}}_shirt_{{user.preferences.shirt}}"></span><span ng-if="!user.preferences.costume" class="{{user.preferences.size}}_{{user.items.gear.equipped.armor}}"></span><span ng-if="user.preferences.costume" class="{{user.preferences.size}}_{{user.items.gear.costume.armor}}"></span><span class="head_0"></span><span class="hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}"></span><span class="hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}"></span><span class="hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}"></span><span class="hair_mustache_{{user.preferences.hair.mustache}}_{{user.preferences.hair.color}}"></span><span ng-if="!user.preferences.costume" class="{{user.items.gear.equipped.head}}"></span><span ng-if="user.preferences.costume" class="{{user.items.gear.costume.head}}"></span><span ng-if="!user.preferences.costume" class="{{user.items.gear.equipped.shield}}"></span><span ng-if="user.preferences.costume" class="{{user.items.gear.costume.shield}}"></span><span ng-if="!user.preferences.costume" class="{{user.items.gear.equipped.weapon}}"></span><span ng-if="user.preferences.costume" class="{{user.items.gear.costume.weapon}}"></span><span ng-class="{zzz:user.preferences.sleep}"></span><span ng-show="user.items.currentPet" class="current-pet Pet-{{user.items.currentPet}}"></span></script>
+    <script id="views/avatar-meters.html" type="text/ng-template">
+      <div class="meter animate"><span style="width:{{user.stats.hp/50*100}}%" class="meter-width"><span></span></span></div>
+      <div class="meter animate orange"><span style="width:{{user.stats.exp / Shared.tnl(user.stats.lvl) * 100}}%" class="meter-width"><span></span></span></div>
+    </script>
+    <script id="views/details.html" type="text/ng-template">
+      <div ng-controller="StatsCtrl">
+        <div ng-controller="TaskDetailsCtrl" class="details-page">
+          <!-- Details Page-->
+          <div ng-hide="editing" style="margin: 17px;"><a ng-click="goBack()" class="topcoat-button">Back</a><a ng-show="task.id" ng-click="edit()" class="topcoat-button">Edit</a>
+            <p>
+              <!-- <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />-->
+              <label ng-show="task.type == &quot;daily&quot; || task.type == &quot;todo&quot;" class="topcoat-checkbox__label">
+                <input type="checkbox" ng-model="task.completed" ng-change="changeCheck(task)"/>
+                <div class="topcoat-checkbox"></div>
+              </label><span ng-class="{strikeout: task.completed}">
+                <markdown ng-model="task.text"></markdown></span>
+            </p>
+            <p>{{task.notes}}</p>
+            <!-- Checklists-->
+            <div ng-if="task.checklist"><span ng-repeat="item in task.checklist">
+                <label class="topcoat-checkbox">
+                  <input type="checkbox" ng-model="item.completed" ng-change="save(true)"/>
+                  <div class="topcoat-checkbox__checkmark"></div>{{item.text}}
+                </label><br/></span></div>
+            <!-- Habits--><span ng-show="task.type == &quot;habit&quot;" ng-cloak="ng-cloak">
+              <button ng-show="task.up" ng-click="score(task,&quot;up&quot;)" class="topcoat-button taskButton">＋</button>
+              <button ng-show="task.down" ng-click="score(task,&quot;down&quot;)" class="topcoat-button taskButton">－</button></span>
+            <!-- Rewards and items-->
+            <input type="button" value="Buy ({{task.value}}gp)" ng-click="score(task,&quot;down&quot;)" ng-show="task.type == &quot;reward&quot;" ng-cloak="ng-cloak"/>
+            <input type="button" value="Buy ({{task.value}}gp)" ng-click="buy(task.type)" ng-hide="task.id" ng-cloak="ng-cloak"/><span></span>
+          </div>
+          <!-- Edit Page-->
+          <div ng-show="editing" style="margin: 17px;"><a ng-click="cancel()" class="topcoat-button">Cancel</a><a ng-click="save()" class="topcoat-button">Save</a><a ng-click="delete()" class="topcoat-button">Delete</a>
+            <h4>Title</h4>
+            <input type="input" ng-model="task.text" style="width: 100%;" class="topcoat-text-input"/>
+            <h4>Notes</h4>
+            <textarea rows="6" cols="36" ng-model="task.notes" style="width: 100%; height: 130px;" class="topcoat-textarea"></textarea><br/><br/>
+            <!-- Habits--><span ng-show="task.type == &quot;habit&quot;" ng-cloak="ng-cloak">
+              <label class="topcoat-checkbox">
+                <input type="checkbox" ng-model="task.up"/>
+                <div class="topcoat-checkbox__checkmark"></div><span>+</span>
+              </label>
+              <label class="topcoat-checkbox">
+                <input type="checkbox" ng-model="task.down"/>
+                <div class="topcoat-checkbox__checkmark"></div><span>-</span>
+              </label></span>
+            <!-- Dailies-->
+            <div ng-show="task.type == &quot;daily&quot;"><a ng-click="task.challenge.id || (task.repeat.su = !task.repeat.su)" ng-class="{&quot;is-active&quot;:task.repeat.su}" class="topcoat-button">Sun</a><a ng-click="task.challenge.id || (task.repeat.m = !task.repeat.m)" ng-class="{&quot;is-active&quot;:task.repeat.m}" class="topcoat-button">M</a><a ng-click="task.challenge.id || (task.repeat.t = !task.repeat.t)" ng-class="{&quot;is-active&quot;:task.repeat.t}" class="topcoat-button">T</a><a ng-click="task.challenge.id || (task.repeat.w = !task.repeat.w)" ng-class="{&quot;is-active&quot;:task.repeat.w}" class="topcoat-button">W</a><a ng-click="task.challenge.id || (task.repeat.th = !task.repeat.th)" ng-class="{&quot;is-active&quot;:task.repeat.th}" class="topcoat-button">Th</a><a ng-click="task.challenge.id || (task.repeat.f = !task.repeat.f)" ng-class="{&quot;is-active&quot;:task.repeat.f}" class="topcoat-button">F</a><a ng-click="task.challenge.id || (task.repeat.s = !task.repeat.s)" ng-class="{&quot;is-active&quot;:task.repeat.s}" class="topcoat-button">S</a></div>
+            <!-- Todos-->
+            <div ng-show="task.type == &quot;todo&quot;">
+              <!-- TODO: Due Date-->
+            </div>
+            <div ng-hide="task.type == &quot;reward&quot;">
+              <h4>Difficulty</h4><a ng-click="task.priority = &quot;1&quot;" ng-class="{&quot;is-active&quot;:task.priority == &quot;1&quot;}" class="topcoat-button">Easy</a><a ng-click="task.priority = &quot;1.5&quot;" ng-class="{&quot;is-active&quot;:task.priority == &quot;1.5&quot;}" class="topcoat-button">Medium</a><a ng-click="task.priority = &quot;2&quot;" ng-class="{&quot;is-active&quot;:task.priority == &quot;2&quot;}" class="topcoat-button">Difficult</a>
+            </div>
+            <!-- Rewards-->
+            <div ng-show="task.type == &quot;reward&quot;">
+              <input type="text" ng-model="task.value" placeholder="Price" class="topcoat-text-input"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script id="views/help.html" type="text/ng-template">
+      <div class="help-page">
+        <p>HabitRPG is a habit-building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor, compete with your friends.</p></p>
+        <p><a onclick="window.open('https://habitrpg.com', '_system');" href="">The website</a> has been around for a year, and has additional features such as guilds, parties, pets, random drops, tags, difficulty settings, etc. We'll pull in features bit-by-bit to the mobile app - but we wanted to get this initial release out there so people can start using it, and hopefully contributing. It's open source (built on AngularJS & PhoneGap, using standard web technologies) so if you have any HTML, CSS, or JavaScript experience, <a onclick="window.open('https://github.com/habitrpg/habitrpg-mobile', '_system');" href="">please join us</a> to help make Habit awesome! File <a onclick="window.open('https://github.com/habitrpg/habitrpg-mobile/issues', '_system');" href="">any bugs here</a>. Android 2.3.x users - we'll enable for your devices once we can fix <a onclick="window.open('http://goo.gl/p9x2Pz', '_system');" href="">these CSS / Angular issues</a>.</p></p>
+        <p>Content CC-BY-SA 3.0 from Mozilla BrowserQuest & Little Workshop.</p>
+      </div>
+    </script>
+    <script id="views/list.html" type="text/ng-template">
+      <!-- Don't show tasks if dead-->
+      <div ng-show="user.stats.hp &lt;= 0">
+        <h1>You are dead</h1><a ng-click="user.ops.revive({})" class="topcoat-button--large">Revive</a>
+      </div>
+      <div ng-show="user.stats.hp &gt; 0" ng-controller="TasksCtrl" class="taskWell">
+        <h2 ng-show="nav.type == &quot;reward&quot;" class="taskTypeHeader">{{user.stats.gp|gold}}<span class="shop_gold">Gold</span>{{user.stats.gp|silver}}<span class="shop_silver">Silver</span></h2>
+        <div ng-class="nav.type" class="task_wrapper">
+          <form id="task-form" ng-submit="addTask()">
+            <input type="text" placeholder="＋ Add New {{nav.singular}}" ng-model="newTask" class="newTaskPrompt"/>
+          </form>
+          <p ng-show="tasks().length == 0" class="emptyStateMsg">Hey, you have no {{nav.name}}! Why don't you add some?</p>
+          <ul id="task-list" ng-hide="tasks().length == 0 &amp;&amp; nav.type != &quot;reward&quot;" ng-class="nav.type">
+            <li ng-repeat="task in tasks() | filter:taskFilter" ng-class="{completed: (task.completed || notDue(task)), editing: task == editedTask, last:$last}" class="cf taskItem {{getClass(task.value)}}">
+              <div class="taskActions">
+                <!-- Habits--><span ng-show="task.type == &quot;habit&quot;" ng-cloak="ng-cloak">
+                  <button ng-click="score(task,&quot;up&quot;)" ng-show="task.up" class="btn btn--small taskButton">＋</button>
+                  <button ng-click="score(task,&quot;down&quot;)" ng-show="task.down" class="btn btn--small taskButton">－</button></span>
+                <!-- Daily, Todo--><span ng-show="task.type == &quot;daily&quot; || task.type == &quot;todo&quot;" ng-cloak="ng-cloak">
+                  <label class="topcoat-checkbox">
+                    <input type="checkbox" ng-model="task.completed" ng-change="changeCheck(task)"/>
+                    <div class="topcoat-checkbox__checkmark"></div>
+                  </label></span>
+                <!-- Rewards-->
+              </div>
+              <p ng-click="selectTask(task)" class="taskText">
+                <markdown ng-model="task.text" style="display: inline-block"></markdown>
+              </p>
+              <button ng-show="task.type == &quot;reward&quot;" ng-click="score(task,&quot;down&quot;)" ng-cloak="ng-cloak" class="topcoat-button buy-button">{{task.value}}<span class="shop_gold"></span></button>
+            </li>
+            <li ng-repeat="item in itemStore" ng-show="nav.type == &quot;reward&quot; &amp;&amp; item.text" class="cf taskItem {{item.classes}} {{getClass(0)}}">
+              <div class="shop-sprite item-img shop_{{item.key}}"></div>
+              <p ng-click="selectTask(item)" class="taskText"> {{item.text}}</p>
+              <div class="taskActions">
+                <button ng-click="buy(item.key)" ng-cloak="ng-cloak" class="topcoat-button buy-button">{{item.value}}<span class="shop_gold"></span></button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div ng-controller="TasksCtrl">
+        <div ng-if="$state.includes(&quot;todo&quot;)" class="filterBar"><a ng-class="{current: $state.is(&quot;todo&quot;)}" ui-sref="todo" class="btn btn--small btn--filter">Active</a><a ng-class="{current: $state.is(&quot;todo.completed&quot;)}" ui-sref="todo.completed" class="btn btn--small btn--filter">Completed</a></div>
+      </div>
+    </script>
+    <script id="views/login.login.html" type="text/ng-template">
+      <div class="login">
+        <div class="login-header"><img src="assets/home-logo.png" width="79%"/></div>
+        <div class="login-form">
+          <form ng-submit="auth()">
+            <input type="text" ng-model="loginUsername" placeholder="{{useUUID ? &quot;UUID&quot; : &quot;Username&quot;}}" class="login-input username"/>
+            <input type="{{useUUID ? &quot;text&quot; : &quot;password&quot;}}" ng-model="loginPassword" placeholder="{{useUUID ? &quot;API Token&quot; : &quot;Password&quot;}}" class="login-input password"/>
+            <input type="submit" value="Login" class="btn-homescreen btn-login"/>
+            <input type="button" value="Signup" ui-sref="login.register" class="btn-homescreen btn-signup"/>
+          </form>
+        </div>
+        <div class="use-facebook">
+          <label class="topcoat-checkbox__label">
+            <!-- note ng-model is required for ng-change on checkbox?-->
+            <input type="checkbox" ng-model="nothing" ng-change="toggleUUID()"/>
+            <div class="topcoat-checkbox"></div>Login with Facebook or API Token
+          </label>
+        </div>
+      </div>
+    </script>
+    <script id="views/login.register.html" type="text/ng-template">
+      <div class="login">
+        <div class="login-header"><img src="assets/home-logo.png" width="79%"/></div>
+        <div class="register-form">
+          <form ng-submit="register()" name="registrationForm"><a ui-sref="login.login" class="register-cancel">< Go Back</a>
+            <input type="text" ng-model="registerVals.username" placeholder="Username" required="required" class="login-input username"/>
+            <input type="email" ng-model="registerVals.email" placeholder="Email" required="required" class="login-input email"/>
+            <input type="password" ng-model="registerVals.password" placeholder="Password" required="required" class="login-input password"/>
+            <input type="password" ng-model="registerVals.confirmPassword" placeholder="Password Confirm" required="required" class="login-input password-confirm"/>
+            <input type="submit" value="Register" class="btn-homescreen btn-signup"/>
+          </form>
+        </div>
+      </div>
+    </script>
+    <script id="views/profile.html" type="text/ng-template">
+      <div class="profile-container">
+        <div ui-view=""></div>
+        <div class="filterBar"><a ng-click="$state.go(&quot;profile.view&quot;)" ng-class="{current: $state.is(&quot;profile.view&quot;)}" class="btn btn--small btn--filter">View</a><a ng-click="$state.go(&quot;profile.customize&quot;)" ng-class="{current: $state.is(&quot;profile.customize&quot;)}" class="btn btn--small btn--filter">Customize</a></div>
+      </div>
+    </script>
+    <script id="views/profile.view.html" type="text/ng-template">
+      <div class="profile-content">
+        <div class="herobox">
+          <div ng-class="{hasPet: user.items.currentPet}" class="character-sprites">
+            <div ng-include="&quot;views/avatar-sprites.html&quot;"></div>
+          </div>
+        </div>
+        <div class="user">
+          <p class="username">{{user.auth.local.username}}</p>
+          <p class="level">LEVEL {{user.stats.lvl}}</p>
+          <p class="gold"><span class="shop_gold">Gold:</span>{{user.stats.gp | gold}}<span class="shop_silver">Silver:</span>{{user.stats.gp | silver}}</p>
+        </div>
+        <div style="clear: both;"></div>
+        <div ng-include="&quot;views/avatar-meters.html&quot;"></div>
+        <h3>Stats returning soon!</h3>
+      </div>
+    </script>
+    <script id="views/profile.customize.html" type="text/ng-template">
+      <div class="profile-content">
+        <div ng-controller="userAvatarCtrl" class="customize-content">
+          <div class="herobox">
+            <div ng-class="{hasPet: user.items.currentPet}" class="character-sprites">
+              <div ng-include="&quot;views/avatar-sprites.html&quot;"></div>
+            </div>
+          </div>
+          <p>Unlock more options at habitrpg.com</p>
+          <h3>Body</h3>
+          <h5>Size</h5>
+          <div class="topcoat-button-bar">
+            <div class="topcoat-button-bar__item">
+              <button ng-class="{active: user.preferences.size==&quot;slim&quot;}" ng-click="set({&quot;preferences.size&quot;:&quot;slim&quot;})" class="topcoat-button-bar__button">Slim</button>
+            </div>
+            <div class="topcoat-button-bar__item">
+              <button ng-class="{active: user.preferences.size==&quot;broad&quot;}" ng-click="set({&quot;preferences.size&quot;:&quot;broad&quot;})" class="topcoat-button-bar__button">Broad</button>
+            </div>
+          </div>
+          <h5>Shirt</h5>
+          <menu type="list">
+            <li class="customize-menu">
+              <menu label="Shirts">
+                <button type="button" ng-click="set({&quot;preferences.shirt&quot;:&quot;black&quot;})" class="customize-option {{user.preferences.size}}_shirt_black"></button>
+                <button type="button" ng-click="set({&quot;preferences.shirt&quot;:&quot;blue&quot;})" class="customize-option {{user.preferences.size}}_shirt_blue"></button>
+                <button type="button" ng-click="set({&quot;preferences.shirt&quot;:&quot;green&quot;})" class="customize-option {{user.preferences.size}}_shirt_green"></button>
+                <button type="button" ng-click="set({&quot;preferences.shirt&quot;:&quot;pink&quot;})" class="customize-option {{user.preferences.size}}_shirt_pink"></button>
+                <button type="button" ng-click="set({&quot;preferences.shirt&quot;:&quot;white&quot;})" class="customize-option {{user.preferences.size}}_shirt_white"></button>
+                <button type="button" ng-click="set({&quot;preferences.shirt&quot;:&quot;yellow&quot;})" class="customize-option {{user.preferences.size}}_shirt_yellow"></button>
+              </menu>
+              <menu label="Special Shirts">
+                <button type="button" ng-if="user.purchased.shirt.convict" ng-click="unlock(&quot;shirt.convict&quot;)" class="customize-option {{user.preferences.size}}_shirt_convict"></button>
+                <button type="button" ng-if="user.purchased.shirt.cross" ng-click="unlock(&quot;shirt.cross&quot;)" class="customize-option {{user.preferences.size}}_shirt_cross"></button>
+                <button type="button" ng-if="user.purchased.shirt.fire" ng-click="unlock(&quot;shirt.fire&quot;)" class="customize-option {{user.preferences.size}}_shirt_fire"></button>
+                <button type="button" ng-if="user.purchased.shirt.horizon" ng-click="unlock(&quot;shirt.horizon&quot;)" class="customize-option {{user.preferences.size}}_shirt_horizon"></button>
+                <button type="button" ng-if="user.purchased.shirt.ocean" ng-click="unlock(&quot;shirt.ocean&quot;)" class="customize-option {{user.preferences.size}}_shirt_ocean"></button>
+                <button type="button" ng-if="user.purchased.shirt.purple" ng-click="unlock(&quot;shirt.purple&quot;)" class="customize-option {{user.preferences.size}}_shirt_purple"></button>
+                <button type="button" ng-if="user.purchased.shirt.rainbow" ng-click="unlock(&quot;shirt.rainbow&quot;)" class="customize-option {{user.preferences.size}}_shirt_rainbow"></button>
+                <button type="button" ng-if="user.purchased.shirt.redblue" ng-click="unlock(&quot;shirt.redblue&quot;)" class="customize-option {{user.preferences.size}}_shirt_redblue"></button>
+                <button type="button" ng-if="user.purchased.shirt.thunder" ng-click="unlock(&quot;shirt.thunder&quot;)" class="customize-option {{user.preferences.size}}_shirt_thunder"></button>
+                <button type="button" ng-if="user.purchased.shirt.tropical" ng-click="unlock(&quot;shirt.tropical&quot;)" class="customize-option {{user.preferences.size}}_shirt_tropical"></button>
+                <button type="button" ng-if="user.purchased.shirt.zombie" ng-click="unlock(&quot;shirt.zombie&quot;)" class="customize-option {{user.preferences.size}}_shirt_zombie"></button>
+              </menu>
+            </li>
+          </menu>
+          <hr/>
+          <h3>Head</h3>
+          <menu type="list">
+            <h5>Color</h5>
+            <li class="customize-menu">
+              <menu label="Color">
+                <button type="button" style="width: 40px; height: 40px; background-color:#c8c8c8;" ng-click="set({&quot;preferences.hair.color&quot;: &quot;white&quot;})" class="customize-option"></button>
+                <button type="button" style="width: 40px; height: 40px; background-color:#903a00;" ng-click="set({&quot;preferences.hair.color&quot;: &quot;brown&quot;})" class="customize-option"></button>
+                <button type="button" style="width: 40px; height: 40px; background-color:#cfb853;" ng-click="set({&quot;preferences.hair.color&quot;: &quot;blond&quot;})" class="customize-option"></button>
+                <button type="button" style="width: 40px; height: 40px; background-color:#ec720f;" ng-click="set({&quot;preferences.hair.color&quot;: &quot;red&quot;})" class="customize-option"></button>
+                <button type="button" style="width: 40px; height: 40px; background-color:#2e2e2e;" ng-click="set({&quot;preferences.hair.color&quot;: &quot;black&quot;})" class="customize-option"></button>
+              </menu>
+            </li>
+            <!-- Special Events-->
+            <li class="customize-menu">
+              <menu label="Winter Colors">
+                <button type="button" ng-if="user.purchased.hair.color.candycane" style="width: 40px; height: 40px;" ng-click="unlock(&quot;hair.color.candycane&quot;)" class="customize-option hair_bangs_1_candycane"></button>
+                <button type="button" ng-if="user.purchased.hair.color.frost" style="width: 40px; height: 40px;" ng-click="unlock(&quot;hair.color.frost&quot;)" class="customize-option hair_bangs_1_frost"></button>
+                <button type="button" ng-if="user.purchased.hair.color.winternight" style="width: 40px; height: 40px;" ng-click="unlock(&quot;hair.color.winternight&quot;)" class="customize-option hair_bangs_1_winternight"></button>
+                <button type="button" ng-if="user.purchased.hair.color.holly" style="width: 40px; height: 40px;" ng-click="unlock(&quot;hair.color.holly&quot;)" class="customize-option hair_bangs_1_holly"></button>
+              </menu>
+            </li>
+            <h5>Bangs</h5>
+            <li class="customize-menu">
+              <menu label="Bangs">
+                <button type="button" ng-click="set({&quot;preferences.hair.bangs&quot;:0})" class="head_0 customize-option"></button>
+                <button type="button" ng-click="set({&quot;preferences.hair.bangs&quot;:1})" class="hair_bangs_1_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-click="set({&quot;preferences.hair.bangs&quot;:2})" class="hair_bangs_2_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-click="set({&quot;preferences.hair.bangs&quot;:3})" class="hair_bangs_3_{{user.preferences.hair.color}} customize-option"></button>
+              </menu>
+            </li>
+            <h5>Base</h5>
+            <li class="customize-menu">
+              <menu label="Base">
+                <button type="button" ng-click="set({&quot;preferences.hair.base&quot;:0})" class="head_0 customize-option"></button>
+                <button type="button" ng-click="set({&quot;preferences.hair.base&quot;:1})" class="hair_base_1_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.base.2" ng-click="unlock(&quot;hair.base.2&quot;)" class="hair_base_2_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-click="set({&quot;preferences.hair.base&quot;:3})" class="hair_base_3_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.base.4" ng-click="unlock(&quot;hair.base.4&quot;)" class="hair_base_4_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.base.5" ng-click="unlock(&quot;hair.base.5&quot;)" class="hair_base_5_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.base.6" ng-click="unlock(&quot;hair.base.6&quot;)" class="hair_base_6_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.base.7" ng-click="unlock(&quot;hair.base.7&quot;)" class="hair_base_7_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.base.8" ng-click="unlock(&quot;hair.base.8&quot;)" class="hair_base_8_{{user.preferences.hair.color}} customize-option"></button>
+              </menu>
+            </li>
+            <h5>Beard</h5>
+            <li class="customize-menu">
+              <menu>
+                <button type="button" ng-click="set({&quot;preferences.hair.beard&quot;:0})" class="head_0 customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.beard.1" ng-click="unlock(&quot;hair.beard.1&quot;)" class="hair_beard_1_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.beard.2" ng-click="unlock(&quot;hair.beard.2&quot;)" class="hair_beard_2_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.beard.3" ng-click="unlock(&quot;hair.beard.3&quot;)" class="hair_beard_3_{{user.preferences.hair.color}} customize-option"></button>
+              </menu>
+            </li>
+            <h5>Mustache</h5>
+            <li class="customize-menu">
+              <menu>
+                <button type="button" ng-click="set({&quot;preferences.hair.mustache&quot;:0})" class="head_0 customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.mustache.1" ng-click="unlock(&quot;hair.mustache.1&quot;)" class="hair_mustache_1_{{user.preferences.hair.color}} customize-option"></button>
+                <button type="button" ng-if="user.purchased.hair.mustache.2" ng-click="unlock(&quot;hair.mustache.2&quot;)" class="hair_mustache_2_{{user.preferences.hair.color}} customize-option"></button>
+              </menu>
+            </li>
+          </menu>
+          <hr/>
+          <h3>Skin</h3>
+          <!-- skin-->
+          <li class="customize-menu">
+            <h5>Basic Skins</h5>
+            <menu>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;ddc994&quot;})" class="customize-option skin_ddc994"></button>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;f5a76e&quot;})" class="customize-option skin_f5a76e"></button>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;ea8349&quot;})" class="customize-option skin_ea8349"></button>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;c06534&quot;})" class="customize-option skin_c06534"></button>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;98461a&quot;})" class="customize-option skin_98461a"></button>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;915533&quot;})" class="customize-option skin_915533"></button>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;c3e1dc&quot;})" class="customize-option skin_c3e1dc"></button>
+              <button type="button" ng-click="set({&quot;preferences.skin&quot;:&quot;6bd049&quot;})" class="customize-option skin_6bd049"></button>
+            </menu>
+            <!-- Rainbow Skin-->
+            <h5>Rainbow Skins</h5>
+            <menu>
+              <button type="button" ng-if="user.purchased.skin.eb052b" ng-click="unlock(&quot;skin.eb052b&quot;)" class="customize-option skin_eb052b"></button>
+              <button type="button" ng-if="user.purchased.skin.f69922" ng-click="unlock(&quot;skin.f69922&quot;)" class="customize-option skin_f69922"></button>
+              <button type="button" ng-if="user.purchased.skin.f5d70f" ng-click="unlock(&quot;skin.f5d70f&quot;)" class="customize-option skin_f5d70f"></button>
+              <button type="button" ng-if="user.purchased.skin.0ff591" ng-click="unlock(&quot;skin.0ff591&quot;)" class="customize-option skin_0ff591"></button>
+              <button type="button" ng-if="user.purchased.skin.2b43f6" ng-click="unlock(&quot;skin.2b43f6&quot;)" class="customize-option skin_2b43f6"></button>
+              <button type="button" ng-if="user.purchased.skin.d7a9f7" ng-click="unlock(&quot;skin.d7a9f7&quot;)" class="customize-option skin_d7a9f7"></button>
+              <button type="button" ng-if="user.purchased.skin.800ed0" ng-click="unlock(&quot;skin.800ed0&quot;)" class="customize-option skin_800ed0"></button>
+              <button type="button" ng-if="user.purchased.skin.rainbow" ng-click="unlock(&quot;skin.rainbow&quot;)" class="customize-option skin_rainbow"></button>
+            </menu>
+            <!-- Special Events-->
+            <!-- restore to d4df481 to see purchasing + "limited edition" code-->
+            <div ng-if="user.purchased.skin.monster || user.purchased.skin.pumpkin || user.purchased.skin.skeleton || user.purchased.skin.zombie || user.purchased.skin.ghost || user.purchased.skin.shadow">
+              <h5>Spooky Skins</h5>
+              <menu>
+                <button type="button" ng-if="user.purchased.skin.monster" ng-click="unlock(&quot;skin.monster&quot;)" class="customize-option skin_monster"></button>
+                <button type="button" ng-if="user.purchased.skin.pumpkin" ng-click="unlock(&quot;skin.pumpkin&quot;)" class="customize-option skin_pumpkin"></button>
+                <button type="button" ng-if="user.purchased.skin.skeleton" ng-click="unlock(&quot;skin.skeleton&quot;)" class="customize-option skin_skeleton"></button>
+                <button type="button" ng-if="user.purchased.skin.zombie" ng-click="unlock(&quot;skin.zombie&quot;)" class="customize-option skin_zombie"></button>
+                <button type="button" ng-if="user.purchased.skin.ghost" ng-click="unlock(&quot;skin.ghost&quot;)" class="customize-option skin_ghost"></button>
+                <button type="button" ng-if="user.purchased.skin.shadow" ng-click="unlock(&quot;skin.shadow&quot;)" class="customize-option skin_shadow"></button>
+              </menu>
+            </div>
+          </li>
+        </div>
+      </div>
+    </script>
+    <script id="views/settings.html" type="text/ng-template">
+      <div ng-controller="SettingsCtrl" style="text-align:center">
+        <div class="topcoat-list">
+          <ul class="topcoat-list__container">
+            <li class="topcoat-list__item"><strong>UUID:&nbsp;</strong>{{settings.auth.apiId}}</li>
+            <li class="topcoat-list__item"><strong>API Token:&nbsp;</strong>{{settings.auth.apiToken}}</li>
+          </ul>
+        </div><br/>
+        <button ng-click="User.user.ops.sleep({})" class="topcoat-button--cta"><span ng-show="user.preferences.sleep">Check Out of Inn</span><span ng-hide="user.preferences.sleep">Rest in the Inn</span></button><br/><br/>
+        <button type="button" ng-click="resetApp()" class="topcoat-button--cta">Logout</button>
+      </div>
+    </script>
+    <div ng-controller="AuthCtrl"></div>
+    <div id="wrapper" ng-controller="MenuCtrl" ng-swipe-right="swiperight()" ng-swipe-left="swipeleft()">
+      <!-- Nav-->
+      <nav ng-class="{open : menuopen}" style="top: 0; left: 0; width: 100%;" class="menu">
+        <div>
+          <figure style="top: -24px; left: -43px;" class="herobox">
+            <div ng-click="menuClick(nav[4])" class="character-sprites">
+              <div ng-include="&quot;views/avatar-sprites.html&quot;"></div>
+            </div>
+          </figure>
+          <div ng-include="&quot;views/avatar-meters.html&quot;" class="large-meters"></div>
+        </div>
+        <div class="navLinkBlock">
+          <div ng-click="menuClick(&quot;habit&quot;)" style="position: relative;" class="mainNavLink">
+            <div class="image_wrapper"><img ng-src="assets/sidebar-icon-habit.png"/></div>
+            <div class="image_wrapper_text">Habits</div>
+          </div>
+          <div ng-click="menuClick(&quot;daily&quot;)" style="position: relative;" class="mainNavLink">
+            <div class="image_wrapper"><img ng-src="assets/sidebar-icon-daily.png"/></div>
+            <div class="image_wrapper_text">Dailies</div>
+          </div>
+          <div ng-click="menuClick(&quot;todo&quot;)" style="position: relative;" class="mainNavLink">
+            <div class="image_wrapper"><img ng-src="assets/sidebar-icon-todo.png"/></div>
+            <div class="image_wrapper_text">To-Dos</div>
+          </div>
+          <div ng-click="menuClick(&quot;reward&quot;)" style="position: relative;" class="mainNavLink">
+            <div class="image_wrapper"><img ng-src="assets/sidebar-icon-reward.png"/></div>
+            <div class="image_wrapper_text">Rewards</div>
+          </div>
+          <div ng-click="menuClick(&quot;profile&quot;)" style="position: relative;" class="mainNavLink">
+            <div class="image_wrapper"><img ng-src="assets/sidebar-icon-profile.png"/></div>
+            <div class="image_wrapper_text">Profile</div>
+          </div>
+          <div ng-click="menuClick(&quot;settings&quot;)" style="position: relative;" class="mainNavLink">
+            <div class="image_wrapper"><img ng-src="assets/sidebar-icon-settings.png"/></div>
+            <div class="image_wrapper_text">Settings</div>
+          </div>
+          <div ng-click="menuClick(&quot;help&quot;)" style="position: relative;" class="mainNavLink">
+            <div class="image_wrapper"><img ng-src="assets/sidebar-icon-help.png"/></div>
+            <div class="image_wrapper_text">Help</div>
+          </div>
+        </div>
+      </nav>
+      <!-- Main Content-->
+      <div id="site" ng-class="{open: menuopen}">
+        <!-- Header-->
+        <div ng-show="authenticated()" class="topcoat-navigation-bar">
+          <div class="topcoat-navigation-bar__item left quarter"><a ng-click="menuopen = !menuopen">
+              <button class="btn btn--icon"><img src="assets/menu.png" style="margin-top: 7px;"/></button></a></div>
+          <div style="top: 50%; font-size: 33px;" class="topcoat-navigation-bar__item center half">{{nav.name}}</div>
+          <div class="topcoat-navigation-bar__item right quarter"><a>
+              <button ng-click="sync()" data-animation="{{refreshing()}}" class="refresh"><img src="assets/refresh-new.png"/></button></a></div>
+        </div>
+        <!-- Content-->
+        <div id="content" ng-controller="TasksCtrl" class="max-width">
+          <!-- this stuff is just for development? I won't style this right now-->
+          <div class="appStatusArea">
+            <input type="button" value="Online: {{settings.online}}" ng-click="User.online(!settings.online)" class="appOnlineToggle"/>|
+            <output class="queueLengthReporter">{{queueLength()}}</output>
+          </div>
+          <!-- Main View-->
+          <div ng-controller="NotificationCtrl">
+            <div id="notification">
+              <div ng-bind-html="data.message"></div>
+            </div>
+          </div>
+          <div ui-view=""></div>
+        </div>
+      </div>
+    </div>
+    <!-- build:js scripts/modules.js-->
+    <script src="bower_components/habitrpg-shared/dist/habitrpg-shared.js"></script>
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/js-emoji/emoji.js"></script>
+    <script src="bower_components/marked/lib/marked.js"></script>
+    <!-- endbuild-->
+    <!-- also seems to not like min / cat-->
+    <script src="bower_components/jquery.transit/jquery.transit.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js-->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/rootCtrl.js"></script>
+    <script src="scripts/controllers/settingsCtrl.js"></script>
+    <script src="scripts/filters/filters.js"></script>
+    <script src="scripts/controllers/tasksCtrl.js"></script>
+    <script src="scripts/controllers/taskDetailsCtrl.js"></script>
+    <script src="scripts/directives/directives.js"></script>
+    <script src="scripts/controllers/statsCtrl.js"></script>
+    <script src="scripts/controllers/menuCtrl.js"></script>
+    <script src="scripts/controllers/authCtrl.js"></script>
+    <script src="bower_components/habitrpg-shared/script/userServices.js"></script>
+    <script src="bower_components/habitrpg-shared/script/directives.js"></script>
+    <script src="scripts/services/authServices.js"></script>
+    <script src="scripts/services/notificationServices.js"></script>
+    <script src="scripts/controllers/notificationCtrl.js"></script>
+    <script src="scripts/controllers/userAvatarCtrl.js"></script>
+    <!-- endbuild-->
+  </body>
+</html>

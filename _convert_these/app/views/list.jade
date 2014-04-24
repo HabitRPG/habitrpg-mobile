@@ -1,0 +1,44 @@
+script(id='views/list.html',type='text/ng-template')
+  // Don't show tasks if dead
+  div(ng-show="user.stats.hp <= 0")
+    h1 You are dead
+    a.topcoat-button--large(ng-click='user.ops.revive({})') Revive
+  .taskWell(ng-show="user.stats.hp > 0",ng-controller="TasksCtrl")
+    h2.taskTypeHeader(ng-show='nav.type == "reward"')
+      | {{user.stats.gp|gold}}
+      span.shop_gold Gold
+      | {{user.stats.gp|silver}}
+      span.shop_silver Silver
+    .task_wrapper(ng-class='nav.type')
+      form#task-form(ng-submit='addTask()')
+        input.newTaskPrompt(type='text', placeholder='＋ Add New {{nav.singular}}', ng-model='newTask')
+      p.emptyStateMsg(ng-show='tasks().length == 0') Hey, you have no {{nav.name}}! Why don't you add some?
+      ul#task-list(ng-hide='tasks().length == 0 && nav.type != "reward"', ng-class='nav.type')
+        li.cf.taskItem(class="{{getClass(task.value)}}",ng-repeat='task in tasks() | filter:taskFilter', ng-class='{completed: (task.completed || notDue(task)), editing: task == editedTask, last:$last}')
+          .taskActions
+            // Habits
+            span(ng-show='task.type == "habit"', ng-cloak='ng-cloak')
+              button.btn.btn--small.taskButton(ng-click='score(task,"up")', ng-show='task.up') ＋
+              button.btn.btn--small.taskButton(ng-click='score(task,"down")', ng-show='task.down') －
+            // Daily, Todo
+            span(ng-show='task.type == "daily" || task.type == "todo"', ng-cloak='ng-cloak')
+              label.topcoat-checkbox
+                input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
+                .topcoat-checkbox__checkmark
+            // Rewards
+          p.taskText(ng-click='selectTask(task)')
+            markdown(ng-model='task.text',style='display: inline-block')
+          button.topcoat-button.buy-button(ng-show='task.type == "reward"', ng-click='score(task,"down")', ng-cloak='ng-cloak')
+            | {{task.value}}
+            span.shop_gold
+        li.cf.taskItem(class="{{item.classes}} {{getClass(0)}}",ng-repeat='item in itemStore', ng-show='nav.type == "reward" && item.text')
+          .shop-sprite.item-img(class="shop_{{item.key}}")
+          p.taskText(ng-click='selectTask(item)')  {{item.text}}
+          .taskActions
+            button.topcoat-button.buy-button(ng-click='buy(item.key)', ng-cloak='ng-cloak')
+              | {{item.value}}
+              span.shop_gold
+  div(ng-controller='TasksCtrl')
+    .filterBar(ng-if='$state.includes("todo")')
+      a.btn.btn--small.btn--filter(ng-class='{current: $state.is("todo")}', ui-sref='todo') Active
+      a.btn.btn--small.btn--filter(ng-class='{current: $state.is("todo.completed")}', ui-sref='todo.completed') Completed

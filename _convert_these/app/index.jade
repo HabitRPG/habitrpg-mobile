@@ -1,0 +1,98 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
+    title HabitRPG
+    // Place favicon.ico and apple-touch-icon.png in the root directory
+    // Do not include in build because already minified and can't be put minified here because it would end with wrong paths !
+    link(rel='stylesheet', href='bower_components/habitrpg-shared/dist/habitrpg-shared.css')
+    // build:css({.tmp,app}) styles/main.css
+    link(rel='stylesheet', href='styles/fixme.css')
+    link(rel='stylesheet', type='text/css', href='bower_components/js-emoji/emoji.css')
+    link(rel='stylesheet', type='text/css', href='bower_components/topcoat/css/topcoat-mobile-light.css')
+    link(rel='stylesheet', type='text/css', href='styles/topcoat-overrides.css')
+    link(rel='stylesheet', type='text/css', href='styles/facebook-checkbox.css')
+    link(rel='stylesheet', type='text/css', href='styles/main.css')
+    // endbuild
+  body.light(ng-cloak, ng-app='habitrpg', ng-controller='RootCtrl', ontouchstart)
+    // Partials
+    include ./views/avatar-sprites
+    include ./views/avatar-meters
+    include ./views/details
+    include ./views/help
+    include ./views/list
+    include ./views/login
+    include ./views/profile
+    include ./views/settings
+
+    div(ng-controller='AuthCtrl')
+    #wrapper(ng-controller='MenuCtrl', ng-swipe-right='swiperight()', ng-swipe-left='swipeleft()')
+      // Nav
+      nav.menu(ng-class='{open : menuopen}', style='top: 0; left: 0; width: 100%;')
+        include ./views/avatar
+        .navLinkBlock
+          each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',help:'Help'}
+            .mainNavLink(ng-click='menuClick("#{k}")', style='position: relative;')
+              .image_wrapper
+                img(ng-src='assets/sidebar-icon-#{k}.png')
+              .image_wrapper_text
+                | #{v}
+      // Main Content
+      #site(ng-class='{open: menuopen}')
+        // Header
+        .topcoat-navigation-bar(ng-show='authenticated()')
+          .topcoat-navigation-bar__item.left.quarter
+            a(ng-click='menuopen = !menuopen')
+              button.btn.btn--icon
+                img(src='assets/menu.png', style='margin-top: 7px;')
+          .topcoat-navigation-bar__item.center.half(style='top: 50%; font-size: 33px;')
+            | {{nav.name}}
+          .topcoat-navigation-bar__item.right.quarter
+            a
+              button.refresh(ng-click='sync()', data-animation='{{refreshing()}}')
+                img(src='assets/refresh-new.png')
+        // Content
+        #content.max-width(ng-controller='TasksCtrl')
+          // this stuff is just for development? I won't style this right now
+          .appStatusArea
+            input.appOnlineToggle(type='button', value='Online: {{settings.online}}', ng-click='User.online(!settings.online)')
+            | |
+            output.queueLengthReporter {{queueLength()}}
+          // Main View
+          div(ng-controller='NotificationCtrl')
+            #notification
+              div(ng-bind-html='data.message')
+
+          div(ui-view='')
+
+    // build:js scripts/modules.js
+    script(src='bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+    script(src='bower_components/jquery/jquery.min.js')
+    script(src='bower_components/angular/angular.js')
+    script(src='bower_components/angular-touch/angular-touch.js')
+    script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
+    script(src='bower_components/angular-sanitize/angular-sanitize.js')
+    script(src='bower_components/angular-resource/angular-resource.js')
+    script(src='bower_components/js-emoji/emoji.js')
+    script(src='bower_components/marked/lib/marked.js')
+    // endbuild
+    // also seems to not like min / cat
+    script(src='bower_components/jquery.transit/jquery.transit.js')
+    // build:js({.tmp,app}) scripts/scripts.js
+    script(src='scripts/app.js')
+    script(src='scripts/controllers/rootCtrl.js')
+    script(src='scripts/controllers/settingsCtrl.js')
+    script(src='scripts/filters/filters.js')
+    script(src='scripts/controllers/tasksCtrl.js')
+    script(src='scripts/controllers/taskDetailsCtrl.js')
+    script(src='scripts/directives/directives.js')
+    script(src='scripts/controllers/statsCtrl.js')
+    script(src='scripts/controllers/menuCtrl.js')
+    script(src='scripts/controllers/authCtrl.js')
+    script(src='bower_components/habitrpg-shared/script/userServices.js')
+    script(src='bower_components/habitrpg-shared/script/directives.js')
+    script(src='scripts/services/authServices.js')
+    script(src='scripts/services/notificationServices.js')
+    script(src='scripts/controllers/notificationCtrl.js')
+    script(src='scripts/controllers/userAvatarCtrl.js')
+    // endbuild

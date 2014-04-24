@@ -1,0 +1,22 @@
+script(id="views/settings.html",type='text/ng-template')
+  div(ng-controller='SettingsCtrl', style='text-align:center')
+    .topcoat-list
+      ul.topcoat-list__container
+        li.topcoat-list__item
+          strong UUID:&nbsp;
+          | {{settings.auth.apiId}}
+        li.topcoat-list__item
+          strong API Token:&nbsp;
+          | {{settings.auth.apiToken}}
+
+    br
+
+    button.topcoat-button--cta(ng-click='User.user.ops.sleep({})')
+        span(ng-show='user.preferences.sleep') Check Out of Inn
+        span(ng-hide='user.preferences.sleep') Rest in the Inn
+
+    br
+    br
+
+    button.topcoat-button--cta(type='button', ng-click='resetApp()') Logout
+

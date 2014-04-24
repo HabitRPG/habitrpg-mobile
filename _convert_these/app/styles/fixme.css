@@ -1,0 +1,47 @@
+/**
+Move this stuff from the website into habitrpg-shared so we don't need this one-off css file
+**/
+ .herobox {
+    position: absolute;
+}
+.herobox:after {
+    content: attr(data-name);
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    line-height: 2;
+    color: #000;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: opacity 0.2s ease-out;
+}
+/** WTF happened here: ? **/
+/*.character-sprites span,*/
+/*position: absolute,*/
+/*#profileStable,*/
+/*.active,*/
+/*border 1pxsolid black,*/
+/*,*/
+ .herobox[data-checkpet="hasPet"] {
+    padding-top: 2em;
+}
+.herobox:not([data-checkpet="hasPet"]) {
+}
+.herobox[data-checkpet="hasPet"][data-checkuser="isUser"] {
+    padding-top: 3.25em;
+}
+.herobox:not([data-checkuser="isUser"]) {
+}
+.customize-content .herobox .character-sprites {
+    width: 6.428571429em;
+    height: 6.428571429em;
+    margin: 0 auto!important;
+}
+.herobox .character-sprites span, .herobox .pet {
+    position: absolute;
+}
+
+.shop_armor_2 {
+background-position: -759px -6px;
+}

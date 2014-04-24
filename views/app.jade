@@ -1,0 +1,81 @@
+mixin ionView(title)
+  ion-view(title='#{title}')
+    ion-nav-buttons(side='left')
+      button.button.button-icon.icon.ion-navicon(menu-toggle='left')
+    ion-content.has-header
+      block
+
+mixin ionTabView(title)
+  ion-view(title='#{title}')
+    ion-content.has-header.has-tabs.padding
+      block
+
+include app/avatar
+include app/details
+include app/help
+include app/list
+include app/profile
+include app/settings
+
+script(id='views/app.html',type='text/ng-template')
+  ion-side-menus
+    ion-pane(ion-side-menu-content)
+      ion-nav-bar.bar-stable.nav-title-slide-ios7
+        ion-nav-back-button.button-clear
+          i.icon.ion-chevron-left
+          | Back
+      ion-nav-view(name='menuContent', animation='slide-left-right')
+    ion-side-menu(side='left')
+      //-header.bar.bar-header.bar-stable
+        h1.title Left
+      //ion-content.has-header
+      ion-content
+        ion-list
+          ion-item(nav-clear, menu-close, href='#/app/profile')
+            +avatar()
+          each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',help:'Help'}
+            ion-item(nav-clear, menu-close, href='#/app/#{k}')
+              //-img(ng-src='assets/sidebar-icon-#{k}.png')
+              | #{v}
+
+//-
+  #wrapper(ng-controller='MenuCtrl')
+    // Nav
+    nav.menu(ng-class='{open : menuopen}', style='top: 0; left: 0; width: 100%;')
+      include avatar
+      .navLinkBlock
+        each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',help:'Help'}
+          .mainNavLink(ng-click='menuClick("#{k}")', style='position: relative;')
+            .image_wrapper
+              img(ng-src='assets/sidebar-icon-#{k}.png')
+            .image_wrapper_text
+              | #{v}
+    // Main Content
+    #site(ng-class='{open: menuopen}')
+      // Header
+      .topcoat-navigation-bar(ng-show='authenticated()')
+        .topcoat-navigation-bar__item.left.quarter
+          a(ng-click='menuopen = !menuopen')
+            button.btn.btn--icon
+              img(src='assets/menu.png', style='margin-top: 7px;')
+        .topcoat-navigation-bar__item.center.half(style='top: 50%; font-size: 33px;')
+          | {{nav.name}}
+        .topcoat-navigation-bar__item.right.quarter
+          a
+            button.refresh(ng-click='sync()', data-animation='{{refreshing()}}')
+              img(src='assets/refresh-new.png')
+      // Content
+      #content.max-width(ng-controller='TasksCtrl')
+        // this stuff is just for development? I won't style this right now
+        .appStatusArea
+          input.appOnlineToggle(type='button', value='Online: {{settings.online}}', ng-click='User.online(!settings.online)')
+          | |
+          output.queueLengthReporter {{queueLength()}}
+        // Main View
+        div(ng-controller='NotificationCtrl')
+          #notification
+            div(ng-bind-html='data.message')
+
+        div(ui-view='')
+
+

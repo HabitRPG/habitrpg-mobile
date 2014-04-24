@@ -1,0 +1,17 @@
+{
+  "name": "yo",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#develop",
+    "topcoat": "~0.8.0",
+    "jquery.transit": "~0.9.9",
+    "marked": "~0.3.0",
+    "js-emoji": "git://github.com/snicker/js-emoji#master",
+    "angular-touch": "~1.2.8",
+    "angular-sanitize": "~1.2.8",
+    "angular-ui-router": "~0.2.7",
+    "angular-resource": "~1.2.8"
+  },
+  "devDependencies": {}
+}

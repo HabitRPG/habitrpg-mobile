@@ -1,0 +1,286 @@
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 768px) {
+}
+.herobox:after {
+  padding: 0.382em 0.618em;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.382em;
+  font-size: 0.8em;
+  line-height: 1;
+  color: #fff;
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 768px) {
+}
+.profile-modal-header {
+  width: 560px;
+  margin: 0px auto;
+}
+.avatar-level {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+.herobox {
+  height: 10.5em;
+  width: 10em;
+  max-width: 10em;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  background: #dae3e5;
+  transition: border 0.25s ease-out, background 0.25s ease-out;
+  outline: 1px solid rgba(0,0,0,0.1);
+}
+.herobox:after {
+  content: attr(data-name);
+  position: absolute;
+  top: 0;
+  display: block;
+  margin: 2px;
+  text-align: left;
+  color: #f7fbf6 !important;
+  background-color: #b2d4a6 !important;
+  border-color: #8ec07d !important;
+  transition: opacity 0.2s ease-out;
+}
+.herobox:after > a {
+  color: #f7fbf6 !important;
+}
+.herobox:after {
+  opacity: 0;
+}
+.herobox.isUser:not(.hasMount):after {
+  opacity: 1;
+  color: #f7f9fa !important;
+  background-color: #b3c5c9 !important;
+  border-color: #8faaaf !important;
+}
+.herobox.isUser:not(.hasMount):after > a {
+  color: #f7f9fa !important;
+}
+.character-sprites span {
+  position: absolute;
+}
+#profileStable .active {
+  border: 1px solid #000;
+}
+.herobox:not(.isUser) {
+  outline: 0;
+  background-color: #c5d3d6;
+}
+.herobox.hasPet {
+  padding-top: 1.75em;
+}
+.herobox:not(.hasPet) {
+  padding-top: 2em;
+}
+.herobox.hasMount {
+  padding-top: 0em;
+}
+.herobox:hover,
+.herobox:focus {
+  background: #e5ebed;
+}
+.herobox:hover:after,
+.herobox:focus:after {
+  opacity: 1;
+}
+.herobox .character-sprites {
+  width: 6.428571429em;
+  height: 6.428571429em;
+  margin: 0 auto;
+}
+.herobox .character-sprites span,
+.herobox .pet {
+  position: absolute;
+}
+.herobox.isLeader {
+  background: #dee6e8;
+}
+.header-wrap {
+  width: 100%;
+  padding: 46px 0 0 0;
+  z-index: 100;
+  background-color: #c5d3d6;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+@media screen and (max-width: 768px) {
+  .header-wrap {
+    padding: 0;
+  }
+}
+.user-menu {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  font-size: 0.85em;
+  z-index: 1011;
+}
+.user-menu .site-nav {
+  margin-bottom: 0px;
+}
+.user-menu .tile {
+  cursor: pointer;
+  font-weight: 400;
+  color: #494949;
+  color: rgba(38,38,38,0.8);
+  background-color: #c2d7db;
+}
+.user-menu .tile:hover,
+.user-menu .tile:focus {
+  background-color: #b2d4a6;
+}
+.user-menu .tile:active {
+  background-color: #98c688;
+}
+.user-reporter:after {
+  content: '▾';
+  float: right;
+}
+.stacked > li {
+  display: list-item;
+}
+.stacked > li > a {
+  display: block;
+}
+.flyout,
+.flyout-alt {
+  position: relative;
+}
+.flyout-content {
+  position: absolute;
+  top: 100%;
+  right: -99999px;
+  height: 0;
+  overflow: hidden;
+}
+.flyout:hover > .flyout-content {
+  right: 0;
+}
+.flyout-alt:hover > .flyout-content {
+  top: 0;
+  right: 100%;
+}
+.flyout:hover > .flyout-content,
+.flyout-alt:hover > .flyout-content {
+  height: auto;
+  overflow: visible;
+}
+.flyout .tile {
+  min-width: 6.5em;
+}
+.stacked .tile {
+  outline: 0;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-top: 0;
+}
+.site-header {
+  display: table;
+  height: 10.5em;
+}
+@media (min-width: 42.5em) {
+  .site-header {
+    width: 75%;
+  }
+}
+@media (min-width: 60em) {
+  .site-header {
+    width: 66%;
+  }
+}
+@media (min-width: 70em) {
+  .site-header {
+    width: 70%;
+  }
+}
+.herobox-wrap {
+  display: table-cell;
+  vertical-align: middle;
+  width: 10em;
+  height: 10.5em;
+}
+.hero-stats {
+  padding: 0 1.25em;
+  margin: 0;
+  display: table-cell;
+  vertical-align: middle;
+  min-width: 175px;
+}
+.hero-stats .meter,
+.hero-stats .bar {
+  box-shadow: none;
+  border-radius: 0;
+}
+.hero-stats .meter {
+  position: relative;
+  background: #fff;
+  opacity: 1;
+  outline: 1px solid rgba(0,0,0,0.2);
+  outline-offset: -1px;
+  overflow: hidden;
+  height: 2.25em;
+  margin: 0 0 1em;
+  cursor: help;
+  color: #111;
+}
+.hero-stats .meter:last-of-type {
+  margin-bottom: 0;
+}
+.hero-stats .meter:after {
+  content: attr(title);
+  position: absolute;
+  left: -1em;
+  top: 0.4em;
+  font-weight: 400;
+  z-index: -1;
+  transition: all 0.25s ease-out;
+}
+.hero-stats .meter .bar {
+  border: 1px solid rgba(0,0,0,0.1);
+  height: 100%;
+  transition: width 0.25s ease-out;
+}
+.hero-stats .meter:hover:after {
+  left: 1em;
+  z-index: 1;
+}
+.hero-stats .health .bar {
+  background: #d64040;
+}
+.hero-stats .experience .bar {
+  background: #ffcf42;
+}
+.hero-stats .mana .bar {
+  background: #5288e9;
+}
+.hero-stats .meter-text {
+  position: absolute;
+  top: 0;
+  right: 0.5em;
+  z-index: 1;
+  line-height: 2.25;
+}
+header .hero-stats {
+  background-color: #cfdbde;
+  border-right: 1px solid #bacbcf;
+}

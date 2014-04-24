@@ -1,0 +1,123 @@
+script(id='views/profile.html',type='text/ng-template')
+  .profile-container
+    div(ui-view='')
+    .filterBar
+      a.btn.btn--small.btn--filter(ng-click='$state.go("profile.view")', ng-class='{current: $state.is("profile.view")}') View
+      a.btn.btn--small.btn--filter(ng-click='$state.go("profile.customize")', ng-class='{current: $state.is("profile.customize")}') Customize
+
+script(id='views/profile.view.html',type='text/ng-template')
+  .profile-content
+    .herobox
+      .character-sprites(ng-class='{hasPet: user.items.currentPet}')
+        div(ng-include='"views/avatar-sprites.html"')
+    .user
+      p.username {{user.auth.local.username}}
+      p.level LEVEL {{user.stats.lvl}}
+      p.gold
+        span.shop_gold Gold:
+        | {{user.stats.gp | gold}}
+        span.shop_silver Silver:
+        | {{user.stats.gp | silver}}
+    div(style='clear: both;')
+    div(ng-include='"views/avatar-meters.html"')
+    h3 Stats returning soon!
+
+script(id='views/profile.customize.html', type='text/ng-template')
+  .profile-content
+    .customize-content(ng-controller='userAvatarCtrl')
+      .herobox
+        .character-sprites(ng-class='{hasPet: user.items.currentPet}')
+          div(ng-include='"views/avatar-sprites.html"')
+
+      p Unlock more options at habitrpg.com
+
+      h3 Body
+
+      h5 Size
+      .topcoat-button-bar
+        .topcoat-button-bar__item
+          button.topcoat-button-bar__button(ng-class='{active: user.preferences.size=="slim"}', ng-click='set({"preferences.size":"slim"})') Slim
+        .topcoat-button-bar__item
+          button.topcoat-button-bar__button(ng-class='{active: user.preferences.size=="broad"}', ng-click='set({"preferences.size":"broad"})') Broad
+
+
+      h5 Shirt
+      menu(type='list')
+        li.customize-menu
+          menu(label='Shirts')
+            each shirt in ['black', 'blue', 'green', 'pink', 'white', 'yellow']
+              button.customize-option(class='{{user.preferences.size}}_shirt_#{shirt}', type='button', ng-click='set({"preferences.shirt":"#{shirt}"})')
+          menu(label='Special Shirts')
+            each shirt in ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie']
+              button.customize-option(type='button', class='{{user.preferences.size}}_shirt_#{shirt}', ng-if='user.purchased.shirt.#{shirt}', ng-click='unlock("shirt.#{shirt}")')
+
+      hr
+
+      h3 Head
+      menu(type='list')
+        h5 Color
+        li.customize-menu
+          menu(label='Color')
+            each v,k in {'c8c8c8':'white','903a00':'brown','cfb853':'blond','ec720f':'red','2e2e2e':'black'}
+              button(type='button', class='customize-option', style='width: 40px; height: 40px; background-color:##{k};', ng-click='set({"preferences.hair.color": "#{v}"})')
+
+        // Special Events
+        li.customize-menu
+            menu(label='Winter Colors')
+              each color in ['candycane','frost','winternight','holly']
+                button(type='button', ng-if='user.purchased.hair.color.#{color}', class='customize-option hair_bangs_1_#{color}', style='width: 40px; height: 40px;', ng-click='unlock("hair.color.#{color}")')
+
+        h5 Bangs
+        li.customize-menu
+          menu(label='Bangs')
+            button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.bangs":0})')
+            each num in [1,2,3]
+              button(class='hair_bangs_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.bangs":#{num}})')
+
+        h5 Base
+        li.customize-menu
+          menu(label='Base')
+            button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.base":0})')
+            each v,k in {1:true,2:false,3:true,4:false,5:false,6:false,7:false,8:false}
+              case v
+                when true:  button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-click='set({"preferences.hair.base":#{k}})')
+                when false: button(class='hair_base_#{k}_{{user.preferences.hair.color}} customize-option', type='button', ng-if='user.purchased.hair.base.#{k}', ng-click='unlock("hair.base.#{k}")')
+
+
+        h5 Beard
+        li.customize-menu
+          menu
+            button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.beard":0})')
+            each num in [1,2,3]
+              button(class='hair_beard_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-if='user.purchased.hair.beard.#{num}', ng-click='unlock("hair.beard.#{num}")')
+
+        h5 Mustache
+        li.customize-menu
+          menu
+            button(class='head_0 customize-option', type='button', ng-click='set({"preferences.hair.mustache":0})')
+            each num in [1,2]
+              button(class='hair_mustache_#{num}_{{user.preferences.hair.color}} customize-option', type='button', ng-if='user.purchased.hair.mustache.#{num}', ng-click='unlock("hair.mustache.#{num}")')
+
+      hr
+
+      h3 Skin
+      // skin
+      li.customize-menu
+        h5 Basic Skins
+        menu
+          each color in ['ddc994','f5a76e','ea8349','c06534','98461a','915533','c3e1dc','6bd049']
+            button.customize-option(type='button', class='skin_#{color}', ng-click='set({"preferences.skin":"#{color}"})')
+
+        // Rainbow Skin
+        h5 Rainbow Skins
+        menu
+          each color in ['eb052b','f69922','f5d70f','0ff591','2b43f6','d7a9f7','800ed0','rainbow']
+            button.customize-option(type='button', class='skin_#{color}', ng-if='user.purchased.skin.#{color}', ng-click='unlock("skin.#{color}")')
+
+        // Special Events
+        // restore to d4df481 to see purchasing + "limited edition" code
+        div(ng-if='user.purchased.skin.monster || user.purchased.skin.pumpkin || user.purchased.skin.skeleton || user.purchased.skin.zombie || user.purchased.skin.ghost || user.purchased.skin.shadow')
+          h5 Spooky Skins
+          menu
+            each color in ['monster','pumpkin','skeleton','zombie','ghost','shadow']
+              button.customize-option(type='button', class='skin_#{color}', ng-if='user.purchased.skin.#{color}', ng-click='unlock("skin.#{color}")')

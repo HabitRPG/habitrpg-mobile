@@ -1,0 +1,32 @@
+<div class='login-page' ng-controller='AuthCtrl'>
+<div style="width:300px; text-align:center; margin:0 auto">
+<div class="habitrpg_logo"></div>
+    <div>
+        <!-- Facebook -->
+        <button ng-click="Facebook.login()">Connect with Facebook</button><br><br>
+
+        </div>
+        <div id='fb-root'></div>
+
+        <form>
+            <label for="username">Username</label><input type='text' id="username" required /><br/>
+            <label for="password">Password</label><input type='password' id="password" required /><br />
+            <input type='submit' value="Submit" ng-click="auth()" />
+        </form>
+
+        <!--
+        <button ng-click="showAPILogin = !showAPILogin;">ID / API Token</button>
+        <form ng-submit="apiLogin()" id="apiLoginForm">
+            <label for="uuid">UUID</label><input type='text' id="uuid" required />
+            <label for="apiToken">API Token</label><input type='text' id="apiToken" required />
+            <input type='submit' value="Submit" />
+        </form>
+
+        -->
+
+    <h2>New User</h2>
+    <button ng-click="newGame()">Start New Game</button>
+
+    </div>
+</div>
+</div>
