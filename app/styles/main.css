@@ -149,12 +149,11 @@ body {
     padding: 0;
     margin: 0;
 }
-
 .refresh {
     border: 0;
     margin: 0 12px 0 0;
     background: none;
-    padding:19px;
+    padding:9px;
 }
 /* Nav Panel
 =============================== */
@@ -185,13 +184,13 @@ body {
     margin-top: 2em;
 }
 .mainNavLink {
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #ddd;
     border-top:1px solid #4E4E4E;
     display: block;
     letter-spacing: 1px;
     text-decoration: none;
-    height:65px;
+    height:50px;
     padding-left:12px;
 }
 .lastNavLink {
@@ -207,7 +206,7 @@ body {
     box-sizing: border-box;
 }
 .taskWell {
-    padding: 0.75em 0;
+    padding: 0.3em 0;
     background: #fefefe;
 }
 .taskTypeHeader {
@@ -227,11 +226,11 @@ body {
 .newTaskPrompt {
     -webkit-appearance: none;
     border: 0;
-    margin: 0 0 0.75em;
+    margin: 0 0 0.3em;
     width: 100%;
-    padding: 0.75em 1em;
+    padding: 0.2em 1em;
     font-size: 1.25em;
-    line-height: 1.5;
+    line-height: 1;
     color: rgb(51, 51, 51);
 }
 .newTaskPrompt:focus {
@@ -248,7 +247,7 @@ body {
     width: 100%;
     font-size: 1.1em;
     list-style: none;
-    padding: 1em 0.75em;
+    padding: .3em 0.75em;
     background: #eee;
     border-bottom: 1px solid #ddd;
     letter-spacing: -4px;
@@ -809,7 +808,7 @@ Tasks
     position: absolute;
     line-height: 47px;
     float: left;
-    top: 5px;
+    top: 4px;
     left: 11px;
 }
 .image_wrapper_text {
@@ -817,7 +816,7 @@ Tasks
     position: absolute;
     line-height: 47px;
     float: left;
-    top: 8px;
+    top: 4px;
     left: 73px;
 }
 
