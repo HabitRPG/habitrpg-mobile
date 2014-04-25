@@ -24,7 +24,6 @@ html
     script(src='bower_components/habitrpg-shared/script/directives.js')
     script(src='js/services/authServices.js')
     script(src='js/services/notificationServices.js')
-    script(src='js/controllers/notificationCtrl.js')
     script(src='js/controllers/userAvatarCtrl.js')
     script(src='js/controllers/rootCtrl.js')
     script(src='js/controllers/settingsCtrl.js')
@@ -35,7 +34,12 @@ html
     script(src='js/controllers/menuCtrl.js')
 
 
-  body(ng-app='habitrpg', ng-controller='RootCtrl')
+  body(ng-app='habitrpg', ng-controller='RootCtrl', ng-cloak)
+
+    // Notifications
+    .bar.bar-header.bar-energized.notif-bar(ng-show='notification')
+      h1.title(ng-bind-html='notification')
+
     include auth
     include app
     div(ui-view='')

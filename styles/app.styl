@@ -2,3 +2,20 @@
 @import "../../../website/public/css/global-modules"
 @import "../../../website/public/css/avatar"
 @import "../../../website/public/css/header"
+@import "../../../website/public/css/tasks"
+
+//.notif-bar.ng-hide-add, .notif-bar.ng-hide-remove
+.notif-bar.ng-hide-add
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:all linear 0.5s;
+  -o-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+  display:block!important;
+
+.notif-bar.ng-hide-add.ng-hide-add-active,
+.notif-bar.ng-hide-remove
+  opacity:0;
+
+.notif-bar.ng-hide-add,
+.notif-bar.ng-hide-remove.ng-hide-remove-active
+  opacity:1;

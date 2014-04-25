@@ -1,6 +1,6 @@
 angular.module('notificationServices', []).
-    factory('Notification', function ($filter) {
-        var data = {message:''};
+    factory('Notification', ['$filter','$rootScope', function ($filter,$rootScope) {
+        $rootScope.notification = null;
         var active = false;
         var timer = null;
         var notifyheight = 113;
@@ -10,40 +10,26 @@ angular.module('notificationServices', []).
         return {
 
             hide: function () {
-                $('#notification').fadeOut(function () {
-                    $('#notification').css({
-                        'webkit-transform': 'none',
-                        'top': '-'+notifyheight+'px',
-                        'left': '0px'
-                    });
-
-                    setTimeout(function() {
-                        $('#notification').show()
-                    }, 190)
-                });
-
+                $rootScope.$apply(function(){
+                  $rootScope.notification = null;
+                })
                 active = false;
                 timer = null;
             },
 
             animate: function () {
-
                 if (timer) {
                     clearTimeout(timer);
                     timer = setTimeout(this.hide, 2000)
                 }
-
                 if (active == false) {
                     active = true;
-
-                    $('#notification').transition({ y: notifyheight, x: 0 });
                     timer = setTimeout(this.hide, 2000);
                 }
-
             },
 
             push: function (message) {
-                data.message = ''
+                $rootScope.notification = '';
                 switch(message.type) {
                     case 'stats':
                         /* might want to eventually move this into a view or template of some kind,
@@ -56,14 +42,14 @@ angular.module('notificationServices', []).
                             '</p>';
 
                         if (message.stats.exp != null && message.stats.gp != null)
-                            data.message = '<strong>Experience:</strong> ' + message.stats.exp + rewards
+                            $rootScope.notification = '<strong>Experience:</strong> ' + message.stats.exp + rewards
                         if (message.stats.hp)
-                            data.message = '<strong>HP:</strong> ' + message.stats.hp.toFixed(2)
+                            $rootScope.notification = '<strong>HP:</strong> ' + message.stats.hp.toFixed(2)
                         if (message.stats.gp && message.stats.exp == null)
-                            data.message = rewards
+                            $rootScope.notification = rewards
                     break;
                     case 'text':
-                        data.message = message.text
+                        $rootScope.notification = message.text
                     break;
                 }
 
@@ -86,4 +72,4 @@ angular.module('notificationServices', []).
 
         }
 
-    });
+    }]);
