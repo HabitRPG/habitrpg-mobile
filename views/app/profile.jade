@@ -10,27 +10,25 @@ script(id='views/app.profile.html',type='text/ng-template')
       div(ui-view='')
 
 script(id='views/app.profile.view.html',type='text/ng-template')
-  .card
+  .list
     .item.item-text-wrap
-      .herobox
+      +avatar()
+      //-.herobox
         .character-sprites(ng-class='{hasPet: user.items.currentPet}')
           +avatarSprites()
     .list
-      .item {{user.auth.local.username}}
-      .item LEVEL {{user.stats.lvl}}
       .item
         span.shop_gold Gold:
         | {{user.stats.gp | gold}}
         span.shop_silver Silver:
         | {{user.stats.gp | silver}}
-      .item
-        +avatarMeters()
       .item Stats returning soon!
 
 script(id='views/app.profile.edit.html', type='text/ng-template')
   .profile-content
     .customize-content(ng-controller='userAvatarCtrl')
-      .herobox
+      +avatar()
+      //-.herobox
         .character-sprites(ng-class='{hasPet: user.items.currentPet}')
           +avatarSprites()
 

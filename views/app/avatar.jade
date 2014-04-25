@@ -25,26 +25,32 @@ mixin avatarMeters
         span
 
 mixin avatarSprites
-  span(class='skin_{{user.preferences.skin}}')
-  span(class='{{user.preferences.size}}_shirt_{{user.preferences.shirt}}')
-  span(class='{{user.preferences.size}}_{{user.items.gear.equipped.armor}}',ng-if='!user.preferences.costume')
-  span(class='{{user.preferences.size}}_{{user.items.gear.costume.armor}}',ng-if='user.preferences.costume')
-  span(class='head_0')
-  span(class='hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}')
-  span(class='hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}')
-  span(class='hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}')
-  span(class='hair_mustache_{{user.preferences.hair.mustache}}_{{user.preferences.hair.color}}')
-  span(class='{{user.items.gear.equipped.head}}' ng-if='!user.preferences.costume')
-  span(class='{{user.items.gear.costume.head}}' ng-if='user.preferences.costume')
-  span(class='{{user.items.gear.equipped.shield}}' ng-if='!user.preferences.costume')
-  span(class='{{user.items.gear.costume.shield}}' ng-if='user.preferences.costume')
-  span(class='{{user.items.gear.equipped.weapon}}' ng-if='!user.preferences.costume')
-  span(class='{{user.items.gear.costume.weapon}}' ng-if='user.preferences.costume')
-  span(ng-class='{zzz:user.preferences.sleep}')
-  span(class='current-pet Pet-{{user.items.currentPet}}' ng-show='user.items.currentPet')
+  //-div(ng-init='profile=user',ng-click='$state.go("/app/profile")')
+    include ../../../../website/views/shared/header/avatar
+  //-
+    span(class='skin_{{user.preferences.skin}}')
+    span(class='{{user.preferences.size}}_shirt_{{user.preferences.shirt}}')
+    span(class='{{user.preferences.size}}_{{user.items.gear.equipped.armor}}',ng-if='!user.preferences.costume')
+    span(class='{{user.preferences.size}}_{{user.items.gear.costume.armor}}',ng-if='user.preferences.costume')
+    span(class='head_0')
+    span(class='hair_base_{{user.preferences.hair.base}}_{{user.preferences.hair.color}}')
+    span(class='hair_bangs_{{user.preferences.hair.bangs}}_{{user.preferences.hair.color}}')
+    span(class='hair_beard_{{user.preferences.hair.beard}}_{{user.preferences.hair.color}}')
+    span(class='hair_mustache_{{user.preferences.hair.mustache}}_{{user.preferences.hair.color}}')
+    span(class='{{user.items.gear.equipped.head}}' ng-if='!user.preferences.costume')
+    span(class='{{user.items.gear.costume.head}}' ng-if='user.preferences.costume')
+    span(class='{{user.items.gear.equipped.shield}}' ng-if='!user.preferences.costume')
+    span(class='{{user.items.gear.costume.shield}}' ng-if='user.preferences.costume')
+    span(class='{{user.items.gear.equipped.weapon}}' ng-if='!user.preferences.costume')
+    span(class='{{user.items.gear.costume.weapon}}' ng-if='user.preferences.costume')
+    span(ng-class='{zzz:user.preferences.sleep}')
+    span(class='current-pet Pet-{{user.items.currentPet}}' ng-show='user.items.currentPet')
 
 mixin avatar
-  div
+  div(ng-init='profile=user',ng-click='$state.go("/app/profile")')
+    include ../../../../website/views/shared/header/avatar
+  +avatarMeters()
+  //-div
     figure.herobox(style='top: -24px; left: -43px;')
       .character-sprites(ng-click='$state.go("/app/profile")')
         +avatarSprites()
