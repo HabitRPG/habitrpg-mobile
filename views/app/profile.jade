@@ -19,7 +19,9 @@ script(id='views/app.profile.view.html',type='text/ng-template')
         | {{user.stats.gp | gold}}
         span.shop_silver Silver:
         | {{user.stats.gp | silver}}
-      .item Stats returning soon!
+      .item
+        | Stats returning soon!
+        //-include ../../node_modules/habitrpg/views/shared/profiles/stats
 
 script(id='views/app.profile.edit.html', type='text/ng-template')
   .list.customize-content(ng-controller='userAvatarCtrl')

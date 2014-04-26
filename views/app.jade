@@ -2,6 +2,9 @@ mixin ionView(title)
   ion-view(title='#{title}')
     ion-nav-buttons(side='left')
       button.button.button-icon.icon.ion-navicon(menu-toggle='left')
+    ion-nav-buttons(side='right')
+      a.button.button-icon.icon.ion-loop(ng-click='sync()', ng-show='!User.settings.fetching')
+      a.button.button-icon.icon.ion-looping(ng-click='sync()', ng-show='User.settings.fetching')
     ion-content.has-header
       block
 
@@ -25,6 +28,7 @@ script(id='views/app.html',type='text/ng-template')
         ion-nav-back-button.button-clear
           i.icon.ion-chevron-left
           | Back
+
       ion-nav-view(name='menuContent', animation='slide-left-right')
     ion-side-menu(side='left')
       //-header.bar.bar-header.bar-stable
@@ -41,42 +45,9 @@ script(id='views/app.html',type='text/ng-template')
 
 //-
   #wrapper(ng-controller='MenuCtrl')
-    // Nav
-    nav.menu(ng-class='{open : menuopen}', style='top: 0; left: 0; width: 100%;')
-      include avatar
-      .navLinkBlock
-        each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',help:'Help'}
-          .mainNavLink(ng-click='menuClick("#{k}")', style='position: relative;')
-            .image_wrapper
-              img(ng-src='assets/sidebar-icon-#{k}.png')
-            .image_wrapper_text
-              | #{v}
-    // Main Content
-    #site(ng-class='{open: menuopen}')
-      // Header
-      .topcoat-navigation-bar(ng-show='authenticated()')
-        .topcoat-navigation-bar__item.left.quarter
-          a(ng-click='menuopen = !menuopen')
-            button.btn.btn--icon
-              img(src='assets/menu.png', style='margin-top: 7px;')
-        .topcoat-navigation-bar__item.center.half(style='top: 50%; font-size: 33px;')
-          | {{nav.name}}
-        .topcoat-navigation-bar__item.right.quarter
-          a
-            button.refresh(ng-click='sync()', data-animation='{{refreshing()}}')
-              img(src='assets/refresh-new.png')
-      // Content
-      #content.max-width(ng-controller='TasksCtrl')
-        // this stuff is just for development? I won't style this right now
-        .appStatusArea
-          input.appOnlineToggle(type='button', value='Online: {{settings.online}}', ng-click='User.online(!settings.online)')
-          | |
-          output.queueLengthReporter {{queueLength()}}
-        // Main View
-        div(ng-controller='NotificationCtrl')
-          #notification
-            div(ng-bind-html='data.message')
-
-        div(ui-view='')
+      .appStatusArea
+        input.appOnlineToggle(type='button', value='Online: {{settings.online}}', ng-click='User.online(!settings.online)')
+        | |
+        output.queueLengthReporter {{queueLength()}}
 
 

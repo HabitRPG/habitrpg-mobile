@@ -12,6 +12,7 @@ habitrpg.controller('RootCtrl',
 
     $rootScope.Shared = $window.habitrpgShared;
     $rootScope.moment = $window.moment;
+    $rootScope.Math = $window.Math;
 
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -23,5 +24,10 @@ habitrpg.controller('RootCtrl',
     $rootScope.authenticated = function() {
       return (User.settings.auth.apiId != '');
     }
+
+    // FIXME is this used anywhere?
+    $scope.queueLength = function () {
+      return User.settings.sync.queue.length || User.settings.sync.sent.length
+    };
   }
 ]);
