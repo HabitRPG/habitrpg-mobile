@@ -1,12 +1,10 @@
 script(id='views/app.profile.html',type='text/ng-template')
-  ion-view(title='Profile')
+  +ionView('Profile')
     ion-tabs
-      ion-tab(title='View')
-        ion-content(has-header='true')
-          div(ng-include='"views/app.profile.view.html"')
-      ion-tab(title='Customize')
-        ion-content(has-header='true')
-          div(ng-include='"views/app.profile.edit.html"')
+      +ionTab('View')
+        div(ng-include='"views/app.profile.view.html"')
+      +ionTab('Customize')
+        div(ng-include='"views/app.profile.edit.html"')
       div(ui-view='')
 
 script(id='views/app.profile.view.html',type='text/ng-template')
