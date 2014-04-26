@@ -10,6 +10,7 @@ mixin ionTabView(title)
     ion-content.has-header.has-tabs.padding
       block
 
+include ../node_modules/habitrpg/views/shared/header/avatar
 include app/avatar
 include app/details
 include app/help
@@ -31,8 +32,8 @@ script(id='views/app.html',type='text/ng-template')
       //ion-content.has-header
       ion-content
         ion-list
-          ion-item(nav-clear, menu-close, href='#/app/profile')
-            +avatar()
+          ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
+            +avatar2()
           each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',help:'Help'}
             ion-item(nav-clear, menu-close, href='#/app/#{k}')
               //-img(ng-src='assets/sidebar-icon-#{k}.png')

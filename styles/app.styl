@@ -1,7 +1,7 @@
-@import "../../../website/public/css/global-colors"
-@import "../../../website/public/css/global-modules"
-@import "../../../website/public/css/avatar"
-@import "../../../website/public/css/header"
+@import "../node_modules/habitrpg/public/css/global-colors"
+@import "../node_modules/habitrpg/public/css/global-modules"
+@import "../node_modules/habitrpg/public/css/avatar"
+@import "../node_modules/habitrpg/public/css/header"
 //@import "../../../website/public/css/tasks"
 
 //.notif-bar.ng-hide-add, .notif-bar.ng-hide-remove
@@ -23,3 +23,14 @@
 for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
   .item-complex.color-{$stage[0]} .item-content
     background-color: $stage[1]
+
+.hero-stats .meter.sidebar
+  height: 1.5em
+  .meter-text
+    line-height: 1.5em
+.hero-stats .meter-text
+  z-index: 100
+
+.menu-avatar .item-content
+  padding 5px
+

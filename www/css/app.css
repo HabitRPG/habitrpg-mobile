@@ -320,3 +320,15 @@ header .hero-stats {
 .item-complex.color-best .item-content {
   background-color: #c9daf8;
 }
+.hero-stats .meter.sidebar {
+  height: 1.5em;
+}
+.hero-stats .meter.sidebar .meter-text {
+  line-height: 1.5em;
+}
+.hero-stats .meter-text {
+  z-index: 100;
+}
+.menu-avatar .item-content {
+  padding: 5px;
+}
