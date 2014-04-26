@@ -42,6 +42,10 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: "/login",
       templateUrl: 'views/auth.login.html'
     })
+    .state('auth.facebook', {
+      url: "/facebook",
+      templateUrl: 'views/auth.facebook.html'
+    })
     .state('auth.register', {
       url: "/register",
       templateUrl: 'views/auth.register.html'

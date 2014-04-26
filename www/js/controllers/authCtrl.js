@@ -10,16 +10,12 @@ habitrpg.controller('AuthCtrl',
   function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) {
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
-    $scope.login = {username:'',password:''};
 
     var showedFacebookMessage = false;
-    $scope.useUUID = false;
-    $scope.toggleUUID = function() {
-      if (showedFacebookMessage == false) {
-        alert("Until we add Facebook, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings).")
-        showedFacebookMessage = true;
-      }
-      $scope.useUUID = !$scope.useUUID;
+
+    $scope.initLoginForm = function(useUUID) {
+      $scope.useUUID = useUUID;
+      $scope.login = {username:'',password:''};
     }
 
     document.addEventListener('deviceready', function() {
@@ -56,7 +52,6 @@ habitrpg.controller('AuthCtrl',
     }
 
     $scope.auth = function() {
-      debugger;
       var data = {
         username: $scope.login.username,
         password: $scope.login.password
