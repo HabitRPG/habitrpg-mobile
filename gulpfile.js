@@ -37,7 +37,15 @@ gulp.task('stylus', function () {
 gulp.task('views', function(){
   gulp.src('./views/index.jade')
     //.pipe(jade())
-    .pipe(jade({locals:{env:{t:function(){}}}}))// TODO: use actual env.t() function with translations
+    // TODO: use actual env.t() function with translations
+    .pipe(jade({locals:{env:{
+      t:function(key){
+        switch (key) {
+          case 'lvl': return 'Level';
+          default: return '';
+        }
+      }
+    }}}))
     .pipe(gulp.dest(dist))
     .pipe(rename({extname: '.html'}))
     .pipe(connect.reload())

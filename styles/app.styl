@@ -2,7 +2,7 @@
 @import "../../../website/public/css/global-modules"
 @import "../../../website/public/css/avatar"
 @import "../../../website/public/css/header"
-@import "../../../website/public/css/tasks"
+//@import "../../../website/public/css/tasks"
 
 //.notif-bar.ng-hide-add, .notif-bar.ng-hide-remove
 .notif-bar.ng-hide-add
@@ -19,3 +19,7 @@
 .notif-bar.ng-hide-add,
 .notif-bar.ng-hide-remove.ng-hide-remove-active
   opacity:1;
+
+for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
+  .item-complex.color-{$stage[0]} .item-content
+    background-color: $stage[1]

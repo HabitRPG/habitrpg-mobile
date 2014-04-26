@@ -27,7 +27,7 @@ script(id='views/app.list.html',type='text/ng-template')
         ion-list(can-swipe='true')
 
           //ion-item(ng-repeat='task in user[nav.type+"s"] | filter:taskFilter', href='#/app/tasks/{{task.id}}')
-          ion-item(ng-repeat='task in user[nav.type+"s"] | filter:taskFilter')
+          ion-item(ng-repeat='task in user[nav.type+"s"] | filter:taskFilter',class="item item-complex {{getClass(task.value)}}",ng-class='{completed: (task.completed || notDue(task))}')
             // Habits
             span.item-button-right(ng-if='task.type == "habit"')
               .buttons
