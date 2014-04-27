@@ -284,6 +284,135 @@ header .hero-stats {
   background-color: #cfdbde;
   border-right: 1px solid #bacbcf;
 }
+.gem-wallet {
+  cursor: pointer;
+  padding-top: 10px;
+}
+.gem-wallet .tile {
+  background-color: #ffe69e;
+}
+.gem-wallet .add-gems-btn {
+  opacity: 0;
+}
+.gem-wallet:hover .add-gems-btn,
+.gem-wallet:focus .add-gems-btn {
+  opacity: 1;
+  background-color: #d9ead3;
+}
+.gem-wallet:hover .tile,
+.gem-wallet:focus .tile {
+  opacity: 1;
+}
+.modal-header .gem-wallet {
+  padding-top: 0px;
+}
+.equipment-title {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 20px;
+}
+.stable .static-popover {
+  max-width: 550px;
+}
+menu.pets div {
+  display: inline-block;
+  padding-top: -30px;
+}
+.current-pet {
+  left: 0px;
+  bottom: 0px;
+}
+.minimal.current-pet,
+.minimal.current-mount {
+  display: none;
+}
+.item-drop-icon {
+  float: left;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+.food-tray {
+  position: fixed;
+  right: 15px;
+  bottom: 0px;
+  width: 30%;
+  height: 50%;
+  overflow-y: auto;
+  z-index: 1;
+}
+.inventory-list li {
+  clear: both;
+}
+.inventory-list button.customize-option {
+  position: relative;
+}
+.inventory-list .stack-count {
+  position: absolute;
+  bottom: -6px;
+  right: -9px;
+}
+.pets-menu > div {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0.3em;
+  width: 6em;
+  margin-top: 1em;
+}
+.pets-menu > div p {
+  text-align: center;
+  margin-top: -0.5em;
+}
+.hatchingPotion-menu > div {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0.3em;
+  width: 6em;
+  margin-top: 1em;
+}
+.hatchingPotion-menu > div p {
+  text-align: center;
+  width: 6em;
+  margin-top: -0.5em;
+}
+menu.pets .customize-menu button {
+  position: relative;
+}
+menu.pets .customize-menu .progress {
+  width: 60%;
+  position: absolute;
+  bottom: -25px;
+  left: 20%;
+  height: 5px;
+}
+.pet-button {
+  border: none;
+  background: none #fff;
+}
+.pet-not-owned {
+  width: 81px;
+  height: 99px;
+/* Would use css3 filters and just display the original pet image with a black hue,
+       but doesn't seem to work in Firefox or Opera */
+/*filter: brightness(0%)
+    -webkit-filter: brightness(0%)
+    -moz-filter: brightness(0%)
+    -o-filter: brightness(0%)
+    -ms-filter: brightness(0%)*/
+}
+.pet-not-owned .PixelPaw {
+  margin-top: 36px;
+}
+.pet-evolved {
+  opacity: 0.1;
+}
+.selectableInventory {
+  background-color: #90ee90 !important;
+  border-radius: 50%;
+}
+.sell-inventory {
+  width: 162px;
+  height: 138px;
+}
 .notif-bar.ng-hide-add {
   -webkit-transition: all linear 0.5s;
   -moz-transition: all linear 0.5s;

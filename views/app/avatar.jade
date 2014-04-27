@@ -3,11 +3,11 @@ mixin avatar2(full)
     tr
       td
         if full
-          +herobox()
+          +herobox({main:1})
         else
           figure.herobox(style='height:90px;width:90px;padding-top:0em;background-color:inherit')
             .character-sprites
-              +avatar()
+              +avatar({minimal:1,main:1})
       td
         .hero-stats
           .meter.health(class='#{full ? "":"sidebar"}')
