@@ -6,6 +6,7 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
+var envT = require('habitrpg/src/middleware').enTranslations;
 
 var paths = {
   sass:   ['./styles/**/*.scss'],
@@ -38,14 +39,7 @@ gulp.task('views', function(){
   gulp.src('./views/index.jade')
     //.pipe(jade())
     // TODO: use actual env.t() function with translations
-    .pipe(jade({locals:{env:{
-      t:function(key){
-        switch (key) {
-          case 'lvl': return 'Level';
-          default: return '';
-        }
-      }
-    }}}))
+    .pipe(jade({locals:{env:{t:envT}}}))
     .pipe(gulp.dest(dist))
     .pipe(rename({extname: '.html'}))
     .pipe(connect.reload())
