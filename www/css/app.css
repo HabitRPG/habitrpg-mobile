@@ -1237,6 +1237,69 @@ menu.pets .customize-menu .progress {
     display: none;
   }
 }
+.avatar-window {
+  float: right;
+  margin: 0 1em 0 0;
+}
+menu {
+  padding: 0;
+  margin: 0;
+}
+.customize-menu {
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  padding-bottom: 10px;
+}
+.customize-menu menu:before {
+  content: attr(label);
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 2;
+}
+.customize-menu .cost {
+  display: block;
+  margin-bottom: 5px;
+}
+.customize-menu .cost .btn {
+  margin-left: 5px;
+  vertical-align: baseline;
+}
+.customize-option {
+  border: 0px solid #808080;
+  background-color: #ededed;
+  margin-bottom: 10px;
+  -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
+}
+.customize-option.hair {
+  width: 40px !important;
+  height: 40px !important;
+}
+.customize-option:active {
+  background-color: #fff2cc;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+}
+.customize-option:not(:last-of-type) {
+  margin-right: 10px;
+}
+@media (max-width: 480px) {
+  .avatar-window {
+    float: none;
+    margin-bottom: 1em;
+  }
+  .customize-menu {
+    width: 100%;
+  }
+}
+.well.limited-edition {
+  padding: 5px;
+  margin: 25px 0 0;
+}
 .notif-bar.ng-hide-add {
   -webkit-transition: all linear 0.5s;
   -moz-transition: all linear 0.5s;
@@ -1317,4 +1380,8 @@ menu.pets .customize-menu .progress {
   text-overflow: ellipsis;
   white-space: nowrap;
   padding: 5px;
+}
+.customize-content .item {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
 }
