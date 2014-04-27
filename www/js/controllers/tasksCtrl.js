@@ -1,19 +1,6 @@
 'use strict';
 
 habitrpg
-  .controller('HabitsCtrl',['$scope', function($scope){
-    $scope.nav = {name:'Habits',type:'habit',singular:'Habit'};
-  }])
-  .controller('DailysCtrl',['$scope', function($scope){
-    $scope.nav = {name:'Dailies',type:'daily',singular:'Daily'};
-  }])
-  .controller('TodosCtrl',['$scope', function($scope){
-    $scope.nav = {name:'To-Dos',type:'todo',singular:'To-Do'};
-  }])
-  .controller('RewardsCtrl',['$scope', function($scope){
-    $scope.nav = {name:'Rewards',type:'reward',singular:'Reward'};
-  }])
-
   .controller('TaskViewCtrl', ['$scope', 'User', '$state', function($scope, User, $state) {
     $scope.task = User.user.tasks[$state.params.tid];
   }])
@@ -85,9 +72,9 @@ habitrpg
       }
     }
 
-    $scope.addTask = function (newTask) {
+    $scope.addTask = function (newTask, type) {
       if (!newTask.length) return;
-      newTask = User.user.ops.addTask({body:{text: newTask, type: $scope.nav.type}});
+      newTask = User.user.ops.addTask({body:{text: newTask, type: type}});
       $scope.showedTasks.unshift(newTask); // ???
       $scope._newTask = '';
     };
