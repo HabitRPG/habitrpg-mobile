@@ -1385,3 +1385,15 @@ menu {
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
 }
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+.shop-sprites {
+  margin: 4px;
+}
+.shop-sprites td {
+  vertical-align: middle;
+}

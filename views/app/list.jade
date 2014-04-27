@@ -48,12 +48,11 @@ script(id='views/app.list.html',type='text/ng-template')
             //ion-option-button.button-assertive.icon.ion-minus-circled(ng-click='share(facility)')
 
           //-ion-item(class="{{item.classes}} {{getClass(0)}}", ng-repeat='item in itemStore', ng-if='nav.type=="reward" && item.text')
-          ion-item(ng-repeat='item in itemStore', ng-if='nav.type=="reward" && item.text')
-            span.item-button-right
-              button.button.button-small.buy-button(ng-click='buy(item.key)')
-                | {{item.value}}
-                span.shop_gold
-            table
+          ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore', ng-if='nav.type=="reward" && item.text')
+            button.button.button-small.buy-button(ng-click='buy(item.key)')
+              | {{item.value}}
+              span.shop_gold
+            table.shop-sprites
               tr
                 td
                   .shop-sprite.item-img(class="shop_{{item.key}}")
