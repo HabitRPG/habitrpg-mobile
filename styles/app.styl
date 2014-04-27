@@ -3,6 +3,7 @@
 @import "../node_modules/habitrpg/public/css/avatar"
 @import "../node_modules/habitrpg/public/css/header"
 @import "../node_modules/habitrpg/public/css/inventory"
+@import "../node_modules/habitrpg/public/css/menu"
 
 //.notif-bar.ng-hide-add, .notif-bar.ng-hide-remove
 .notif-bar.ng-hide-add
@@ -24,13 +25,38 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   .item-complex.color-{$stage[0]} .item-content
     background-color: $stage[1]
 
-.hero-stats .meter.sidebar
-  height: 1.5em
-  .meter-text
-    line-height: 1.5em
+.herobox
+  outline: none
+  background inherit
+.full .herobox:after {opacity: 1}
+.hero-stats
+  .meter
+    margin 0 0 .3em
+  .meter.sidebar
+    height: 1.5em
+    .meter-text
+      line-height: 1.5em
 .hero-stats .meter-text
   z-index: 100
 
 .menu-avatar .item-content
+  padding 5px
+  background-color #e5ebed
+.profile-background
+  background-color #e5ebed
+
+.shop_gold, .shop_silver
+  display inline-block
+.toolbar-wallet li
+  float left
+.avatar-table td
+  vertical-align top
+.rewards-wallet
+  overflow: hidden
+  margin: 0 auto
+  min-width: 30px
+  text-align: center
+  text-overflow: ellipsis
+  white-space: nowrap
   padding 5px
 

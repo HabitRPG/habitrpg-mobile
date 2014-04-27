@@ -4,7 +4,7 @@ mixin ionView(title)
       button.button.button-icon.icon.ion-navicon(menu-toggle='left')
     ion-nav-buttons(side='right')
       a.button.button-icon.icon.ion-loop(ng-click='sync()', ng-show='!User.settings.fetching')
-      a.button.button-icon.icon.ion-looping(ng-click='sync()', ng-show='User.settings.fetching')
+      a.button.button-icon.icon.ion-looping(ng-show='User.settings.fetching')
     block
 
 mixin ionContentView(title)

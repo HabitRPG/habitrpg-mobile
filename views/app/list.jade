@@ -9,17 +9,13 @@ script(id='views/app.list.html',type='text/ng-template')
 
       // Alive
       div(ng-if="user.stats.hp > 0")
-        //-h2.taskTypeHeader(ng-show='nav.type == "reward"')
-          | {{user.stats.gp|gold}}
-          span.shop_gold Gold
-          | {{user.stats.gp|silver}}
-          span.shop_silver Silver
+        .item.rewards-wallet(ng-if='nav.type=="reward"')
+          +wallet()
 
-        form.list(ng-submit='addTask(_newTask)')
-          .item.item-input-inset
-            label.item-input-wrapper
-              input(type='text', placeholder='＋ Add New {{nav.singular}}', ng-model='_newTask')
-            button.button.button-small(type='submit') Add
+        form.item.item-input-inset(ng-submit='addTask(_newTask)')
+          label.item-input-wrapper
+            input(type='text', placeholder='＋ Add New {{nav.singular}}', ng-model='_newTask')
+          button.button.button-small(type='submit') Add
 
         .card(ng-if='user[nav.type+"s"].length == 0')
           .item.item-text-wrap

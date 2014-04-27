@@ -1,8 +1,182 @@
-@media screen and (min-width: 768px) {
+.toolbar-mobile,
+.toolbar-nav .toolbar-button-dropdown,
+.toolbar-nav .toolbar-button,
+.toolbar-sync,
+.toolbar-settings,
+.toolbar-notifs,
+.toolbar-controls .toolbar-controls-button,
+.toolbar-subscribe-button,
+.toolbar-controls .toolbar-subscribe-button {
+  list-style: none;
+}
+.toolbar-mobile > a,
+.toolbar-nav .toolbar-button-dropdown > a,
+.toolbar-nav .toolbar-button > a,
+.toolbar-sync > a,
+.toolbar-settings > a,
+.toolbar-notifs > a,
+.toolbar-controls .toolbar-controls-button > a,
+.toolbar-subscribe-button > a,
+.toolbar-controls .toolbar-subscribe-button > a,
+.toolbar-mobile button,
+.toolbar-nav .toolbar-button-dropdown button,
+.toolbar-nav .toolbar-button button,
+.toolbar-sync button,
+.toolbar-settings button,
+.toolbar-notifs button,
+.toolbar-controls .toolbar-controls-button button,
+.toolbar-subscribe-button button,
+.toolbar-controls .toolbar-subscribe-button button {
+  display: inline-block !important;
+  padding: 0.25em 0.5em !important;
+  text-decoration: none;
+  font-size: 1em;
+  color: #222;
+  background-color: transparent;
+}
+.toolbar-mobile > a:active,
+.toolbar-nav .toolbar-button-dropdown > a:active,
+.toolbar-nav .toolbar-button > a:active,
+.toolbar-sync > a:active,
+.toolbar-settings > a:active,
+.toolbar-notifs > a:active,
+.toolbar-controls .toolbar-controls-button > a:active,
+.toolbar-subscribe-button > a:active,
+.toolbar-controls .toolbar-subscribe-button > a:active,
+.toolbar-mobile button:active,
+.toolbar-nav .toolbar-button-dropdown button:active,
+.toolbar-nav .toolbar-button button:active,
+.toolbar-sync button:active,
+.toolbar-settings button:active,
+.toolbar-notifs button:active,
+.toolbar-controls .toolbar-controls-button button:active,
+.toolbar-subscribe-button button:active,
+.toolbar-controls .toolbar-subscribe-button button:active {
+  background-color: #aaa !important;
 }
 @media screen and (min-width: 768px) {
+  .toolbar-mobile > a:hover,
+  .toolbar-nav .toolbar-button-dropdown > a:hover,
+  .toolbar-nav .toolbar-button > a:hover,
+  .toolbar-sync > a:hover,
+  .toolbar-settings > a:hover,
+  .toolbar-notifs > a:hover,
+  .toolbar-controls .toolbar-controls-button > a:hover,
+  .toolbar-subscribe-button > a:hover,
+  .toolbar-controls .toolbar-subscribe-button > a:hover,
+  .toolbar-mobile button:hover,
+  .toolbar-nav .toolbar-button-dropdown button:hover,
+  .toolbar-nav .toolbar-button button:hover,
+  .toolbar-sync button:hover,
+  .toolbar-settings button:hover,
+  .toolbar-notifs button:hover,
+  .toolbar-controls .toolbar-controls-button button:hover,
+  .toolbar-subscribe-button button:hover,
+  .toolbar-controls .toolbar-subscribe-button button:hover {
+    background-color: #eee !important;
+  }
+}
+.toolbar-mobile > a,
+.toolbar-nav .toolbar-button > a,
+.toolbar-sync > a,
+.toolbar-settings > a,
+.toolbar-notifs > a,
+.toolbar-controls .toolbar-controls-button > a,
+.toolbar-subscribe-button > a,
+.toolbar-controls .toolbar-subscribe-button > a,
+.toolbar-mobile button,
+.toolbar-nav .toolbar-button button,
+.toolbar-sync button,
+.toolbar-settings button,
+.toolbar-notifs button,
+.toolbar-controls .toolbar-controls-button button,
+.toolbar-subscribe-button button,
+.toolbar-controls .toolbar-subscribe-button button {
+  border: 1px solid #ccc !important;
+  border-radius: 0.382em !important;
+}
+.toolbar-subscribe-button > a,
+.toolbar-controls .toolbar-subscribe-button > a,
+.toolbar-subscribe-button button,
+.toolbar-controls .toolbar-subscribe-button button {
+  background-color: #c9daf8 !important;
+  color: #0f3577 !important;
+  border-color: #89aef0 !important;
+}
+.toolbar-subscribe-button > a:active,
+.toolbar-controls .toolbar-subscribe-button > a:active,
+.toolbar-subscribe-button button:active,
+.toolbar-controls .toolbar-subscribe-button button:active {
+  background-color: #a1bff3 !important;
 }
 @media screen and (min-width: 768px) {
+  .toolbar-subscribe-button > a:hover,
+  .toolbar-controls .toolbar-subscribe-button > a:hover,
+  .toolbar-subscribe-button button:hover,
+  .toolbar-controls .toolbar-subscribe-button button:hover {
+    background-color: #bad0f6 !important;
+  }
+}
+.toolbar-subscribe-button > a:nth-of-type(2),
+.toolbar-controls .toolbar-subscribe-button > a:nth-of-type(2) {
+  border-left: 1px solid #bad0f6 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-subscribe-button > div,
+  .toolbar-controls .toolbar-subscribe-button > div {
+    border: 1px solid #89aef0;
+  }
+}
+.toolbar-subscribe-button > div h4,
+.toolbar-controls .toolbar-subscribe-button > div h4 {
+  color: #144398;
+  background-color: #c9daf8;
+  border-color: #89aef0;
+}
+.toolbar-subscribe-button > div > ul:first-child:before,
+.toolbar-controls .toolbar-subscribe-button > div > ul:first-child:before,
+.toolbar-subscribe-button > div > div:first-child:before,
+.toolbar-controls .toolbar-subscribe-button > div > div:first-child:before {
+  background-color: #fff;
+  border-color: #89aef0;
+}
+.toolbar-subscribe-button > div h4:before,
+.toolbar-controls .toolbar-subscribe-button > div h4:before {
+  background-color: #c9daf8;
+  border-color: #89aef0;
+}
+.toolbar-subscribe-button > div ul,
+.toolbar-controls .toolbar-subscribe-button > div ul {
+  border-color: #c9daf8;
+}
+.toolbar-subscribe-button > div a,
+.toolbar-controls .toolbar-subscribe-button > div a,
+.toolbar-subscribe-button > div a:link,
+.toolbar-controls .toolbar-subscribe-button > div a:link,
+.toolbar-subscribe-button > div a:visited,
+.toolbar-controls .toolbar-subscribe-button > div a:visited {
+  color: #0f3577 !important;
+}
+.toolbar-subscribe-button .glyphicon,
+.toolbar-controls .toolbar-subscribe-button .glyphicon {
+  color: #15479f;
+}
+.toolbar-subscribe-button.active a,
+.toolbar-controls .toolbar-subscribe-button.active a,
+.toolbar-subscribe-button.active button,
+.toolbar-controls .toolbar-subscribe-button.active button {
+  background-color: #bad0f6 !important;
+  border-color: #3172e4 !important;
+}
+.toolbar-nav .toolbar-button-dropdown {
+  border: 1px solid #ccc !important;
+  border-radius: 0.382em !important;
+}
+.toolbar-nav .toolbar-button-dropdown > a:first-of-type {
+  border-radius: 0.382em 0em 0em 0.382em !important;
+}
+.toolbar-nav .toolbar-button-dropdown > a:nth-of-type(2) {
+  border-radius: 0em 0.382em 0.382em 0em !important;
 }
 .herobox:after {
   padding: 0.382em 0.618em;
@@ -13,19 +187,191 @@
   line-height: 1;
   color: #fff;
 }
+.toolbar-mobile,
+.toolbar-nav .toolbar-button-dropdown,
+.toolbar-notifs,
+.toolbar-settings {
+  position: relative;
+}
+.toolbar-mobile > div,
+.toolbar-nav .toolbar-button-dropdown > div,
+.toolbar-notifs > div,
+.toolbar-settings > div {
+  position: absolute;
+  top: 3em;
+  min-width: 110px;
+  border-radius: 4px;
+  background-color: #fff;
+}
 @media screen and (max-width: 768px) {
+  .toolbar-mobile > div,
+  .toolbar-nav .toolbar-button-dropdown > div,
+  .toolbar-notifs > div,
+  .toolbar-settings > div {
+    position: fixed;
+    z-index: 1000;
+    top: 2%;
+    left: 2%;
+    width: 96%;
+    height: 96%;
+    box-shadow: 0 0 0 30px rgba(0,0,0,0.63);
+  }
+  .toolbar-mobile > div h4:before,
+  .toolbar-nav .toolbar-button-dropdown > div h4:before,
+  .toolbar-notifs > div h4:before,
+  .toolbar-settings > div h4:before {
+    display: none;
+  }
+  .toolbar-mobile > div > div,
+  .toolbar-nav .toolbar-button-dropdown > div > div,
+  .toolbar-notifs > div > div,
+  .toolbar-settings > div > div {
+    height: 80%;
+    overflow: auto;
+  }
+  .toolbar-mobile > div > div ul:last-child,
+  .toolbar-nav .toolbar-button-dropdown > div > div ul:last-child,
+  .toolbar-notifs > div > div ul:last-child,
+  .toolbar-settings > div > div ul:last-child {
+    padding-bottom: 2.618em;
+  }
+}
+.toolbar-mobile > div h4,
+.toolbar-nav .toolbar-button-dropdown > div h4,
+.toolbar-notifs > div h4,
+.toolbar-settings > div h4 {
+  font-size: 1.2em;
+  margin: 0px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-radius: 0.2em 0.2em 0em 0em;
+  padding: 0.618em 0.8333em;
+}
+.toolbar-mobile > div ul,
+.toolbar-nav .toolbar-button-dropdown > div ul,
+.toolbar-notifs > div ul,
+.toolbar-settings > div ul {
+  padding: 0.382em 0em;
+  list-style: none;
+  overflow: auto;
+  border-top-width: 1px;
+  border-top-style: solid;
 }
 @media screen and (min-width: 768px) {
+  .toolbar-mobile > div ul,
+  .toolbar-nav .toolbar-button-dropdown > div ul,
+  .toolbar-notifs > div ul,
+  .toolbar-settings > div ul {
+    max-height: 320px;
+    max-height: 62.8vh;
+  }
+}
+.toolbar-mobile > div ul li,
+.toolbar-nav .toolbar-button-dropdown > div ul li,
+.toolbar-notifs > div ul li,
+.toolbar-settings > div ul li {
+  width: 100%;
 }
 @media screen and (max-width: 768px) {
+  .toolbar-mobile > div ul li,
+  .toolbar-nav .toolbar-button-dropdown > div ul li,
+  .toolbar-notifs > div ul li,
+  .toolbar-settings > div ul li {
+    width: auto;
+  }
+}
+.toolbar-mobile > div ul a,
+.toolbar-nav .toolbar-button-dropdown > div ul a,
+.toolbar-notifs > div ul a,
+.toolbar-settings > div ul a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0.618em 1em;
+}
+.toolbar-mobile > div ul:first-of-type,
+.toolbar-nav .toolbar-button-dropdown > div ul:first-of-type,
+.toolbar-notifs > div ul:first-of-type,
+.toolbar-settings > div ul:first-of-type {
+  border: none;
+}
+.toolbar-mobile > div > ul:first-child:before,
+.toolbar-nav .toolbar-button-dropdown > div > ul:first-child:before,
+.toolbar-notifs > div > ul:first-child:before,
+.toolbar-settings > div > ul:first-child:before,
+.toolbar-mobile > div > div:first-child:before,
+.toolbar-nav .toolbar-button-dropdown > div > div:first-child:before,
+.toolbar-notifs > div > div:first-child:before,
+.toolbar-settings > div > div:first-child:before,
+.toolbar-mobile > div h4:before,
+.toolbar-nav .toolbar-button-dropdown > div h4:before,
+.toolbar-notifs > div h4:before,
+.toolbar-settings > div h4:before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  z-index: 2;
+  width: 16px;
+  height: 16px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-left-width: 1px;
+  border-left-style: solid;
+  transform: rotate(45deg);
 }
 @media screen and (min-width: 768px) {
+  .toolbar-notifs div,
+  .toolbar-settings div {
+    right: 0px;
+  }
+  .toolbar-notifs div > ul:first-child:before,
+  .toolbar-settings div > ul:first-child:before,
+  .toolbar-notifs div > div:first-child:before,
+  .toolbar-settings div > div:first-child:before,
+  .toolbar-notifs div h4:before,
+  .toolbar-settings div h4:before {
+    right: 1em;
+  }
 }
 @media screen and (min-width: 768px) {
+  .toolbar-mobile div,
+  .toolbar-nav .toolbar-button-dropdown div {
+    left: 0px;
+  }
+  .toolbar-mobile div > ul:first-child:before,
+  .toolbar-nav .toolbar-button-dropdown div > ul:first-child:before,
+  .toolbar-mobile div > div:first-child:before,
+  .toolbar-nav .toolbar-button-dropdown div > div:first-child:before,
+  .toolbar-mobile div h4:before,
+  .toolbar-nav .toolbar-button-dropdown div h4:before {
+    left: 1em;
+  }
+}
+.toolbar-controls {
+  text-align: right;
+  border-radius: 0px 0px 0.382em 0.382em;
+  background-color: #fff;
+}
+.toolbar-controls li {
+  margin-right: 0.618em;
+  margin-bottom: 0.382em;
+  display: inline-block;
 }
 @media screen and (max-width: 768px) {
+  .toolbar-controls,
+.toolbar-controls {
+    width: 96%;
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+    border: none;
+  }
 }
 @media screen and (min-width: 768px) {
+  .toolbar-controls,
+.toolbar-controls {
+    display: none;
+  }
 }
 @media screen and (min-width: 768px) {
 }
@@ -322,10 +668,6 @@ menu.pets div {
   left: 0px;
   bottom: 0px;
 }
-.minimal.current-pet,
-.minimal.current-mount {
-  display: none;
-}
 .item-drop-icon {
   float: left;
   padding-right: 20px;
@@ -413,6 +755,488 @@ menu.pets .customize-menu .progress {
   width: 162px;
   height: 138px;
 }
+.toolbar {
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 998;
+  background-color: #f4f7f7;
+  border-bottom: 1px solid #bacbcf;
+}
+.toolbar > ul > li {
+  display: inline-block;
+}
+.toolbar-mobile-nav {
+  display: inline-block;
+  padding-left: 0.618em;
+  padding-right: 0.618em;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-mobile-nav {
+    display: none;
+  }
+}
+.toolbar-mobile > a,
+.toolbar-mobile button {
+  background-color: #f4f7f7 !important;
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
+}
+.toolbar-mobile > a:active,
+.toolbar-mobile button:active {
+  background-color: #d8e2e2 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-mobile > a:hover,
+  .toolbar-mobile button:hover {
+    background-color: #e9efef !important;
+  }
+}
+.toolbar-mobile > a:nth-of-type(2) {
+  border-left: 1px solid #e9efef !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-mobile > div {
+    border: 1px solid #c6d6d6;
+  }
+}
+.toolbar-mobile > div h4 {
+  color: #4f6d6d;
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-mobile > div > ul:first-child:before,
+.toolbar-mobile > div > div:first-child:before {
+  background-color: #fff;
+  border-color: #c6d6d6;
+}
+.toolbar-mobile > div h4:before {
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-mobile > div ul {
+  border-color: #f4f7f7;
+}
+.toolbar-mobile > div a,
+.toolbar-mobile > div a:link,
+.toolbar-mobile > div a:visited {
+  color: #3e5555 !important;
+}
+.toolbar-mobile .glyphicon {
+  color: #537272;
+}
+.toolbar-mobile.active a,
+.toolbar-mobile.active button {
+  background-color: #e9efef !important;
+  border-color: #87a8a8 !important;
+}
+.toolbar-nav {
+  float: left;
+  padding: 0.618em;
+}
+@media screen and (max-width: 768px) {
+  .toolbar-nav {
+    display: none;
+  }
+}
+.toolbar-nav > li {
+  margin-right: 0.618em;
+}
+.toolbar-nav .toolbar-button-dropdown > a,
+.toolbar-nav .toolbar-button-dropdown button {
+  background-color: #f4f7f7 !important;
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
+}
+.toolbar-nav .toolbar-button-dropdown > a:active,
+.toolbar-nav .toolbar-button-dropdown button:active {
+  background-color: #d8e2e2 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-nav .toolbar-button-dropdown > a:hover,
+  .toolbar-nav .toolbar-button-dropdown button:hover {
+    background-color: #e9efef !important;
+  }
+}
+.toolbar-nav .toolbar-button-dropdown > a:nth-of-type(2) {
+  border-left: 1px solid #e9efef !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-nav .toolbar-button-dropdown > div {
+    border: 1px solid #c6d6d6;
+  }
+}
+.toolbar-nav .toolbar-button-dropdown > div h4 {
+  color: #4f6d6d;
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-nav .toolbar-button-dropdown > div > ul:first-child:before,
+.toolbar-nav .toolbar-button-dropdown > div > div:first-child:before {
+  background-color: #fff;
+  border-color: #c6d6d6;
+}
+.toolbar-nav .toolbar-button-dropdown > div h4:before {
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-nav .toolbar-button-dropdown > div ul {
+  border-color: #f4f7f7;
+}
+.toolbar-nav .toolbar-button-dropdown > div a,
+.toolbar-nav .toolbar-button-dropdown > div a:link,
+.toolbar-nav .toolbar-button-dropdown > div a:visited {
+  color: #3e5555 !important;
+}
+.toolbar-nav .toolbar-button-dropdown .glyphicon {
+  color: #537272;
+}
+.toolbar-nav .toolbar-button-dropdown.active a,
+.toolbar-nav .toolbar-button-dropdown.active button {
+  background-color: #e9efef !important;
+  border-color: #87a8a8 !important;
+}
+.toolbar-nav .toolbar-button > a,
+.toolbar-nav .toolbar-button button {
+  background-color: #f4f7f7 !important;
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
+}
+.toolbar-nav .toolbar-button > a:active,
+.toolbar-nav .toolbar-button button:active {
+  background-color: #d8e2e2 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-nav .toolbar-button > a:hover,
+  .toolbar-nav .toolbar-button button:hover {
+    background-color: #e9efef !important;
+  }
+}
+.toolbar-nav .toolbar-button > a:nth-of-type(2) {
+  border-left: 1px solid #e9efef !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-nav .toolbar-button > div {
+    border: 1px solid #c6d6d6;
+  }
+}
+.toolbar-nav .toolbar-button > div h4 {
+  color: #4f6d6d;
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-nav .toolbar-button > div > ul:first-child:before,
+.toolbar-nav .toolbar-button > div > div:first-child:before {
+  background-color: #fff;
+  border-color: #c6d6d6;
+}
+.toolbar-nav .toolbar-button > div h4:before {
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-nav .toolbar-button > div ul {
+  border-color: #f4f7f7;
+}
+.toolbar-nav .toolbar-button > div a,
+.toolbar-nav .toolbar-button > div a:link,
+.toolbar-nav .toolbar-button > div a:visited {
+  color: #3e5555 !important;
+}
+.toolbar-nav .toolbar-button .glyphicon {
+  color: #537272;
+}
+.toolbar-nav .toolbar-button.active a,
+.toolbar-nav .toolbar-button.active button {
+  background-color: #e9efef !important;
+  border-color: #87a8a8 !important;
+}
+.toolbar-nav .toolbar-button > a {
+  display: inline-block;
+  height: 100%;
+}
+.toolbar-bailey,
+.toolbar-wallet,
+.toolbar-options,
+.toolbar-subscribe {
+  float: right;
+  padding: 0.618em 0.618em 0.618em 0;
+}
+@media screen and (max-width: 768px) {
+  .toolbar-bailey,
+  .toolbar-wallet,
+  .toolbar-options,
+  .toolbar-subscribe {
+    float: none;
+    display: inline-block;
+    padding: 0.618em 0.382em 0.618em 0;
+  }
+}
+.toolbar-wallet .gem-wallet .Gems {
+  margin-top: 0em;
+}
+.toolbar-wallet .gem-wallet span {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 0.382em;
+}
+.toolbar-currency {
+  padding-top: 0.236em;
+  padding-bottom: 0.236em;
+  vertical-align: top;
+}
+.toolbar-currency.gold {
+  color: #946e00;
+}
+.toolbar-currency.silver {
+  color: #999;
+}
+.toolbar-options > li,
+.toolbar-wallet > li {
+  margin-left: 0.618em;
+}
+@media screen and (max-width: 768px) {
+  .toolbar-options > li {
+    padding-left: 0em;
+    margin-left: 0em;
+    margin-right: 0.618em;
+  }
+}
+.toolbar-sync > a,
+.toolbar-settings > a,
+.toolbar-sync button,
+.toolbar-settings button {
+  background-color: #f4f7f7 !important;
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
+}
+.toolbar-sync > a:active,
+.toolbar-settings > a:active,
+.toolbar-sync button:active,
+.toolbar-settings button:active {
+  background-color: #d8e2e2 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-sync > a:hover,
+  .toolbar-settings > a:hover,
+  .toolbar-sync button:hover,
+  .toolbar-settings button:hover {
+    background-color: #e9efef !important;
+  }
+}
+.toolbar-sync > a:nth-of-type(2),
+.toolbar-settings > a:nth-of-type(2) {
+  border-left: 1px solid #e9efef !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-sync > div,
+  .toolbar-settings > div {
+    border: 1px solid #c6d6d6;
+  }
+}
+.toolbar-sync > div h4,
+.toolbar-settings > div h4 {
+  color: #4f6d6d;
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-sync > div > ul:first-child:before,
+.toolbar-settings > div > ul:first-child:before,
+.toolbar-sync > div > div:first-child:before,
+.toolbar-settings > div > div:first-child:before {
+  background-color: #fff;
+  border-color: #c6d6d6;
+}
+.toolbar-sync > div h4:before,
+.toolbar-settings > div h4:before {
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-sync > div ul,
+.toolbar-settings > div ul {
+  border-color: #f4f7f7;
+}
+.toolbar-sync > div a,
+.toolbar-settings > div a,
+.toolbar-sync > div a:link,
+.toolbar-settings > div a:link,
+.toolbar-sync > div a:visited,
+.toolbar-settings > div a:visited {
+  color: #3e5555 !important;
+}
+.toolbar-sync .glyphicon,
+.toolbar-settings .glyphicon {
+  color: #537272;
+}
+.toolbar-sync.active a,
+.toolbar-settings.active a,
+.toolbar-sync.active button,
+.toolbar-settings.active button {
+  background-color: #e9efef !important;
+  border-color: #87a8a8 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar {
+    position: fixed;
+  }
+}
+.toolbar-notifs > a,
+.toolbar-notifs button {
+  background-color: #f4f7f7 !important;
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
+}
+.toolbar-notifs > a:active,
+.toolbar-notifs button:active {
+  background-color: #d8e2e2 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-notifs > a:hover,
+  .toolbar-notifs button:hover {
+    background-color: #e9efef !important;
+  }
+}
+.toolbar-notifs > a:nth-of-type(2) {
+  border-left: 1px solid #e9efef !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-notifs > div {
+    border: 1px solid #c6d6d6;
+  }
+}
+.toolbar-notifs > div h4 {
+  color: #4f6d6d;
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-notifs > div > ul:first-child:before,
+.toolbar-notifs > div > div:first-child:before {
+  background-color: #fff;
+  border-color: #c6d6d6;
+}
+.toolbar-notifs > div h4:before {
+  background-color: #f4f7f7;
+  border-color: #c6d6d6;
+}
+.toolbar-notifs > div ul {
+  border-color: #f4f7f7;
+}
+.toolbar-notifs > div a,
+.toolbar-notifs > div a:link,
+.toolbar-notifs > div a:visited {
+  color: #3e5555 !important;
+}
+.toolbar-notifs .glyphicon {
+  color: #537272;
+}
+.toolbar-notifs.active a,
+.toolbar-notifs.active button {
+  background-color: #e9efef !important;
+  border-color: #87a8a8 !important;
+}
+.toolbar-notifs > a span.inactive {
+  opacity: 0.236 !important;
+}
+.toolbar-notifs div {
+  padding-bottom: 1em;
+  width: 300px;
+}
+@media screen and (max-width: 768px) {
+  .toolbar-notifs div {
+    width: 96%;
+  }
+}
+.toolbar-notifs div .toolbar-notifs-notifs {
+  padding-bottom: 1em;
+}
+.toolbar-notifs div .toolbar-notifs-notifs li .glyphicon {
+  margin-right: 0.618em;
+  height: 100%;
+}
+.toolbar-notifs div .toolbar-notifs-notifs a:nth-of-type(1) {
+  width: 84%;
+}
+.toolbar-notifs div .toolbar-notifs-notifs a:nth-of-type(2) {
+  width: 16%;
+  text-align: center;
+}
+.toolbar-notifs div .toolbar-notifs-notifs a:nth-of-type(2) .glyphicon-remove-circle {
+  margin: 0px;
+}
+.toolbar-notifs-no-messages {
+  padding: 0.382em 1em;
+}
+.toolbar-controls .toolbar-controls-button > a,
+.toolbar-controls .toolbar-controls-button button {
+  background-color: #f8fafa !important;
+  color: #3e5757 !important;
+  border-color: #c9d8d8 !important;
+}
+.toolbar-controls .toolbar-controls-button > a:active,
+.toolbar-controls .toolbar-controls-button button:active {
+  background-color: #dbe5e5 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-controls .toolbar-controls-button > a:hover,
+  .toolbar-controls .toolbar-controls-button button:hover {
+    background-color: #edf2f2 !important;
+  }
+}
+.toolbar-controls .toolbar-controls-button > a:nth-of-type(2) {
+  border-left: 1px solid #edf2f2 !important;
+}
+@media screen and (min-width: 768px) {
+  .toolbar-controls .toolbar-controls-button > div {
+    border: 1px solid #c9d8d8;
+  }
+}
+.toolbar-controls .toolbar-controls-button > div h4 {
+  color: #4f6f6f;
+  background-color: #f8fafa;
+  border-color: #c9d8d8;
+}
+.toolbar-controls .toolbar-controls-button > div > ul:first-child:before,
+.toolbar-controls .toolbar-controls-button > div > div:first-child:before {
+  background-color: #fff;
+  border-color: #c9d8d8;
+}
+.toolbar-controls .toolbar-controls-button > div h4:before {
+  background-color: #f8fafa;
+  border-color: #c9d8d8;
+}
+.toolbar-controls .toolbar-controls-button > div ul {
+  border-color: #f8fafa;
+}
+.toolbar-controls .toolbar-controls-button > div a,
+.toolbar-controls .toolbar-controls-button > div a:link,
+.toolbar-controls .toolbar-controls-button > div a:visited {
+  color: #3e5757 !important;
+}
+.toolbar-controls .toolbar-controls-button .glyphicon {
+  color: #537474;
+}
+.toolbar-controls .toolbar-controls-button.active a,
+.toolbar-controls .toolbar-controls-button.active button {
+  background-color: #edf2f2 !important;
+  border-color: #89abab !important;
+}
+@media screen and (max-width: 768px) {
+  .toolbar-mobile .toolbar-submenu,
+  .toolbar-settings .toolbar-submenu {
+    padding-left: 1em;
+    display: block;
+  }
+  .toolbar-mobile .toolbar-submenu li,
+  .toolbar-settings .toolbar-submenu li {
+    display: inline-block;
+  }
+  .toolbar-mobile .toolbar-submenu li a,
+  .toolbar-settings .toolbar-submenu li a {
+    padding-left: 0em;
+  }
+  .toolbar-subscribe {
+    display: none;
+  }
+}
 .notif-bar.ng-hide-add {
   -webkit-transition: all linear 0.5s;
   -moz-transition: all linear 0.5s;
@@ -449,6 +1273,16 @@ menu.pets .customize-menu .progress {
 .item-complex.color-best .item-content {
   background-color: #c9daf8;
 }
+.herobox {
+  outline: none;
+  background: inherit;
+}
+.full .herobox:after {
+  opacity: 1;
+}
+.hero-stats .meter {
+  margin: 0 0 0.3em;
+}
 .hero-stats .meter.sidebar {
   height: 1.5em;
 }
@@ -459,5 +1293,28 @@ menu.pets .customize-menu .progress {
   z-index: 100;
 }
 .menu-avatar .item-content {
+  padding: 5px;
+  background-color: #e5ebed;
+}
+.profile-background {
+  background-color: #e5ebed;
+}
+.shop_gold,
+.shop_silver {
+  display: inline-block;
+}
+.toolbar-wallet li {
+  float: left;
+}
+.avatar-table td {
+  vertical-align: top;
+}
+.rewards-wallet {
+  overflow: hidden;
+  margin: 0 auto;
+  min-width: 30px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding: 5px;
 }
