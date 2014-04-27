@@ -43,8 +43,8 @@ habitrpg
     $scope.showedTasks = []
 
     $scope.taskFilter = function (task) {
-      return $state.is('todo') ? !task.completed :
-        $state.is('todo.completed') ? task.completed : true;
+      return $state.is('app.todo') ? !task.completed :
+        $state.is('app.todo.completed') ? task.completed : true;
     };
 
     $scope.score = function (task, direction) {
@@ -67,31 +67,22 @@ habitrpg
     };
 
     $scope.notDue = function(task) {
-      if (task.type == 'daily') {
+      if (task.type == 'daily')
         return !$rootScope.Shared.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
-      } else {
-        return false
-      }
+      return false;
     }
 
     $scope.getClass = function(value) {
-
-        var out = ''
-        if (value < -20)
-            out += ' color-worst'
-        else if (value < -10)
-            out += ' color-worse'
-        else if (value < -1)
-            out += ' color-bad'
-        else if (value < 1)
-            out += ' color-neutral'
-        else if (value < 5)
-            out += ' color-good'
-        else if (value < 10)
-            out += ' color-better'
-        else
-            out += ' color-best'
-        return out
+      // Fixme DRY up habitrpg-shared/index.coffee#taskClasses so we can get rid of this function
+      switch(true) {
+        case (value < -20): return ' color-worst';
+        case (value < -10): return ' color-worse';
+        case (value < -1): return ' color-bad';
+        case (value < 1): return ' color-neutral';
+        case (value < 5): return ' color-good';
+        case (value < 10): return ' color-better';
+        default: return  ' color-best';
+      }
     }
 
     $scope.addTask = function (newTask) {
@@ -115,10 +106,6 @@ habitrpg
         }
     }
 
-    //$('.taskWell').css('height', $(window).height() - 76)
-
-    var counter = 0;
-
 
     /**
      * ------------------------
@@ -130,10 +117,5 @@ habitrpg
       $scope.itemStore = $rootScope.Shared.updateStore(User.user);
     }, true);
 
-
-    $scope.buy = function(key) {
-      User.user.ops.buy({params:{key:key}});
-    };
-   
   }
 ]);

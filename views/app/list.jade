@@ -7,8 +7,12 @@ script(id='views/app.list.html',type='text/ng-template')
     div(ng-controller='TasksCtrl')
       // Dead
       div(ng-if="user.stats.hp <= 0")
-        h1 You are dead
-        a.topcoat-button--large(ng-click='user.ops.revive({})') Revive
+        .card
+          .item.item-text-wrap
+            h1=env.t('youDied')
+            p=env.t('dieText')
+        .padding
+          button.button.button-positive.button-block(ng-click='user.ops.revive({})')=env.t('continue')
 
       // Alive
       div(ng-if="user.stats.hp > 0")
@@ -52,7 +56,7 @@ script(id='views/app.list.html',type='text/ng-template')
 
           //-ion-item(class="{{item.classes}} {{getClass(0)}}", ng-repeat='item in itemStore', ng-if='nav.type=="reward" && item.text')
           ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore', ng-if='nav.type=="reward" && item.text')
-            button.button.button-small.buy-button(ng-click='buy(item.key)')
+            button.button.button-small.buy-button(ng-click='user.ops.buy({params:{key:item.key}})')
               | {{item.value}}
               span.shop_gold
             table.shop-sprites
