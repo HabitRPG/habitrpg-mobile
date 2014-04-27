@@ -26,8 +26,7 @@
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
     "grunt-contrib-jade": "~0.9.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-phonegap": "~0.13.3"
+    "grunt-contrib-watch": "~0.5.3"
   },
   "peerDependencies": {
     "grunt-cli": "*",
