@@ -1,0 +1,88 @@
+script(id="views/app.task.html",type='text/ng-template')
+  +ionView('Details')
+    ion-tabs
+      +ionTab('View')
+        div(ng-include='"views/app.task.view.html"')
+      +ionTab('Edit')
+        div(ng-include='"views/app.task.edit.html"')
+
+script(id="views/app.task.view.html",type='text/ng-template')
+    div(ng-controller='TaskViewCtrl')
+      .card
+        .item.item-text-wrap
+          h2.title(ng-class='{strikeout: task.completed}')
+            //-markdown(ng-model='task.text')
+            | {{task.text}}
+          p {{task.notes}}
+
+      // Checklist
+      .list(ng-if='task.checklist')
+        .item.item-divider
+          | Checklist
+
+        .item.item-checkbox(ng-repeat='item in task.checklist')
+          label.checkbox
+            input(type='checkbox', ng-model='item.completed', ng-change='save(true)')
+          | {{item.text}}
+
+      //- Removing actions from view page for now
+        p
+          // <input class="toggle" type="checkbox" ng-model="task.completed" ng-show="task.type == 'daily' || task.type == 'todo'" ng-cloak />
+          label.topcoat-checkbox__label(ng-show='task.type == "daily" || task.type == "todo"')
+            input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
+            .topcoat-checkbox
+
+
+        // Habits
+        span(ng-show='task.type == "habit"', ng-cloak='ng-cloak')
+          button.topcoat-button.taskButton(ng-show='task.up', ng-click='score(task,"up")') ＋
+          button.topcoat-button.taskButton(ng-show='task.down', ng-click='score(task,"down")') －
+        // Rewards and items
+        input(type='button', value='Buy ({{task.value}}gp)', ng-click='score(task,"down")', ng-show='task.type == "reward"', ng-cloak='ng-cloak')
+        input(type='button', value='Buy ({{task.value}}gp)', ng-click='buy(task.type)', ng-hide='task.id', ng-cloak='ng-cloak')
+
+script(id="views/app.task.edit.html",type='text/ng-template')
+    div(ng-controller='TaskEditCtrl')
+      .form.list.list-inset
+        label.item.item-input.item-stacked-label
+          span.input-label Title
+          input(type='text', placeholder='Title', ng-model='task.text')
+        label.item.item-input.item-stacked-label
+          span.input-label Notes
+          textarea(type='text', placeholder='Notes', ng-model='task.notes')
+        // Habits
+        .item(ng-if='task.type == "habit"', ng-cloak='ng-cloak')
+          span.input-label Allowed Directions
+          .button-bar
+            a.button.icon.ion-android-add(ng-click='task.up = !task.up', ng-class='{"active":task.up}')
+            a.button.icon.ion-android-remove(ng-click='task.down = !task.down', ng-class='{"active":task.down}')
+        // Dailies
+        .item(ng-if='task.type == "daily"')
+          span.input-label Repeat
+          .button-bar
+            a.button(ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)', ng-class='{"active":task.repeat.su}') Sun
+            a.button(ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)', ng-class=  '{"active":task.repeat.m}') M
+            a.button(ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)', ng-class=  '{"active":task.repeat.t}') T
+            a.button(ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)', ng-class=  '{"active":task.repeat.w}') W
+            a.button(ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)', ng-class='{"active":task.repeat.th}') Th
+            a.button(ng-click='task.challenge.id || (task.repeat.f = !task.repeat.f)', ng-class=  '{"active":task.repeat.f}') F
+            a.button(ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', ng-class=  '{"active":task.repeat.s}') S
+
+        // Todos
+          .item(ng-show='task.type == "todo"')
+            // TODO: Due Date
+        .item(ng-hide='task.type == "reward"')
+          span.input-label Difficulty
+          .button-bar
+            a.button(ng-click='task.priority = "1"', ng-class='{"active":task.priority == "1"}') Easy
+            a.button(ng-click='task.priority = "1.5"', ng-class='{"active":task.priority == "1.5"}') Medium
+            a.button(ng-click='task.priority = "2"', ng-class='{"active":task.priority == "2"}') Difficult
+        // Rewards
+        label.item.item-input.item-stacked-label(ng-if='task.type == "reward"')
+          span.input-label Price
+          input(type='text', placeholder='Price', ng-model='task.value')
+
+      .padding
+        button.button.button-block.button-positive(ng-click='save()') Save
+        button.button.button-block.button-stable(ng-click='cancel()') Cancel
+        button.button.button-block.button-assertive(ng-click='delete()') Delete

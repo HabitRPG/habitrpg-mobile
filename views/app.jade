@@ -1,0 +1,59 @@
+mixin ionView(title)
+  ion-view(title='#{title}')
+    ion-nav-buttons(side='left')
+      button.button.button-icon.icon.ion-navicon(menu-toggle='left')
+    ion-nav-buttons(side='right')
+      a.button.button-icon.icon.ion-loop(ng-click='sync()', ng-show='!User.settings.fetching')
+      a.button.button-icon.icon.ion-looping(ng-show='User.settings.fetching')
+    block
+
+mixin ionContentView(title)
+  +ionView(title)
+    ion-content.has-header
+      block
+
+mixin ionTab(title)
+  ion-tab(title='#{title}')
+    //ion-content.has-header.has-tabs(has-header='true')
+    ion-content.has-header.has-tabs
+      block
+
+include ../node_modules/habitrpg/views/shared/header/avatar
+include ../node_modules/habitrpg/views/options/profile
+include app/avatar
+include app/details
+include app/help
+include app/list
+include app/profile
+include app/settings
+
+script(id='views/app.html',type='text/ng-template')
+  ion-side-menus
+    ion-pane(ion-side-menu-content)
+      ion-nav-bar.bar-stable.nav-title-slide-ios7
+        ion-nav-back-button.button-clear
+          i.icon.ion-chevron-left
+          | Back
+
+      ion-nav-view(name='menuContent', animation='slide-left-right')
+    ion-side-menu(side='left')
+      //-header.bar.bar-header.bar-stable
+        h1.title Left
+      //ion-content.has-header
+      ion-content
+        ion-list
+          ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
+            +avatar2()
+          each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',help:'Help'}
+            ion-item(nav-clear, menu-close, href='#/app/#{k}')
+              //-img(ng-src='assets/sidebar-icon-#{k}.png')
+              | #{v}
+
+//-
+  #wrapper(ng-controller='MenuCtrl')
+      .appStatusArea
+        input.appOnlineToggle(type='button', value='Online: {{settings.online}}', ng-click='User.online(!settings.online)')
+        | |
+        output.queueLengthReporter {{queueLength()}}
+
+

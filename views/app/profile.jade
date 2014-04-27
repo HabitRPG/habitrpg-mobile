@@ -1,0 +1,19 @@
+script(id='views/app.profile.html',type='text/ng-template')
+  +ionView('Profile')
+    ion-tabs
+      +ionTab('View')
+        .list
+          .item.profile-background
+            +avatar2(true)
+          .list
+            .item
+              | Stats returning soon!
+              //-include ../../node_modules/habitrpg/views/shared/profiles/stats
+      +ionTab('Customize')
+        .list.customize-content(ng-controller='userAvatarCtrl')
+          .item.profile-background
+            +avatar2(true)
+          .item.item-wrap-text
+             p Unlock more options at habitrpg.com
+          +customizeProfile(true)
+      div(ui-view='')

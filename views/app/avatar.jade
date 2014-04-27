@@ -1,0 +1,43 @@
+mixin wallet
+  ul.toolbar-wallet(style='padding:0')
+    //-li.toolbar-gems
+      a.gem-wallet(ng-click='openModal("buyGems",{track:"Gems > Toolbar"})', popover-trigger='mouseenter', popover-title=env.t('gems'), popover=env.t('gemsWhatFor'), popover-placement='bottom',popover-append-to-body='true')
+        //-span.task-action-btn.tile.flush.bright.add-gems-btn ＋
+        span.Pet_Currency_Gem2x.Gems
+        span.gem-text {{user.balance * 4 | number:0}}
+    li.toolbar-currency.gold
+      span.shop_gold
+      span {{Shared.gold(user.stats.gp)}}
+    li.toolbar-currency.silver
+      span.shop_silver
+      span {{Shared.silver(user.stats.gp)}}
+
+mixin avatar2(full)
+  table.avatar-table(ng-init='profile=user',class='#{full ? "full" : ""}')
+    tr
+      td
+        if full
+          +herobox({main:1})
+        else
+          figure.herobox(style='height:90px;width:90px;padding-top:0em;background-color:inherit')
+            .character-sprites
+              +avatar({minimal:1,main:1})
+      td
+        .hero-stats
+          .meter.health(class='#{full ? "":"sidebar"}')
+            .bar(style='width: {{Shared.percent(user.stats.hp, 50)}}%;')
+            span.meter-text
+              span.icon.ion-heart
+              |  {{Math.ceil(user.stats.hp)}} / 50
+          .meter.experience(class='#{full ? "":"sidebar"}')
+            .bar(style='width: {{Shared.percent(user.stats.exp,Shared.tnl(user.stats.lvl))}}%;')
+            span.meter-text
+              span.icon.ion-star
+              |  {{Math.floor(user.stats.exp) | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
+          if full
+            .meter.mana(class='#{full ? "":"sidebar"}', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+              .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
+              span.meter-text
+                span.icon.ion-flash
+                |  {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
+          +wallet()

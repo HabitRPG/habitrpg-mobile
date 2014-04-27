@@ -1,0 +1,72 @@
+@import "../node_modules/habitrpg/public/css/global-colors"
+@import "../node_modules/habitrpg/public/css/global-modules"
+@import "../node_modules/habitrpg/public/css/avatar"
+@import "../node_modules/habitrpg/public/css/header"
+@import "../node_modules/habitrpg/public/css/inventory"
+@import "../node_modules/habitrpg/public/css/menu"
+@import "../node_modules/habitrpg/public/css/customizer"
+
+//.notif-bar.ng-hide-add, .notif-bar.ng-hide-remove
+.notif-bar.ng-hide-add
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:all linear 0.5s;
+  -o-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+  display:block!important;
+
+.notif-bar.ng-hide-add.ng-hide-add-active,
+.notif-bar.ng-hide-remove
+  opacity:0;
+
+.notif-bar.ng-hide-add,
+.notif-bar.ng-hide-remove.ng-hide-remove-active
+  opacity:1;
+
+for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
+  .item-complex.color-{$stage[0]} .item-content
+    background-color: $stage[1]
+
+.herobox
+  outline: none
+  background inherit
+.full .herobox:after {opacity: 1}
+.hero-stats
+  .meter
+    margin 0 0 .3em
+  .meter.sidebar
+    height: 1.5em
+    .meter-text
+      line-height: 1.5em
+.hero-stats .meter-text
+  z-index: 100
+
+.menu-avatar .item-content
+  padding 5px
+  background-color #e5ebed
+.profile-background
+  background-color #e5ebed
+
+.shop_gold, .shop_silver
+  display inline-block
+.toolbar-wallet li
+  float left
+.avatar-table td
+  vertical-align top
+.rewards-wallet
+  overflow: hidden
+  margin: 0 auto
+  min-width: 30px
+  text-align: center
+  text-overflow: ellipsis
+  white-space: nowrap
+  padding 5px
+
+.customize-content .item
+  overflow-x: scroll
+  -webkit-overflow-scrolling: touch
+
+.pull-left {float:left;}
+.pull-right {float:right;}
+.shop-sprites
+  margin: 4px;
+  td {vertical-align: middle;}

@@ -1,6 +1,4 @@
-node_modules
-dist
-.tmp
-.sass-cache
-app/bower_components
-.idea
+node_modules/
+www/bower_components
+platforms/
+.idea/

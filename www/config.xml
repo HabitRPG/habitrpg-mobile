@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://cordova.apache.org/ns/1.0"
+        id          = "com.ocdevel.habitrpg"
+        versionCode = "18"
+        version     = "0.0.18">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>HabitRPG</name>
+
+    <access origin="*" />
+
+    <description>
+       Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
+    </description>
+
+    <author email="admin@habitrpg.com" href="https://habitrpg.com">
+        HabitRPG
+    </author>
+
+    <content src="index.html" />
+
+    <preference name="phonegap-version" value="3.4.0" />
+
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" onload="true" />
+    </feature>
+
+    <preference name="prerendered-icon" value="true" />
+    <preference name="android-minSdkVersion" value="11" />
+    <preference name="android-targetSdkVersion" value="13" />
+    <!--<preference name="orientation" value="portrait" />-->
+
+    <feature name="http://api.phonegap.com/1.0/network"/>
+
+    <!-- Resources -->
+    <icon src="icon.png" />
+    <!--<gap:splash src="splash.png" />-->
+
+    <icon src="res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <icon src="res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <icon src="res/icon/android/icon-72-hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <icon src="res/icon/android/icon-96-xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+
+    <icon src="res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
+    <icon src="res/icon/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="res/icon/ios/icon-57-2x.png" gap:platform="ios" width="114" height="114" />
+    <icon src="res/icon/ios/icon-72-2x.png" gap:platform="ios" width="144" height="144" />
+
+    <gap:splash src="res/screen/320_480.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash src="res/screen/640_960.png" gap:platform="ios" width="640" height="960" />
+    <gap:splash src="res/screen/640_1136.png" gap:platform="ios" width="640" height="1136" />
+    <gap:splash src="res/screen/1024_748.png" gap:platform="ios" width="1024" height="748" />
+    <gap:splash src="res/screen/768_1004.png" gap:platform="ios" width="768" height="1004" />
+    <gap:splash src="res/screen/2048_1496.png" gap:platform="ios" width="2048" height="1496" />
+    <gap:splash src="res/screen/1536_2008.png" gap:platform="ios" width="1536" height="2008" />
+
+    <!-- see http://goo.gl/R7NNJi -->
+    <gap:splash src="res/screen/240_320.png" gap:platform="android" gap:density="ldpi" /><!--240x320-->
+    <gap:splash src="res/screen/320_480.png" gap:platform="android" gap:density="mdpi" /><!--320x480-->
+    <gap:splash src="res/screen/480_800.png" gap:platform="android" gap:density="hdpi" /><!--480x800-->
+    <gap:splash src="res/screen/640_960.png" gap:platform="android" gap:density="xhdpi" /><!--640x960-->
+
+
+</widget>

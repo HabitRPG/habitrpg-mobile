@@ -1,0 +1,41 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width')
+    title HabitRPG
+    // Place favicon.ico and apple-touch-icon.png in the root directory
+    // Do not include in build because already minified and can't be put minified here because it would end with wrong paths !
+    link(rel='stylesheet', href='bower_components/habitrpg-shared/dist/habitrpg-shared.css')
+
+    link(rel='stylesheet', type='text/css', href='bower_components/js-emoji/emoji.css')
+    link(rel='stylesheet', type='text/css', href='bower_components/ionic/css/ionic.min.css')
+    link(rel='stylesheet', type='text/css', href='css/app.css')
+
+    script(src='bower_components/ionic/js/ionic.bundle.js')
+    script(src='cordova.js')
+    script(src='bower_components/habitrpg-shared/dist/habitrpg-shared.js')
+    script(src='bower_components/angular-sanitize/angular-sanitize.js')
+    script(src='bower_components/js-emoji/emoji.js')
+    script(src='bower_components/marked/lib/marked.js')
+
+    script(src='js/app.js')
+    script(src='bower_components/habitrpg-shared/script/userServices.js')
+    script(src='bower_components/habitrpg-shared/script/directives.js')
+    script(src='js/services/authServices.js')
+    script(src='js/services/notificationServices.js')
+    script(src='js/controllers/userAvatarCtrl.js')
+    script(src='js/controllers/rootCtrl.js')
+    script(src='js/controllers/settingsCtrl.js')
+    script(src='js/filters/filters.js')
+    script(src='js/controllers/authCtrl.js')
+    script(src='js/controllers/tasksCtrl.js')
+
+  body(ng-app='habitrpg', ng-controller='RootCtrl', ng-cloak)
+
+    // Notifications
+    .bar.bar-header.bar-energized.notif-bar(ng-show='notification')
+      h1.title(ng-bind-html='notification')
+
+    include auth
+    include app
+    div(ui-view='')
