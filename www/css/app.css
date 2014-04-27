@@ -1397,3 +1397,8 @@ menu {
 .shop-sprites td {
   vertical-align: middle;
 }
+markdown.task-text p {
+  color: #000;
+  font: inherit;
+  display: inline-block;
+}

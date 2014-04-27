@@ -1,3 +1,6 @@
+mixin taskText
+  markdown.task-text(ng-model='task.text')
+
 script(id='views/app.list.html',type='text/ng-template')
   +ionContentView('{{nav.name}}')
 
@@ -29,19 +32,19 @@ script(id='views/app.list.html',type='text/ng-template')
               .buttons
                 button.button.button-small.icon.ion-android-add(ng-click='score(task,"up")', ng-show='task.up')
                 button.button.button-small.icon.ion-android-remove(ng-click='score(task,"down")', ng-show='task.down')
-              | {{task.text}}
+              +taskText()
             // Dailies, Todos
             span.item-checkbox(ng-if='task.type=="daily" || task.type=="todo"')
               label.checkbox
                 input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
-              | {{task.text}}
+              +taskText()
             // Rewards
             span(ng-if='task.type == "reward"')
               span.item-button-right
                 button.button.button-small.buy-button(ng-click='score(task,"down")')
                   | {{task.value}}
                   span.shop_gold
-              | {{task.text}}
+                +taskText()
 
             // Actions
             ion-option-button.icon.ion-edit(ng-click='$state.go("app.task",{tid:task.id})')
@@ -61,9 +64,7 @@ script(id='views/app.list.html',type='text/ng-template')
 
 
         //-ul#task-list(ng-hide='tasks().length == 0 && nav.type != "reward"', ng-class='nav.type')
-          li.cf.taskItem(class="{{getClass(task.value)}}",ng-repeat='task in tasks() | filter:taskFilter', ng-class='{completed: (task.completed || notDue(task)), editing: task == editedTask, last:$last}')
             p.taskText(ng-click='selectTask(task)')
-              markdown(ng-model='task.text',style='display: inline-block')
 
       //-div(ng-controller='TasksCtrl')
         .filterBar(ng-if='$state.includes("todo")')

@@ -11,8 +11,7 @@ script(id="views/app.task.view.html",type='text/ng-template')
       .card
         .item.item-text-wrap
           h2.title(ng-class='{strikeout: task.completed}')
-            //-markdown(ng-model='task.text')
-            | {{task.text}}
+            +taskText()
           p {{task.notes}}
 
       // Checklist
