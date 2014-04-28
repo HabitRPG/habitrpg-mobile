@@ -1,9 +1,9 @@
 {
-  "name": "ionic-project",
-  "version": "1.0.0",
-  "description": "An Ionic project",
-  "dependencies": {},
-  "devDependencies": {
+  "name": "habitrpg-mobile",
+  "version": "0.0.19",
+  "description": "",
+  "private": true,
+  "dependencies": {
     "gulp": "^3.6.2",
     "gulp-sass": "^0.7.1",
     "gulp-concat": "^2.2.0",
@@ -15,5 +15,8 @@
     "habitrpg": "HabitRPG/habitrpg#develop",
     "gulp-uglify": "~0.2.1",
     "gulp-clean": "~0.2.4"
+  },
+  "scripts": {
+    "start": "gulp"
   }
 }

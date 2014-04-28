@@ -37,7 +37,7 @@ var paths = {
     'bower_components/**/*',
     '!bower_components/habitrpg-shared/node_modules/**/*',
     '!bower_components/habitrpg-shared/img/unprocessed/**/*',
-    //'!bower_components/habitrpg-shared/img/emoji/**/*',
+    '!bower_components/habitrpg-shared/img/emoji/**/*',
     '!bower_components/habitrpg-shared/img/project_files/**/*',
     '!bower_components/habitrpg-shared/.git/**/*', // I'm using symlink
     '!bower_components/angular/**/*',

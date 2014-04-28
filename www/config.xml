@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
-        xmlns:gap   = "http://cordova.apache.org/ns/1.0"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "com.ocdevel.habitrpg"
-        versionCode = "18"
-        version     = "0.0.18">
+        versionCode = "19"
+        version     = "0.0.19">
 
     <!-- versionCode is optional and Android only -->
 
@@ -40,7 +40,7 @@
 
     <!-- Resources -->
     <icon src="icon.png" />
-    <!--<gap:splash src="splash.png" />-->
+    <gap:splash src="splash.png" />
 
     <icon src="res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:density="ldpi" />
     <icon src="res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:density="mdpi" />
