@@ -1315,6 +1315,11 @@ menu {
 .notif-bar.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
 }
+markdown.task-text p {
+  color: #000;
+  font: inherit;
+  display: inline-block;
+}
 .item-complex.color-worst .item-content {
   background-color: #e6b8af;
 }
@@ -1335,6 +1340,12 @@ menu {
 }
 .item-complex.color-best .item-content {
   background-color: #c9daf8;
+}
+.item-complex.completed .item-content {
+  background-color: #d9d9d9;
+}
+.item-complex.completed .item-content p {
+  color: #999;
 }
 .herobox {
   outline: none;
@@ -1396,11 +1407,6 @@ menu {
 }
 .shop-sprites td {
   vertical-align: middle;
-}
-markdown.task-text p {
-  color: #000;
-  font: inherit;
-  display: inline-block;
 }
 .exp-and-gold {
   margin: 0 8px;

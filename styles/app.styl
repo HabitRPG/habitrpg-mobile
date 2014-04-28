@@ -22,9 +22,17 @@
 .notif-bar.ng-hide-remove.ng-hide-remove-active
   opacity:1;
 
+markdown.task-text p
+  color #000
+  font inherit
+  display inline-block
+
 for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
   .item-complex.color-{$stage[0]} .item-content
     background-color: $stage[1]
+.item-complex.completed .item-content
+  background-color: $completed
+  p {color: #999;}
 
 .herobox
   outline: none
@@ -70,11 +78,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .shop-sprites
   margin: 4px;
   td {vertical-align: middle;}
-
-markdown.task-text p
-  color #000
-  font inherit
-  display inline-block
 
 .exp-and-gold
   //border-left 1px solid white
