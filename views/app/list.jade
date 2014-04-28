@@ -30,8 +30,8 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
 
           ion-list(can-swipe='true')
 
-            //ion-item(ng-repeat='task in user[nav.type+"s"] | filter:taskFilter', href='#/app/tasks/{{task.id}}')
-            ion-item(ng-repeat='task in user.#{k}s | filter:taskFilter',class="item item-complex {{getClass(task.value)}}",ng-class='{completed: (task.completed || notDue(task))}')
+            //href='#/app/tasks/{{task.id}}'
+            ion-item.item.item-complex(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}}",ng-class='{completed: (task.completed || notDue(task))}')
               if k=='habit'
                 span.item-button-right
                   .buttons
@@ -65,7 +65,7 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
                     td
                       span(ng-click='selectTask(item)') {{item.text}}
 
-        //-div(ng-controller='TasksCtrl')
-          .filterBar(ng-if='$state.includes("todo")')
-            a.btn.btn--small.btn--filter(ng-class='{current: $state.is("todo")}', ui-sref='todo') Active
-            a.btn.btn--small.btn--filter(ng-class='{current: $state.is("todo.completed")}', ui-sref='todo.completed') Completed
+    if k=='todo'
+      .tabs
+        a.tab-item(ng-class='{"tab-item-active": $state.is("app.todo")}', ui-sref='app.todo') Active
+        a.tab-item(ng-class='{"tab-item-active": $state.is("app.todo.completed")}', ui-sref='app.todo.completed') Completed

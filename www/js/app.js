@@ -22,7 +22,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider
-    .when('/app', '/auth/habit')
+    .when('/app', '/app/habit')
     .when('/auth', '/auth/login')
     .otherwise(function ($injector, $location) {
       var user = JSON.parse(localStorage.getItem('habitrpg-user'));
