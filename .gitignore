@@ -1,4 +1,5 @@
 node_modules/
 www/bower_components
+bower_components
 platforms/
 .idea/

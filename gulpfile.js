@@ -7,6 +7,7 @@ var rename = require('gulp-rename');
 var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
+var clean = require('gulp-clean');
 var envT = require('habitrpg/src/middleware').enTranslations;
 
 var paths = {
@@ -14,15 +15,15 @@ var paths = {
   stylus:   ['./styles/**/*.styl'],
   views:  ['./views/**/*.jade'],
   scripts: [ // TODO a **/* with excludes
-    'www/bower_components/ionic/js/ionic.bundle.js',
-    'www/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
-    'www/bower_components/angular-sanitize/angular-sanitize.js',
-    'www/bower_components/js-emoji/emoji.js',
-    'www/bower_components/marked/lib/marked.js',
+    'bower_components/ionic/js/ionic.bundle.js',
+    'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
+    'bower_components/angular-sanitize/angular-sanitize.js',
+    'bower_components/js-emoji/emoji.js',
+    'bower_components/marked/lib/marked.js',
 
     'scripts/app.js',
-    'www/bower_components/habitrpg-shared/script/userServices.js',
-    'www/bower_components/habitrpg-shared/script/directives.js',
+    'bower_components/habitrpg-shared/script/userServices.js',
+    'bower_components/habitrpg-shared/script/directives.js',
     'scripts/services/authServices.js',
     'scripts/services/notificationServices.js',
     'scripts/controllers/userAvatarCtrl.js',
@@ -31,9 +32,31 @@ var paths = {
     'scripts/filters/filters.js',
     'scripts/controllers/authCtrl.js',
     'scripts/controllers/tasksCtrl.js'
+  ],
+  bower_excludes: [
+    'bower_components/**/*',
+    '!bower_components/habitrpg-shared/node_modules/**/*',
+    '!bower_components/habitrpg-shared/img/unprocessed/**/*',
+    //'!bower_components/habitrpg-shared/img/emoji/**/*',
+    '!bower_components/habitrpg-shared/img/project_files/**/*',
+    '!bower_components/habitrpg-shared/.git/**/*', // I'm using symlink
+    '!bower_components/angular/**/*',
+    '!bower_components/angular-animate/**/*',
+    '!bower_components/angular-sanitize/**/*',
+    '!bower_components/angular-ui-router/**/*'
   ]
 };
 var dist = './www';
+
+gulp.task('clean', function(){
+  return gulp.src('./www/bower_components/', {read: false})
+    .pipe(clean())
+})
+
+gulp.task('copy', ['clean'], function(){
+  gulp.src(paths.bower_excludes,{ base: './' })
+    .pipe(gulp.dest(dist))
+});
 
 gulp.task('sass', function() {
   gulp.src('./styles/ionic.app.scss')
@@ -68,7 +91,7 @@ gulp.task('scripts', function() {
   gulp.src(paths.scripts)
     //.pipe(uglify())
     .pipe(concat('app.min.js'))
-    .pipe(gulp.dest('www/js'));
+    .pipe(gulp.dest(dist+'/js'));
     connect.reload()
 });
 
@@ -87,4 +110,4 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
 
-gulp.task('default', ['sass','stylus','views','scripts','connect','watch']);
+gulp.task('default', ['copy','sass','stylus','views','scripts','connect','watch']);

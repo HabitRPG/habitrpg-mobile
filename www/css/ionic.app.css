@@ -4235,7 +4235,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
   color: #aaaaaa; }
 
-input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.cloned-text-input), textarea[readonly]:not(.cloned-text-input), select[readonly] {
   background-color: #f8f8f8;
   cursor: not-allowed; }
 
@@ -6173,9 +6173,6 @@ a.button {
  * Utility Classes
  * --------------------------------------------------
  */
-.scroll-collection-item {
-  position: absolute !important; }
-
 .hide {
   display: none; }
 
