@@ -1,0 +1,16 @@
+// Notifications
+.bar.bar-header.bar-energized.notif-bar(ng-show='notification.type')
+  h1.title
+    span(ng-show='notification.type=="text"', ng-bind-html='notification.data')
+    span(ng-show='notification.type=="stats"')
+      span(ng-show='notification.data.hp')
+        | {{notification.data.hp}}&nbsp;
+        i.ion-heart
+      span(ng-show='notification.data.exp')
+        | {{notification.data.exp}}&nbsp;Exp
+      span(ng-class='{"exp-and-gold":notification.data.exp && (notification.data.gp || notification.data.silver)}')
+      span(ng-show='notification.data.gp || notification.data.silver')
+        | {{notification.data.gp}}
+        span.shop_gold
+        | {{notification.data.silver}}
+        span.shop_silver

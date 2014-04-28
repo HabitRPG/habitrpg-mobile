@@ -1402,3 +1402,6 @@ markdown.task-text p {
   font: inherit;
   display: inline-block;
 }
+.exp-and-gold {
+  margin: 0 8px;
+}

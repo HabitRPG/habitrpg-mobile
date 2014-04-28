@@ -15,11 +15,7 @@ html
     script(src='js/app.min.js')
 
   body(ng-app='habitrpg', ng-controller='RootCtrl', ng-cloak)
-
-    // Notifications
-    .bar.bar-header.bar-energized.notif-bar(ng-show='notification')
-      h1.title(ng-bind-html='notification')
-
+    include notifications
     include auth
     include app
     div(ui-view='')
