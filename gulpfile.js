@@ -33,7 +33,8 @@ var paths = {
     'scripts/controllers/authCtrl.js',
     'scripts/controllers/tasksCtrl.js'
   ],
-  bower_excludes: [
+  copy: [
+    'config.xml',
     'bower_components/**/*',
     '!bower_components/habitrpg-shared/node_modules/**/*',
     '!bower_components/habitrpg-shared/img/unprocessed/**/*',
@@ -54,7 +55,7 @@ gulp.task('clean', function(){
 })
 
 gulp.task('copy', ['clean'], function(){
-  gulp.src(paths.bower_excludes,{ base: './' })
+  gulp.src(paths.copy,{ base: './' })
     .pipe(gulp.dest(dist))
 });
 
@@ -89,7 +90,7 @@ gulp.task('views', function(){
 
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
-    //.pipe(uglify())
+    .pipe(uglify())
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest(dist+'/js'));
     connect.reload()

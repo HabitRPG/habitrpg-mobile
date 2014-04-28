@@ -1,5 +1,6 @@
 node_modules/
 www/bower_components
+www/config.xml
 bower_components
 platforms/
 .idea/

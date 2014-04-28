@@ -5,14 +5,14 @@
  */
 var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'notificationServices', 'ngSanitize', 'ngAnimate'])
 
-.run(function($ionicPlatform) {
+.run(['$ionicPlatform',function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
   });
-})
+}])
 
 .constant('API_URL', 'https://habitrpg.com')
 //.constant('API_URL', 'http://localhost:3000')
