@@ -6,13 +6,32 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
+var uglify = require('gulp-uglify');
 var envT = require('habitrpg/src/middleware').enTranslations;
 
 var paths = {
   sass:   ['./styles/**/*.scss'],
   stylus:   ['./styles/**/*.styl'],
   views:  ['./views/**/*.jade'],
-  js:     ['./www/js/**/*.js']
+  scripts: [ // TODO a **/* with excludes
+    'www/bower_components/ionic/js/ionic.bundle.js',
+    'www/bower_components/habitrpg-shared/dist/habitrpg-shared.js',
+    'www/bower_components/angular-sanitize/angular-sanitize.js',
+    'www/bower_components/js-emoji/emoji.js',
+    'www/bower_components/marked/lib/marked.js',
+
+    'scripts/app.js',
+    'www/bower_components/habitrpg-shared/script/userServices.js',
+    'www/bower_components/habitrpg-shared/script/directives.js',
+    'scripts/services/authServices.js',
+    'scripts/services/notificationServices.js',
+    'scripts/controllers/userAvatarCtrl.js',
+    'scripts/controllers/rootCtrl.js',
+    'scripts/controllers/settingsCtrl.js',
+    'scripts/filters/filters.js',
+    'scripts/controllers/authCtrl.js',
+    'scripts/controllers/tasksCtrl.js'
+  ]
 };
 var dist = './www';
 
@@ -45,10 +64,13 @@ gulp.task('views', function(){
     .pipe(connect.reload())
 });
 
-// TODO: min/cat, move bower_components up & min/cat
-gulp.task('js', function(){
-  connect.reload()
-})
+gulp.task('scripts', function() {
+  gulp.src(paths.scripts)
+    //.pipe(uglify())
+    .pipe(concat('app.min.js'))
+    .pipe(gulp.dest('www/js'));
+    connect.reload()
+});
 
 gulp.task('connect', function() {
   connect.server({
@@ -62,7 +84,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.stylus, ['stylus']);
   gulp.watch(paths.views, ['views']);
-  gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.scripts, ['scripts']);
 });
 
-gulp.task('default', ['sass','stylus','views','js','connect','watch']);
+gulp.task('default', ['sass','stylus','views','scripts','connect','watch']);
