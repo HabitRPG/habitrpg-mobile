@@ -30,8 +30,11 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
 
           ion-list(can-swipe='true')
 
+            if k=='reward'
+              .item.item-divider Custom Rewards
+
             //href='#/app/tasks/{{task.id}}'
-            ion-item.item.item-complex(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}}",ng-class='{completed: (task.completed || notDue(task))}')
+            ion-item.item.item-complex(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}} task-#{k}",ng-class='{completed: (task.completed || notDue(task))}')
               if k=='habit'
                 span.item-button-right
                   .buttons
@@ -54,6 +57,8 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
               ion-option-button.icon.ion-edit(ng-click='$state.go("app.task",{tid:task.id})')
 
             if k=='reward'
+              .item.item-divider Gear
+
               ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore')
                 button.button.button-small.buy-button(ng-click='user.ops.buy({params:{key:item.key}})')
                   | {{item.value}}

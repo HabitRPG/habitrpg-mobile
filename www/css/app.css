@@ -1347,6 +1347,9 @@ markdown.task-text p {
 .item-complex.completed .item-content p {
   color: #999;
 }
+.task-reward .item-content {
+  background-color: #fff !important;
+}
 .herobox {
   outline: none;
   background: inherit;
