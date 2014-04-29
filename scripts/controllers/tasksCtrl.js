@@ -22,7 +22,7 @@ habitrpg
   ['$scope', '$rootScope', 'filterFilter', 'User', 'Notification', '$state',
   function($scope, $rootScope, filterFilter, User, Notification, $state) {
 
-    $scope.showedTasks = []
+    $scope.newTask = {};
 
     $scope.save = function (task,keepOpen) {
       User.user.ops.updateTask({params:{id:task.id},body:task});
@@ -73,10 +73,10 @@ habitrpg
     }
 
     $scope.addTask = function (newTask, type) {
-      if (!newTask.length) return;
-      newTask = User.user.ops.addTask({body:{text: newTask, type: type}});
-      $scope.showedTasks.unshift(newTask); // ???
-      $scope._newTask = '';
+      var text = newTask.text
+      if (!text.length) return;
+      User.user.ops.addTask({body:{text:text, type:type}});
+      $scope.newTask.text = '';
     };
 
     $scope.clearDoneTodos = function () {

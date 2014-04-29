@@ -20,9 +20,9 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
             .item.rewards-wallet
               +wallet()
 
-          form.item.item-input-inset(ng-submit='addTask(_newTask,"#{k}")')
+          form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")')
             label.item-input-wrapper
-              input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='_newTask')
+              input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
             button.button.button-small(type='submit') Add
 
           .card(ng-if='user.#{k}s.length == 0')
