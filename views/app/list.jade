@@ -3,8 +3,8 @@ mixin taskText
 
 each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',singular:'Daily'}, todo:{name:'To-Dos',singular:'To-Do'}, reward:{name:'Rewards',singular:'Reward'}}
   script(id='views/app.#{k}.html',type='text/ng-template')
+    //-+ionContentView(nav.name, [{class:'ion-plus-round',fn:"addTask(_newTask,'"+k+"')"}])
     +ionContentView(nav.name)
-      div(ng-controller='TasksCtrl')
         // Dead
         div(ng-if="user.stats.hp <= 0")
           .card
@@ -15,6 +15,7 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
             button.button.button-positive.button-block(ng-click='user.ops.revive({})')=env.t('continue')
         // Alive
         div(ng-if="user.stats.hp > 0")
+
           if k=='reward'
             .item.rewards-wallet
               +wallet()
@@ -38,8 +39,8 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
               if k=='habit'
                 span.item-button-right
                   .buttons
-                    button.button.button-small.icon.ion-android-add(ng-click='score(task,"up")', ng-show='task.up')
-                    button.button.button-small.icon.ion-android-remove(ng-click='score(task,"down")', ng-show='task.down')
+                    button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up")', ng-show='task.up')
+                    button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down")', ng-show='task.down')
                   +taskText()
               if k=='daily' || k=='todo'
                 span.item-checkbox

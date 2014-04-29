@@ -1,3 +1,29 @@
+mixin refresher
+  ion-refresher(on-refresh='sync()', pulling-text='Pull to refresh...', refreshing-icon='ion-loading-d')
+
+mixin ionView(title, buttons)
+  ion-view(title='#{title}')
+    ion-nav-buttons(side='left')
+      button.button.button-icon.icon.ion-navicon(menu-toggle='left')
+    ion-nav-buttons(side='right')
+      a.button.button-icon.icon.ion-loading-d(ng-show='User.settings.fetching')
+      if buttons
+        each btn in buttons
+          button.button.icon(class="#{btn.class}", ng-click='#{btn.fn}')
+    block
+
+mixin ionContentView(title, buttons)
+  +ionView(title, buttons)
+    ion-content.has-header
+      +refresher()
+      block
+
+mixin ionTab(title)
+  ion-tab(title='#{title}')
+    ion-content.has-header.has-tabs
+      +refresher()
+      block
+
 html
   head
     meta(charset='utf-8')

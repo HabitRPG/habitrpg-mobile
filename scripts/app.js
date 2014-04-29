@@ -102,7 +102,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: '/habit',
       views: {
         menuContent: {
-          templateUrl: 'views/app.habit.html'
+          templateUrl: 'views/app.habit.html',
+          controller: "TasksCtrl"
         }
       }
     })
@@ -110,7 +111,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: '/daily',
       views: {
         menuContent: {
-          templateUrl: 'views/app.daily.html'
+          templateUrl: 'views/app.daily.html',
+          controller: "TasksCtrl"
         }
       }
     })
@@ -118,7 +120,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: '/todo',
       views: {
         menuContent: {
-          templateUrl: 'views/app.todo.html'
+          templateUrl: 'views/app.todo.html',
+          controller: "TasksCtrl"
         }
       }
     })
@@ -129,7 +132,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: '/reward',
       views: {
         menuContent: {
-          templateUrl: 'views/app.reward.html'
+          templateUrl: 'views/app.reward.html',
+          controller: "TasksCtrl"
         }
       }
     })
