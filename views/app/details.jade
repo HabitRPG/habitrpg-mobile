@@ -21,7 +21,7 @@ script(id="views/app.task.view.html",type='text/ng-template')
 
         .item.item-checkbox(ng-repeat='item in task.checklist')
           label.checkbox
-            input(type='checkbox', ng-model='item.completed', ng-change='save(true)')
+            input(type='checkbox', ng-model='item.completed', ng-change='save(task,true)')
           | {{item.text}}
 
       //- Removing actions from view page for now
@@ -82,6 +82,6 @@ script(id="views/app.task.edit.html",type='text/ng-template')
           input(type='text', placeholder='Price', ng-model='task.value')
 
       .padding
-        button.button.button-block.button-positive(ng-click='save()') Save
-        button.button.button-block.button-stable(ng-click='cancel()') Cancel
-        button.button.button-block.button-assertive(ng-click='delete()') Delete
+        button.button.button-block.button-positive(ng-click='save(task)') Save
+        button.button.button-block.button-stable(ng-click='cancel(task)') Cancel
+        button.button.button-block.button-assertive(ng-click='delete(task)') Delete

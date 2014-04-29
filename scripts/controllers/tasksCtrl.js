@@ -6,21 +6,16 @@ habitrpg
   }])
   .controller('TaskEditCtrl', ['$scope', 'User', '$state', function($scope, User, $state) {
     $scope.task = _.cloneDeep(User.user.tasks[$state.params.tid]);
-    $scope.save = function (keepOpen) {
-      User.user.ops.updateTask({params:{id:$scope.task.id},body:$scope.task});
-      if (!keepOpen) $state.go('app.'+$scope.task.type);
+
+    $scope.cancel = function (task) {
+      $state.go('app.'+task.type);
     };
 
-    $scope.cancel = function () {
-      $state.go('app.'+$scope.task.type);
-    };
-
-    $scope.delete = function () {
+    $scope.delete = function (task) {
       if (!window.confirm("Delete this task?")) return;
-      User.user.ops.deleteTask({params:{id:$scope.task.id}});
-      $state.go('app.'+$scope.task.type);
+      User.user.ops.deleteTask({params:{id:task.id}});
+      $state.go('app.'+task.type);
     };
-
   }])
 
   .controller('TasksCtrl',
@@ -28,6 +23,11 @@ habitrpg
   function($scope, $rootScope, filterFilter, User, Notification, $state) {
 
     $scope.showedTasks = []
+
+    $scope.save = function (task,keepOpen) {
+      User.user.ops.updateTask({params:{id:task.id},body:task});
+      if (!keepOpen) $state.go('app.'+task.type);
+    };
 
     $scope.taskFilter = function (task) {
       return $state.is('app.todo') ? !task.completed :
