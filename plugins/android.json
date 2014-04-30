@@ -5,9 +5,37 @@
     },
     "config_munge": {
         "files": {
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/manifest/application": [
+                        {
+                            "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<activity android:configChanges=\"keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize\" android:name=\"com.google.android.gms.ads.AdActivity\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
             "res/xml/config.xml": {
                 "parents": {
                     "/*": [
+                        {
+                            "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"com.rjfun.cordova.plugin.AdMob\" /></feature>",
+                            "count": 1
+                        },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
@@ -18,23 +46,23 @@
                         }
                     ]
                 }
-            },
-            "AndroidManifest.xml": {
-                "parents": {
-                    "/manifest/application": [],
-                    "/*": []
-                }
             }
         }
     },
     "installed_plugins": {
+        "com.google.playservices": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.rjfun.cordova.plugin.admob": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
-        "org.apache.cordova.statusbar": {
+        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
-        "org.apache.cordova.inappbrowser": {
+        "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	id="com.rjfun.cordova.plugin.admob"
+	version="1.1">
+      
+    <name>AdMob</name>
+	<description>Add AdMob support</description>
+	<author>Liming Xie</author>
+	<license>MIT</license>
+
+	<engines>
+	    <engine name="cordova" version=">=2.9" />
+	</engines>
+
+    <js-module src="www/AdMob.js" name="AdMob">
+        <clobbers target="window.plugins.AdMob" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <dependency id="com.google.playservices" version=">=15.0.1"/>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="AdMob">
+                <param name="android-package" value="com.rjfun.cordova.plugin.AdMob"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <meta-data android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version"/>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" 
+			    android:name="com.google.android.gms.ads.AdActivity" />
+          </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+			<uses-permission android:name="android.permission.INTERNET"/>
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+          </config-file>
+          
+        <source-file src="src/android/AdMob.java" target-dir="src/com/rjfun/cordova/plugin" />
+     </platform>
+     
+     <!-- ios -->
+     <platform name="ios">    
+         <config-file target="config.xml" parent="/*">
+             <feature name="AdMob">
+                 <param name="ios-package" value="CDVAdMob" />
+             </feature>
+         </config-file>
+         
+         <header-file src="src/ios/CDVAdMob.h" />
+         <source-file src="src/ios/CDVAdMob.m" />
+         
+         <header-file src="src/ios/GADAdMobExtras.h" />
+         <header-file src="src/ios/GADAdNetworkExtras.h" />
+         <header-file src="src/ios/GADAdSize.h" />
+         <header-file src="src/ios/GADBannerView.h" />
+         <header-file src="src/ios/GADBannerViewDelegate.h" />
+         <header-file src="src/ios/GADInterstitial.h" />
+         <header-file src="src/ios/GADInterstitialDelegate.h" />
+         <header-file src="src/ios/GADRequest.h" />
+         <header-file src="src/ios/GADRequestError.h" />
+         <source-file src="src/ios/libGoogleAdMobAds.a" framework="true" />
+         
+ 	     <framework src="StoreKit.framework" />
+ 	     <framework src="AudioToolbox.framework" />
+         <framework src="MessageUI.framework" />
+         <framework src="SystemConfiguration.framework" />
+         <framework src="CoreGraphics.framework" />
+         <framework src="AdSupport.framework" />
+         <framework src="CoreTelephony.framework" />
+	</platform>
+          
+</plugin>
