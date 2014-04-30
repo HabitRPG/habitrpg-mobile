@@ -23,10 +23,6 @@
                         {
                             "xml": "<preference name=\"StatusBarBackgroundColor\" value=\"#000000\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -49,9 +45,6 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },

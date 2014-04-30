@@ -29,9 +29,6 @@
         },
         "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
     "dependent_plugins": {}
