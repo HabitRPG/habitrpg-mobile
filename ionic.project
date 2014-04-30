@@ -1,6 +1,6 @@
 {
-  "name": "myApp",
-  "email": "",
-  "app_id": "",
-  "package_name": ""
+  "name": "HabitRPG",
+  "email": "tyler@habitrpg.com",
+  "app_id": "com.ocdevel.habitrpg",
+  "package_name": "com.ocdevel.habitrpg"
 }

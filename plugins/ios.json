@@ -9,10 +9,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         },
@@ -27,21 +23,36 @@
                         {
                             "xml": "<preference name=\"StatusBarBackgroundColor\" value=\"#000000\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
                         }
                     ]
+                }
+            },
+            "framework": {
+                "parents": {
+                    "StoreKit.framework": [],
+                    "AudioToolbox.framework": [],
+                    "MessageUI.framework": [],
+                    "SystemConfiguration.framework": [],
+                    "CoreGraphics.framework": [],
+                    "AdSupport.framework": [],
+                    "CoreTelephony.framework": []
                 }
             }
         }
     },
     "installed_plugins": {
-        "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
         "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
     "dependent_plugins": {}
