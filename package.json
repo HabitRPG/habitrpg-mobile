@@ -14,7 +14,8 @@
     "gulp-stylus": "~1.0.0",
     "habitrpg": "HabitRPG/habitrpg#develop",
     "gulp-uglify": "~0.2.1",
-    "gulp-clean": "~0.2.4"
+    "gulp-clean": "~0.2.4",
+    "cordova-gen-icon": "https://bitbucket.org/lefnire/cordova-gen-icon/get/lefnire/cordovageniconjs-edited-online-with-bitb-1398874449722.tar.gz"
   },
   "scripts": {
     "start": "gulp"
