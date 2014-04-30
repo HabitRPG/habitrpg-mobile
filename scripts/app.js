@@ -5,8 +5,9 @@
  */
 var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'notificationServices', 'ngSanitize', 'ngAnimate'])
 
-.run(['$ionicPlatform',function($ionicPlatform) {
+.run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
+    $rootScope.isIOS = $ionicPlatform.is('iOS');
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();

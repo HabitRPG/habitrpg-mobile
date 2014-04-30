@@ -17,10 +17,9 @@ script(id='views/app.html',type='text/ng-template')
 
       ion-nav-view(name='menuContent', animation='slide-left-right')
     ion-side-menu(side='left')
-      //-header.bar.bar-header.bar-stable
-        h1.title Left
-      //ion-content.has-header
-      ion-content
+      header.bar.bar-header.bar-stable(ng-if='isIOS')
+        h1.title Menu
+      ion-content(ng-class='{"has-header":isIOS}')
         ion-list
           ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
             +avatar2()
