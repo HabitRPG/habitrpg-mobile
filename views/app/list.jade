@@ -27,7 +27,7 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
 
           .card(ng-if='user.#{k}s.length == 0')
             .item.item-text-wrap
-              | No {{nav.name}} found, add some above.
+              | No #{nav.name} found, add some above.
 
           ion-list(can-swipe='true')
 
