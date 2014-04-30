@@ -68,11 +68,11 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
         }
       }
     })
-    .state('app.help', {
-      url: '/help',
+    .state('app.about', {
+      url: '/about',
       views: {
         menuContent: {
-          templateUrl: 'views/app.help.html'
+          templateUrl: 'views/app.about.html'
         }
       }
     })

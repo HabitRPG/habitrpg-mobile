@@ -9,6 +9,9 @@ script(id="views/app.settings.html",type='text/ng-template')
           strong API Token:&nbsp;
           | {{settings.auth.apiToken}}
 
+      .card(ng-if='!user.purchased.plan.customerId')
+        +premiumAndAds()
+
       .padding
         button.button.button-block(ng-click='User.user.ops.sleep({})')
             span(ng-show='user.preferences.sleep') Check Out of Inn
