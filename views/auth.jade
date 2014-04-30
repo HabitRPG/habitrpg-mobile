@@ -38,7 +38,8 @@ script(id='views/auth.facebook.html',type='text/ng-template')
 
 
 script(id='views/auth.register.html',type='text/ng-template')
-  form.list.list-inset(ng-submit='register()', name='registrationForm')
+  form(ng-submit='register(regForm, registerVals)', name='regForm')
+    .list.list-inset
       label.item.item-input
         input(type='text', ng-model='registerVals.username', placeholder='Username', required='required')
       label.item.item-input

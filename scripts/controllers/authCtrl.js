@@ -28,13 +28,13 @@ habitrpg.controller('AuthCtrl',
 
     }, false);
 
-    $scope.register = function() {
-      if ($scope.registrationForm.$invalid) {
+    $scope.register = function(form, registerVals) {
+      if (form.$invalid) {
         //TODO highlight invalid inputs
         // we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
         return;
       }
-      $http.post(API_URL + '/api/v2/register', $scope.registerVals)
+      $http.post(API_URL + '/api/v2/register', registerVals)
         .success(function(data, status, headers, config) {
           User.authenticate(data.id, data.apiToken, function(err) {
             $location.path("/habit");
