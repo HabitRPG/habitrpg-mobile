@@ -8,38 +8,37 @@
     <!-- versionCode is optional and Android only -->
 
     <name>HabitRPG</name>
-
-    <access origin="*" />
-
     <description>
        Habit tracking which treats your goals like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
     </description>
-
     <author email="admin@habitrpg.com" href="https://habitrpg.com">
         HabitRPG
     </author>
 
     <content src="index.html" />
 
-    <preference name="phonegap-version" value="3.4.0" />
+    <access origin="*" />
 
+    <preference name="phonegap-version" value="3.4.0" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    <feature name="StatusBar">
-        <param name="ios-package" value="CDVStatusBar" onload="true" />
-    </feature>
 
-    <feature name="Device">
-        <param name="ios-package" value="CDVDevice" />
-    </feature>
+    <!--<plugin name="Device" value="org.apache.cordova.Device"/>-->
+
     <preference name="prerendered-icon" value="true" />
-    <preference name="android-minSdkVersion" value="11" />
-    <preference name="android-targetSdkVersion" value="13" />
+    <!--<preference name="android-minSdkVersion" value="11" />-->
+    <!--<preference name="android-targetSdkVersion" value="13" />-->
     <!--<preference name="orientation" value="portrait" />-->
 
     <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" onload="true" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
 
     <!-- Resources -->
     <icon src="icon.png" />
