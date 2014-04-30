@@ -23,6 +23,10 @@
                         {
                             "xml": "<preference name=\"StatusBarBackgroundColor\" value=\"#000000\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -33,7 +37,12 @@
                     "AudioToolbox.framework": [],
                     "MessageUI.framework": [],
                     "SystemConfiguration.framework": [],
-                    "CoreGraphics.framework": [],
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
                     "AdSupport.framework": [],
                     "CoreTelephony.framework": []
                 }
@@ -45,6 +54,9 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },

@@ -32,5 +32,9 @@ habitrpg.controller('RootCtrl',
     $rootScope.$watch('User.settings.fetching',function(fetching){
       if (fetching) $rootScope.$broadcast('scroll.refreshComplete')
     })
+
+    $rootScope.externalLink = function(link){
+      window.open(link,'_system');
+    }
   }
 ]);
