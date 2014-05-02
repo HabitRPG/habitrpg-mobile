@@ -27,58 +27,19 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"AdMob\"><param name=\"ios-package\" value=\"CDVAdMob\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
             },
             "framework": {
                 "parents": {
-                    "StoreKit.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "AudioToolbox.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "MessageUI.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "SystemConfiguration.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "AdSupport.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "CoreTelephony.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ]
+                    "StoreKit.framework": [],
+                    "AudioToolbox.framework": [],
+                    "MessageUI.framework": [],
+                    "SystemConfiguration.framework": [],
+                    "CoreGraphics.framework": [],
+                    "AdSupport.framework": [],
+                    "CoreTelephony.framework": []
                 }
             }
         }
@@ -91,12 +52,6 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "com.rjfun.cordova.plugin.admob": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "com.google.playservices": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
