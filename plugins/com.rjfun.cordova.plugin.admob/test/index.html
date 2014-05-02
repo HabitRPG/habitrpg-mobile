@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>Hello World</title>
+        <script type="text/javascript" src="cordova.js"></script>
+    </head>
+    <body onload="onLoad()">
+    <script>
+    function onLoad() {
+    	document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    function onDeviceReady() {
+    	var admob_ios_key = 'a151e6d43c5a28f';
+    	var admob_android_key = 'a151e6d65b12438';
+    	var adId = (navigator.userAgent.indexOf('Android') >=0) ? admob_android_key : admob_ios_key;
+    	
+    	if ( window.plugins && window.plugins.AdMob ) {
+    	    
+    	    var am = window.plugins.AdMob;
+    	    am.createBannerView( 
+    	    		{
+    		            'publisherId': adId,
+    		            'adSize': am.AD_SIZE.BANNER,
+    		            'bannerAtTop': true
+    	            }, function() {
+    	            	am.requestAd( { 'isTesting':true }, function() {
+    	            		am.showAd( true );
+    	            	}, function() {
+    	            		alert('failed to request ad');	
+    	            	})
+    	            }, function(){
+    	            	alert( "failed to create ad view" );
+    	            });
+    	} else {
+    		alert('AdMob plugin not available/ready.');
+    	}
+    }
+    function showAd( bshow ) {
+    	if ( window.plugins && window.plugins.AdMob ) {
+    	    var am = window.plugins.AdMob;
+    	    am.showAd( bshow );
+    	} else {
+    		alert('AdMob plugin not available/ready.');
+    	} 
+    }
+    </script>
+    
+    <p><button onclick="showAd(true);">show Ad</button></p>
+    <p><button onclick="showAd(false);">hide Ad</button></p>
+    
+    </body>
+</html>
