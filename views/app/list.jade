@@ -35,7 +35,7 @@ each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',sin
               .item.item-divider Custom Rewards
 
             //href='#/app/tasks/{{task.id}}'
-            ion-item.item.item-complex(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}} task-#{k}",ng-class='{completed: (task.completed || notDue(task))}')
+            ion-item.item.item-complex.item-text-wrap(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}} task-#{k}",ng-class='{completed: (task.completed || notDue(task))}')
               if k=='habit'
                 span.item-button-right
                   .buttons
