@@ -9,7 +9,7 @@ mixin ionView(title, buttons)
       a.button.button-icon.icon.ion-loading-d(ng-show='User.settings.fetching')
       if buttons
         each btn in buttons
-          button.button.icon(class="#{btn.class}", ng-click='#{btn.fn}')
+          button.button.button-icon.icon(class="#{btn.class}", ng-click='#{btn.fn}',ng-if="#{btn.if ? btn.if : true}")
     block
 
 mixin ionContentView(title, buttons)

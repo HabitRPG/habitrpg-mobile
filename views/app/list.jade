@@ -1,77 +1,90 @@
 mixin taskText
   markdown.task-text(ng-model='task.text')
 
-each nav,k in {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',singular:'Daily'}, todo:{name:'To-Dos',singular:'To-Do'}, reward:{name:'Rewards',singular:'Reward'}}
-  script(id='views/app.#{k}.html',type='text/ng-template')
+mixin taskList(k,nav)
+  //-+ionContentView(nav.name, [{class:'ion-ios7-plus',fn:"addTask(_newTask,'"+k+"')"}])
+  - var btns = k=="todo" ? [{class:'ion-eye-disabled',fn:"$state.go('app.tasks.completed')",if:"$state.is('app.tasks')"},{class:'ion-eye',fn:"$state.go('app.tasks')",if:"$state.is('app.tasks.completed')"}] : null
+  +ionContentView(nav.name,btns)
+    if k=='reward'
+      .item.rewards-wallet
+        +wallet()
+
+    form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")')
+      label.item-input-wrapper
+        input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
+      button.button.button-small(type='submit') Add
+
+    .card(ng-if='user.#{k}s.length == 0')
+      .item.item-text-wrap
+        | No #{nav.name} found, add some above.
+
+    ion-list(can-swipe='true')
+
+      if k=='reward'
+        .item.item-divider Custom Rewards
+
+      //href='#/app/tasks/{{task.id}}'
+      ion-item.item.item-complex.item-text-wrap(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}} task-#{k}",ng-class='{completed: (task.completed || notDue(task))}')
+        if k=='habit'
+          span.item-button-right
+            .buttons
+              button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up")', ng-show='task.up')
+              button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down")', ng-show='task.down')
+            +taskText()
+        if k=='daily' || k=='todo'
+          span.item-checkbox
+            label.checkbox
+              input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
+            +taskText()
+        if k=='reward'
+          span.item-button-right
+            button.button.button-small.buy-button(ng-click='score(task,"down")')
+              | {{task.value}}
+              span.shop_gold
+            +taskText()
+
+        // Actions
+        ion-option-button.icon.ion-edit(ng-click='$state.go("app.task",{tid:task.id})')
+
+      if k=='reward'
+        .item.item-divider Gear
+
+        ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore')
+          button.button.button-small.buy-button(ng-click='user.ops.buy({params:{key:item.key}})')
+            | {{item.value}}
+            span.shop_gold
+          table.shop-sprites
+            tr
+              td
+                .shop-sprite.item-img(class="shop_{{item.key}}")
+              td
+                span(ng-click='selectTask(item)') {{item.text}}
+
+  //-if k=='todo'
+    .tabs
+      a.tab-item(ng-class='{"tab-item-active": $state.is("app.todo")}', ui-sref='app.todo') Active
+      a.tab-item(ng-class='{"tab-item-active": $state.is("app.todo.completed")}', ui-sref='app.todo.completed') Completed
+
+script(id='views/app.tasks.html',type='text/ng-template')
     //-+ionContentView(nav.name, [{class:'ion-plus-round',fn:"addTask(_newTask,'"+k+"')"}])
-    +ionContentView(nav.name)
-        // Dead
-        div(ng-if="user.stats.hp <= 0")
-          .card
-            .item.item-text-wrap
-              h1=env.t('youDied')
-              p=env.t('dieText')
-          .padding
-            button.button.button-positive.button-block(ng-click='user.ops.revive({})')=env.t('continue')
-        // Alive
-        div(ng-if="user.stats.hp > 0")
 
-          if k=='reward'
-            .item.rewards-wallet
-              +wallet()
+    // Dead
+    div(ng-if="user.stats.hp <= 0")
+      +ionContentView("Dead")
+        .item.item-text-wrap
+          h1=env.t('youDied')
+          p=env.t('dieText')
+        .padding
+          button.button.button-positive.button-block(ng-click='user.ops.revive({})')=env.t('continue')
 
-          form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")')
-            label.item-input-wrapper
-              input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
-            button.button.button-small(type='submit') Add
-
-          .card(ng-if='user.#{k}s.length == 0')
-            .item.item-text-wrap
-              | No #{nav.name} found, add some above.
-
-          ion-list(can-swipe='true')
-
-            if k=='reward'
-              .item.item-divider Custom Rewards
-
-            //href='#/app/tasks/{{task.id}}'
-            ion-item.item.item-complex.item-text-wrap(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}} task-#{k}",ng-class='{completed: (task.completed || notDue(task))}')
-              if k=='habit'
-                span.item-button-right
-                  .buttons
-                    button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up")', ng-show='task.up')
-                    button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down")', ng-show='task.down')
-                  +taskText()
-              if k=='daily' || k=='todo'
-                span.item-checkbox
-                  label.checkbox
-                    input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
-                  +taskText()
-              if k=='reward'
-                span.item-button-right
-                  button.button.button-small.buy-button(ng-click='score(task,"down")')
-                    | {{task.value}}
-                    span.shop_gold
-                  +taskText()
-
-              // Actions
-              ion-option-button.icon.ion-edit(ng-click='$state.go("app.task",{tid:task.id})')
-
-            if k=='reward'
-              .item.item-divider Gear
-
-              ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore')
-                button.button.button-small.buy-button(ng-click='user.ops.buy({params:{key:item.key}})')
-                  | {{item.value}}
-                  span.shop_gold
-                table.shop-sprites
-                  tr
-                    td
-                      .shop-sprite.item-img(class="shop_{{item.key}}")
-                    td
-                      span(ng-click='selectTask(item)') {{item.text}}
-
-    if k=='todo'
-      .tabs
-        a.tab-item(ng-class='{"tab-item-active": $state.is("app.todo")}', ui-sref='app.todo') Active
-        a.tab-item(ng-class='{"tab-item-active": $state.is("app.todo.completed")}', ui-sref='app.todo.completed') Completed
+    // Alive
+    div(ng-if="user.stats.hp > 0")
+      ion-tabs.tabs-positive.tabs-icon-top
+        ion-tab(title='Habits', icon-on='ion-ios7-plus', icon-off='ion-ios7-plus-outline')
+          +taskList('habit',{name:'Habits',singular:'Habit'})
+        ion-tab(title='Dailies', icon-on='ion-ios7-calendar', icon-off='ion-ios7-calendar-outline')
+          +taskList('daily',{name:'Dailies',singular:'Daily'})
+        ion-tab(title='Todos', icon-on='ion-ios7-checkmark', icon-off='ion-ios7-checkmark-outline')
+          +taskList('todo',{name:'To-Dos',singular:'To-Do'})
+        ion-tab(title='Rewards', icon-on='ion-bag', icon-off='ion-bag')
+          +taskList('reward',{name:'Rewards',singular:'Reward'})

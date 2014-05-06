@@ -90,7 +90,7 @@ gulp.task('views', function(){
 
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
-    .pipe(uglify())
+//    .pipe(uglify())
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest(dist+'/js'));
     connect.reload()

@@ -23,7 +23,8 @@ script(id='views/app.html',type='text/ng-template')
         ion-list
           ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
             +avatar2()
-          each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',about:'About'}
+          //-each v,k in {habit:'Habits',daily:'Dailies',todo:'To-Dos',reward:'Rewards',profile:'Profile',settings:'Settings',about:'About'}
+          each v,k in {tasks:'Tasks',profile:'Profile',settings:'Settings',about:'About'}
             ion-item(nav-clear, menu-close, href='#/app/#{k}')
               //-img(ng-src='assets/sidebar-icon-#{k}.png')
               | #{v}

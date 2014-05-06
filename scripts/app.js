@@ -23,11 +23,11 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider
-    .when('/app', '/app/habit')
+    .when('/app', '/app/tasks')
     .when('/auth', '/auth/login')
     .otherwise(function ($injector, $location) {
       var user = JSON.parse(localStorage.getItem('habitrpg-user'));
-      return user && user.apiToken ? 'app/habit' : 'auth/login';
+      return user && user.apiToken ? 'app/tasks' : 'auth/login';
     });
 
   $stateProvider
@@ -99,44 +99,44 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
 
-    .state('app.habit', {
-      url: '/habit',
+    .state('app.tasks', {
+      url: '/tasks',
       views: {
         menuContent: {
-          templateUrl: 'views/app.habit.html',
+          templateUrl: 'views/app.tasks.html',
           controller: "TasksCtrl"
         }
       }
     })
-    .state('app.daily', {
-      url: '/daily',
-      views: {
-        menuContent: {
-          templateUrl: 'views/app.daily.html',
-          controller: "TasksCtrl"
-        }
-      }
-    })
-    .state('app.todo', {
-      url: '/todo',
-      views: {
-        menuContent: {
-          templateUrl: 'views/app.todo.html',
-          controller: "TasksCtrl"
-        }
-      }
-    })
-    .state('app.todo.completed', {
+//    .state('app.daily', {
+//      url: '/daily',
+//      views: {
+//        menuContent: {
+//          templateUrl: 'views/app.daily.html',
+//          controller: "TasksCtrl"
+//        }
+//      }
+//    })
+//    .state('app.todo', {
+//      url: '/todo',
+//      views: {
+//        menuContent: {
+//          templateUrl: 'views/app.todo.html',
+//          controller: "TasksCtrl"
+//        }
+//      }
+//    })
+    .state('app.tasks.completed', {
       url: '/completed'
     })
-    .state('app.reward', {
-      url: '/reward',
-      views: {
-        menuContent: {
-          templateUrl: 'views/app.reward.html',
-          controller: "TasksCtrl"
-        }
-      }
-    })
+//    .state('app.reward', {
+//      url: '/reward',
+//      views: {
+//        menuContent: {
+//          templateUrl: 'views/app.reward.html',
+//          controller: "TasksCtrl"
+//        }
+//      }
+//    })
 
 }])

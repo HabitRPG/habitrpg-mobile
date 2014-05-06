@@ -5,15 +5,14 @@ mixin premiumAndAds()
 
 script(id='views/app.about.html',type='text/ng-template')
   +ionContentView('Help')
-    div.card
-      .item.item-text-wrap
-        h2 About
-        p HabitRPG is a game for building real-life habits; an MMORPG for self-improvement. Earn gold and experience as you accomplish your goals, lose hitpoints as you fail your goals, level up and quest with friends.
-      .item.item-text-wrap
-        h2 Website
-        p <a href="" ng-click="externalLink('https://habitrpg.com')">The website</a> is more robust than the mobile app, with features such as guilds & parties, pets & mounts, quests, bosses, challenges, tags, etc. We're bringing all features to mobile over time, but for now be sure to check out the website.
-      +premiumAndAds()
-      .item.item-text-wrap
-        h2 Open Source
-        p The app is open source (AngularJS, Ionic, and PhoneGap) so if you have any HTML, CSS, or JavaScript experience, <a href="" ng-click="externalLink('https://github.com/habitrpg/habitrpg-mobile')">please join us</a> to help make Habit awesome! File <a href="" ng-click="externalLink('https://github.com/habitrpg/habitrpg-mobile/issues')">bugs here</a>.
-        p <a href='' ng-click="externalLink('https://github.com/HabitRPG/habitrpg/blob/develop/LICENSE')">License and attribution</a>
+    .item.item-text-wrap
+      h2 About
+      p HabitRPG is a game for building real-life habits; an MMORPG for self-improvement. Earn gold and experience as you accomplish your goals, lose hitpoints as you fail your goals, level up and quest with friends.
+    .item.item-text-wrap
+      h2 Website
+      p <a href="" ng-click="externalLink('https://habitrpg.com')">The website</a> is more robust than the mobile app, with features such as guilds & parties, pets & mounts, quests, bosses, challenges, tags, etc. We're bringing all features to mobile over time, but for now be sure to check out the website.
+    +premiumAndAds()
+    .item.item-text-wrap
+      h2 Open Source
+      p The app is open source (AngularJS, Ionic, and PhoneGap) so if you have any HTML, CSS, or JavaScript experience, <a href="" ng-click="externalLink('https://github.com/habitrpg/habitrpg-mobile')">please join us</a> to help make Habit awesome! File <a href="" ng-click="externalLink('https://github.com/habitrpg/habitrpg-mobile/issues')">bugs here</a>.
+      p <a href='' ng-click="externalLink('https://github.com/HabitRPG/habitrpg/blob/develop/LICENSE')">License and attribution</a>

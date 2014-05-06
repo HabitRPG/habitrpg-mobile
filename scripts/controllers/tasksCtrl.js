@@ -30,8 +30,8 @@ habitrpg
     };
 
     $scope.taskFilter = function (task) {
-      return $state.is('app.todo') ? !task.completed :
-        $state.is('app.todo.completed') ? task.completed : true;
+      return $state.is('app.tasks') ? !task.completed :
+        $state.is('app.tasks.completed') ? task.completed : true;
     };
 
     $scope.score = function (task, direction) {
