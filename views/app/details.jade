@@ -8,11 +8,10 @@ script(id="views/app.task.html",type='text/ng-template')
 
 script(id="views/app.task.view.html",type='text/ng-template')
     div(ng-controller='TaskViewCtrl')
-      .card
-        .item.item-text-wrap
-          h2.title(ng-class='{strikeout: task.completed}')
-            +taskText()
-          p {{task.notes}}
+      .item.item-text-wrap
+        h2.title(ng-class='{strikeout: task.completed}')
+          +taskText()
+        p {{task.notes}}
 
       // Checklist
       .list(ng-if='task.checklist')
@@ -42,7 +41,7 @@ script(id="views/app.task.view.html",type='text/ng-template')
 
 script(id="views/app.task.edit.html",type='text/ng-template')
     div(ng-controller='TaskEditCtrl')
-      .form.list.list-inset
+      .form.list
         label.item.item-input.item-stacked-label
           span.input-label Title
           input(type='text', placeholder='Title', ng-model='task.text')
