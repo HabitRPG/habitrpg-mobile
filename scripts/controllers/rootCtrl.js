@@ -60,6 +60,7 @@ habitrpg.controller('RootCtrl',
     $rootScope.settings = User.settings;
 
     $rootScope.Shared = $window.habitrpgShared;
+    $rootScope.Content = $window.habitrpgShared.content;
     $rootScope.moment = $window.moment;
     $rootScope.Math = $window.Math;
 

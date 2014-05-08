@@ -14,6 +14,7 @@ var paths = {
   sass:   ['./styles/**/*.scss'],
   stylus:   ['./styles/**/*.styl'],
   views:  ['./views/**/*.jade'],
+  websiteViews: ['./node_modules/habitrpg/views/**/*.jade'],
   scripts: [ // TODO a **/* with excludes
     'bower_components/ionic/js/ionic.bundle.js',
     'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
@@ -109,7 +110,7 @@ gulp.task('connect', function() {
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.stylus, ['stylus']);
-  gulp.watch(paths.views, ['views']);
+  gulp.watch([paths.views,paths.websiteViews], ['views']);
   gulp.watch(paths.scripts, ['scripts']);
 });
 
