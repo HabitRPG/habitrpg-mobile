@@ -83,7 +83,7 @@ script(id='views/app.tasks.html',type='text/ng-template')
 
     // Alive
     div(ng-if="user.stats.hp > 0")
-      ion-tabs.tabs-positive.tabs-icon-top
+      ion-tabs.tabs-icon-top
         ion-tab(title='Habits', icon-on='ion-ios7-plus', icon-off='ion-ios7-plus-outline')
           +taskList('habit')
         ion-tab(title='Dailies', icon-on='ion-ios7-calendar', icon-off='ion-ios7-calendar-outline')

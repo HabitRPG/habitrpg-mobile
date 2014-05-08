@@ -1557,3 +1557,6 @@ markdown.task-text p {
 .exp-and-gold {
   margin: 0 8px;
 }
+.muted * {
+  color: #808080 !important;
+}

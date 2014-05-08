@@ -23,8 +23,8 @@ mixin ionContentView(title)
     +content()
       block
 
-mixin ionTab(title)
-  ion-tab(title='#{title}')
+mixin ionTab(title,iconOn,iconOff)
+  ion-tab(title=title,icon-on=iconOn,icon-off=iconOff || iconOn)
     +content(true)
       block
 
