@@ -28,12 +28,12 @@ markdown.task-text p
   display inline-block
 
 for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good $good) (better $better) (best $best)
-  .item-complex.color-{$stage[0]} .item-content
+  .color-{$stage[0]} > .item-content
     background-color: $stage[1]
-.item-complex.completed .item-content
+.completed > .item-content
   background-color: $completed
   p {color: #999;}
-.task-reward .item-content {background-color: white !important;}
+.task-reward > .item-content {background-color: white !important;}
 
 .herobox
   outline: none

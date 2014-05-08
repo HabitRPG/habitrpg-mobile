@@ -35,6 +35,10 @@ habitrpg
         $state.is('app.tasks.completed') ? task.completed : true;
     };
 
+    $scope.moveItem = function(task, fromIndex, toIndex) {
+      User.user.ops.sortTask({params:{id:task.id},query:{from:fromIndex, to:toIndex}});
+    };
+
     $scope.score = function (task, direction) {
       //save current stats to compute the difference after scoring.
       var statsDiff = {};

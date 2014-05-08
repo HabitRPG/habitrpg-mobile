@@ -11,6 +11,7 @@ mixin taskList(k)
         if k=='todo'
           button.button.button-icon.icon(ng-class="$state.is('app.tasks') ? 'ion-eye-disabled' : 'ion-eye'", ng-click="$state.go( $state.is('app.tasks') ? 'app.tasks.completed' : 'app.tasks' )")
         //-button.button.button-icon.icon.ion-ios7-plus(ng-click="_addtask")
+        button.button.button-icon.icon.ion-arrow-move(ng-click="_reorder = !_reorder")
       +content(true)
           if k=='reward'
             .item.rewards-wallet
@@ -25,13 +26,13 @@ mixin taskList(k)
             .item.item-text-wrap
               | No #{nav.name} found, add some above.
 
-          ion-list(can-swipe='true')
+          ion-list(can-swipe='true',show-reorder="_reorder")
 
             if k=='reward'
               .item.item-divider Custom Rewards
 
             //href='#/app/tasks/{{task.id}}'
-            ion-item.item.item-complex.item-text-wrap(ng-repeat='task in user.#{k}s | filter:taskFilter',class="{{getClass(task.value)}} task-#{k}",ng-class='{completed: (task.completed || notDue(task))}')
+            ion-item.item-text-wrap(ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
               if k=='habit'
                 span.item-button-right
                   .buttons
@@ -52,6 +53,7 @@ mixin taskList(k)
 
               // Actions
               ion-option-button.icon.ion-edit(ng-click='$state.go("app.task",{tid:task.id})')
+              ion-reorder-button.ion-navicon(on-reorder="moveItem(task, $fromIndex, $toIndex)")
 
             if k=='reward'
               .item.item-divider Gear
