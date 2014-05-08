@@ -33,15 +33,15 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"com.rjfun.cordova.plugin.AdMob\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"com.rjfun.cordova.plugin.AdMob\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -50,12 +50,6 @@
         }
     },
     "installed_plugins": {
-        "com.google.playservices": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "com.rjfun.cordova.plugin.admob": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
@@ -64,7 +58,14 @@
         },
         "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.rjfun.cordova.plugin.admob": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "com.google.playservices": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        }
+    }
 }

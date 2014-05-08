@@ -396,6 +396,11 @@ bannerType:(GADAdSize)adSize {
 					bannerViewFrame.size.width) / 2.0;
 		}
 	} else {
+
+    //move the webview to the top of the screen, based on patch from https://github.com/aliokan/cordova-plugin-admob/issues/13
+	  if ([[UIDevice currentDevice].systemVersion floatValue] >= 7)
+	    webViewFrame.origin.y = 20;
+	  else
 		// Move the webview to the top of the screen.
 		webViewFrame.origin.y = 0;
 		// Need to center the banner both horizontally and vertically.
