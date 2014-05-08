@@ -11,11 +11,7 @@ script(id='views/app.chat.list.html',type='text/ng-template')
 
 script(id='views/app.chat.html',type='text/ng-template')
   +ionContentView('Chat')
-    .card(ng-if='!chatUnlocked')
-      .item.item-text-wrap
-        | To unlock this feature, subscribe at <a href='https://habitrpg.com'>habitrpg.com</a> then restart the app.
-    div(ng-if='chatUnlocked')
-      div(ui-view='')
+    div(ui-view='')
   .tabs
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.tavern")}', ui-sref='app.chat.tavern') Tavern
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.party")}', ui-sref='app.chat.party') Party

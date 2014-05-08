@@ -3,7 +3,6 @@
 habitrpg.controller('ChatCtrl',
   ['$rootScope','$scope', 'User', '$resource', 'API_URL', '$state', '$http',
     function($rootScope, $scope, User, $resource, API_URL, $state, $http) {
-      $scope.chatUnlocked = User.user.purchased.ads || User.user.purchased.plan.customerId || User.user.purchased.mobileChat;
       $scope._message = {text:undefined};
       $scope.Chat = $resource(API_URL + "/api/v2/groups/:gid/chat",
         {gid:'@_id'}, {
