@@ -11,7 +11,7 @@ habitrpg.controller('RootCtrl',
 
         // having issues on some devices
         var v = ionic.Platform.version();v = v && Number(v).toFixed(1);
-        var deviceSupported = (!ionic.Platform.isIOS() && !(ionic.Platform.isAndroid() && v=='4.1'));
+        var deviceSupported = false;//(!ionic.Platform.isIOS() && !(ionic.Platform.isAndroid() && v=='4.1'));
 
         if( window.plugins && window.plugins.AdMob && deviceSupported) {
           var am = window.plugins.AdMob;

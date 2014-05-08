@@ -9,7 +9,7 @@ script(id="views/app.settings.html",type='text/ng-template')
           strong API Token:&nbsp;
           | {{settings.auth.apiToken}}
 
-      .card(ng-if='!user.purchased.plan.customerId')
+      //-.card(ng-if='!user.purchased.plan.customerId')
         +premiumAndAds()
 
       .padding
