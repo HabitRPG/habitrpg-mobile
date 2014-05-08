@@ -67,7 +67,12 @@ habitrpg.controller('RootCtrl',
     $rootScope.$stateParams = $stateParams;
 
     $rootScope.sync = function(){
-      User.log({});
+      if ($state.includes('app.chat')) {
+        var scope = angular.element(document.getElementById('chatCtrl-list')).scope();
+        scope.query(scope.gid);
+      } else {
+        User.log({});
+      }
     }
 
     $rootScope.authenticated = function() {
@@ -78,6 +83,7 @@ habitrpg.controller('RootCtrl',
     $scope.queueLength = function () {
       return User.settings.sync.queue.length || User.settings.sync.sent.length
     };
+
     $rootScope.$watch('User.settings.fetching',function(fetching){
       if (fetching) $rootScope.$broadcast('scroll.refreshComplete')
     })

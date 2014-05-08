@@ -3,7 +3,7 @@
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'notificationServices', 'ngSanitize', 'ngAnimate'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'notificationServices', 'ngSanitize', 'ngAnimate', 'ngResource'])
 
 .run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
@@ -24,6 +24,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider
     .when('/app', '/app/tasks')
+    .when('/app/chat', '/app/chat/tavern')
     .when('/auth', '/auth/login')
     .otherwise(function ($injector, $location) {
       var user = JSON.parse(localStorage.getItem('habitrpg-user'));
@@ -138,5 +139,32 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 //        }
 //      }
 //    })
+
+    .state('app.chat', {
+      url:'/chat',
+      abstract: true,
+      views: {
+        menuContent: {
+          templateUrl:'views/app.chat.html',
+          controller: 'ChatCtrl'
+        }
+      }
+    })
+    .state('app.chat.tavern', {
+      url: '/tavern',
+      templateUrl: 'views/app.chat.list.html',
+      data: {gid: 'habitrpg'},
+      controller: ['$scope', function($scope){
+        $scope.query();
+      }]
+    })
+    .state('app.chat.party', {
+      url: '/party',
+      templateUrl: 'views/app.chat.list.html',
+      data: {gid: 'party'},
+      controller: ['$scope', function($scope){
+        $scope.query();
+      }]
+    })
 
 }])

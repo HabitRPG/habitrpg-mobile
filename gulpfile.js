@@ -18,6 +18,7 @@ var paths = {
     'bower_components/ionic/js/ionic.bundle.js',
     'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
     'bower_components/angular-sanitize/angular-sanitize.js',
+    'bower_components/angular-resource/angular-resource.js',
     'bower_components/js-emoji/emoji.js',
     'bower_components/marked/lib/marked.js',
 
@@ -31,7 +32,8 @@ var paths = {
     'scripts/controllers/settingsCtrl.js',
     'scripts/filters/filters.js',
     'scripts/controllers/authCtrl.js',
-    'scripts/controllers/tasksCtrl.js'
+    'scripts/controllers/tasksCtrl.js',
+    'scripts/controllers/chatCtrl.js'
   ],
   copy: [
     'config.xml',

@@ -5,7 +5,8 @@
     "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#pre-i18n",
     "marked": "~0.3.0",
     "js-emoji": "git://github.com/snicker/js-emoji#master",
-    "ionic": "driftyco/ionic-bower#master"
+    "ionic": "driftyco/ionic-bower#master",
+    "angular-resource": "~1.2.16"
   },
   "devDependencies": {}
 }

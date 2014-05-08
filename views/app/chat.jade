@@ -1,0 +1,21 @@
+script(id='views/app.chat.list.html',type='text/ng-template')
+  ion-list#chatCtrl-list
+    ion-item
+      form.item(ng-submit='postChat(_message)')
+        textarea(placeholder='Type Chat', ng-model='_message.text')
+        button.button.button-positive(type='submit', ng-show='_message.text') Send
+    ion-item.item-text-wrap(ng-repeat='message in chat')
+      .pull-right(style='opacity:0.3;') {{moment(message.timestamp).format('MMM Do h:mma')}}
+      h2 {{message.user}}
+      markdown(ng-model='message.text')
+
+script(id='views/app.chat.html',type='text/ng-template')
+  +ionContentView('Chat')
+    .card(ng-if='!chatUnlocked')
+      .item.item-text-wrap
+        | To unlock this feature, subscribe at <a href='https://habitrpg.com'>habitrpg.com</a> then restart the app.
+    div(ng-if='chatUnlocked')
+      div(ui-view='')
+  .tabs
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.tavern")}', ui-sref='app.chat.tavern') Tavern
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.party")}', ui-sref='app.chat.party') Party
