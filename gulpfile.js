@@ -8,7 +8,7 @@ var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
-var envT = require('habitrpg/src/middleware').enTranslations;
+var envT = require('habitrpg/src/i18n').enTranslations;
 
 var paths = {
   sass:   ['./styles/**/*.scss'],
