@@ -8,13 +8,15 @@ habitrpg
     $scope.task = _.cloneDeep(User.user.tasks[$state.params.tid]);
 
     $scope.cancel = function (task) {
-      $state.go('app.'+task.type);
+//      $state.go('app.'+task.type);
+      $state.go('app.tasks');
     };
 
     $scope.delete = function (task) {
       if (!window.confirm("Delete this task?")) return;
       User.user.ops.deleteTask({params:{id:task.id}});
-      $state.go('app.'+task.type);
+//      $state.go('app.'+task.type);
+      $state.go('app.tasks');
     };
   }])
 
@@ -26,7 +28,8 @@ habitrpg
 
     $scope.save = function (task,keepOpen) {
       User.user.ops.updateTask({params:{id:task.id},body:task});
-      if (!keepOpen) $state.go('app.'+task.type);
+//      if (!keepOpen) $state.go('app.'+task.type);
+      if (!keepOpen) $state.go('app.tasks');
     };
 
     $scope.taskFilter = function (task) {
