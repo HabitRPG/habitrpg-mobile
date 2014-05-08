@@ -10,14 +10,14 @@ mixin taskList(k)
       +navBtns()
         if k=='todo'
           button.button.button-icon.icon(ng-class="$state.is('app.tasks') ? 'ion-eye-disabled' : 'ion-eye'", ng-click="$state.go( $state.is('app.tasks') ? 'app.tasks.completed' : 'app.tasks' )")
-        //-button.button.button-icon.icon.ion-ios7-plus(ng-click="_addtask")
         button.button.button-icon.icon.ion-arrow-move(ng-click="_reorder = !_reorder")
+        button.button.button-icon.icon(ng-class='_addingTask?"ion-ios7-close":"ion-ios7-plus"',ng-click="_addingTask = !_addingTask")
       +content(true)
           if k=='reward'
             .item.rewards-wallet
               +wallet()
 
-          form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")')
+          form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")',ng-show='_addingTask')
             label.item-input-wrapper
               input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
             button.button.button-small(type='submit') Add
