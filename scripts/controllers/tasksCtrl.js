@@ -3,21 +3,24 @@
 habitrpg
   .controller('TaskViewCtrl', ['$scope', 'User', '$state', function($scope, User, $state) {
     $scope.task = User.user.tasks[$state.params.tid];
-  }])
-  .controller('TaskEditCtrl', ['$scope', 'User', '$state', function($scope, User, $state) {
-    $scope.task = _.cloneDeep(User.user.tasks[$state.params.tid]);
+    $scope._editing=false;
+    var snapshot;
+
+    $scope.edit = function(task){
+      $scope._editing=true;
+      snapshot = _.cloneDeep(task);
+    }
 
     $scope.cancel = function (task) {
-//      $state.go('app.'+task.type);
-      $state.go('app.tasks');
+      $scope._editing = false;
+      $scope.task = snapshot;
     };
 
     $scope.delete = function (task) {
       if (!window.confirm("Delete this task?")) return;
-      User.user.ops.deleteTask({params:{id:task.id}});
-//      $state.go('app.'+task.type);
-      $state.go('app.tasks');
-    };
+      User.user.ops.deleteTask({params: {id: task.id}});
+      $state.go('app.tasks.' + task.type);
+    }
   }])
 
   .controller('TasksCtrl',
@@ -29,13 +32,13 @@ habitrpg
     $scope.save = function (task,keepOpen) {
       User.user.ops.updateTask({params:{id:task.id},body:task});
 //      if (!keepOpen) $state.go('app.'+task.type);
-      if (!keepOpen) $state.go('app.tasks');
+      if (!keepOpen) $state.go('app.tasks.'+task.type);
     };
 
     $scope.taskFilter = function (task) {
       return task.type != 'todo' ? true :
-        $state.is('app.tasks') ? !task.completed :
-        $state.is('app.tasks.completed') ? task.completed : true;
+        $state.is('app.tasks.todo') ? !task.completed :
+        $state.is('app.tasks.todo.completed') ? task.completed : true;
     };
 
     $scope.moveItem = function(task, fromIndex, toIndex) {
