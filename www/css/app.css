@@ -18,21 +18,60 @@
 .toolbar-controls .toolbar-controls-button > a,
 .toolbar-subscribe-button > a,
 .toolbar-controls .toolbar-subscribe-button > a,
-.toolbar-mobile button,
-.toolbar-nav .toolbar-button-dropdown button,
-.toolbar-nav .toolbar-button button,
-.toolbar-sync button,
-.toolbar-settings button,
-.toolbar-notifs button,
-.toolbar-controls .toolbar-controls-button button,
-.toolbar-subscribe-button button,
-.toolbar-controls .toolbar-subscribe-button button {
+.toolbar-mobile > button,
+.toolbar-nav .toolbar-button-dropdown > button,
+.toolbar-nav .toolbar-button > button,
+.toolbar-sync > button,
+.toolbar-settings > button,
+.toolbar-notifs > button,
+.toolbar-controls .toolbar-controls-button > button,
+.toolbar-subscribe-button > button,
+.toolbar-controls .toolbar-subscribe-button > button,
+.toolbar-mobile > input,
+.toolbar-nav .toolbar-button-dropdown > input,
+.toolbar-nav .toolbar-button > input,
+.toolbar-sync > input,
+.toolbar-settings > input,
+.toolbar-notifs > input,
+.toolbar-controls .toolbar-controls-button > input,
+.toolbar-subscribe-button > input,
+.toolbar-controls .toolbar-subscribe-button > input {
   display: inline-block !important;
   padding: 0.25em 0.5em !important;
   text-decoration: none;
   font-size: 1em;
   color: #222;
   background-color: transparent;
+}
+.toolbar-mobile > a .glyphicon,
+.toolbar-nav .toolbar-button-dropdown > a .glyphicon,
+.toolbar-nav .toolbar-button > a .glyphicon,
+.toolbar-sync > a .glyphicon,
+.toolbar-settings > a .glyphicon,
+.toolbar-notifs > a .glyphicon,
+.toolbar-controls .toolbar-controls-button > a .glyphicon,
+.toolbar-subscribe-button > a .glyphicon,
+.toolbar-controls .toolbar-subscribe-button > a .glyphicon,
+.toolbar-mobile > button .glyphicon,
+.toolbar-nav .toolbar-button-dropdown > button .glyphicon,
+.toolbar-nav .toolbar-button > button .glyphicon,
+.toolbar-sync > button .glyphicon,
+.toolbar-settings > button .glyphicon,
+.toolbar-notifs > button .glyphicon,
+.toolbar-controls .toolbar-controls-button > button .glyphicon,
+.toolbar-subscribe-button > button .glyphicon,
+.toolbar-controls .toolbar-subscribe-button > button .glyphicon,
+.toolbar-mobile > input .glyphicon,
+.toolbar-nav .toolbar-button-dropdown > input .glyphicon,
+.toolbar-nav .toolbar-button > input .glyphicon,
+.toolbar-sync > input .glyphicon,
+.toolbar-settings > input .glyphicon,
+.toolbar-notifs > input .glyphicon,
+.toolbar-controls .toolbar-controls-button > input .glyphicon,
+.toolbar-subscribe-button > input .glyphicon,
+.toolbar-controls .toolbar-subscribe-button > input .glyphicon {
+  position: relative;
+  top: 0.132em;
 }
 .toolbar-mobile > a:active,
 .toolbar-nav .toolbar-button-dropdown > a:active,
@@ -43,15 +82,24 @@
 .toolbar-controls .toolbar-controls-button > a:active,
 .toolbar-subscribe-button > a:active,
 .toolbar-controls .toolbar-subscribe-button > a:active,
-.toolbar-mobile button:active,
-.toolbar-nav .toolbar-button-dropdown button:active,
-.toolbar-nav .toolbar-button button:active,
-.toolbar-sync button:active,
-.toolbar-settings button:active,
-.toolbar-notifs button:active,
-.toolbar-controls .toolbar-controls-button button:active,
-.toolbar-subscribe-button button:active,
-.toolbar-controls .toolbar-subscribe-button button:active {
+.toolbar-mobile > button:active,
+.toolbar-nav .toolbar-button-dropdown > button:active,
+.toolbar-nav .toolbar-button > button:active,
+.toolbar-sync > button:active,
+.toolbar-settings > button:active,
+.toolbar-notifs > button:active,
+.toolbar-controls .toolbar-controls-button > button:active,
+.toolbar-subscribe-button > button:active,
+.toolbar-controls .toolbar-subscribe-button > button:active,
+.toolbar-mobile > input:active,
+.toolbar-nav .toolbar-button-dropdown > input:active,
+.toolbar-nav .toolbar-button > input:active,
+.toolbar-sync > input:active,
+.toolbar-settings > input:active,
+.toolbar-notifs > input:active,
+.toolbar-controls .toolbar-controls-button > input:active,
+.toolbar-subscribe-button > input:active,
+.toolbar-controls .toolbar-subscribe-button > input:active {
   background-color: #aaa !important;
 }
 @media screen and (min-width: 768px) {
@@ -64,15 +112,24 @@
   .toolbar-controls .toolbar-controls-button > a:hover,
   .toolbar-subscribe-button > a:hover,
   .toolbar-controls .toolbar-subscribe-button > a:hover,
-  .toolbar-mobile button:hover,
-  .toolbar-nav .toolbar-button-dropdown button:hover,
-  .toolbar-nav .toolbar-button button:hover,
-  .toolbar-sync button:hover,
-  .toolbar-settings button:hover,
-  .toolbar-notifs button:hover,
-  .toolbar-controls .toolbar-controls-button button:hover,
-  .toolbar-subscribe-button button:hover,
-  .toolbar-controls .toolbar-subscribe-button button:hover {
+  .toolbar-mobile > button:hover,
+  .toolbar-nav .toolbar-button-dropdown > button:hover,
+  .toolbar-nav .toolbar-button > button:hover,
+  .toolbar-sync > button:hover,
+  .toolbar-settings > button:hover,
+  .toolbar-notifs > button:hover,
+  .toolbar-controls .toolbar-controls-button > button:hover,
+  .toolbar-subscribe-button > button:hover,
+  .toolbar-controls .toolbar-subscribe-button > button:hover,
+  .toolbar-mobile > input:hover,
+  .toolbar-nav .toolbar-button-dropdown > input:hover,
+  .toolbar-nav .toolbar-button > input:hover,
+  .toolbar-sync > input:hover,
+  .toolbar-settings > input:hover,
+  .toolbar-notifs > input:hover,
+  .toolbar-controls .toolbar-controls-button > input:hover,
+  .toolbar-subscribe-button > input:hover,
+  .toolbar-controls .toolbar-subscribe-button > input:hover {
     background-color: #eee !important;
   }
 }
@@ -84,38 +141,45 @@
 .toolbar-controls .toolbar-controls-button > a,
 .toolbar-subscribe-button > a,
 .toolbar-controls .toolbar-subscribe-button > a,
-.toolbar-mobile button,
-.toolbar-nav .toolbar-button button,
-.toolbar-sync button,
-.toolbar-settings button,
-.toolbar-notifs button,
-.toolbar-controls .toolbar-controls-button button,
-.toolbar-subscribe-button button,
-.toolbar-controls .toolbar-subscribe-button button {
+.toolbar-mobile > button,
+.toolbar-nav .toolbar-button > button,
+.toolbar-sync > button,
+.toolbar-settings > button,
+.toolbar-notifs > button,
+.toolbar-controls .toolbar-controls-button > button,
+.toolbar-subscribe-button > button,
+.toolbar-controls .toolbar-subscribe-button > button {
   border: 1px solid #ccc !important;
   border-radius: 0.382em !important;
 }
 .toolbar-subscribe-button > a,
 .toolbar-controls .toolbar-subscribe-button > a,
-.toolbar-subscribe-button button,
-.toolbar-controls .toolbar-subscribe-button button {
+.toolbar-subscribe-button > button,
+.toolbar-controls .toolbar-subscribe-button > button {
   background-color: #c9daf8 !important;
-  color: #0f3577 !important;
-  border-color: #89aef0 !important;
 }
 .toolbar-subscribe-button > a:active,
 .toolbar-controls .toolbar-subscribe-button > a:active,
-.toolbar-subscribe-button button:active,
-.toolbar-controls .toolbar-subscribe-button button:active {
+.toolbar-subscribe-button > button:active,
+.toolbar-controls .toolbar-subscribe-button > button:active {
   background-color: #a1bff3 !important;
 }
 @media screen and (min-width: 768px) {
   .toolbar-subscribe-button > a:hover,
   .toolbar-controls .toolbar-subscribe-button > a:hover,
-  .toolbar-subscribe-button button:hover,
-  .toolbar-controls .toolbar-subscribe-button button:hover {
-    background-color: #bad0f6 !important;
+  .toolbar-subscribe-button > button:hover,
+  .toolbar-controls .toolbar-subscribe-button > button:hover {
+    background-color: #c0d4f7 !important;
   }
+}
+.toolbar-subscribe-button > a,
+.toolbar-controls .toolbar-subscribe-button > a,
+.toolbar-subscribe-button > button,
+.toolbar-controls .toolbar-subscribe-button > button,
+.toolbar-subscribe-button > input,
+.toolbar-controls .toolbar-subscribe-button > input {
+  color: #0f3577 !important;
+  border-color: #89aef0 !important;
 }
 .toolbar-subscribe-button > a:nth-of-type(2),
 .toolbar-controls .toolbar-subscribe-button > a:nth-of-type(2) {
@@ -858,20 +922,24 @@ menu.pets .customize-menu .progress {
   }
 }
 .toolbar-mobile > a,
-.toolbar-mobile button {
+.toolbar-mobile > button {
   background-color: #f4f7f7 !important;
-  color: #3e5555 !important;
-  border-color: #c6d6d6 !important;
 }
 .toolbar-mobile > a:active,
-.toolbar-mobile button:active {
+.toolbar-mobile > button:active {
   background-color: #d8e2e2 !important;
 }
 @media screen and (min-width: 768px) {
   .toolbar-mobile > a:hover,
-  .toolbar-mobile button:hover {
-    background-color: #e9efef !important;
+  .toolbar-mobile > button:hover {
+    background-color: #edf2f2 !important;
   }
+}
+.toolbar-mobile > a,
+.toolbar-mobile > button,
+.toolbar-mobile > input {
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
 }
 .toolbar-mobile > a:nth-of-type(2) {
   border-left: 1px solid #e9efef !important;
@@ -924,20 +992,24 @@ menu.pets .customize-menu .progress {
   margin-right: 0.618em;
 }
 .toolbar-nav .toolbar-button-dropdown > a,
-.toolbar-nav .toolbar-button-dropdown button {
+.toolbar-nav .toolbar-button-dropdown > button {
   background-color: #f4f7f7 !important;
-  color: #3e5555 !important;
-  border-color: #c6d6d6 !important;
 }
 .toolbar-nav .toolbar-button-dropdown > a:active,
-.toolbar-nav .toolbar-button-dropdown button:active {
+.toolbar-nav .toolbar-button-dropdown > button:active {
   background-color: #d8e2e2 !important;
 }
 @media screen and (min-width: 768px) {
   .toolbar-nav .toolbar-button-dropdown > a:hover,
-  .toolbar-nav .toolbar-button-dropdown button:hover {
-    background-color: #e9efef !important;
+  .toolbar-nav .toolbar-button-dropdown > button:hover {
+    background-color: #edf2f2 !important;
   }
+}
+.toolbar-nav .toolbar-button-dropdown > a,
+.toolbar-nav .toolbar-button-dropdown > button,
+.toolbar-nav .toolbar-button-dropdown > input {
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
 }
 .toolbar-nav .toolbar-button-dropdown > a:nth-of-type(2) {
   border-left: 1px solid #e9efef !important;
@@ -978,20 +1050,24 @@ menu.pets .customize-menu .progress {
   border-color: #87a8a8 !important;
 }
 .toolbar-nav .toolbar-button > a,
-.toolbar-nav .toolbar-button button {
+.toolbar-nav .toolbar-button > button {
   background-color: #f4f7f7 !important;
-  color: #3e5555 !important;
-  border-color: #c6d6d6 !important;
 }
 .toolbar-nav .toolbar-button > a:active,
-.toolbar-nav .toolbar-button button:active {
+.toolbar-nav .toolbar-button > button:active {
   background-color: #d8e2e2 !important;
 }
 @media screen and (min-width: 768px) {
   .toolbar-nav .toolbar-button > a:hover,
-  .toolbar-nav .toolbar-button button:hover {
-    background-color: #e9efef !important;
+  .toolbar-nav .toolbar-button > button:hover {
+    background-color: #edf2f2 !important;
   }
+}
+.toolbar-nav .toolbar-button > a,
+.toolbar-nav .toolbar-button > button,
+.toolbar-nav .toolbar-button > input {
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
 }
 .toolbar-nav .toolbar-button > a:nth-of-type(2) {
   border-left: 1px solid #e9efef !important;
@@ -1084,25 +1160,32 @@ menu.pets .customize-menu .progress {
 }
 .toolbar-sync > a,
 .toolbar-settings > a,
-.toolbar-sync button,
-.toolbar-settings button {
+.toolbar-sync > button,
+.toolbar-settings > button {
   background-color: #f4f7f7 !important;
-  color: #3e5555 !important;
-  border-color: #c6d6d6 !important;
 }
 .toolbar-sync > a:active,
 .toolbar-settings > a:active,
-.toolbar-sync button:active,
-.toolbar-settings button:active {
+.toolbar-sync > button:active,
+.toolbar-settings > button:active {
   background-color: #d8e2e2 !important;
 }
 @media screen and (min-width: 768px) {
   .toolbar-sync > a:hover,
   .toolbar-settings > a:hover,
-  .toolbar-sync button:hover,
-  .toolbar-settings button:hover {
-    background-color: #e9efef !important;
+  .toolbar-sync > button:hover,
+  .toolbar-settings > button:hover {
+    background-color: #edf2f2 !important;
   }
+}
+.toolbar-sync > a,
+.toolbar-settings > a,
+.toolbar-sync > button,
+.toolbar-settings > button,
+.toolbar-sync > input,
+.toolbar-settings > input {
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
 }
 .toolbar-sync > a:nth-of-type(2),
 .toolbar-settings > a:nth-of-type(2) {
@@ -1156,20 +1239,24 @@ menu.pets .customize-menu .progress {
   border-color: #87a8a8 !important;
 }
 .toolbar-notifs > a,
-.toolbar-notifs button {
+.toolbar-notifs > button {
   background-color: #f4f7f7 !important;
-  color: #3e5555 !important;
-  border-color: #c6d6d6 !important;
 }
 .toolbar-notifs > a:active,
-.toolbar-notifs button:active {
+.toolbar-notifs > button:active {
   background-color: #d8e2e2 !important;
 }
 @media screen and (min-width: 768px) {
   .toolbar-notifs > a:hover,
-  .toolbar-notifs button:hover {
-    background-color: #e9efef !important;
+  .toolbar-notifs > button:hover {
+    background-color: #edf2f2 !important;
   }
+}
+.toolbar-notifs > a,
+.toolbar-notifs > button,
+.toolbar-notifs > input {
+  color: #3e5555 !important;
+  border-color: #c6d6d6 !important;
 }
 .toolbar-notifs > a:nth-of-type(2) {
   border-left: 1px solid #e9efef !important;
@@ -1242,20 +1329,24 @@ menu.pets .customize-menu .progress {
   padding: 0.382em 1em;
 }
 .toolbar-controls .toolbar-controls-button > a,
-.toolbar-controls .toolbar-controls-button button {
+.toolbar-controls .toolbar-controls-button > button {
   background-color: #f8fafa !important;
-  color: #3e5757 !important;
-  border-color: #c9d8d8 !important;
 }
 .toolbar-controls .toolbar-controls-button > a:active,
-.toolbar-controls .toolbar-controls-button button:active {
+.toolbar-controls .toolbar-controls-button > button:active {
   background-color: #dbe5e5 !important;
 }
 @media screen and (min-width: 768px) {
   .toolbar-controls .toolbar-controls-button > a:hover,
-  .toolbar-controls .toolbar-controls-button button:hover {
-    background-color: #edf2f2 !important;
+  .toolbar-controls .toolbar-controls-button > button:hover {
+    background-color: #f1f5f5 !important;
   }
+}
+.toolbar-controls .toolbar-controls-button > a,
+.toolbar-controls .toolbar-controls-button > button,
+.toolbar-controls .toolbar-controls-button > input {
+  color: #3e5757 !important;
+  border-color: #c9d8d8 !important;
 }
 .toolbar-controls .toolbar-controls-button > a:nth-of-type(2) {
   border-left: 1px solid #edf2f2 !important;
