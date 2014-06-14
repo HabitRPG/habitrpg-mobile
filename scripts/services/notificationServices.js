@@ -1,5 +1,6 @@
 angular.module('notificationServices', []).
     factory('Notification', ['$filter','$rootScope', function ($filter,$rootScope) {
+
         $rootScope.notification = {type:null,data:null};
         var active = false;
         var timer = null;

@@ -1,8 +1,8 @@
 // Notifications
 .bar.bar-header.bar-energized.notif-bar(ng-show='notification.type')
   h1.title
-    span(ng-show='notification.type=="text"', ng-bind-html='notification.data')
-    span(ng-show='notification.type=="stats"')
+    span(ng-if='notification.type=="text"', ng-bind-html='notification.data')
+    span(ng-if='notification.type=="stats"')
       span(ng-show='notification.data.hp')
         | {{notification.data.hp}}&nbsp;
         i.ion-heart

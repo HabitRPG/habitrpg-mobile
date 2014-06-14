@@ -16,10 +16,18 @@ var paths = {
   views:  ['./views/**/*.jade'],
   websiteViews: ['./node_modules/habitrpg/views/**/*.jade'],
   scripts: [ // TODO a **/* with excludes
-    'bower_components/ionic/js/ionic.bundle.js',
-    'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
+    /* using custom build so we can use angular1.3+
+      ionic.bundle.js = [ionic.js, angular.js, angular-animate.js, angular-sanitize.js, angular-ui-router.js, ionic-angular.js]*/
+//    'bower_components/ionic/js/ionic.bundle.js',
+    'bower_components/ionic/js/ionic.js',
+    'bower_components/angular/angular.js',
+    'bower_components/angular-animate/angular-animate.js',
     'bower_components/angular-sanitize/angular-sanitize.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/ionic/js/ionic-angular.js',
+
     'bower_components/angular-resource/angular-resource.js',
+    'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
     'bower_components/js-emoji/emoji.js',
     'bower_components/marked/lib/marked.js',
 
@@ -47,6 +55,7 @@ var paths = {
     '!bower_components/angular/**/*',
     '!bower_components/angular-animate/**/*',
     '!bower_components/angular-sanitize/**/*',
+    '!bower_components/angular-resource/**/*',
     '!bower_components/angular-ui-router/**/*'
   ]
 };
@@ -85,7 +94,11 @@ gulp.task('views', function(){
   gulp.src('./views/index.jade')
     //.pipe(jade())
     // TODO: use actual env.t() function with translations
-    .pipe(jade({locals:{env:{t:envT}}}))
+    .pipe(jade({locals:{env:{
+      t:envT,
+      Content:require('./node_modules/habitrpg/node_modules/habitrpg-shared').content},
+      moment:require('./node_modules/habitrpg/node_modules/moment')
+    }}))
     .pipe(gulp.dest(dist))
     .pipe(rename({extname: '.html'}))
     .pipe(connect.reload())
