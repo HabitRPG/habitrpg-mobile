@@ -43,6 +43,9 @@ html
     link(rel='stylesheet', type='text/css', href='bower_components/ionic/css/ionic.min.css')
     link(rel='stylesheet', type='text/css', href='css/app.css')
 
+    script(type='text/javascript').
+      window.env = !{JSON.stringify(env)};
+
     script(src='cordova.js')
     script(src='js/app.min.js')
 

@@ -8,7 +8,9 @@ var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
-var envT = require('habitrpg/src/i18n').enTranslations;
+var i18n = require('habitrpg/src/i18n');
+var _ = require('habitrpg/node_modules/lodash');
+var shared = require('habitrpg/node_modules/habitrpg-shared');
 
 var paths = {
   sass:   ['./styles/**/*.scss'],
@@ -31,6 +33,7 @@ var paths = {
     'bower_components/js-emoji/emoji.js',
     'bower_components/marked/lib/marked.js',
 
+    'node_modules/habitrpg/public/js/env.js',
     'scripts/app.js',
     'bower_components/habitrpg-shared/script/userServices.js',
     'bower_components/habitrpg-shared/script/directives.js',
@@ -95,7 +98,13 @@ gulp.task('views', function(){
     //.pipe(jade())
     // TODO: use actual env.t() function with translations
     .pipe(jade({locals:{env:{
-      t:envT,
+      translations: i18n.translations['en'],
+      language: _.find(i18n.avalaibleLanguages, {code: 'en'}),
+      t: function(){ // stringName and vars are the allowed parameters
+        var args = Array.prototype.slice.call(arguments, 0);
+        args.push('en');
+        return shared.i18n.t.apply(null, args);
+      },
       Content:require('./node_modules/habitrpg/node_modules/habitrpg-shared').content},
       moment:require('./node_modules/habitrpg/node_modules/moment')
     }}))
@@ -106,7 +115,7 @@ gulp.task('views', function(){
 
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
-//    .pipe(uglify())
+    .pipe(uglify())
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest(dist+'/js'));
     connect.reload()

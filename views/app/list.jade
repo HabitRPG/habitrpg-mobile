@@ -59,14 +59,14 @@ mixin taskList(k)
 
               ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore')
                 button.button.button-small.buy-button(ng-click='user.ops.buy({params:{key:item.key}})')
-                  | {{item.value}}
+                  | {{::item.value}}
                   span.shop_gold
                 table.shop-sprites
                   tr
                     td
-                      .shop-sprite.item-img(class="shop_{{item.key}}")
+                      .shop-sprite.item-img(class="shop_{{::item.key}}")
                     td
-                      span(ng-click='selectTask(item)') {{item.text}}
+                      span(ng-click='selectTask(item)') {{::item.text()}}
 
 script(id='views/app.tasks.html',type='text/ng-template')
     //-+ionContentView(nav.name, [{class:'ion-plus-round',fn:"addTask(_newTask,'"+k+"')"}])
