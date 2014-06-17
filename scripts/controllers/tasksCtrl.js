@@ -24,8 +24,8 @@ habitrpg
   }])
 
   .controller('TasksCtrl',
-  ['$scope', '$rootScope', 'filterFilter', 'User', 'Notification', '$state',
-  function($scope, $rootScope, filterFilter, User, Notification, $state) {
+  ['$scope', '$rootScope', 'filterFilter', 'User', 'Notification', '$state', '$ionicActionSheet',
+  function($scope, $rootScope, filterFilter, User, Notification, $state, $ionicActionSheet) {
 
     $scope.newTask = {};
 
@@ -103,6 +103,23 @@ habitrpg
             $scope.score(task, 'down')
         }
     }
+
+    $scope.actionSheet = function(task) {
+      $ionicActionSheet.show({
+        buttons: [{text: 'View/Edit'}],
+        destructiveText: 'Delete',
+        cancelText: 'Cancel',
+        buttonClicked: function(index) {
+          $state.go('app.tasks.'+task.type+'View',{tid:task.id});
+          return true;
+        },
+        destructiveButtonClicked: function(){
+          if (!window.confirm("Delete this task?")) return;
+          User.user.ops.deleteTask({params: {id: task.id}});
+          return true;
+        }
+      });
+    };
 
 
     /**

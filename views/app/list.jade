@@ -31,7 +31,7 @@ each nav,k in tasks
               .item.item-divider Custom Rewards
 
             //href='#/app/tasks/{{task.id}}'
-            ion-item.item-text-wrap(ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
+            ion-item.item-text-wrap(on-hold="actionSheet(task)",ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
               if k=='habit'
                 span.item-button-right
                   .buttons
