@@ -242,7 +242,10 @@
 .toolbar-nav .toolbar-button-dropdown > a:nth-of-type(2) {
   border-radius: 0em 0.382em 0.382em 0em !important;
 }
-.herobox:after {
+.herobox:after,
+.hero-stats .health .meter-text.title,
+.hero-stats .experience .meter-text.title,
+.hero-stats .mana .meter-text.title {
   padding: 0.382em 0.618em;
   border-width: 1px;
   border-style: solid;
@@ -455,6 +458,8 @@
   margin: 0;
   position: relative;
   cursor: pointer;
+}
+.herobox.noBackgroundImage {
   background: #dae3e5;
   transition: border 0.25s ease-out, background 0.25s ease-out;
   outline: 1px solid rgba(0,0,0,0.1);
@@ -468,7 +473,7 @@
   text-align: left;
   color: #f7fbf6 !important;
   background-color: #b2d4a6 !important;
-  border-color: #8ec07d !important;
+  border-color: #6aab53 !important;
   transition: opacity 0.2s ease-out;
 }
 .herobox:after > a {
@@ -481,7 +486,7 @@
   opacity: 1;
   color: #f7f9fa !important;
   background-color: #b3c5c9 !important;
-  border-color: #8faaaf !important;
+  border-color: #6a8d95 !important;
 }
 .herobox.isUser:not(.hasMount):after > a {
   color: #f7f9fa !important;
@@ -492,7 +497,7 @@
 #profileStable .active {
   border: 1px solid #000;
 }
-.herobox:not(.isUser) {
+.herobox.noBackgroundImage:not(.isUser) {
   outline: 0;
   background-color: #c5d3d6;
 }
@@ -505,13 +510,13 @@
 .herobox.hasMount {
   padding-top: 0em;
 }
-.herobox:hover,
-.herobox:focus {
-  background: #e5ebed;
-}
 .herobox:hover:after,
 .herobox:focus:after {
   opacity: 1;
+}
+.herobox.noBackgroundImage:hover,
+.herobox.noBackgroundImage:focus {
+  background: #e5ebed;
 }
 .herobox .character-sprites {
   width: 6.428571429em;
@@ -522,7 +527,7 @@
 .herobox .pet {
   position: absolute;
 }
-.herobox.isLeader {
+.herobox.isLeader.noBackgroundImage {
   background: #dee6e8;
 }
 .header-wrap {
@@ -633,65 +638,110 @@
   height: 10.5em;
 }
 .hero-stats {
-  padding: 0 1.25em;
+  padding: 0.8em 1em 0;
   margin: 0;
   display: table-cell;
   vertical-align: middle;
   min-width: 175px;
 }
-.hero-stats .meter,
-.hero-stats .bar {
-  box-shadow: none;
-  border-radius: 0;
+@media screen and (max-width: 768px) {
+  .hero-stats {
+    padding: 0.382em 0.382em 0;
+  }
 }
 .hero-stats .meter {
   position: relative;
-  background: #fff;
-  opacity: 1;
-  outline: 1px solid rgba(0,0,0,0.2);
-  outline-offset: -1px;
   overflow: hidden;
+  border: 1px solid #333;
+  border-radius: 0.382em;
   height: 2.25em;
-  margin: 0 0 1em;
-  cursor: help;
-  color: #111;
-}
-.hero-stats .meter:last-of-type {
-  margin-bottom: 0;
-}
-.hero-stats .meter:after {
-  content: attr(title);
-  position: absolute;
-  left: -1em;
-  top: 0.4em;
-  font-weight: 400;
-  z-index: -1;
-  transition: all 0.25s ease-out;
+  margin: 0 0 0.8em;
 }
 .hero-stats .meter .bar {
-  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 0.382em 0 0 0.382em;
   height: 100%;
   transition: width 0.25s ease-out;
+  border-right: 1px solid #333;
 }
-.hero-stats .meter:hover:after {
-  left: 1em;
-  z-index: 1;
+.hero-stats .health {
+  background: #f8dddd;
+  color: #6f1818;
+  border-color: #da5353;
 }
 .hero-stats .health .bar {
-  background: #d64040;
+  background: #e79090;
+  border-color: #da5353;
+}
+.hero-stats .health .meter-text.title {
+  margin-top: 0.333333em;
+  color: #fbeeee !important;
+  background-color: #da5353 !important;
+  border-color: #a62424 !important;
+}
+.hero-stats .health .meter-text.title > a {
+  color: #fbeeee !important;
+}
+.hero-stats .health .meter-text.title span {
+  margin-right: 0.382em;
+}
+.hero-stats .experience {
+  background: #fff6dd;
+  color: #8a6700;
+  border-color: #ffcc35;
 }
 .hero-stats .experience .bar {
-  background: #ffcf42;
+  background: #ffdf82;
+  border-color: #ffcc35;
+}
+.hero-stats .experience .meter-text.title {
+  margin-top: 0.333333em;
+  color: #fffaeb !important;
+  background-color: #ffcc35 !important;
+  border-color: #cf9b00 !important;
+}
+.hero-stats .experience .meter-text.title > a {
+  color: #fffaeb !important;
+}
+.hero-stats .experience .meter-text.title span {
+  margin-right: 0.382em;
+}
+.hero-stats .experience .meter-text span {
+  margin-right: 0.236em;
+}
+.hero-stats .experience .meter-text span a {
+  color: #8a6700;
+}
+.hero-stats .mana {
+  background: #dbe6fa;
+  color: #0f3577;
+  border-color: #4781e7;
 }
 .hero-stats .mana .bar {
-  background: #5288e9;
+  background: #89aef0;
+  border-color: #4781e7;
+}
+.hero-stats .mana .meter-text.title {
+  margin-top: 0.333333em;
+  color: #edf2fd !important;
+  background-color: #4781e7 !important;
+  border-color: #1750b4 !important;
+}
+.hero-stats .mana .meter-text.title > a {
+  color: #edf2fd !important;
+}
+.hero-stats .mana .meter-text.title span {
+  margin-right: 0.382em;
 }
 .hero-stats .meter-text {
   position: absolute;
   top: 0;
-  right: 0.5em;
-  z-index: 1;
   line-height: 2.25;
+}
+.hero-stats .meter-text.title {
+  left: 0.382em;
+}
+.hero-stats .meter-text.value {
+  right: 0.382em;
 }
 header .hero-stats {
   background-color: #cfdbde;
