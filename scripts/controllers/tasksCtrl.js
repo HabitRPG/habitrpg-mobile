@@ -19,7 +19,7 @@ habitrpg
     $scope.delete = function (task) {
       if (!window.confirm("Delete this task?")) return;
       User.user.ops.deleteTask({params: {id: task.id}});
-      $state.go('app.tasks.' + task.type);
+      $state.go('app.tasks');
     }
   }])
 
@@ -32,13 +32,13 @@ habitrpg
     $scope.save = function (task,keepOpen) {
       User.user.ops.updateTask({params:{id:task.id},body:task});
 //      if (!keepOpen) $state.go('app.'+task.type);
-      if (!keepOpen) $state.go('app.tasks.'+task.type);
+      if (!keepOpen) $state.go('app.tasks');
     };
 
     $scope.taskFilter = function (task) {
       return task.type != 'todo' ? true :
-        $state.is('app.tasks.todo') ? !task.completed :
-        $state.is('app.tasks.todo.completed') ? task.completed : true;
+        $state.is('app.tasks') ? !task.completed :
+        $state.is('app.tasks.completed') ? task.completed : true;
     };
 
     $scope.moveItem = function(task, fromIndex, toIndex) {
@@ -110,7 +110,7 @@ habitrpg
         destructiveText: 'Delete',
         cancelText: 'Cancel',
         buttonClicked: function(index) {
-          $state.go('app.tasks.'+task.type+'View',{tid:task.id});
+          $state.go('app.task',{tid:task.id});
           return true;
         },
         destructiveButtonClicked: function(){

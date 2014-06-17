@@ -23,12 +23,12 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider
-    .when('/app', '/app/tasks/habit')
+    .when('/app', '/app/tasks')
     .when('/app/chat', '/app/chat/tavern')
     .when('/auth', '/auth/login')
     .otherwise(function ($injector, $location) {
       var user = JSON.parse(localStorage.getItem('habitrpg-user'));
-      return user && user.apiToken ? 'app/tasks/habit' : 'auth/login';
+      return user && user.apiToken ? 'app/tasks' : 'auth/login';
     });
 
   $stateProvider
@@ -90,95 +90,29 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
     })
 
     // Tasks
+    .state('app.task', {
+      url: '/task/:tid',
+      views: {
+        menuContent:{
+          controller: 'TasksCtrl',
+          templateUrl: 'views/app.task.html'
+        }
+      }
+    })
+
     .state('app.tasks', {
       url: '/tasks',
-      abstract:true,
       views: {
         menuContent: {
-          templateUrl: 'views/app.tasks.html'
-        }
-      }
-    })
-    .state('app.tasks.habit', {
-      url: '/habit',
-      views: {
-        habit: {
-          templateUrl: 'views/app.tasks.habit.html',
+          templateUrl: 'views/app.tasks.html',
           controller: "TasksCtrl"
         }
       }
     })
-    .state('app.tasks.daily', {
-      url: '/daily',
-      views: {
-        daily: {
-          templateUrl: 'views/app.tasks.daily.html',
-          controller: "TasksCtrl"
-        }
-      }
-    })
-    .state('app.tasks.todo', {
-      url: '/todo',
-      views: {
-        todo: {
-          templateUrl: 'views/app.tasks.todo.html',
-          controller: "TasksCtrl"
-        }
-      }
-    })
-    .state('app.tasks.todo.completed', {
+    .state('app.tasks.completed', {
       url: '/completed'
     })
-    .state('app.tasks.reward', {
-      url: '/reward',
-      views: {
-        reward: {
-          templateUrl: 'views/app.tasks.reward.html',
-          controller: "TasksCtrl"
-        }
-      }
-    })
 
-    // Edit
-    // FIXME this is dumb to have 4 routes for the same thing. However, ionic doens't allow tab-stacking for deeper routes. They have to be sibling routes. Aka, app.tasks.habit.view doesn't work, has to be app.tasks.habit-view
-    .state('app.tasks.habitView', {
-      url: '/view/:tid',
-      views: {
-        habit:{
-          controller: 'TasksCtrl',
-          templateUrl: 'views/app.task.html'
-        }
-      }
-    })
-    .state('app.tasks.dailyView', {
-      url: '/view/:tid',
-      views: {
-        daily:{
-          controller: 'TasksCtrl',
-          templateUrl: 'views/app.task.html'
-        }
-      }
-    })
-    .state('app.tasks.todoView', {
-      url: '/view/:tid',
-      views: {
-        todo:{
-          controller: 'TasksCtrl',
-          templateUrl: 'views/app.task.html'
-        }
-      }
-    })
-    .state('app.tasks.rewardView', {
-      url: '/view/:tid',
-      views: {
-        reward:{
-          controller: 'TasksCtrl',
-          templateUrl: 'views/app.task.html'
-        }
-      }
-    })
-
-    // Chat
     .state('app.chat', {
       url:'/chat',
       abstract: true,
