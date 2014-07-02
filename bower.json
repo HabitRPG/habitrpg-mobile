@@ -2,7 +2,7 @@
   "name": "habitrpg-mobile",
   "version": "0.0.0",
   "dependencies": {
-    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#pre-i18n",
+    "habitrpg-shared": "git://github.com/HabitRPG/habitrpg-shared.git#develop",
     "marked": "~0.3.0",
     "js-emoji": "git://github.com/snicker/js-emoji#master",
     "ionic": "driftyco/ionic-bower#master",
