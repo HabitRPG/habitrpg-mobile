@@ -19,6 +19,9 @@
 
     <access origin="*" />
 
+    <preference name="android-minSdkVersion" value="11" />
+    <preference name="android-targetSdkVersion" value="13" />
+
     <preference name="phonegap-version" value="3.4.0" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="false" />
