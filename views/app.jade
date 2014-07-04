@@ -5,6 +5,7 @@ include app/list
 include app/details
 include app/about
 include app/profile
+include app/stable
 include app/settings
 include app/chat
 
@@ -24,7 +25,7 @@ script(id='views/app.html',type='text/ng-template')
         ion-list
           ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
             +avatar2()
-          each v,k in {tasks:'Tasks',profile:'Profile','chat/tavern':'Chat',settings:'Settings',about:'About'}
+          each v,k in {tasks:'Tasks',profile:'Profile',stable:'Stable','chat/tavern':'Chat',settings:'Settings',about:'About'}
             ion-item(nav-clear, menu-close, href='#/app/#{k}')
               //-img(ng-src='assets/sidebar-icon-#{k}.png')
               | #{v}

@@ -1,0 +1,36 @@
+mixin petList(source)
+  each egg in source
+    each potion in env.Content.hatchingPotions
+      - pet = egg.key+"-"+potion.key
+      .item
+        .stable-pet-icon(class="Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0')
+        .PixelPaw.stable-pet-not-owned-icon(ng-if='!user.items.pets["#{pet}"]')
+        p=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)})
+      //.col
+        button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
+          .progress(ng-show='!user.items.mounts["#{pet}"] && "#{egg.key}"!="Egg"')
+            .progress-bar.progress-bar-success(style='width:{{user.items.pets["#{pet}"]/.5}}%')
+        button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
+          .PixelPaw
+        button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
+
+script(id='views/app.stable.html',type='text/ng-template')
+  +ionView('Stable')
+    ion-tabs
+      +ionTab(env.t('pets'))
+        .list
+          +petList(env.Content.dropEggs)
+          .item.item-divider=env.t('questPets')
+          +petList(env.Content.questEggs)
+          .item.item-divider=env.t('rarePets')
+          each t,k in env.Content.specialPets
+            - var egg = k.split('-')[0], pot = k.split('-')[1]
+            .item(ng-if='user.items.pets["#{k}"]')
+              .stable-pet-icon(class="Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0')
+              p=env.t(t)
+          .item(ng-if='user.items.pets["Dragon-Hydra"]')
+            a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG') 
+              .PixelPaw-Gold.stable-pet-not-owned-icon
+              | Rare pet contributors
+      +ionTab(env.t('mounts'))
+      div(ui-view='')

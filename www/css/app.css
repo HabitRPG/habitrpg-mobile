@@ -450,6 +450,7 @@
   position: absolute;
   bottom: 2px;
   right: 2px;
+  text-shadow: -1px -1px 2px #616161, 1px -1px 2px #616161, -1px 1px 2px #616161, 1px 1px 2px #616161;
 }
 .herobox {
   height: 10.5em;
@@ -474,6 +475,7 @@
   color: #f7fbf6 !important;
   background-color: #b2d4a6 !important;
   border-color: #6aab53 !important;
+  text-shadow: -1px -1px 2px #49833a, 1px -1px 2px #49833a, -1px 1px 2px #49833a, 1px 1px 2px #49833a;
   transition: opacity 0.2s ease-out;
 }
 .herobox:after > a {
@@ -487,6 +489,7 @@
   color: #f7f9fa !important;
   background-color: #b3c5c9 !important;
   border-color: #6a8d95 !important;
+  text-shadow: -1px -1px 2px #496675, 1px -1px 2px #496675, -1px 1px 2px #496675, 1px 1px 2px #496675;
 }
 .herobox.isUser:not(.hasMount):after > a {
   color: #f7f9fa !important;
@@ -677,6 +680,7 @@
   color: #fbeeee !important;
   background-color: #da5353 !important;
   border-color: #a62424 !important;
+  text-shadow: -1px -1px 2px #972424, 1px -1px 2px #972424, -1px 1px 2px #972424, 1px 1px 2px #972424;
 }
 .hero-stats .health .meter-text.title > a {
   color: #fbeeee !important;
@@ -698,6 +702,7 @@
   color: #fffaeb !important;
   background-color: #ffcc35 !important;
   border-color: #cf9b00 !important;
+  text-shadow: -1px -1px 2px #bb8c00, 1px -1px 2px #bb8c00, -1px 1px 2px #bb8c00, 1px 1px 2px #bb8c00;
 }
 .hero-stats .experience .meter-text.title > a {
   color: #fffaeb !important;
@@ -725,6 +730,7 @@
   color: #edf2fd !important;
   background-color: #4781e7 !important;
   border-color: #1750b4 !important;
+  text-shadow: -1px -1px 2px #1342a8, 1px -1px 2px #1342a8, -1px 1px 2px #1342a8, 1px 1px 2px #1342a8;
 }
 .hero-stats .mana .meter-text.title > a {
   color: #edf2fd !important;
@@ -795,6 +801,7 @@ menu.pets div {
   right: 15px;
   bottom: 0px;
   width: 30%;
+  max-width: 17em;
   height: 50%;
   overflow-y: auto;
   z-index: 1;
@@ -1700,4 +1707,10 @@ markdown.task-text p {
 }
 .muted * {
   color: #808080 !important;
+}
+.stable-pet-icon {
+  float: left;
+}
+.stable-pet-not-owned-icon {
+  float: left;
 }

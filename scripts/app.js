@@ -89,6 +89,16 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
 
+    // Stable
+    .state('app.stable', {
+      url: '/stable',
+      views: {
+        menuContent: {
+          templateUrl: 'views/app.stable.html'
+        }
+      }
+    })
+
     // Tasks
     .state('app.task', {
       url: '/task/:tid',
