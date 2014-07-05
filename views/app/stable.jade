@@ -2,17 +2,20 @@ mixin petList(source)
   each egg in source
     each potion in env.Content.hatchingPotions
       - pet = egg.key+"-"+potion.key
-      .item
+      a.item.item-icon-right(href='#/app/pet-details/#{pet}')
         .stable-pet-icon(class="Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0')
         .PixelPaw.stable-pet-not-owned-icon(ng-if='!user.items.pets["#{pet}"]')
         p=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)})
-      //.col
-        button(class="pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0', ng-class='{active: user.items.currentPet == "#{pet}", selectableInventory: selectedFood && !user.items.mounts["#{pet}"]}', ng-click='choosePet("#{egg.key}", "#{potion.key}")')
-          .progress(ng-show='!user.items.mounts["#{pet}"] && "#{egg.key}"!="Egg"')
-            .progress-bar.progress-bar-success(style='width:{{user.items.pets["#{pet}"]/.5}}%')
-        button(class="pet-button pet-not-owned", ng-if='!user.items.pets["#{pet}"]')
-          .PixelPaw
-        button(class="pet-evolved pet-button Pet-#{pet}", ng-if='user.items.pets["#{pet}"]<0')
+        i.icon.ion-chevron-right
+
+script(id='views/app.pet-details.html',type='text/ng-template')
+  +ionView('Pet details')
+    +content(true)
+      .list
+        .item 
+          {{pet}}
+          div(class="Pet-{{pet}}", ng-if='user.items.pets[pet]>0')
+          .PixelPaw(ng-if='!user.items.pets[pet]')
 
 script(id='views/app.stable.html',type='text/ng-template')
   +ionView('Stable')
@@ -28,9 +31,20 @@ script(id='views/app.stable.html',type='text/ng-template')
             .item(ng-if='user.items.pets["#{k}"]')
               .stable-pet-icon(class="Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0')
               p=env.t(t)
-          .item(ng-if='user.items.pets["Dragon-Hydra"]')
+          .item(ng-if='!user.items.pets["Dragon-Hydra"]')
             a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG') 
               .PixelPaw-Gold.stable-pet-not-owned-icon
               | Rare pet contributors
+
       +ionTab(env.t('mounts'))
+        .list
+          each egg in env.Content.eggs
+            each potion in env.Content.hatchingPotions
+              - mount = egg.key+"-"+potion.key
+              .item
+                .stable-pet-icon(class="Mount_Head_#{mount}", ng-if="user.items.mounts[\"#{mount}\"]")
+                .PixelPaw.stable-pet-not-owned-icon(ng-if='!user.items.mounts["#{mount}"]')
+                p=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)})
+          .item.item-divider=env.t('rareMounts')
+
       div(ui-view='')

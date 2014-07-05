@@ -98,6 +98,16 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
         }
       }
     })
+    
+    .state('app.pet-details/', {
+      url: '/pet-details/:pet',
+      views: {
+        menuContent:{
+          controller: 'PetDetailsCtrl',
+          templateUrl: 'views/app.pet-details.html'
+        }
+      }
+    })
 
     // Tasks
     .state('app.task', {

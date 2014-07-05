@@ -45,7 +45,8 @@ var paths = {
     'scripts/filters/filters.js',
     'scripts/controllers/authCtrl.js',
     'scripts/controllers/tasksCtrl.js',
-    'scripts/controllers/chatCtrl.js'
+    'scripts/controllers/chatCtrl.js',
+    'scripts/controllers/petDetailsCtrl.js'
   ],
   copy: [
     'config.xml',
