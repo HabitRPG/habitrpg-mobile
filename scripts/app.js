@@ -109,6 +109,16 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
 
+    .state('app.mount-details/', {
+      url: '/mount-details/:mount',
+      views: {
+        menuContent:{
+          controller: 'MountDetailsCtrl',
+          templateUrl: 'views/app.mount-details.html'
+        }
+      }
+    })
+
     // Tasks
     .state('app.task', {
       url: '/task/:tid',
