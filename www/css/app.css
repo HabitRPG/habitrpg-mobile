@@ -242,16 +242,24 @@
 .toolbar-nav .toolbar-button-dropdown > a:nth-of-type(2) {
   border-radius: 0em 0.382em 0.382em 0em !important;
 }
+.avatar-level,
 .herobox:after,
-.hero-stats .health .meter-text.title,
-.hero-stats .experience .meter-text.title,
-.hero-stats .mana .meter-text.title {
+.hero-stats .meter-label {
   padding: 0.382em 0.618em;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 0.382em;
+  border: 1px solid #fff;
+  outline: 1px solid #999;
+  overflow: hidden;
+  background-color: #999;
   font-size: 0.8em;
   line-height: 1;
+  font-weight: bold;
+  letter-spacing: 0.0618em;
+  color: #fff;
+  text-shadow: -1px -1px 1px #333, 1px -1px 1px #333, -1px 1px 1px #333, 1px 1px 1px #333;
+}
+.avatar-level > a,
+.herobox:after > a,
+.hero-stats .meter-label > a {
   color: #fff;
 }
 .toolbar-mobile,
@@ -450,7 +458,6 @@
   position: absolute;
   bottom: 2px;
   right: 2px;
-  text-shadow: -1px -1px 2px #616161, 1px -1px 2px #616161, -1px 1px 2px #616161, 1px 1px 2px #616161;
 }
 .herobox {
   height: 10.5em;
@@ -472,27 +479,17 @@
   display: block;
   margin: 2px;
   text-align: left;
-  color: #f7fbf6 !important;
   background-color: #b2d4a6 !important;
-  border-color: #6aab53 !important;
-  text-shadow: -1px -1px 2px #49833a, 1px -1px 2px #49833a, -1px 1px 2px #49833a, 1px 1px 2px #49833a;
+  text-shadow: -1px -1px 1px #2f4c25, 1px -1px 1px #2f4c25, -1px 1px 1px #2f4c25, 1px 1px 1px #2f4c25;
   transition: opacity 0.2s ease-out;
-}
-.herobox:after > a {
-  color: #f7fbf6 !important;
 }
 .herobox:after {
   opacity: 0;
 }
 .herobox.isUser:not(.hasMount):after {
   opacity: 1;
-  color: #f7f9fa !important;
-  background-color: #b3c5c9 !important;
-  border-color: #6a8d95 !important;
-  text-shadow: -1px -1px 2px #496675, 1px -1px 2px #496675, -1px 1px 2px #496675, 1px 1px 2px #496675;
-}
-.herobox.isUser:not(.hasMount):after > a {
-  color: #f7f9fa !important;
+  background-color: #b0c3c7 !important;
+  text-shadow: -1px -1px 1px #2f3f42, 1px -1px 1px #2f3f42, -1px 1px 1px #2f3f42, 1px 1px 1px #2f3f42;
 }
 .character-sprites span {
   position: absolute;
@@ -641,7 +638,7 @@
   height: 10.5em;
 }
 .hero-stats {
-  padding: 0.8em 1em 0;
+  padding: 1.1em 1em 0;
   margin: 0;
   display: table-cell;
   vertical-align: middle;
@@ -649,105 +646,71 @@
 }
 @media screen and (max-width: 768px) {
   .hero-stats {
-    padding: 0.382em 0.382em 0;
+    padding: 1.1em 0.618em 0;
   }
+}
+.hero-stats .meter-label {
+  float: left;
+  background-color: #b0c3c7 !important;
+  text-shadow: -1px -1px 1px #2f3f42, 1px -1px 1px #2f3f42, -1px 1px 1px #2f3f42, 1px 1px 1px #2f3f42;
+  width: 2.618em;
+  text-align: center;
+  margin-right: 0.618em;
 }
 .hero-stats .meter {
   position: relative;
   overflow: hidden;
-  border: 1px solid #333;
-  border-radius: 0.382em;
-  height: 2.25em;
-  margin: 0 0 0.8em;
+  border: 1px solid #fff;
+  height: 1.618em;
+  margin: 0 0 1em;
+  outline: 1px solid #999;
 }
 .hero-stats .meter .bar {
-  border-radius: 0.382em 0 0 0.382em;
   height: 100%;
   transition: width 0.25s ease-out;
-  border-right: 1px solid #333;
 }
 .hero-stats .health {
-  background: #f8dddd;
-  color: #6f1818;
-  border-color: #da5353;
+  background: #fcf0f0;
+  color: #250808;
 }
 .hero-stats .health .bar {
-  background: #e79090;
-  border-color: #da5353;
-}
-.hero-stats .health .meter-text.title {
-  margin-top: 0.333333em;
-  color: #fbeeee !important;
-  background-color: #da5353 !important;
-  border-color: #a62424 !important;
-  text-shadow: -1px -1px 2px #972424, 1px -1px 2px #972424, -1px 1px 2px #972424, 1px 1px 2px #972424;
-}
-.hero-stats .health .meter-text.title > a {
-  color: #fbeeee !important;
-}
-.hero-stats .health .meter-text.title span {
-  margin-right: 0.382em;
+  background: #da5353;
+  border-color: #6f1818;
 }
 .hero-stats .experience {
-  background: #fff6dd;
-  color: #8a6700;
-  border-color: #ffcc35;
+  background: #fffbf0;
+  color: #2e2200;
 }
 .hero-stats .experience .bar {
-  background: #ffdf82;
-  border-color: #ffcc35;
-}
-.hero-stats .experience .meter-text.title {
-  margin-top: 0.333333em;
-  color: #fffaeb !important;
-  background-color: #ffcc35 !important;
-  border-color: #cf9b00 !important;
-  text-shadow: -1px -1px 2px #bb8c00, 1px -1px 2px #bb8c00, -1px 1px 2px #bb8c00, 1px 1px 2px #bb8c00;
-}
-.hero-stats .experience .meter-text.title > a {
-  color: #fffaeb !important;
-}
-.hero-stats .experience .meter-text.title span {
-  margin-right: 0.382em;
+  background: #ffcc35;
+  border-color: #8a6700;
 }
 .hero-stats .experience .meter-text span {
   margin-right: 0.236em;
 }
 .hero-stats .experience .meter-text span a {
-  color: #8a6700;
+  color: #5c4400;
 }
 .hero-stats .mana {
-  background: #dbe6fa;
-  color: #0f3577;
-  border-color: #4781e7;
+  background: #eff4fd;
+  color: #051228;
 }
 .hero-stats .mana .bar {
-  background: #89aef0;
-  border-color: #4781e7;
-}
-.hero-stats .mana .meter-text.title {
-  margin-top: 0.333333em;
-  color: #edf2fd !important;
-  background-color: #4781e7 !important;
-  border-color: #1750b4 !important;
-  text-shadow: -1px -1px 2px #1342a8, 1px -1px 2px #1342a8, -1px 1px 2px #1342a8, 1px 1px 2px #1342a8;
-}
-.hero-stats .mana .meter-text.title > a {
-  color: #edf2fd !important;
-}
-.hero-stats .mana .meter-text.title span {
-  margin-right: 0.382em;
+  background: #4781e7;
+  border-color: #0f3577;
 }
 .hero-stats .meter-text {
   position: absolute;
   top: 0;
-  line-height: 2.25;
-}
-.hero-stats .meter-text.title {
-  left: 0.382em;
+  z-index: 4;
+  line-height: 1.618;
 }
 .hero-stats .meter-text.value {
   right: 0.382em;
+}
+[class^="quest_"] + .hero-stats {
+  min-width: 220px;
+  padding: 1.618em 0 1em;
 }
 header .hero-stats {
   background-color: #cfdbde;
