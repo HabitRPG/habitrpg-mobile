@@ -62,8 +62,10 @@ script(id='views/app.modals.hatch.html',type='text/ng-template')
 script(id='views/app.modals.showQuest.html',type='text/ng-template')
   .modal
     ion-header-bar
-      h1.title {{selectedItem.text()}}
       button.button.button-icon.icon.ion-close(ng-click='showQuestModal.hide()')
+      h1.title {{selectedItem.text()}}
+      // FIXME button.button(ng-click='questInit()')=env.t('inviteParty')
+      button.button.button-clear.button-dark=env.t('inviteParty')
     ion-content.padding
       .pull-right(class='quest_{{selectedItem.key}}')
       div(ng-bind-html='selectedItem.notes()')
