@@ -14,6 +14,7 @@ habitrpg.controller('RootCtrl',
     $rootScope.Content = $window.habitrpgShared.content;
     $rootScope.moment = $window.moment;
     $rootScope.Math = $window.Math;
+    $rootScope.env = $window.env;
 
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;

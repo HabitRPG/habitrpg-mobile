@@ -1,0 +1,74 @@
+script(id='views/app.inventory.html',type='text/ng-template')
+  +ionView('Inventory')
+    ion-tabs
+      +ionTab(env.t('inventory'))
+        .list(ng-controller='InventoryCtrl')
+          .item.item-divider=env.t('eggs') + ' ({{eggCount}})'
+          .item(ng-repeat='(egg,points) in ownedItems(user.items.eggs)', ng-click='showActions(Content.eggs[egg], "eggs")')
+            .inventory-item-icon(class='Pet_Egg_{{::egg}}')
+            =env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"})
+            span.badge.badge-assertive {{points}}
+          .item.item-divider=env.t('hatchingPotions') + ' ({{potCount}})'
+          .item(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)', ng-click='showActions(Content.hatchingPotions[pot], "hatchingPotions")')
+            .inventory-item-icon(class='Pet_HatchingPotion_{{::pot}}')
+            =env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"})
+            span.badge.badge-assertive {{points}}
+          .item.item-divider=env.t('quests') + ' ({{questCount}})'
+          .item(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-click='showActions(quest, "quests")')
+            .inventory-item-icon(class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+            |{{::quest.text()}}
+            span.badge.badge-assertive {{points}}
+          .item.item-divider=env.t('food') + ' ({{foodCount}})'
+          .item(ng-repeat='(food,points) in ownedItems(user.items.food)', ng-click='showActions(Content.food[food], "food")')
+            .inventory-item-icon(class='Pet_Food_{{::food}}')
+            |{{::Content.food[food].text()}}
+            span.badge.badge-assertive {{points}}
+          //div(ng-if='user.items.special.snowball')
+            .item.item-divider=env.t('special')
+            .item
+              .inventory-item-icon(popover='{{::Content.special.snowball.notes()}}', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
+              |{{::Content.special.snowball.text()}}
+              span.badge.badge-assertive {{user.items.special.snowball}}
+          //div(ng-if='user.items.special.valentineReceived[0]')
+            .item.item-divider=env.t('valentineCard')
+            .item
+              .inventory-item-icon(ng-click='openModal("valentine")', class='inventory_special_valentine')
+              ="Valentine\'s Day Card from {{User.user.items.special.valentineReceived[0]}}"
+              span.badge.badge-assertive {{user.items.special.valentineReceived.length}}
+          div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
+            .item.item-divider=env.t('subscriberItem')
+            .item(ng-click="user.ops.openMysteryItem({})")
+              .inventory-item-icon(class='inventory_present')
+              =env.t('subscriberItemText')
+              span.badge.badge-assertive {{user.purchased.plan.mysteryItems.length}}
+      +ionTab(env.t('market'))
+      +ionTab(env.t('equipment'))
+      div(ui-view='')
+
+script(id='views/app.modals.hatch.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      h1.title Hatch pet
+      button.button.button-icon.icon.ion-close(ng-click='hatchModal.hide()')
+    ion-content
+      .list
+        .item(ng-repeat='(item,points) in ownedItems(user.items[itemsToHatch])', 
+              ng-if='!(user.items.pets[itemsToHatch === "hatchingPotions" ? (selectedItem.key+"-"+item) : (item+"-"+selectedItem.key)]>0)',
+              ng-click='itemsToHatch === "hatchingPotions" ? hatch(selectedItem, Content.hatchingPotions[item]) : hatch(Content.eggs[item], selectedItem)')
+          .inventory-item-icon(ng-class='::itemsToHatch === "hatchingPotions" ? ("Pet_HatchingPotion_" + item) : ("Pet_Egg_" + item)')
+          |{{::itemsToHatch === "hatchingPotions" ? env.t("potion", {potionType: Content.hatchingPotions[item].text()}) : env.t("egg", {eggType: Content.eggs[item].text()})}}
+          span.badge.badge-assertive {{points}}
+
+script(id='views/app.modals.showQuest.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      h1.title {{selectedItem.text()}}
+      button.button.button-icon.icon.ion-close(ng-click='showQuestModal.hide()')
+    ion-content.padding
+      .pull-right(class='quest_{{selectedItem.key}}')
+      div(ng-bind-html='selectedItem.notes()')
+      quest-rewards(key='{{selectedItem.key}}')
+      hr    
+      .npc_ian.pull-left
+      p=env.t('questSend')
+      p=env.t('questWarning')
