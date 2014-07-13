@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('RootCtrl',
-  ['$scope', '$rootScope', '$location', 'User', '$state', '$stateParams', '$window', '$ionicPlatform',
-  function ($scope, $rootScope, $location, User, $state, $stateParams, $window, $ionicPlatform) {
+  ['$scope', '$rootScope', '$location', 'User', '$state', '$stateParams', '$window', '$ionicPlatform', 'Groups',
+  function ($scope, $rootScope, $location, User, $state, $stateParams, $window, $ionicPlatform, Groups) {
 
     $rootScope.User = User;
     $rootScope.user = User.user;
@@ -18,6 +18,8 @@ habitrpg.controller('RootCtrl',
 
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
+
+    $rootScope.party = Groups.party();
 
     $rootScope.sync = function(){
       if ($state.includes('app.chat')) {

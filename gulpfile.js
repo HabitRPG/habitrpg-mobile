@@ -36,6 +36,7 @@ var paths = {
     'node_modules/habitrpg/public/js/env.js',
     'scripts/app.js',
     'bower_components/habitrpg-shared/script/userServices.js',
+    'node_modules/habitrpg/public/js/services/groupServices.js',
     'bower_components/habitrpg-shared/script/directives.js',
     'scripts/services/authServices.js',
     'scripts/services/notificationServices.js',

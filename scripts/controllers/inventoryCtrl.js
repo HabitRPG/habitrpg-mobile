@@ -97,9 +97,15 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       $scope.hatchModal.hide();
     }
 
+    // FIXME catch http errors
     $scope.questInit = function(){
-      $rootScope.party.$questAccept({key:$scope.selectedQuest.key}, function(){
+      $rootScope.party.$questAccept({key:$scope.selectedItem.key}, function(){
         $rootScope.party.$get();
+        $scope.showQuestModal.hide();
+        // FIXME force sync otherwise quest won't disappear
+        $rootScope.sync();
+      }, function(error){
+        alert("Error: " + error.data.err);
       });
     }
   }

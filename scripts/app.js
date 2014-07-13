@@ -3,7 +3,7 @@
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'notificationServices', 'ngResource'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'groupServices', 'notificationServices', 'ngResource'])
 
 .run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {

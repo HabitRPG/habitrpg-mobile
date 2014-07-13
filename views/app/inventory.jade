@@ -14,7 +14,8 @@ script(id='views/app.inventory.html',type='text/ng-template')
             =env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"})
             span.badge.badge-assertive {{points}}
           .item.item-divider=env.t('quests') + ' ({{questCount}})'
-          // FIXME .item!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
+          //FIXME .item!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
+          .item!=env.t('scrollsText1') + ' ' + env.t('scrollsText2')
           .item(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-click='showActions(quest, "quests")')
             .inventory-item-icon(class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
             |{{::quest.text()}}
@@ -65,8 +66,7 @@ script(id='views/app.modals.showQuest.html',type='text/ng-template')
     ion-header-bar
       button.button.button-icon.icon.ion-close(ng-click='showQuestModal.hide()')
       h1.title {{selectedItem.text()}}
-      // FIXME button.button(ng-click='questInit()')=env.t('inviteParty')
-      button.button.button-clear.button-dark=env.t('inviteParty')
+      button.button.button-clear.button-dark(ng-click="questInit()")=env.t('inviteParty')
     ion-content.padding
       .pull-right(class='quest_{{selectedItem.key}}')
       div(ng-bind-html='selectedItem.notes()')
