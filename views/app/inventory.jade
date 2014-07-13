@@ -14,6 +14,7 @@ script(id='views/app.inventory.html',type='text/ng-template')
             =env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"})
             span.badge.badge-assertive {{points}}
           .item.item-divider=env.t('quests') + ' ({{questCount}})'
+          // FIXME .item!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
           .item(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-click='showActions(quest, "quests")')
             .inventory-item-icon(class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
             |{{::quest.text()}}
