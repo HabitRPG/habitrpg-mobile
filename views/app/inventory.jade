@@ -2,7 +2,7 @@ script(id='views/app.inventory.html',type='text/ng-template')
   +ionView('Inventory')
     ion-tabs
       +ionTab(env.t('inventory'))
-        .list(ng-controller='InventoryCtrl')
+        .list
           .item.item-divider=env.t('eggs') + ' ({{eggCount}})'
           .item(ng-repeat='(egg,points) in ownedItems(user.items.eggs)', ng-click='showActions(Content.eggs[egg], "eggs")')
             .inventory-item-icon(class='Pet_Egg_{{::egg}}')
@@ -44,6 +44,63 @@ script(id='views/app.inventory.html',type='text/ng-template')
               =env.t('subscriberItemText')
               span.badge.badge-assertive {{user.purchased.plan.mysteryItems.length}}
       +ionTab(env.t('market'))
+        .list
+          .item.item-divider=env.t('eggs')
+          .item(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy', ng-click='purchase("eggs", egg)')
+            .inventory-item-icon(class='Pet_Egg_{{::egg.key}}')
+            !=env.t("egg", {eggType: "{{::egg.text()}}"})
+            span.badge.badge-assertive 
+              |{{::egg.value}}&nbsp; 
+              span.Pet_Currency_Gem1x.inline-gems
+          each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse'}
+            .item(ng-show='user.achievements.quests.#{quest} > 1', ng-click='purchase("eggs", Content.eggs.#{egg})')
+              .inventory-item-icon(class='Pet_Egg_#{egg}')
+              !=env.t("egg", {eggType: "{{::Content.eggs." + egg + ".text()}}"})
+              span.badge.badge-assertive 
+                |{{::egg.value}}&nbsp; 
+                span.Pet_Currency_Gem1x.inline-gems
+          .item.item-divider=env.t('hatchingPotions')
+          .item(ng-repeat='pot in Content.hatchingPotions', ng-click='purchase("hatchingPotions", pot)')
+            .inventory-item-icon(class='Pet_HatchingPotion_{{::pot.key}}')
+            !=env.t("potion", {potionType: "{{::pot.text()}}"})
+            span.badge.badge-assertive 
+              |{{::pot.value}}&nbsp; 
+              span.Pet_Currency_Gem1x.inline-gems
+          .item.item-divider=env.t('food')
+          .item(ng-repeat='food in Content.food', ng-if='food.canBuy', ng-click='purchase("food", food)')
+            .inventory-item-icon(class='Pet_Food_{{::food.key}}')
+            |{{::food.text()}}
+            span.badge.badge-assertive 
+              |{{::food.value}}&nbsp; 
+              span.Pet_Currency_Gem1x.inline-gems
+          .item.item-divider=env.t('quests')
+          //FIXME .item!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
+          .item!=env.t('scrollsText1') + ' ' + env.t('scrollsText2')
+          .item(ng-repeat='quest in Content.quests', ng-if='quest.canBuy', ng-click='buyQuest(quest.key)')
+            .inventory-item-icon.inventory_quest_scroll(ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+            |{{::quest.text()}}
+            span.badge.badge-assertive 
+              |{{::quest.value}}&nbsp; 
+              span.Pet_Currency_Gem1x.inline-gems
+          .item.item-divider=env.t('special')
+          .item(ng-click='reroll()')
+            .inventory-item-icon.inventory_special_fortify
+            =env.t('fortifyName')
+            span.badge.badge-assertive 
+              |4&nbsp; 
+              span.Pet_Currency_Gem1x.inline-gems
+          .item(ng-click='rebirth()', ng-if='user.flags.rebirthEnabled')
+            .inventory-item-icon.rebirth_orb
+            =env.t('rebirthName')
+            span.badge.badge-assertive(ng-if='user.stats.lvl < 100')
+              |8&nbsp; 
+              span.Pet_Currency_Gem1x.inline-gems
+          .item(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})', ng-if='user.purchased.plan.planId')
+            .inventory-item-icon.Pet_Currency_Gem.inline-gems
+            span.badge.badge-assertive
+              |20&nbsp; 
+              span.shop_gold
+
       +ionTab(env.t('equipment'))
       div(ui-view='')
 
@@ -75,3 +132,63 @@ script(id='views/app.modals.showQuest.html',type='text/ng-template')
       .npc_ian.pull-left
       p=env.t('questSend')
       p=env.t('questWarning')
+
+script(id='views/app.modals.buyQuest.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      button.button.button-icon.icon.ion-close(ng-click='buyQuestModal.hide()')
+      h1.title {{selectedItem.text()}}
+      button.button.button-clear.button-dark(ng-click='purchase("quests", selectedItem); buyQuestModal.hide()')=env.t('buyQuest')
+    ion-content.padding
+      .pull-right(class='quest_{{selectedItem.key}}')
+      div(ng-bind-html='selectedItem.notes()')
+      quest-rewards(key='{{selectedItem.key}}')
+
+script(id='views/app.modals.reroll.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      button.button.button-icon.icon.ion-close(ng-click='rerollModal.hide()')
+      h1.title=env.t('fortify')
+    ion-content.padding
+      p=env.t('fortifyText')
+      //FIXME redirect to buy gems modal
+      .button.button-stable(ng-if='user.balance < 1')=env.t('notEnoughGems')
+      .button.button-stable(ng-if='user.balance >= 1', ng-click='user.ops.reroll({}); rerollModal.hide()')
+        !=env.t('fortify') + ' 4&nbsp;' 
+        span.Pet_Currency_Gem1x.inline-gems
+
+script(id='views/app.modals.rebirth.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      button.button.button-icon.icon.ion-close(ng-click='rebirthModal.hide()')
+      h1.title=env.t('rebirthNew')
+    ion-content.padding
+      figure
+        .rebirth_orb
+      p=env.t('rebirthStartOver')
+      br
+      ul.list-unstyled
+        li=env.t('rebirthAdvList1')
+        li=env.t('rebirthAdvList2')
+        li=env.t('rebirthAdvList3')
+        li=env.t('rebirthAdvList4')
+      br
+      p=env.t('rebirthInherit')
+      ul.list-unstyled
+        li=env.t('rebirthInList1')
+        li=env.t('rebirthInList2')
+        li=env.t('rebirthInList3')
+        li=env.t('rebirthInList4')
+        li=env.t('rebirthInList5')
+      br
+
+      p
+        .vertical-align.inline-block.achievement-sun
+        |&nbsp;
+        =env.t('rebirthEarnAchievement')   
+      //FIXME redirect to buy gems modal
+      .button.button-stable(ng-if='user.balance < 2 && user.stats.lvl < 100')=env.t('notEnoughGems')
+      .button.button-stable(ng-if='user.balance > 2 || user.stats.lvl > 100', ng-click='user.ops.rebirth({}); rebirthModal.hide()')
+        span!=env.t('beReborn')
+        span(ng-show='user.stats.lvl < 100')!=' 8&nbsp;' 
+        span(ng-show='user.stats.lvl < 100').Pet_Currency_Gem1x.inline-gems

@@ -97,7 +97,60 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
       $scope.hatchModal.hide();
     }
 
-    // FIXME catch http errors
+    $scope.purchase = function(type, item){
+      var gems = user.balance * 4;
+
+      // FIXME if(gems < item.value) return $rootScope.openModal('buyGems');
+      if(gems < item.value) return alert(window.env.t('notEnoughGems'));
+      var string = (type == 'hatchingPotions') ? window.env.t('hatchingPotion') : (type == 'eggs') ? window.env.t('eggSingular') : (type == 'quests') ? window.env.t('quest') : (item.key == 'Saddle') ? window.env.t('foodSaddleText').toLowerCase() : (type == 'special') ? item.key : type; // this is ugly but temporary, once the purchase modal is done this will be removed
+      var message = window.env.t('buyThis', {text: string, price: item.value, gems: gems})
+
+      if($window.confirm(message)){
+        User.user.ops.purchase({params:{type:type,key:item.key}});
+        alert('Item purchased!'); //FIXME
+      }
+    }
+
+    $scope.reroll = function(){
+      $ionicModal.fromTemplateUrl('views/app.modals.reroll.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.rerollModal = modal;
+        $scope.rerollModal.show();
+      });
+    }
+
+    $scope.rebirth = function(){
+      $ionicModal.fromTemplateUrl('views/app.modals.rebirth.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.rebirthModal = modal;
+        $scope.rebirthModal.show();
+      });
+    }
+
+    $scope.buyQuest = function(quest) {
+      var item = Content.quests[quest];
+      if (item.lvl && item.lvl > user.stats.lvl)
+          return alert(window.env.t('mustLvlQuest', {level: item.lvl}));
+      var completedPrevious = !item.previous || (user.achievements.quests && user.achievements.quests[item.previous]);
+      if (!completedPrevious)
+        return $scope.purchase("quests", item);
+      // FIXME it looks like template directives are compiled when
+      // modal is loaded not when shown, so quest rewards doesn't work
+      $scope.selectedItem = item;
+      $ionicModal.fromTemplateUrl('views/app.modals.buyQuest.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.buyQuestModal = modal;
+        $scope.buyQuestModal.show();
+      });
+    }
+
+    // FIXME catch http errors with interceptor
     $scope.questInit = function(){
       $rootScope.party.$questAccept({key:$scope.selectedItem.key}, function(){
         $rootScope.party.$get();

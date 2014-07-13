@@ -94,6 +94,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: '/inventory',
       views: {
         menuContent: {
+          controller: 'InventoryCtrl',
           templateUrl: 'views/app.inventory.html'
         }
       }
