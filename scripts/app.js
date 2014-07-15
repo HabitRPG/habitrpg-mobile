@@ -5,7 +5,7 @@
  */
 var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'notificationServices', 'ngResource'])
 
-.run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
+.run(['$ionicPlatform','$rootScope','$ionicPopup',function($ionicPlatform,$rootScope,$ionicPopup) {
   $ionicPlatform.ready(function() {
     $rootScope.isIOS = $ionicPlatform.is('iOS');
     if(window.StatusBar) {
