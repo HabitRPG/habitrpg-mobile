@@ -98,7 +98,17 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
           templateUrl: 'views/app.inventory.html'
         }
       }
-    })    
+    })
+
+    .state('app.equipment-costume', {
+      url: '/equipment-costume',
+      views: {
+        menuContent:{
+          controller: 'InventoryCtrl',
+          templateUrl: 'views/app.inventory.equipment-costume.html'
+        }
+      }
+    })
 
     // Stable
     .state('app.stable', {
@@ -110,7 +120,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
     
-    .state('app.pet-details/', {
+    .state('app.pet-details', {
       url: '/pet-details/:pet',
       views: {
         menuContent:{
@@ -120,7 +130,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
 
-    .state('app.mount-details/', {
+    .state('app.mount-details', {
       url: '/mount-details/:mount',
       views: {
         menuContent:{

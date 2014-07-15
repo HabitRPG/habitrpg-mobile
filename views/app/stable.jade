@@ -10,7 +10,7 @@ mixin petList(source)
 
 script(id='views/app.pet-details.html',type='text/ng-template')
   +ionView('Pet details')
-    +content(true)
+    +content()
       .list
         .item 
           |{{petDisplayName}}
@@ -34,7 +34,7 @@ script(id='views/app.pet-details.html',type='text/ng-template')
 
 script(id='views/app.mount-details.html',type='text/ng-template')
   +ionView('Mount details')
-    +content(true)
+    +content()
       .list
         .item 
           |{{mountDisplayName}}

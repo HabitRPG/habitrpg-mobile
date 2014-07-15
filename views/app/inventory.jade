@@ -102,6 +102,19 @@ script(id='views/app.inventory.html',type='text/ng-template')
               span.shop_gold
 
       +ionTab(env.t('equipment'))
+        .padding
+          h3.equipment-title.hint=env.t('battleGear')
+          br
+          small=env.t('battleGearText')
+          a.button.button-block.button-positive(href='#/app/equipment-costume')=env.t('costume')
+          .customize-menu.inventory-gear
+            menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+              div(ng-repeat='item in gear[klass]')
+                button.customize-option(ng-click='user.ops.equip({params:{key:item.key}})',
+                                        on-hold='gearDetails(item)',
+                                        class='shop_{{::item.key}}',
+                                        ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+
       div(ui-view='')
 
 script(id='views/app.modals.hatch.html',type='text/ng-template')
@@ -192,3 +205,28 @@ script(id='views/app.modals.rebirth.html',type='text/ng-template')
         span!=env.t('beReborn')
         span(ng-show='user.stats.lvl < 100')!=' 8&nbsp;' 
         span(ng-show='user.stats.lvl < 100').Pet_Currency_Gem1x.inline-gems
+
+script(id='views/app.inventory.equipment-costume.html',type='text/ng-template')
+  +ionView(env.t('costume'))
+    +content()
+      .padding
+        small=env.t('costumeText')
+        br
+      ul.list.costume-list
+        li.item.item-toggle
+          =env.t('useCostume')
+          |&nbsp;
+          label.toggle
+            input(type='checkbox', ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+            .track
+              .handle
+      .padding
+        .customize-menu(ng-if='user.preferences.costume')
+          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+            div(ng-repeat='item in gear[klass]')
+              button.customize-option(ng-click='user.ops.equip({params:{type:"costume", key:item.key}})',
+                                      on-hold='gearDetails(item)',
+                                      class='shop_{{::item.key}}',
+                                      ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+
+

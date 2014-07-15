@@ -1,7 +1,7 @@
 'use strict'
 
-habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', '$ionicActionSheet', '$ionicModal',
-  function($rootScope, $scope, $window, User, $ionicActionSheet, $ionicModal) {
+habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User', '$ionicActionSheet', '$ionicModal', '$ionicPopup',
+  function($rootScope, $scope, $window, User, $ionicActionSheet, $ionicModal, $ionicPopup) {
 
     var user = User.user;
     var Content = $rootScope.Content;
@@ -12,6 +12,16 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
     }).then(function(modal) {
       $scope.hatchModal = modal;
     });
+
+    $scope.$watch('user.items.gear', function(gear){
+      $scope.gear = {};
+      _.each(gear.owned, function(v,key){
+        if (v === false) return;
+        var item = Content.gear.flat[key];
+        if (!$scope.gear[item.klass]) $scope.gear[item.klass] = [];
+        $scope.gear[item.klass].push(item);
+      })
+    }, true);
 
     $scope.showActions = function(item, type){
       if(type === "quests"){
@@ -159,6 +169,13 @@ habitrpg.controller("InventoryCtrl", ['$rootScope', '$scope', '$window', 'User',
         $rootScope.sync();
       }, function(error){
         alert("Error: " + error.data.err);
+      });
+    }
+
+    $scope.gearDetails = function(item){
+      $ionicPopup.alert({
+        title: item.text(),
+        template: item.notes()
       });
     }
   }
