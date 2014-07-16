@@ -45,7 +45,8 @@ habitrpg
       User.user.ops.sortTask({params:{id:task.id},query:{from:fromIndex, to:toIndex}});
     };
 
-    $scope.score = function (task, direction) {
+    $scope.score = function (task, direction, e) {
+      if (e) e.stopPropagation();
       //save current stats to compute the difference after scoring.
       var statsDiff = {};
       var oldStats = _.clone(User.user.stats);
@@ -95,8 +96,10 @@ habitrpg
         //To be implemented
     };
 
-    $scope.changeCheck = function (task) {
+    $scope.changeCheck = function (task, e) {
         // This is calculated post-change, so task.completed=true if they just checked it
+        if (e) e.stopPropagation();
+        task.completed = !task.completed;
         if (task.completed) {
             $scope.score(task, 'up')
         } else {
@@ -120,6 +123,10 @@ habitrpg
         }
       });
     };
+
+    $scope.viewTask = function(task, e) {
+      $state.go('app.task',{tid:task.id});
+    }
 
 
     /**
