@@ -42,7 +42,7 @@ mixin taskList(k)
               if k=='daily' || k=='todo'
                 span.item-button-left
                   button.button.button-large.button-clear.button-positive.icon(ng-click='changeCheck(task, $event)')
-                      i.icon(ng-class="task.completed && 'ion-ios7-checkmark' || !task.completed && 'ion-ios7-circle-outline'")
+                      i(ng-class="task.completed && 'icon ion-checkmark-circled' || !task.completed && 'checkbox-icon'")
                   +taskText()
               if k=='reward'
                 span.item-button-right
