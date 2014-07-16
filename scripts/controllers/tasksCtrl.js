@@ -99,12 +99,12 @@ habitrpg
     $scope.changeCheck = function (task, e) {
         // This is calculated post-change, so task.completed=true if they just checked it
         if (e) e.stopPropagation();
+        task.completed = !task.completed;
         if (task.completed) {
             $scope.score(task, 'up')
         } else {
             $scope.score(task, 'down')
         }
-        task.completed = !task.completed;
     }
 
     $scope.actionSheet = function(task) {
