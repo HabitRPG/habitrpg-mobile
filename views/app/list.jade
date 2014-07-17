@@ -5,89 +5,106 @@ mixin taskText
 
 mixin taskList(k)
   -var nav = tasks[k]
-  div(ng-controller='TasksCtrl')
-    ion-view(title=nav.name)
-      +navBtns()
-        if k=='todo'
-          button.button.button-icon.icon(ng-class="$state.is('app.tasks') ? 'ion-eye-disabled' : 'ion-eye'", ng-click="$state.go( $state.is('app.tasks') ? 'app.tasks.completed' : 'app.tasks' )")
-        button.button.button-icon.icon.ion-arrow-move(ng-click="_reorder = !_reorder")
-        button.button.button-icon.icon(ng-class='_addingTask?"ion-ios7-close":"ion-ios7-plus"',ng-click="_addingTask = !_addingTask")
-      +content(true)
+  ion-view(title=nav.name)
+    +navBtns()
+      if k=='todo'
+        button.button.button-icon.icon(ng-class="$state.is('app.tasks.todos') ? 'ion-eye-disabled' : 'ion-eye'", ng-click="$state.go( $state.is('app.tasks.todos') ? 'app.tasks.todos.completed' : 'app.tasks.todos' )")
+      button.button.button-icon.icon.ion-arrow-move(ng-click="_reorder = !_reorder")
+      button.button.button-icon.icon(ng-class='_addingTask?"ion-ios7-close":"ion-ios7-plus"',ng-click="_addingTask = !_addingTask")
+    +content(true)
+        if k=='reward'
+          .item.rewards-wallet
+            +wallet()
+
+        form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")',ng-show='_addingTask')
+          label.item-input-wrapper
+            input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
+          button.button.button-small(type='submit') Add
+
+        .card(ng-if='user.#{k}s.length == 0')
+          .item.item-text-wrap
+            | No #{nav.name} found, add some above.
+
+        ion-list(show-reorder="_reorder")
+
           if k=='reward'
-            .item.rewards-wallet
-              +wallet()
+            .item.item-divider Custom Rewards
 
-          form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")',ng-show='_addingTask')
-            label.item-input-wrapper
-              input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
-            button.button.button-small(type='submit') Add
-
-          .card(ng-if='user.#{k}s.length == 0')
-            .item.item-text-wrap
-              | No #{nav.name} found, add some above.
-
-          ion-list(show-reorder="_reorder")
-
+          //href='#/app/tasks/{{task.id}}'
+          ion-item.item-text-wrap(on-hold="actionSheet(task)",ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
+            if k=='habit'
+              span.item-button-right
+                .buttons
+                  button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up")', ng-show='task.up')
+                  button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down")', ng-show='task.down')
+                +taskText()
+            if k=='daily' || k=='todo'
+              span.item-checkbox
+                label.checkbox
+                  input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
+                +taskText()
             if k=='reward'
-              .item.item-divider Custom Rewards
-
-            //href='#/app/tasks/{{task.id}}'
-            ion-item.item-text-wrap(on-hold="actionSheet(task)",ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
-              if k=='habit'
-                span.item-button-right
-                  .buttons
-                    button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up")', ng-show='task.up')
-                    button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down")', ng-show='task.down')
-                  +taskText()
-              if k=='daily' || k=='todo'
-                span.item-checkbox
-                  label.checkbox
-                    input(type='checkbox', ng-model='task.completed', ng-change='changeCheck(task)')
-                  +taskText()
-              if k=='reward'
-                span.item-button-right
-                  button.button.button-small.buy-button(ng-click='score(task,"down")')
-                    | {{task.value}}
-                    span.shop_gold
-                  +taskText()
-
-              // Actions
-              ion-reorder-button.ion-navicon(on-reorder="moveItem(task, $fromIndex, $toIndex)")
-
-            if k=='reward'
-              .item.item-divider Gear
-
-              ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore')
-                button.button.button-small.buy-button(ng-click='user.ops.buy({params:{key:item.key}})')
-                  | {{::item.value}}
+              span.item-button-right
+                button.button.button-small.buy-button(ng-click='score(task,"down")')
+                  | {{task.value}}
                   span.shop_gold
-                table.shop-sprites
-                  tr
-                    td
-                      .shop-sprite.item-img(class="shop_{{::item.key}}")
-                    td
-                      span(ng-click='selectTask(item)') {{::item.text()}}
+                +taskText()
+
+            // Actions
+            ion-reorder-button.ion-navicon(on-reorder="moveItem(task, $fromIndex, $toIndex)")
+
+          if k=='reward'
+            .item.item-divider Gear
+
+            ion-item.item.item-complex.item-button-right(ng-repeat='item in itemStore')
+              button.button.button-small.buy-button(ng-click='user.ops.buy({params:{key:item.key}})')
+                | {{::item.value}}
+                span.shop_gold
+              table.shop-sprites
+                tr
+                  td
+                    .shop-sprite.item-img(class="shop_{{::item.key}}")
+                  td
+                    span(ng-click='selectTask(item)') {{::item.text()}}
 
 script(id='views/app.tasks.html',type='text/ng-template')
-    //-+ionContentView(nav.name, [{class:'ion-plus-round',fn:"addTask(_newTask,'"+k+"')"}])
+  //-+ionContentView(nav.name, [{class:'ion-plus-round',fn:"addTask(_newTask,'"+k+"')"}])
 
-    // Dead
-    div(ng-if="user.stats.hp <= 0")
-      +ionContentView("Dead")
-        .item.item-text-wrap
-          h1=env.t('youDied')
-          p=env.t('dieText')
-        .padding
-          button.button.button-positive.button-block(ng-click='user.ops.revive({})')=env.t('continue')
+  // Dead
+  div(ng-if="user.stats.hp <= 0")
+    +ionContentView("Dead")
+      .item.item-text-wrap
+        h1=env.t('youDied')
+        p=env.t('dieText')
+      .padding
+        button.button.button-positive.button-block(ng-click='user.ops.revive({})')=env.t('continue')
 
-    // Alive
-    div(ng-if="user.stats.hp > 0")
-      ion-tabs.tabs-icon-top
-        ion-tab(title=env.t('habits'), icon-on='ion-ios7-plus', icon-off='ion-ios7-plus-outline')
-          +taskList('habit')
-        ion-tab(title=env.t('dailies'), icon-on='ion-ios7-calendar', icon-off='ion-ios7-calendar-outline')
-          +taskList('daily')
-        ion-tab(title=env.t('todos'), icon-on='ion-ios7-checkmark', icon-off='ion-ios7-checkmark-outline')
-          +taskList('todo')
-        ion-tab(title=env.t('rewards'), icon-on='ion-bag', icon-off='ion-bag')
-          +taskList('reward')
+  // Alive
+  div(ng-if="user.stats.hp > 0")
+    div(ui-view='')
+    .tabs.tabs-icon-top
+      a.tab-item(ng-class='{"tab-item-active": $state.is("app.tasks.habits")}', ui-sref='app.tasks.habits')
+        i.icon(ng-class='$state.is("app.tasks.habits") ? "ion-ios7-plus" : "ion-ios7-plus-outline"')
+        =env.t('habits')
+      a.tab-item(ng-class='{"tab-item-active": $state.is("app.tasks.dailies")}', ui-sref='app.tasks.dailies')
+        i.icon(ng-class='$state.is("app.tasks.dailies") ? "ion-ios7-calendar" : "ion-ios7-calendar-outline"')
+        =env.t('dailies')
+      a.tab-item(ng-class='{"tab-item-active": ($state.is("app.tasks.todos") || $state.is("app.tasks.todos.completed"))}', ui-sref='app.tasks.todos')
+        i.icon(ng-class='($state.is("app.tasks.todos") || $state.is("app.tasks.todos.completed")) ? "ion-ios7-checkmark" : "ion-ios7-checkmark-outline"')
+        =env.t('todos')
+      a.tab-item(ng-class='{"tab-item-active": $state.is("app.tasks.rewards")}', ui-sref='app.tasks.rewards')
+        i.icon.ion-bag
+        =env.t('rewards')
+
+script(id='views/app.tasks.habits.html',type='text/ng-template')
+  +taskList('habit')
+
+script(id='views/app.tasks.dailies.html',type='text/ng-template')
+  +taskList('daily')
+
+script(id='views/app.tasks.todos.html',type='text/ng-template')
+  +taskList('todo')
+
+script(id='views/app.tasks.rewards.html',type='text/ng-template')
+  +taskList('reward')
+

@@ -1,0 +1,236 @@
+script(id='views/app.inventory.html',type='text/ng-template')
+  +ionContentView(env.t('inventory'), true)
+    div(ui-view='')
+  .tabs
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.inventory.inventory")}', ui-sref='app.inventory.inventory')=env.t('inventory')
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.inventory.market")}', ui-sref='app.inventory.market')=env.t('market')
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.inventory.equipment")}', ui-sref='app.inventory.equipment')=env.t('equipment')
+
+script(id='views/app.inventory.inventory.html',type='text/ng-template')
+  .list
+    .item.item-divider=env.t('eggs') + ' ({{eggCount}})'
+    .item(ng-repeat='(egg,points) in ownedItems(user.items.eggs)', ng-click='showActions(Content.eggs[egg], "eggs")')
+      .inventory-item-icon(class='Pet_Egg_{{::egg}}')
+      =env.t("egg", {eggType: "{{::Content.eggs[egg].text()}}"})
+      span.badge.badge-assertive {{points}}
+    .item.item-divider=env.t('hatchingPotions') + ' ({{potCount}})'
+    .item(ng-repeat='(pot,points) in ownedItems(user.items.hatchingPotions)', ng-click='showActions(Content.hatchingPotions[pot], "hatchingPotions")')
+      .inventory-item-icon(class='Pet_HatchingPotion_{{::pot}}')
+      =env.t("potion", {potionType: "{{::Content.hatchingPotions[pot].text()}}"})
+      span.badge.badge-assertive {{points}}
+    .item.item-divider=env.t('quests') + ' ({{questCount}})'
+    //FIXME .item!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
+    .item!=env.t('scrollsText1') + ' ' + env.t('scrollsText2')
+    .item(ng-repeat='(quest_key,points) in ownedItems(user.items.quests)', ng-init='quest = Content.quests[quest_key]', ng-click='showActions(quest, "quests")')
+      .inventory-item-icon(class='inventory_quest_scroll', ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+      |{{::quest.text()}}
+      span.badge.badge-assertive {{points}}
+    .item.item-divider=env.t('food') + ' ({{foodCount}})'
+    .item(ng-repeat='(food,points) in ownedItems(user.items.food)', ng-click='showActions(Content.food[food], "food")')
+      .inventory-item-icon(class='Pet_Food_{{::food}}')
+      |{{::Content.food[food].text()}}
+      span.badge.badge-assertive {{points}}
+    //div(ng-if='user.items.special.snowball')
+      .item.item-divider=env.t('special')
+      .item
+        .inventory-item-icon(popover='{{::Content.special.snowball.notes()}}', ng-click='castStart(Content.special.snowball)', class='inventory_special_snowball')
+        |{{::Content.special.snowball.text()}}
+        span.badge.badge-assertive {{user.items.special.snowball}}
+    //div(ng-if='user.items.special.valentineReceived[0]')
+      .item.item-divider=env.t('valentineCard')
+      .item
+        .inventory-item-icon(ng-click='openModal("valentine")', class='inventory_special_valentine')
+        ="Valentine\'s Day Card from {{User.user.items.special.valentineReceived[0]}}"
+        span.badge.badge-assertive {{user.items.special.valentineReceived.length}}
+    div(ng-if='user.purchased.plan.customerId || user.purchased.plan.mysteryItems.length')
+      .item.item-divider=env.t('subscriberItem')
+      .item(ng-click="user.ops.openMysteryItem({})")
+        .inventory-item-icon(class='inventory_present')
+        =env.t('subscriberItemText')
+        span.badge.badge-assertive {{user.purchased.plan.mysteryItems.length}}
+
+script(id='views/app.inventory.market.html',type='text/ng-template')
+  .list
+    .item.item-divider=env.t('eggs')
+    .item(ng-repeat='egg in Content.eggs', ng-if='egg.canBuy', ng-click='purchase("eggs", egg)')
+      .inventory-item-icon(class='Pet_Egg_{{::egg.key}}')
+      !=env.t("egg", {eggType: "{{::egg.text()}}"})
+      span.badge.badge-assertive 
+        |{{::egg.value}}&nbsp; 
+        span.Pet_Currency_Gem1x.inline-gems
+    each egg,quest in {gryphon:'Gryphon',hedgehog:'Hedgehog',ghost_stag:'Deer',rat:'Rat',octopus:'Octopus',dilatory_derby:'Seahorse'}
+      .item(ng-show='user.achievements.quests.#{quest} > 1', ng-click='purchase("eggs", Content.eggs.#{egg})')
+        .inventory-item-icon(class='Pet_Egg_#{egg}')
+        !=env.t("egg", {eggType: "{{::Content.eggs." + egg + ".text()}}"})
+        span.badge.badge-assertive 
+          |{{::egg.value}}&nbsp; 
+          span.Pet_Currency_Gem1x.inline-gems
+    .item.item-divider=env.t('hatchingPotions')
+    .item(ng-repeat='pot in Content.hatchingPotions', ng-click='purchase("hatchingPotions", pot)')
+      .inventory-item-icon(class='Pet_HatchingPotion_{{::pot.key}}')
+      !=env.t("potion", {potionType: "{{::pot.text()}}"})
+      span.badge.badge-assertive 
+        |{{::pot.value}}&nbsp; 
+        span.Pet_Currency_Gem1x.inline-gems
+    .item.item-divider=env.t('food')
+    .item(ng-repeat='food in Content.food', ng-if='food.canBuy', ng-click='purchase("food", food)')
+      .inventory-item-icon(class='Pet_Food_{{::food.key}}')
+      |{{::food.text()}}
+      span.badge.badge-assertive 
+        |{{::food.value}}&nbsp; 
+        span.Pet_Currency_Gem1x.inline-gems
+    .item.item-divider=env.t('quests')
+    //FIXME .item!=env.t('scrollsText1') + ' <a href="/#/options/groups/party">' + env.t('scrollsText2') + '</a>'
+    .item!=env.t('scrollsText1') + ' ' + env.t('scrollsText2')
+    .item(ng-repeat='quest in Content.quests', ng-if='quest.canBuy', ng-click='buyQuest(quest.key)')
+      .inventory-item-icon.inventory_quest_scroll(ng-class='::{locked: quest.previous && !user.achievements.quests[quest.previous]}')
+      |{{::quest.text()}}
+      span.badge.badge-assertive 
+        |{{::quest.value}}&nbsp; 
+        span.Pet_Currency_Gem1x.inline-gems
+    .item.item-divider=env.t('special')
+    .item(ng-click='reroll()')
+      .inventory-item-icon.inventory_special_fortify
+      =env.t('fortifyName')
+      span.badge.badge-assertive 
+        |4&nbsp; 
+        span.Pet_Currency_Gem1x.inline-gems
+    .item(ng-click='rebirth()', ng-if='user.flags.rebirthEnabled')
+      .inventory-item-icon.rebirth_orb
+      =env.t('rebirthName')
+      span.badge.badge-assertive(ng-if='user.stats.lvl < 100')
+        |8&nbsp; 
+        span.Pet_Currency_Gem1x.inline-gems
+    .item(ng-click='user.ops.purchase({params:{type:"gems",key:"gem"}})', ng-if='user.purchased.plan.planId')
+      .inventory-item-icon.Pet_Currency_Gem.inline-gems
+      span.badge.badge-assertive
+        |20&nbsp; 
+        span.shop_gold
+
+script(id='views/app.inventory.equipment.html',type='text/ng-template')
+  .padding
+    h3.equipment-title.hint=env.t('battleGear')
+    br
+    small=env.t('battleGearText')
+    a.button.button-block.button-positive(href='#/app/equipment-costume')=env.t('costume')
+    .customize-menu.inventory-gear
+      menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+        div(ng-repeat='item in gear[klass]')
+          button.customize-option(ng-click='user.ops.equip({params:{key:item.key}})',
+                                  on-hold='gearDetails(item)',
+                                  class='shop_{{::item.key}}',
+                                  ng-class='{selectableInventory: user.items.gear.equipped[item.type] == item.key}')
+
+script(id='views/app.modals.hatch.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      h1.title Hatch pet
+      button.button.button-icon.icon.ion-close(ng-click='hatchModal.hide()')
+    ion-content
+      .list
+        .item(ng-repeat='(item,points) in ownedItems(user.items[itemsToHatch])', 
+              ng-if='!(user.items.pets[itemsToHatch === "hatchingPotions" ? (selectedItem.key+"-"+item) : (item+"-"+selectedItem.key)]>0)',
+              ng-click='itemsToHatch === "hatchingPotions" ? hatch(selectedItem, Content.hatchingPotions[item]) : hatch(Content.eggs[item], selectedItem)')
+          .inventory-item-icon(ng-class='::itemsToHatch === "hatchingPotions" ? ("Pet_HatchingPotion_" + item) : ("Pet_Egg_" + item)')
+          |{{::itemsToHatch === "hatchingPotions" ? env.t("potion", {potionType: Content.hatchingPotions[item].text()}) : env.t("egg", {eggType: Content.eggs[item].text()})}}
+          span.badge.badge-assertive {{points}}
+
+script(id='views/app.modals.showQuest.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      button.button.button-icon.icon.ion-close(ng-click='showQuestModal.hide()')
+      h1.title {{selectedItem.text()}}
+      button.button.button-clear.button-dark(ng-click="questInit()")=env.t('inviteParty')
+    ion-content.padding
+      .pull-right(class='quest_{{selectedItem.key}}')
+      div(ng-bind-html='selectedItem.notes()')
+      quest-rewards(key='{{selectedItem.key}}')
+      hr    
+      .npc_ian.pull-left
+      p=env.t('questSend')
+      p=env.t('questWarning')
+
+script(id='views/app.modals.buyQuest.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      button.button.button-icon.icon.ion-close(ng-click='buyQuestModal.hide()')
+      h1.title {{selectedItem.text()}}
+      button.button.button-clear.button-dark(ng-click='purchase("quests", selectedItem); buyQuestModal.hide()')=env.t('buyQuest')
+    ion-content.padding
+      .pull-right(class='quest_{{selectedItem.key}}')
+      div(ng-bind-html='selectedItem.notes()')
+      quest-rewards(key='{{selectedItem.key}}')
+
+script(id='views/app.modals.reroll.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      button.button.button-icon.icon.ion-close(ng-click='rerollModal.hide()')
+      h1.title=env.t('fortify')
+    ion-content.padding
+      p=env.t('fortifyText')
+      //FIXME redirect to buy gems modal
+      .button.button-stable(ng-if='user.balance < 1')=env.t('notEnoughGems')
+      .button.button-stable(ng-if='user.balance >= 1', ng-click='user.ops.reroll({}); rerollModal.hide()')
+        !=env.t('fortify') + ' 4&nbsp;' 
+        span.Pet_Currency_Gem1x.inline-gems
+
+script(id='views/app.modals.rebirth.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      button.button.button-icon.icon.ion-close(ng-click='rebirthModal.hide()')
+      h1.title=env.t('rebirthNew')
+    ion-content.padding
+      figure
+        .rebirth_orb
+      p=env.t('rebirthStartOver')
+      br
+      ul.list-unstyled
+        li=env.t('rebirthAdvList1')
+        li=env.t('rebirthAdvList2')
+        li=env.t('rebirthAdvList3')
+        li=env.t('rebirthAdvList4')
+      br
+      p=env.t('rebirthInherit')
+      ul.list-unstyled
+        li=env.t('rebirthInList1')
+        li=env.t('rebirthInList2')
+        li=env.t('rebirthInList3')
+        li=env.t('rebirthInList4')
+        li=env.t('rebirthInList5')
+      br
+
+      p
+        .vertical-align.inline-block.achievement-sun
+        |&nbsp;
+        =env.t('rebirthEarnAchievement')   
+      //FIXME redirect to buy gems modal
+      .button.button-stable(ng-if='user.balance < 2 && user.stats.lvl < 100')=env.t('notEnoughGems')
+      .button.button-stable(ng-if='user.balance > 2 || user.stats.lvl > 100', ng-click='user.ops.rebirth({}); rebirthModal.hide()')
+        span!=env.t('beReborn')
+        span(ng-show='user.stats.lvl < 100')!=' 8&nbsp;' 
+        span(ng-show='user.stats.lvl < 100').Pet_Currency_Gem1x.inline-gems
+
+script(id='views/app.inventory.equipment-costume.html',type='text/ng-template')
+  +ionView(env.t('costume'))
+    +content()
+      .padding
+        small=env.t('costumeText')
+        br
+      ul.list.costume-list
+        li.item.item-toggle
+          =env.t('useCostume')
+          |&nbsp;
+          label.toggle
+            input(type='checkbox', ng-model="user.preferences.costume", ng-click='set({"preferences.costume":!user.preferences.costume})')
+            .track
+              .handle
+      .padding
+        .customize-menu(ng-if='user.preferences.costume')
+          menu.pets-menu(label='{{::label}}', ng-repeat='(klass,label) in {warrior:env.t("warrior"), wizard:env.t("mage"), rogue:env.t("rogue"), healer:env.t("healer"), special:env.t("special"), mystery:env.t("mystery")}', ng-show='gear[klass]')
+            div(ng-repeat='item in gear[klass]')
+              button.customize-option(ng-click='user.ops.equip({params:{type:"costume", key:item.key}})',
+                                      on-hold='gearDetails(item)',
+                                      class='shop_{{::item.key}}',
+                                      ng-class='{selectableInventory: user.items.gear.costume[item.type] == item.key}')
+
+

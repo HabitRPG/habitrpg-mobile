@@ -10,7 +10,7 @@ script(id='views/app.chat.list.html',type='text/ng-template')
       markdown(ng-model='message.text')
 
 script(id='views/app.chat.html',type='text/ng-template')
-  +ionContentView('Chat')
+  +ionContentView('Chat', true)
     div(ui-view='')
   .tabs
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.tavern")}', ui-sref='app.chat.tavern') Tavern

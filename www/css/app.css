@@ -1677,6 +1677,13 @@ markdown.task-text p {
 .stable-pet-not-owned-icon {
   float: left;
 }
+.inventory-item-icon {
+  float: left;
+  margin-right: 5px;
+}
+.inventory-item-icon.locked {
+  background-color: #727272;
+}
 .meter {
   width: 100%;
   height: 25px;
@@ -1685,4 +1692,7 @@ markdown.task-text p {
 .meter> span {
   display: inline-block;
   height: 23px;
+}
+.costume-list {
+  margin-bottom: 0px;
 }

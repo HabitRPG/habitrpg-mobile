@@ -19,9 +19,9 @@ mixin ionView(title)
     +navBtns()
     block
 
-mixin ionContentView(title)
+mixin ionContentView(title, tabs)
   +ionView(title)
-    +content()
+    +content(tabs)
       block
 
 mixin ionTab(title,iconOn,iconOff)

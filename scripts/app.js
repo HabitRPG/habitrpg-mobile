@@ -3,7 +3,7 @@
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'notificationServices', 'ngResource'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'groupServices', 'notificationServices', 'ngResource'])
 
 .run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
@@ -23,12 +23,13 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider
-    .when('/app', '/app/tasks')
+    .when('/app', '/app/tasks/habits')
+    .when('/app/tasks', '/app/tasks/habits')
     .when('/app/chat', '/app/chat/tavern')
     .when('/auth', '/auth/login')
     .otherwise(function ($injector, $location) {
       var user = JSON.parse(localStorage.getItem('habitrpg-user'));
-      return user && user.apiToken ? 'app/tasks' : 'auth/login';
+      return user && user.apiToken ? 'app/tasks/habits' : 'auth/login';
     });
 
   $stateProvider
@@ -82,6 +83,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
     // Profile
     .state('app.profile', {
       url: '/profile',
+      abstract: true,
       views: {
         menuContent: {
           templateUrl: 'views/app.profile.html'
@@ -89,17 +91,75 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
 
+    .state('app.profile.avatar', {
+      url: '/avatar',
+      templateUrl: 'views/app.profile.avatar.html'
+    })
+
+    .state('app.profile.stats', {
+      url: '/stats',
+      templateUrl: 'views/app.profile.stats.html'
+    })
+
+    // Inventory
+    .state('app.inventory', {
+      url: '/inventory',
+      abstract: true,
+      views: {
+        menuContent: {
+          controller: 'InventoryCtrl',
+          templateUrl: 'views/app.inventory.html'
+        }
+      }
+    })
+
+    .state('app.inventory.inventory', {
+      url: '/inventory',
+      templateUrl: 'views/app.inventory.inventory.html'
+    })
+
+    .state('app.inventory.market', {
+      url: '/market',
+      templateUrl: 'views/app.inventory.market.html'
+    })
+
+    .state('app.inventory.equipment', {
+      url: '/equipment',
+      templateUrl: 'views/app.inventory.equipment.html'
+    })
+
+    .state('app.equipment-costume', {
+      url: '/equipment-costume',
+      views: {
+        menuContent:{
+          controller: 'InventoryCtrl',
+          templateUrl: 'views/app.inventory.equipment-costume.html'
+        }
+      }
+    })
+
     // Stable
     .state('app.stable', {
       url: '/stable',
+      abstract: true,
       views: {
         menuContent: {
           templateUrl: 'views/app.stable.html'
         }
       }
     })
+
+    .state('app.stable.pets', {
+      url: '/pets',
+      templateUrl: 'views/app.stable.pets.html'
+    })
+
+    .state('app.stable.mounts', {
+      url: '/mounts',
+      templateUrl: 'views/app.stable.mounts.html'
+    })
     
-    .state('app.pet-details/', {
+    .state('app.pet-details', {
       url: '/pet-details/:pet',
       views: {
         menuContent:{
@@ -109,7 +169,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
 
-    .state('app.mount-details/', {
+    .state('app.mount-details', {
       url: '/mount-details/:mount',
       views: {
         menuContent:{
@@ -132,6 +192,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
     .state('app.tasks', {
       url: '/tasks',
+      abstract: true,
       views: {
         menuContent: {
           templateUrl: 'views/app.tasks.html',
@@ -139,8 +200,24 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
         }
       }
     })
-    .state('app.tasks.completed', {
+    .state('app.tasks.habits', {
+      url: '/habits',
+      templateUrl: 'views/app.tasks.habits.html'
+    })
+    .state('app.tasks.dailies', {
+      url: '/dailies',
+      templateUrl: 'views/app.tasks.dailies.html'
+    })
+    .state('app.tasks.todos', {
+      url: '/todos',
+      templateUrl: 'views/app.tasks.todos.html'
+    })
+    .state('app.tasks.todos.completed', {
       url: '/completed'
+    })
+    .state('app.tasks.rewards', {
+      url: '/rewards',
+      templateUrl: 'views/app.tasks.rewards.html'
     })
 
     .state('app.chat', {

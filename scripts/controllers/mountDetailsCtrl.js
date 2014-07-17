@@ -6,7 +6,6 @@ habitrpg.controller('MountDetailsCtrl',
       var user = User.user;
 
       $scope.mount = $state.params.mount;
-      console.log($state.params.mount, $scope.mount)
 
       var pieces = $scope.mount.split('-');
       $scope.egg = pieces[0];

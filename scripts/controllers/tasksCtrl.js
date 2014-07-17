@@ -1,5 +1,12 @@
 'use strict';
 
+var taskTypeToListMap = {
+  habit: 'habits',
+  daily: 'dialies',
+  todo: 'todos',
+  reward: 'rewards'
+};
+
 habitrpg
   .controller('TaskViewCtrl', ['$scope', 'User', '$state', function($scope, User, $state) {
     $scope.task = User.user.tasks[$state.params.tid];
@@ -19,7 +26,7 @@ habitrpg
     $scope.delete = function (task) {
       if (!window.confirm("Delete this task?")) return;
       User.user.ops.deleteTask({params: {id: task.id}});
-      $state.go('app.tasks');
+      $state.go('app.tasks.' + taskTypeToListMap[task.type]);
     }
   }])
 
@@ -32,13 +39,13 @@ habitrpg
     $scope.save = function (task,keepOpen) {
       User.user.ops.updateTask({params:{id:task.id},body:task});
 //      if (!keepOpen) $state.go('app.'+task.type);
-      if (!keepOpen) $state.go('app.tasks');
+      if (!keepOpen) $state.go('app.tasks.' + taskTypeToListMap[task.type]);
     };
 
     $scope.taskFilter = function (task) {
       return task.type != 'todo' ? true :
-        $state.is('app.tasks') ? !task.completed :
-        $state.is('app.tasks.completed') ? task.completed : true;
+        $state.is('app.tasks.todos') ? !task.completed :
+        $state.is('app.tasks.todos.completed') ? task.completed : true;
     };
 
     $scope.moveItem = function(task, fromIndex, toIndex) {
