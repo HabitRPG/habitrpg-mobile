@@ -82,6 +82,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
     // Profile
     .state('app.profile', {
       url: '/profile',
+      abstract: true,
       views: {
         menuContent: {
           templateUrl: 'views/app.profile.html'
@@ -89,15 +90,41 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }
     })
 
+    .state('app.profile.avatar', {
+      url: '/avatar',
+      templateUrl: 'views/app.profile.avatar.html'
+    })
+
+    .state('app.profile.stats', {
+      url: '/stats',
+      templateUrl: 'views/app.profile.stats.html'
+    })
+
     // Inventory
     .state('app.inventory', {
       url: '/inventory',
+      abstract: true,
       views: {
         menuContent: {
           controller: 'InventoryCtrl',
           templateUrl: 'views/app.inventory.html'
         }
       }
+    })
+
+    .state('app.inventory.inventory', {
+      url: '/inventory',
+      templateUrl: 'views/app.inventory.inventory.html'
+    })
+
+    .state('app.inventory.market', {
+      url: '/market',
+      templateUrl: 'views/app.inventory.market.html'
+    })
+
+    .state('app.inventory.equipment', {
+      url: '/equipment',
+      templateUrl: 'views/app.inventory.equipment.html'
     })
 
     .state('app.equipment-costume', {
@@ -113,11 +140,22 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
     // Stable
     .state('app.stable', {
       url: '/stable',
+      abstract: true,
       views: {
         menuContent: {
           templateUrl: 'views/app.stable.html'
         }
       }
+    })
+
+    .state('app.stable.pets', {
+      url: '/pets',
+      templateUrl: 'views/app.stable.pets.html'
+    })
+
+    .state('app.stable.mounts', {
+      url: '/mounts',
+      templateUrl: 'views/app.stable.mounts.html'
     })
     
     .state('app.pet-details', {

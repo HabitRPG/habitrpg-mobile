@@ -1,14 +1,22 @@
+script(id='views/app.profile.avatar.html',type='text/ng-template')
+  .list.customize-content(ng-controller='userAvatarCtrl')
+    .item.profile-background
+      +avatar2(true)
+    +customizeProfile(true)
+
+script(id='views/app.profile.stats.html',type='text/ng-template')
+  .list(ng-init='profile=user')
+    .item.profile-background
+      +avatar2(true)
+    +profileStats()
+
 script(id='views/app.profile.html',type='text/ng-template')
-  +ionView('Profile')
-    ion-tabs.tabs-icon-top
-      +ionTab(env.t('avatar'),'ion-person')
-        .list.customize-content(ng-controller='userAvatarCtrl')
-          .item.profile-background
-            +avatar2(true)
-          +customizeProfile(true)
-      +ionTab(env.t('stats'),'ion-clipboard')
-        .list(ng-init='profile=user')
-          .item.profile-background
-            +avatar2(true)
-          +profileStats()
-      div(ui-view='')
+  +ionContentView('Profile', true)
+    div(ui-view='')
+  .tabs.tabs-icon-top
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.profile.avatar")}', ui-sref='app.profile.avatar')
+      i.icon.ion-person
+      =env.t('avatar')
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.profile.stats")}', ui-sref='app.profile.stats')
+      i.icon.ion-clipboard
+      =env.t('stats')
