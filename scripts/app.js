@@ -23,12 +23,13 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider
-    .when('/app', '/app/tasks')
+    .when('/app', '/app/tasks/habits')
+    .when('/app/tasks', '/app/tasks/habits')
     .when('/app/chat', '/app/chat/tavern')
     .when('/auth', '/auth/login')
     .otherwise(function ($injector, $location) {
       var user = JSON.parse(localStorage.getItem('habitrpg-user'));
-      return user && user.apiToken ? 'app/tasks' : 'auth/login';
+      return user && user.apiToken ? 'app/tasks/habits' : 'auth/login';
     });
 
   $stateProvider
@@ -191,6 +192,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
     .state('app.tasks', {
       url: '/tasks',
+      abstract: true,
       views: {
         menuContent: {
           templateUrl: 'views/app.tasks.html',
@@ -198,8 +200,24 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
         }
       }
     })
-    .state('app.tasks.completed', {
+    .state('app.tasks.habits', {
+      url: '/habits',
+      templateUrl: 'views/app.tasks.habits.html'
+    })
+    .state('app.tasks.dailies', {
+      url: '/dailies',
+      templateUrl: 'views/app.tasks.dailies.html'
+    })
+    .state('app.tasks.todos', {
+      url: '/todos',
+      templateUrl: 'views/app.tasks.todos.html'
+    })
+    .state('app.tasks.todos.completed', {
       url: '/completed'
+    })
+    .state('app.tasks.rewards', {
+      url: '/rewards',
+      templateUrl: 'views/app.tasks.rewards.html'
     })
 
     .state('app.chat', {
