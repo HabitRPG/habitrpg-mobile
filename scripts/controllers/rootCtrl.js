@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('RootCtrl',
-  ['$scope', '$rootScope', '$location', 'User', '$state', '$stateParams', '$window', '$ionicPlatform', 'Groups',
-  function ($scope, $rootScope, $location, User, $state, $stateParams, $window, $ionicPlatform, Groups) {
+  ['$scope', '$rootScope', '$location', '$ionicNavBarDelegate', 'User', '$state', '$stateParams', '$window', '$ionicPlatform', 'Groups',
+  function ($scope, $rootScope, $location, $ionicNavBarDelegate, User, $state, $stateParams, $window, $ionicPlatform, Groups) {
 
     $rootScope.User = User;
     $rootScope.user = User.user;
@@ -49,6 +49,10 @@ habitrpg.controller('RootCtrl',
 
     $rootScope.goBack = function() {
       history.back();
+    }
+
+    $rootScope.getPreviousTitle = function() {
+      return $ionicNavBarDelegate.getPreviousTitle();
     }
 
     $scope.hideBackButton = function() {
