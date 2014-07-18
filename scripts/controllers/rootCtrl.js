@@ -50,5 +50,13 @@ habitrpg.controller('RootCtrl',
     $rootScope.goBack = function() {
       history.back();
     }
+
+    $scope.hideBackButton = function() {
+      var baseRoutes = /^\/app((\/|\/(?!task\/)([a-zA-Z]*)\/)[^\/]+$)/;
+      if ( baseRoutes.test($location.path()) ) {
+        return true;
+      }
+      return false;
+    }
   }
 ]);
