@@ -46,5 +46,9 @@ habitrpg.controller('RootCtrl',
     $rootScope.externalLink = function(link){
       window.open(link,'_system');
     }
+
+    $rootScope.goBack = function() {
+      history.back();
+    }
   }
 ]);

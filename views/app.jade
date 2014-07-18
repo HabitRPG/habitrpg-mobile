@@ -15,7 +15,7 @@ script(id='views/app.html',type='text/ng-template')
   ion-side-menus
     ion-pane(ion-side-menu-content)
       ion-nav-bar.bar-stable(align-title='left')
-        ion-nav-back-button.button-clear
+        ion-nav-back-button.button-clear(ng-click="goBack()")
           i.icon.ion-chevron-left
           | Back
 
