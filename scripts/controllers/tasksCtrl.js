@@ -2,7 +2,7 @@
 
 var taskTypeToListMap = {
   habit: 'habits',
-  daily: 'dialies',
+  daily: 'dailies',
   todo: 'todos',
   reward: 'rewards'
 };
