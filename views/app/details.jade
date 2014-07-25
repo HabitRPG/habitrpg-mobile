@@ -50,6 +50,17 @@ script(id="views/app.task.html",type='text/ng-template')
             label.item.item-input.item-stacked-label
               span.input-label Notes
               textarea(type='text', placeholder='Notes', ng-model='task.notes')
+            // Checklist
+            .item(ng-if='task.type=="daily" || task.type=="todo"')
+              button.button.button-positive.button-block(ng-if="!task.checklist[0]"
+                                                         ng-click="addChecklist(task)")=env.t('addChecklist')
+              .list(ng-if="task.checklist[0]")
+                .item.item-input.checklist-item.item-icon-right(ng-repeat="item in task.checklist")
+                  input(type='text', ng-model='item.text', placeholder="Item text")
+                  i.icon.ion-close-circled.assertive(ng-click="task.checklist.splice($index,1);")
+                button.button.button-block.button-positive(
+                  ng-click="addChecklistItem(task)") Add new item
+
             // Habits
             .item(ng-if='task.type == "habit"', ng-cloak='ng-cloak')
               span.input-label Allowed Directions
