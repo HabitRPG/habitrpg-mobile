@@ -7,7 +7,7 @@ var rename = require('gulp-rename');
 var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
-var clean = require('gulp-clean');
+var rimraf = require('gulp-rimraf');
 var i18n = require('habitrpg/src/i18n');
 var _ = require('habitrpg/node_modules/lodash');
 var shared = require('habitrpg/node_modules/habitrpg-shared');
@@ -70,7 +70,7 @@ var dist = './www';
 
 gulp.task('clean', function(){
   return gulp.src('./www/bower_components/', {read: false})
-    .pipe(clean())
+    .pipe(rimraf())
 })
 
 gulp.task('copy', ['clean'], function(){
