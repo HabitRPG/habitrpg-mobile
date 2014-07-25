@@ -21,12 +21,12 @@ var paths = {
     /* using custom build so we can use angular1.3+
       ionic.bundle.js = [ionic.js, angular.js, angular-animate.js, angular-sanitize.js, angular-ui-router.js, ionic-angular.js]*/
 //    'bower_components/ionic/js/ionic.bundle.js',
-    'bower_components/ionic/js/ionic.js',
+    'bower_components/ionic/release/js/ionic.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/angular-sanitize/angular-sanitize.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
-    'bower_components/ionic/js/ionic-angular.js',
+    'bower_components/ionic/release/js/ionic-angular.js',
 
     'bower_components/angular-resource/angular-resource.js',
     'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
