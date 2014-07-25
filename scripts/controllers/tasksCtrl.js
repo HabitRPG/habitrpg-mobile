@@ -28,6 +28,27 @@ habitrpg
       User.user.ops.deleteTask({params: {id: task.id}});
       $state.go('app.tasks.' + taskTypeToListMap[task.type]);
     }
+
+    function focusChecklist(index) {
+      window.setTimeout(function(){
+        document.querySelectorAll('.checklist-item')[index].focus();
+      });
+    }
+
+    $scope.addChecklist = function(task) {
+      task.checklist = [{completed:false,text:""}];
+      focusChecklist(0);
+    }
+
+    $scope.addChecklistItem = function(task) {
+      // prevent adding new item when there is a empty one
+      if(task.checklist[task.checklist.length - 1].text !== ''){
+        //User.user.ops.updateTask({params:{id:task.id},body:task}); // don't preen the new empty item
+        task.checklist.push({completed:false,text:''});
+        focusChecklist(task.checklist.length-1);
+      }
+    }
+
   }])
 
   .controller('TasksCtrl',
@@ -37,6 +58,7 @@ habitrpg
     $scope.newTask = {};
 
     $scope.save = function (task,keepOpen) {
+      if (task.checklist) task.checklist = _.filter(task.checklist,function(i){return !!i.text});
       User.user.ops.updateTask({params:{id:task.id},body:task});
 //      if (!keepOpen) $state.go('app.'+task.type);
       if (!keepOpen) $state.go('app.tasks.' + taskTypeToListMap[task.type]);
