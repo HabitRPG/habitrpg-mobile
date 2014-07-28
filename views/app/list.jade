@@ -32,18 +32,18 @@ mixin taskList(k)
 
           ion-item.item-text-wrap(on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
             if k=='habit'
-              span.item-button-right
+              .item-button-right
                 .buttons
                   button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up", $event)', ng-show='task.up')
                   button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down", $event)', ng-show='task.down')
                 +taskText()
             if k=='daily' || k=='todo'
-              span.item-button-left
+              .item-button-left
                 button.button.button-large.button-clear.button-positive.icon(ng-click='changeCheck(task, $event)')
                   i(ng-class="task.completed && 'icon ion-checkmark-circled' || !task.completed && 'checkbox-icon'")
                 +taskText()
             if k=='reward'
-              span.item-button-right
+              .item-button-right
                 button.button.button-small.buy-button(ng-click='score(task,"down")')
                   | {{task.value}}
                   span.shop_gold
