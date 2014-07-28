@@ -10,10 +10,10 @@ habitrpg.controller('userAvatarCtrl',
 
       if (fullSet) {
         if (confirm("Purchase for 5 Gems?") !== true) return;
-        if (User.user.balance < cost) return $rootScope.modals.buyGems = true;
+        if (User.user.balance < cost) return alert(env.t('notEnoughGems'));
       } else if (!User.user.fns.dotGet('purchased.' + path)) {
         if (confirm("Purchase for 2 Gems?") !== true) return;
-        if (User.user.balance < cost) return $rootScope.modals.buyGems = true;
+        if (User.user.balance < cost) return alert(env.t('notEnoughGems'));
       }
       User.user.ops.unlock({query:{path:path}})
     }
