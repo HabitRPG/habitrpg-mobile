@@ -14,7 +14,6 @@ habitrpg.controller('ChatCtrl',
       }
       var doneSyncing = function(){
         $rootScope.chatSyncing = false;
-        $rootScope.$broadcast('scroll.refreshComplete')
       }
 
       $scope.postChat = function(_message) {
@@ -29,6 +28,7 @@ habitrpg.controller('ChatCtrl',
       }
       $scope.query = function(){
         startSyncing();
+        $rootScope.$broadcast('scroll.refreshComplete');
         $scope.chat = $scope.Chat.query({gid:$state.current.data.gid}, function(){
           doneSyncing();
         });
