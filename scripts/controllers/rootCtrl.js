@@ -25,6 +25,7 @@ habitrpg.controller('RootCtrl',
       if ($state.includes('app.chat')) {
         var scope = angular.element(document.getElementById('chatCtrl-list')).scope();
         scope.query(scope.gid);
+        $rootScope.$broadcast('scroll.refreshComplete');
       } else {
         User.log({});
       }

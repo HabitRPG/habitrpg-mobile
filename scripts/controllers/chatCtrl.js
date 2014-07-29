@@ -14,7 +14,6 @@ habitrpg.controller('ChatCtrl',
       }
       var doneSyncing = function(){
         $rootScope.chatSyncing = false;
-        $rootScope.$broadcast('scroll.refreshComplete')
       }
 
       $scope.postChat = function(_message) {
