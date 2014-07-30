@@ -1,10 +1,21 @@
-Ionic App Base
-=====================
+HabitRPG-Mobile
+===============
+
+This is the mobile-specific code repository for [HabitRPG](https://github.com/HabitRPG/habitrpg).
+
+If you would like to contribute, please review the [Contributing to HabitRPG wiki page](http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG).
+
+
+habitrpg-mobile uses the Ionic Framework.  The remainder of this readme is specific to the Ionic Framework.
+
+
+## Ionic App Base
+
 
 A starting project for Ionic that optionally supports
 using custom SCSS.
 
-## Using this project
+### Using this project
 
 We recommend using the `ionic` utility to create new Ionic projects that are based on this project but use a ready-made starter template.
 
@@ -23,7 +34,7 @@ $ ionic start myProject tabs
 
 More info on this can be found on the Ionic [Getting Started](http://ionicframework.com/getting-started) page.
 
-## Installation
+### Installation
 
 While we recommend using the `ionic` utility to create new Ionic projects, you can use this repo as a barebones starting point to your next Ionic app.
 
@@ -36,7 +47,7 @@ $ npm install
 $ gulp init
 ```
 
-## Using Sass (optional)
+### Using Sass (optional)
 
 This project makes it easy to use Sass (the SCSS syntax) in your projects. This enables you to override styles from Ionic, and benefit from
 Sass's great features.
@@ -52,5 +63,9 @@ the include to your `ionic.app.css` file which now contains all your Sass code a
 -->
 ```
 ## Issues
-Issues have been disabled on this repo, if you do find an issue or have a question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  Or else if there is truly an error, follow our guidelines for [submitting an issue](http://ionicframework.com/contribute/#issues) to the main Ionic repository. On the other hand, pull requests are welcome here!
+If you find a general (i.e., not exclusive to mobile platforms) HabitRPG issue please post it to the main [HabitRPG issue tracker](https://github.com/HabitRPG/habitrpg/issues).  
+
+If you have an Ionic Framework issue or question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  If there is truly an Ionic Framework error, follow their guidelines for [submitting an issue](http://ionicframework.com/contribute/#issues) to the main Ionic repository. 
+
+Pull requests are welcome here!
 
