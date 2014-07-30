@@ -64,7 +64,8 @@ mixin taskList(k)
                   td
                     .shop-sprite.item-img(class="shop_{{::item.key}}")
                   td
-                    span(ng-click='selectTask(item)') {{::item.text()}}
+                    span {{::item.text()}}
+                    div.item-note {{::item.notes()}}
 
 script(id='views/app.tasks.html',type='text/ng-template')
   //-+ionContentView(nav.name, [{class:'ion-plus-round',fn:"addTask(_newTask,'"+k+"')"}])
