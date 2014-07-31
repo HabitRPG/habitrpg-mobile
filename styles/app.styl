@@ -36,16 +36,25 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .task-reward > .item-content {background-color: white !important;}
 
 .herobox
-  outline: none
+  outline none
   background inherit
+  .avatar-level
+    padding 3px
+    height 1.5em
+  .character-sprites
+    margin-left 4em
 .full .herobox:after {opacity: 1}
 .hero-stats
   .meter
-    margin 0 0 .3em
+    display inline-block
+    margin 0 0
+    max-width 6em
+    font-size 0.9em
   .meter.sidebar
     height: 1.5em
     .meter-text
       line-height: 1.5em
+  padding 5 0
 .hero-stats .meter-text
   z-index: 100
 
@@ -57,9 +66,11 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 
 .shop_gold, .shop_silver
   display inline-block
-.toolbar-wallet li
-  float left
+.toolbar-wallet
+  li
+    float right
 .avatar-table td
+  padding-bottom 0
   vertical-align top
 .rewards-wallet
   overflow: hidden
