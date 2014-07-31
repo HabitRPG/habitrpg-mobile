@@ -9,6 +9,7 @@ habitrpg.controller('ChatCtrl',
           //send: {url: API_URL + '/api/v2/groups/:gid/chat', method: 'POST'/*, isArray:true*/}
         }
       );
+      $scope.chat = [];
       var startSyncing = function(){
         $rootScope.chatSyncing = true;
       }
@@ -28,9 +29,20 @@ habitrpg.controller('ChatCtrl',
       }
       $scope.query = function(){
         startSyncing();
-        $scope.chat = $scope.Chat.query({gid:$state.current.data.gid}, function(){
+        $scope._chat = $scope.Chat.query({gid:$state.current.data.gid}, function(){
           doneSyncing();
-        });
+          $scope.loadMore(8);
+        })
+      }
+
+      $scope.loadMore = function(amount) {
+        $scope.chat = $scope._chat.slice(0, $scope.chat.length+amount);
+        console.log($scope.chat);
+        console.log($scope._chat)
+        if ($scope._chat.length === $scope.chat.length) {
+          $scope.noMoreMessages = true;
+        }
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     }
   ]);

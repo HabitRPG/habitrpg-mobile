@@ -8,6 +8,7 @@ script(id='views/app.chat.list.html',type='text/ng-template')
       .pull-right(style='opacity:0.3;') {{moment(message.timestamp).format('MMM Do h:mma')}}
       h2 {{message.user}}
       markdown(ng-model='message.text')
+    ion-infinite-scroll(on-infinite='loadMore(5)', distance='1%')
 
 script(id='views/app.chat.html',type='text/ng-template')
   +ionContentView('Chat', true)
