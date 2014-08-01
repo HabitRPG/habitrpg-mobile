@@ -10,6 +10,8 @@ var uglify = require('gulp-uglify');
 var rimraf = require('gulp-rimraf');
 var i18n = require('habitrpg/src/i18n');
 var _ = require('habitrpg/node_modules/lodash');
+var fs = require('fs');
+var xml2js = require('xml2js');
 var shared = require('habitrpg/node_modules/habitrpg-shared');
 
 var paths = {
@@ -98,23 +100,28 @@ gulp.task('stylus', function () {
 });
 
 gulp.task('views', function(){
-  gulp.src('./views/index.jade')
-    //.pipe(jade())
+  var locals = {locals:{env:{
+    translations: i18n.translations['en'],
+    language: _.find(i18n.avalaibleLanguages, {code: 'en'}),
     // TODO: use actual env.t() function with translations
-    .pipe(jade({locals:{env:{
-      translations: i18n.translations['en'],
-      language: _.find(i18n.avalaibleLanguages, {code: 'en'}),
-      t: function(){ // stringName and vars are the allowed parameters
-        var args = Array.prototype.slice.call(arguments, 0);
-        args.push('en');
-        return shared.i18n.t.apply(null, args);
-      },
-      Content:require('./node_modules/habitrpg/node_modules/habitrpg-shared').content},
-      moment:require('./node_modules/habitrpg/node_modules/moment')
-    }}))
-    .pipe(gulp.dest(dist))
-    .pipe(rename({extname: '.html'}))
-    .pipe(connect.reload())
+    t: function(){ // stringName and vars are the allowed parameters
+      var args = Array.prototype.slice.call(arguments, 0);
+      args.push('en');
+      return shared.i18n.t.apply(null, args);
+    },
+    Content:require('./node_modules/habitrpg/node_modules/habitrpg-shared').content},
+    moment:require('./node_modules/habitrpg/node_modules/moment')
+  }};
+  // can't xml-parse synchronously, hence all this hubub
+  new xml2js.Parser().parseString(fs.readFileSync(__dirname + '/config.xml'), function(err,res){
+    locals.locals.env.appVersion = res.widget['$'].version;
+
+    gulp.src('./views/index.jade')
+      .pipe(jade(locals))
+      .pipe(gulp.dest(dist))
+      .pipe(rename({extname: '.html'}))
+      .pipe(connect.reload())
+  });
 });
 
 gulp.task('scripts', function() {
