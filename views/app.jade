@@ -24,13 +24,18 @@ script(id='views/app.html',type='text/ng-template')
       header.bar.bar-header.bar-stable(ng-if='isIOS')
         h1.title Menu
       ion-content(ng-class='{"has-header":isIOS}')
-        ion-list
-          ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
-            +avatar2(true)
-          each v,k in {'tasks/habits':'Tasks','profile/avatar':'Profile','inventory/inventory':'Inventory','stable/pets':'Stable','chat/tavern':'Chat',settings:'Settings',about:'About'}
-            ion-item(nav-clear, menu-close, href='#/app/#{k}')
-              //-img(ng-src='assets/sidebar-icon-#{k}.png')
-              | #{v}
+        table.side-menu-table
+          tr
+            td.side-menu-avatar
+              +avatar2(true)
+            td.side-menu-list
+              ion-list
+                  // ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
+                  // +avatar2()
+                each v,k in {'tasks/habits':'Tasks','profile/avatar':'Profile','inventory/inventory':'Inventory','stable/pets':'Stable','chat/tavern':'Chat',settings:'Settings',about:'About'}
+                  ion-item(nav-clear, menu-close, href='#/app/#{k}')
+                    //-img(ng-src='assets/sidebar-icon-#{k}.png')
+                    | #{v}
 
 //-
   #wrapper(ng-controller='MenuCtrl')
