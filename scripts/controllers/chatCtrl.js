@@ -31,14 +31,16 @@ habitrpg.controller('ChatCtrl',
         startSyncing();
         $scope._chat = $scope.Chat.query({gid:$state.current.data.gid}, function(){
           doneSyncing();
-          $scope.loadMore(8);
+          if (!$scope.chat.length) {
+            $scope.loadMore(8);
+          } else {
+            $scope.loadMore(0);
+          }
         })
       }
 
       $scope.loadMore = function(amount) {
         $scope.chat = $scope._chat.slice(0, $scope.chat.length+amount);
-        console.log($scope.chat);
-        console.log($scope._chat)
         if ($scope._chat.length === $scope.chat.length) {
           $scope.noMoreMessages = true;
         }
