@@ -144,6 +144,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       abstract: true,
       views: {
         menuContent: {
+          controller: 'StableCtrl',
           templateUrl: 'views/app.stable.html'
         }
       }
@@ -158,7 +159,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: '/mounts',
       templateUrl: 'views/app.stable.mounts.html'
     })
-    
+
     .state('app.pet-details', {
       url: '/pet-details/:pet',
       views: {
