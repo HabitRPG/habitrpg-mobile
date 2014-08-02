@@ -38,13 +38,35 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .herobox
   margin 5px auto
   outline none
+  margin-bottom 0
 .avatar-level
   padding 4px
 .full .herobox:after {opacity: 1}
 .hero-stats
-  padding 0 4px
+  display block
+  padding 0
+  margin 0 4px
   .meter-text
     z-index 100
+.meter
+  margin 0 !important
+  padding 0
+  height: 25px
+  // color taken from default ionic coulours,
+  // applying class balanced-color doesn't work
+  border: 1px solid #498f24
+
+.shop_gold, .shop_silver
+  display inline-block
+  vertical-align top
+.toolbar-wallet
+  font-size 0.9em
+  display block
+  text-align center
+
+  &> span
+    display: inline-block
+    height: 23px
 
 .menu-avatar .item-content
   padding 5px
@@ -52,10 +74,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .profile-background
   background-color #e5ebed
 
-.shop_gold, .shop_silver
-  display inline-block
-.toolbar-wallet
-  font-size 0.9em
 .avatar-box
   padding-bottom 0
   vertical-align top
@@ -67,13 +85,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   text-overflow: ellipsis
   white-space: nowrap
   padding 5px
-.side-menu-list
-  vertical-align top
-.side-menu-avatar
-  background-color #C9DAF8
-  height 100%
-.side-menu-table
-  height 100%
 
 .customize-content .item
   overflow-x: scroll
@@ -106,16 +117,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   &.locked
     background-color: #727272
 
-.meter
-  width: 100%
-  height: 25px
-  // color taken from default ionic coulours,
-  // applying class balanced-color doesn't work
-  border: 1px solid #498f24
-
-  &> span
-    display: inline-block
-    height: 23px
 
 .costume-list
   margin-bottom: 0px
