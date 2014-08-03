@@ -1,60 +1,48 @@
 mixin petList(source)
-  each egg in source
-    each potion in env.Content.hatchingPotions
-      - pet = egg.key+"-"+potion.key
-      a.item.item-icon-right(href='#/app/pet-details/#{pet}')
-        .stable-pet-icon(class="Pet-#{pet}", ng-if='user.items.pets["#{pet}"]>0')
-        .PixelPaw.stable-pet-not-owned-icon(ng-if='!user.items.pets["#{pet}"]')
-        p=env.t('petName', {potion: potion.text(env.language.code), egg: egg.text(env.language.code)})
+  .list
+    a.pet-item.item.item-icon-right(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getPetsHeight(item)" href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-style='{height: getPetsHeight(item)}')
+      div(ng-if='item.potion')
+        .stable-pet-icon(class="{{'Pet-'+item.egg+\'-\'+item.potion}}", ng-if="user.items.pets[item.egg+'-'+item.potion]>0")
+        .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.pets[item.egg+'-'+item.potion]")
+        | {{ env.t('petName', {potion: item.potion, egg: item.egg} )}}
         i.icon.ion-chevron-right
+      div(ng-if='!item.potion')
+        .item.item-divider {{env.t(item.type)}}
+    .item(ng-if='!user.items.pets["Dragon-Hydra"]')
+      a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')
+        .PixelPaw-Gold.stable-pet-not-owned-icon
+        | Rare pet contributors
+
+mixin mountList(source)
+  .list
+    a.pet-item.item.item-icon-right(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getMountsHeight(item)" href='#/app/mount-details/{{item.egg+"-"+item.potion}}' ng-style='{height: getMountsHeight(item)}')
+      div(ng-if='item.potion')
+        .stable-pet-icon(class="{{'Mount_Head_'+item.egg+\'-\'+item.potion}}", ng-if="user.items.mounts[item.egg+'-'+item.potion]")
+        .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.mounts[item.egg+'-'+item.potion]")
+        | {{ env.t('mountName', {potion: item.potion, mount: item.egg} )}}
+        i.icon.ion-chevron-right
+      div(ng-if='!item.potion')
+        .item.item-divider {{env.t(item.type)}}
 
 script(id='views/app.stable.html',type='text/ng-template')
-  +ionContentView('Stable', true)
-    div(ui-view='')
+  div(ui-view='')
   .tabs
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.stable.pets")}', ui-sref='app.stable.pets')=env.t('pets')
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.stable.mounts")}', ui-sref='app.stable.mounts')=env.t('mounts')
 
 script(id='views/app.stable.pets.html',type='text/ng-template')
-  .list
-    +petList(env.Content.dropEggs)
-    .item.item-divider=env.t('questPets')
-    +petList(env.Content.questEggs)
-    .item.item-divider=env.t('rarePets')
-    each t,k in env.Content.specialPets
-      - var egg = k.split('-')[0], pot = k.split('-')[1]
-      a.item.item-icon-right(href='#/app/pet-details/#{k}', ng-if='user.items.pets["#{k}"]')
-        .stable-pet-icon(class="Pet-#{k}")
-        p=env.t(t)
-        i.icon.ion-chevron-right
-    .item(ng-if='!user.items.pets["Dragon-Hydra"]')
-      a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG') 
-        .PixelPaw-Gold.stable-pet-not-owned-icon
-        | Rare pet contributors
+  +ionContentView('Stable', true)
+    +petList('eggs')
 
 script(id='views/app.stable.mounts.html',type='text/ng-template')
-  .list
-    each egg in env.Content.eggs
-      each potion in env.Content.hatchingPotions
-        - mount = egg.key+"-"+potion.key
-        a.item.item-icon-right(href='#/app/mount-details/#{mount}')
-          .stable-pet-icon(class="Mount_Head_#{mount}", ng-if="user.items.mounts[\"#{mount}\"]")
-          .PixelPaw.stable-pet-not-owned-icon(ng-if='!user.items.mounts["#{mount}"]')
-          p=env.t('mountName', {potion: potion.text(env.language.code), mount: egg.mountText(env.language.code)})
-          i.icon.ion-chevron-right
-    .item.item-divider=env.t('rareMounts')
-    each t,k in env.Content.specialMounts
-      a.item.item-icon-right(ng-if='user.items.mounts["#{k}"]', href='#/app/mount-details/#{k}')
-        - var animal = k.split('-')[0], color = k.split('-')[1]
-        .stable-pet-icon(class="Mount_Head_#{k}")
-        p=env.t(t)
-        i.icon.ion-chevron-right
+  +ionContentView('Stable', true)
+    +mountList('mounts')
 
 script(id='views/app.pet-details.html',type='text/ng-template')
   +ionView('Pet details')
     +content()
       .list
-        .item 
+        .item
           |{{petDisplayName}}
           div(class="Pet-{{pet}}", ng-if='user.items.pets[pet]>0')
           .PixelPaw(ng-if='!user.items.pets[pet]')
@@ -78,7 +66,7 @@ script(id='views/app.mount-details.html',type='text/ng-template')
   +ionView('Mount details')
     +content()
       .list
-        .item 
+        .item
           |{{mountDisplayName}}
           div(class="Mount_Head_{{mount}}", ng-if='user.items.mounts[mount]>0')
           .PixelPaw(ng-if='!user.items.mounts[mount]')
