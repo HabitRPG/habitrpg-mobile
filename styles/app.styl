@@ -36,7 +36,8 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .task-reward > .item-content {background-color: white !important;}
 
 .herobox
-  margin 5px auto
+  margin-right 5px
+  float left
   outline none
   margin-bottom 0
 .avatar-level
@@ -45,28 +46,34 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .hero-stats
   display block
   padding 0
-  margin 0 4px
+  margin 5px 3px 0 0
   .meter-text
     z-index 100
 .meter
-  margin 0 !important
   padding 0
   height: 25px
   // color taken from default ionic coulours,
   // applying class balanced-color doesn't work
   border: 1px solid #498f24
+  &.mana
+    margin-bottom 0
 
 .shop_gold, .shop_silver
   display inline-block
   vertical-align top
-.toolbar-wallet
+.wallet-box
   font-size 0.9em
-  display block
-  text-align center
-
-  &> span
-    display: inline-block
-    height: 23px
+  width 110px
+  padding 3px 0 0 0
+  .toolbar-gems
+    padding-top 0
+    margin-top 0
+  .shop_gold
+    margin-bottom 3px
+  .shop_silver
+    margin-bottom 3px
+  li
+    text-align center
 
 .menu-avatar .item-content
   padding 5px
@@ -75,7 +82,7 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   background-color #e5ebed
 
 .avatar-box
-  padding-bottom 0
+  padding 5px 5px
   vertical-align top
   background-color #C9DAF8
 .rewards-wallet
