@@ -131,3 +131,44 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 
 .costume-list
   margin-bottom: 0px
+
+// Contributor colors - use until module is updated
+$color-contributor-one = #f57a9d
+$color-contributor-two = #b93030
+$color-contributor-three = #ff3300
+$color-contributor-four = #ff9500
+$color-contributor-five = #fff700
+$color-contributor-six = #5eff00
+$color-contributor-seven = #00aaff
+$color-contributor-mod = #130ead
+$color-contributor-staff = #88108f
+$color-contributor-npc = #000
+$color-contributor-npc-font = #00FF00
+
+// label colors for contrib level same as game-pane.styl
+hrpg-contributor-label-mixin($hrpg-contributor-color)
+  //@extend $hrpg-label
+  hrpg-label-color-mixin($hrpg-contributor-color)
+
+.label-contributor-1
+  hrpg-contributor-label-mixin($color-contributor-one)
+.label-contributor-2
+  hrpg-contributor-label-mixin($color-contributor-two)
+.label-contributor-3
+  hrpg-contributor-label-mixin($color-contributor-three)
+.label-contributor-4
+  hrpg-contributor-label-mixin($color-contributor-four)
+.label-contributor-5
+  hrpg-contributor-label-mixin($color-contributor-five)
+.label-contributor-6
+  hrpg-contributor-label-mixin($color-contributor-six)
+.label-contributor-7
+  hrpg-contributor-label-mixin($color-contributor-seven)
+.label-contributor-8
+  hrpg-contributor-label-mixin($color-contributor-staff)
+  // FOR NEW MOD LEVEL: line above will change from -staff to -mod
+.label-contributor-9
+  hrpg-contributor-label-mixin($color-contributor-staff)
+.label-npc
+  hrpg-contributor-label-mixin($color-contributor-npc)
+  color: #00FF00 !important

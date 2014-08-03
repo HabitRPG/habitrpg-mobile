@@ -40,6 +40,17 @@ habitrpg.controller('RootCtrl',
       return User.settings.sync.queue.length || User.settings.sync.sent.length
     };
 
+    // styling helpers
+    $rootScope.userLevelStyle = function(user,style){
+      console.log(user);
+      style = style || '';
+      if(user && user.backer && user.backer.npc)
+        style += ' label-npc';
+      if(user && user.contributor && user.contributor.level)
+        style += ' label-contributor-'+user.contributor.level;
+      return style;
+    }
+
     $rootScope.$watch('User.settings.fetching',function(fetching){
       if (fetching) $rootScope.$broadcast('scroll.refreshComplete')
     })
