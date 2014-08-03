@@ -42,7 +42,6 @@ habitrpg.controller('RootCtrl',
 
     // styling helpers
     $rootScope.userLevelStyle = function(user,style){
-      console.log(user);
       style = style || '';
       if(user && user.backer && user.backer.npc)
         style += ' label-npc';
