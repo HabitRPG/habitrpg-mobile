@@ -35,19 +35,52 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   p {color: #999;}
 .task-reward > .item-content {background-color: white !important;}
 
+.avatar-box
+  padding 5px 5px
+  vertical-align top
+  background-color #C9DAF8
 .herobox
-  outline: none
-  background inherit
+  max-width 140px
+  max-height 150px
+  margin-right 5px
+  float left
+  outline none
+  margin-bottom 0
+.avatar-level
+  padding 4px
 .full .herobox:after {opacity: 1}
 .hero-stats
-  .meter
-    margin 0 0 .3em
-  .meter.sidebar
-    height: 1.5em
-    .meter-text
-      line-height: 1.5em
-.hero-stats .meter-text
-  z-index: 100
+  display block
+  padding 0
+  margin 5px 3px 0 0
+  .meter-text
+    z-index 100
+.meter
+  padding 0
+  height: 25px
+  // color taken from default ionic coulours,
+  // applying class balanced-color doesn't work
+  border: 1px solid #498f24
+  &.mana
+    margin-bottom 0
+
+.shop_gold, .shop_silver
+  display inline-block
+  vertical-align top
+.wallet-box
+  margin 0 auto
+  font-size 0.9em
+  width 110px
+  padding 3px 0 0 0
+  .toolbar-gems
+    padding-top 0
+    margin-top 0
+  .shop_gold
+    margin-bottom 3px
+  .shop_silver
+    margin-bottom 3px
+  li
+    text-align center
 
 .menu-avatar .item-content
   padding 5px
@@ -55,12 +88,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .profile-background
   background-color #e5ebed
 
-.shop_gold, .shop_silver
-  display inline-block
-.toolbar-wallet li
-  float left
-.avatar-table td
-  vertical-align top
 .rewards-wallet
   overflow: hidden
   margin: 0 auto
@@ -101,16 +128,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   &.locked
     background-color: #727272
 
-.meter
-  width: 100%
-  height: 25px
-  // color taken from default ionic coulours,
-  // applying class balanced-color doesn't work
-  border: 1px solid #498f24
-
-  &> span
-    display: inline-block
-    height: 23px
 
 .costume-list
   margin-bottom: 0px
