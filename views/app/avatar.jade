@@ -5,7 +5,7 @@ mixin wallet
       li.gem-text {{user.balance * 4 | number:0}}
     ul.col.toolbar-currency.gold
       li.shop_gold
-      li {{Shared.gold(user.stats.gp)}}
+      li {{Shared.gold(user.stats.gp) | goldRoundThousandsToK}}
     ul.col.toolbar-currency.silver
       li.shop_silver
       li {{Shared.silver(user.stats.gp)}}
