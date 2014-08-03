@@ -50,7 +50,7 @@ mixin taskList(k)
                 +taskText()
 
             // Actions
-            ion-reorder-button.ion-navicon(on-reorder="moveItem(task, $fromIndex, $toIndex)")
+            ion-reorder-button.ion-navicon(on-hold='$event.stopPropagation()' on-reorder="moveItem(task, $fromIndex, $toIndex)")
 
           if k=='reward'
             .item.item-divider Gear
