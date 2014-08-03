@@ -57,7 +57,7 @@ script(id='views/app.pet-details.html',type='text/ng-template')
             .item.item-divider=env.t('food')
             .item(ng-show='foodCount < 1')=env.t('noFood')
             .item(ng-repeat='(food,points) in ownedItems(user.items.food)', ng-click='chooseFood(food)')
-              div(class='Pet_Food_{{::food}}')
+              .stable-pet-icon(class='Pet_Food_{{::food}}')
               p {{:: Content.food[food].text()}}
               p {{:: Content.food[food].notes()}}
               span.badge.badge-assertive {{points}}
