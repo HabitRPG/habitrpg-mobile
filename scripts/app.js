@@ -96,6 +96,11 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       templateUrl: 'views/app.profile.avatar.html'
     })
 
+    .state('app.profile.backgrounds', {
+      url: '/backgrounds',
+      templateUrl: 'views/app.profile.backgrounds.html'
+    })
+
     .state('app.profile.stats', {
       url: '/stats',
       templateUrl: 'views/app.profile.stats.html'

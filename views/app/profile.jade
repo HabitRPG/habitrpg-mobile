@@ -4,6 +4,12 @@ script(id='views/app.profile.avatar.html',type='text/ng-template')
       +avatar2(true)
     +customizeProfile(true)
 
+script(id='views/app.profile.backgrounds.html',type='text/ng-template')
+  .list.customize-content(ng-controller='userAvatarCtrl')
+    .item.profile-background
+      +avatar2(true)
+    +backgrounds(true)
+
 script(id='views/app.profile.stats.html',type='text/ng-template')
   .list(ng-init='profile=user')
     .item.profile-background
@@ -17,6 +23,9 @@ script(id='views/app.profile.html',type='text/ng-template')
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.profile.avatar")}', ui-sref='app.profile.avatar')
       i.icon.ion-person
       =env.t('avatar')
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.profile.backgrounds")}', ui-sref='app.profile.backgrounds')
+      i.icon.ion-images
+      =env.t('backgrounds')
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.profile.stats")}', ui-sref='app.profile.stats')
       i.icon.ion-clipboard
       =env.t('stats')
