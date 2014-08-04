@@ -1,5 +1,5 @@
 angular.module('notificationServices', []).
-    factory('Notification', ['$filter','$rootScope', function ($filter,$rootScope) {
+    factory('Notification', ['$filter','$rootScope', '$timeout', function ($filter,$rootScope, $timeout) {
 
         $rootScope.notification = {type:null,data:null};
         var active = false;
@@ -10,9 +10,7 @@ angular.module('notificationServices', []).
         return {
 
             hide: function () {
-                $rootScope.$apply(function(){
-                  $rootScope.notification = {type:null,data:null};
-                })
+                $rootScope.notification = {type:null,data:null};
                 active = false;
                 timer = null;
             },
@@ -20,11 +18,11 @@ angular.module('notificationServices', []).
             animate: function () {
                 if (timer) {
                     clearTimeout(timer);
-                    timer = setTimeout(this.hide, 2000)
+                    timer = $timeout(this.hide, 2000)
                 }
                 if (active == false) {
                     active = true;
-                    timer = setTimeout(this.hide, 2000);
+                    timer = $timeout(this.hide, 2000);
                 }
             },
 
@@ -55,13 +53,13 @@ angular.module('notificationServices', []).
             },
 
             clearTimer: function () {
-                clearTimeout(timer);
+                $timeout.cancel(timer);
                 timer = null;
                 active = false;
             },
 
             init: function () {
-                timer = setTimeout(this.hide, 2000);
+                timer = $timeout(this.hide, 2000);
             }
 
         }
