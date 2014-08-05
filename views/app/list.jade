@@ -44,7 +44,7 @@ mixin taskList(k)
                 +taskText()
             if k=='reward'
               .item-button-right
-                button.button.button-small.buy-button(ng-click='score(task,"down")')
+                button.button.button-small.buy-button(ng-click='score(task,"down", $event)')
                   | {{task.value}}
                   span.shop_gold
                 +taskText()
