@@ -4,6 +4,11 @@ habitrpg-mobile
 Official HabitRPG mobile app, build with [PhoneGap](http://cordova.apache.org/)
 and [AngularJS](http://angularjs.org/).
 
+## Requirements
+
+NodeJS and NPM are required to build habitrpg-mobile, please refer to your
+platform's documentation on how to install these.
+
 ## Getting started developing locally
 
 1. Clone the repository
