@@ -20,10 +20,14 @@ and [AngularJS](http://angularjs.org/).
 
 ## Building for Mobile
 
-* add cordova platform
-  `ionic platform add ios` or `ionic platform add android`
-* run on mobile device
-  `ionic run ios` or `ionic run android`
+Platforms are: `ios` or `android`
+
+1. Add cordova platform
+   `ionic platform add <platform>`
+2. Start the application on a connected device
+   `ionic run <platform>`
+
+For all the other ionic commands see `ionic --help`
 
 ## Contributing
 
