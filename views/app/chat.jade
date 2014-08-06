@@ -1,8 +1,8 @@
 script(id='views/app.chat.list.html',type='text/ng-template')
   ion-list#chatCtrl-list
     ion-item
-      form.item(ng-submit='postChat(_message)')
-        textarea(placeholder='Type Chat', ng-model='_message.text')
+      form.item.row(ng-submit='postChat(_message)')
+        textarea.col.col-80(placeholder='Type Chat', ng-model='_message.text')
         button.button.button-positive(type='submit', ng-show='_message.text') Send
     ion-item.item-text-wrap(ng-repeat='message in chat')
       .pull-right(style='opacity:0.3;') {{moment(message.timestamp).format('MMM Do h:mma')}}
