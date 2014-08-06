@@ -9,9 +9,9 @@ mixin petList(source)
       div(ng-if='!item.potion')
         .item.item-divider {{env.t(item.type)}}
     .item(ng-if='!user.items.pets["Dragon-Hydra"]')
-      a(target='_blank', href='http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')
-        .PixelPaw-Gold.stable-pet-not-owned-icon
+      a(href='' ng-click="externalLink('http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')")
         | Rare pet contributors
+      .PixelPaw-Gold.stable-pet-not-owned-icon
 
 mixin mountList(source)
   .list
