@@ -18,10 +18,22 @@ and [AngularJS](http://angularjs.org/).
   `gulp`
 6. Navigate to `http://localhost:9000`
 
-## Building for iOS
+## Building for Mobile
 
-TODO
+* add cordova platform
+  `ionic platform add ios` or `ionic platform add android`
+* run on mobile device
+  `ionic run ios` or `ionic run android`
 
-## Building for Android
+## Contributing
 
-TODO
+If you would like to contribute, please review the
+[Contributing to HabitRPG wiki page](http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG).
+
+## Issues
+If you find a general (i.e., not exclusive to mobile platforms) HabitRPG issue
+please post it to the main [HabitRPG issue tracker](https://github.com/HabitRPG/habitrpg/issues).
+
+If you have an Ionic Framework issue or question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).
+If there is truly an Ionic Framework error,
+follow their guidelines for [submitting an issue](http://ionicframework.com/contribute/#issues) to the main Ionic repository.
