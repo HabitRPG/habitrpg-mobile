@@ -1,7 +1,10 @@
 script(id='views/app.guilds.html',type='text/ng-template')
   +ionContentView('Guilds', true)
-    ion-list#guildCtrl-list
-      ion-item.item-icon-right(ng-repeat='guild in guilds' ng-click='viewGuild(guild)')
-        h2 {{guild.name}}
-        p {{guild.description}}
-        i.icon.ion-chevron-right
+    div(ui-view='')
+
+script(id='views/app.guilds.list.html',type='text/ng-template')
+  ion-list#guildCtrl-list
+    ion-item.item-icon-right(ng-repeat='guild in guilds' ng-click='viewGuild(guild)')
+      h2 {{guild.name}}
+      p {{guild.description}}
+      i.icon.ion-chevron-right

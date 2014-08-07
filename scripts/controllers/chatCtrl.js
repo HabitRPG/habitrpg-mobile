@@ -3,6 +3,9 @@
 habitrpg.controller('ChatCtrl',
   ['$rootScope','$scope', 'User', '$resource', 'API_URL', '$state', '$http',
     function($rootScope, $scope, User, $resource, API_URL, $state, $http) {
+      if (!$state.current.data.gid) {
+        $state.current.data.gid = $state.params.gid;
+      }
       $scope._message = {text:undefined};
       $scope.Chat = $resource(API_URL + "/api/v2/groups/:gid/chat",
         {gid:'@_id'}, {
@@ -46,5 +49,6 @@ habitrpg.controller('ChatCtrl',
         }
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
+      $scope.query();
     }
   ]);

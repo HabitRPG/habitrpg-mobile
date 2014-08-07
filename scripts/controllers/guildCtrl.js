@@ -6,6 +6,7 @@ habitrpg.controller('GuildCtrl',
 
       $scope.guilds = [];
 
+      console.log('guild')
 
       $scope.syncGuilds = function() {
         Groups.myGuilds().$promise.then(function(guilds) {
@@ -13,10 +14,10 @@ habitrpg.controller('GuildCtrl',
         });
       };
 
-      $scope.syncGuilds();
-
       $scope.viewGuild = function(guild, e) {
-        $state.go('app.chat.guild', {gid:guild._id});
+        $state.go('app.guilds.guild', {gid:guild._id},
+          {reload: true});
       }
+      $scope.syncGuilds();
     }
   ]);
