@@ -284,7 +284,6 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       data: {gid: null},
       controller: ['$scope', function($scope){
         $scope.query();
-        $scope.$parent.$parent.hideTabs = true;
       }]
     })
 
