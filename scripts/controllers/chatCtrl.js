@@ -5,6 +5,7 @@ habitrpg.controller('ChatCtrl',
     function($rootScope, $scope, User, $resource, API_URL, $state, $http) {
       if ($state.params.gid) {
         $state.current.data.gid = $state.params.gid;
+        $scope.guildChat = true;
       }
       $scope._message = {text:undefined};
       $scope.Chat = $resource(API_URL + "/api/v2/groups/:gid/chat",

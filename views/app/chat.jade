@@ -13,6 +13,9 @@ script(id='views/app.chat.list.html',type='text/ng-template')
 script(id='views/app.chat.html',type='text/ng-template')
   +ionContentView('Chat', true)
     div(ui-view='')
-  .tabs(ng-hide='hideTabs')
+  .tabs(ng-hide='guildChat')
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.tavern")}', ui-sref='app.chat.tavern') Tavern
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.party")}', ui-sref='app.chat.party') Party
+  .tabs(ng-show='guildChat')
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.guild")}', ui-sref='app.chat.tavern') Chat
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.public")}', ui-sref='app.guilds.public') Search
