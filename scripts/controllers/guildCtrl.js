@@ -44,12 +44,19 @@ habitrpg.controller('GuildPublicCtrl',
 
       $scope.syncPublicGuilds = function() {
         startSyncing();
-        $scope.syncGuilds();
-        Groups.publicGuilds().$promise.then(function(guilds) {
-          $scope._publicGuilds = guilds;
-          $scope.loadMore(8);
-          doneSyncing();
-        })
+        Groups.myGuilds().$promise.then(function(myGuilds) {
+          $scope.guilds = myGuilds;
+          console.log(myGuilds);
+          Groups.publicGuilds().$promise.then(function(guilds) {
+            $scope._publicGuilds = guilds;
+            if ($scope.publicGuilds.length == 0) {
+              $scope.loadMore(8);
+            } else {
+              $scope.loadMore(0);
+            }
+            doneSyncing();
+          })
+        });
       }
 
       $scope.loadMore = function(amount) {
@@ -68,6 +75,12 @@ habitrpg.controller('GuildPublicCtrl',
           }
         })
         return res;
+      }
+
+      $scope.join = function(guild) {
+        guild.$join().finally(function() {
+          $rootScope.hardRedirect('/#/app/guilds/public');
+        });
       }
 
       $scope.syncPublicGuilds();
