@@ -6,8 +6,6 @@ habitrpg.controller('GuildCtrl',
 
       $scope.guilds = [];
 
-      console.log('guild')
-
       var startSyncing = function(){
         $rootScope.syncing = true;
       }
@@ -24,9 +22,7 @@ habitrpg.controller('GuildCtrl',
       };
 
       $scope.viewGuild = function(guild, e) {
-        $state.go('app.guilds.guild', {gid:guild._id},
-          {reload: true});
+        $state.go('app.chat.guild', {gid:guild._id});
       }
-      $scope.syncGuilds();
     }
   ]);

@@ -3,7 +3,7 @@
 habitrpg.controller('ChatCtrl',
   ['$rootScope','$scope', 'User', '$resource', 'API_URL', '$state', '$http',
     function($rootScope, $scope, User, $resource, API_URL, $state, $http) {
-      if (!$state.current.data.gid) {
+      if ($state.params.gid) {
         $state.current.data.gid = $state.params.gid;
       }
       $scope._message = {text:undefined};
@@ -49,6 +49,5 @@ habitrpg.controller('ChatCtrl',
         }
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
-      $scope.query();
     }
   ]);

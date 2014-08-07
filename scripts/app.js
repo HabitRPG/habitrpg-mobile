@@ -241,6 +241,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       templateUrl: 'views/app.chat.list.html',
       data: {gid: 'habitrpg'},
       controller: ['$scope', function($scope){
+        $scope.query();
       }]
     })
     .state('app.chat.party', {
@@ -248,6 +249,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       templateUrl: 'views/app.chat.list.html',
       data: {gid: 'party'},
       controller: ['$scope', function($scope){
+        $scope.query();
       }]
     })
 
@@ -264,14 +266,20 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
     .state('app.guilds.list', {
       url: '/list',
       data: {sync: true},
-      templateUrl: 'views/app.guilds.list.html'
+      templateUrl: 'views/app.guilds.list.html',
+      controller: ['$scope', function($scope){
+        $scope.syncGuilds();
+      }]
     })
-    .state('app.guilds.guild', {
+    .state('app.chat.guild', {
       url: '/guild/:gid',
       data: {sync: false},
       templateUrl: 'views/app.chat.list.html',
       data: {gid: null},
-      controller: 'ChatCtrl'
+      controller: ['$scope', function($scope){
+        $scope.query();
+        $scope.$parent.$parent.hideTabs = true;
+      }]
     })
 
 }])

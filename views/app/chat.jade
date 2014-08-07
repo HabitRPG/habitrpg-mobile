@@ -14,5 +14,5 @@ script(id='views/app.chat.html',type='text/ng-template')
   +ionContentView('Chat', true)
     div(ui-view='')
   .tabs
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.tavern")}', ui-sref='app.chat.tavern') Tavern
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.chat.party")}', ui-sref='app.chat.party') Party
+    a.tab-item(ng-hide='hideTabs' ng-class='{"tab-item-active": $state.is("app.chat.tavern")}', ui-sref='app.chat.tavern') Tavern
+    a.tab-item(ng-hide='hideTabs' ng-class='{"tab-item-active": $state.is("app.chat.party")}', ui-sref='app.chat.party') Party
