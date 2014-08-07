@@ -5,13 +5,29 @@
  */
 var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'groupServices', 'notificationServices', 'ngResource'])
 
-.run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
+.run(['$ionicPlatform','$rootScope','$ionicPopup',function($ionicPlatform,$rootScope,$ionicPopup) {
   $ionicPlatform.ready(function() {
     $rootScope.isIOS = $ionicPlatform.is('iOS');
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    $ionicPlatform.registerBackButtonAction(function(e) {
+      if ($rootScope.$viewHistory.backView) {
+        $rootScope.$viewHistory.backView.go();
+      } else {
+        var popup = $ionicPopup.confirm({
+          template: 'Are you sure you want to exit HabitRPG?'
+        });
+        popup.then(function(res) {
+          if (res) {
+            ionic.Platform.exitApp();
+          }
+        });
+      }
+      e.preventDefault();
+      return false;
+    }, 101);
   });
 }])
 
