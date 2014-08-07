@@ -271,6 +271,12 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
         $scope.syncGuilds();
       }]
     })
+    .state('app.guilds.public', {
+      url: '/public',
+      data: {sync: true},
+      templateUrl: 'views/app.guilds.public.html',
+      controller: 'GuildPublicCtrl'
+    })
     .state('app.chat.guild', {
       url: '/guild/:gid',
       data: {sync: false},

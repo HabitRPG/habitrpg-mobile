@@ -3,7 +3,7 @@ script(id='views/app.guilds.html',type='text/ng-template')
     div(ui-view='')
   .tabs
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.list")}', ui-sref='app.guilds.list') Chat
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.guild")}', ui-sref='app.guilds.guild') Search
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.public")}', ui-sref='app.guilds.public') Search
 
 script(id='views/app.guilds.list.html',type='text/ng-template')
   ion-list#guildCtrl-list
@@ -11,3 +11,15 @@ script(id='views/app.guilds.list.html',type='text/ng-template')
       h2 {{guild.name}}
       p {{guild.description}}
       i.icon.ion-chevron-right
+
+script(id='views/app.guilds.public.html',type='text/ng-template')
+  ion-list#guildCtrl-list
+    ion-item.item-button-right(ng-repeat='guild in publicGuilds')
+      h2 {{guild.name}}
+      p {{guild.memberCount}} members
+      p {{guild.description}}
+      button.button.button-balanced.button-light(ng-show='!isMyGuild(guild)')
+        | join
+      button.button.button-assertive.button-light(ng-show='isMyGuild(guild)')
+        | leave
+  ion-infinite-scroll(on-infinite='loadMore(5)' distance='1%')
