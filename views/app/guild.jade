@@ -18,7 +18,6 @@ script(id='views/app.guilds.public.html',type='text/ng-template')
       h2 {{guild.name}}
       p {{guild.memberCount}} members
       p {{guild.description}}
-      {{isMyGuild(guild)}}
       button.button.button-balanced.button-light(ng-show='!isMyGuild(guild)' ng-click='join(guild)')
         | join
       button.button.button-assertive.button-light(ng-show='isMyGuild(guild)' ng-click='leave(guild)')
