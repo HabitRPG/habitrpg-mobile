@@ -7,14 +7,14 @@ script(id='views/app.guilds.html',type='text/ng-template')
 
 script(id='views/app.guilds.list.html',type='text/ng-template')
   ion-list#guildCtrl-list
-    ion-item.item-icon-right(ng-repeat='guild in guilds' ng-click='viewGuild(guild)')
+    ion-item.item-icon-right.item-text-wrap(ng-repeat='guild in guilds' ng-click='viewGuild(guild)')
       h2 {{guild.name}}
       p {{guild.description}}
       i.icon.ion-chevron-right
 
 script(id='views/app.guilds.public.html',type='text/ng-template')
   ion-list#guildCtrl-list
-    ion-item.item-button-right(ng-repeat='guild in publicGuilds')
+    ion-item.item-button-right.item-text-wrap(ng-repeat='guild in publicGuilds')
       h2 {{guild.name}}
       p {{guild.memberCount}} members
       p {{guild.description}}
