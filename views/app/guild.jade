@@ -1,6 +1,9 @@
 script(id='views/app.guilds.html',type='text/ng-template')
   +ionContentView('Guilds', true)
     div(ui-view='')
+  .tabs
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.list")}', ui-sref='app.guilds.list') Chat
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.guild")}', ui-sref='app.guilds.guild') Search
 
 script(id='views/app.guilds.list.html',type='text/ng-template')
   ion-list#guildCtrl-list
