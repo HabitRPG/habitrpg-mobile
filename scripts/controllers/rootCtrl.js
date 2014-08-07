@@ -73,10 +73,5 @@ habitrpg.controller('RootCtrl',
       }
       return false;
     }
-
-    $rootScope.hardRedirect = function(url){
-      window.location.href = url;
-      window.location.reload(false);
-    }
   }
 ]);

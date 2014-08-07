@@ -44,10 +44,9 @@ habitrpg.controller('GuildPublicCtrl',
 
       $scope.syncPublicGuilds = function() {
         startSyncing();
-        Groups.myGuilds().$promise.then(function(myGuilds) {
-          $scope.guilds = myGuilds;
-          console.log(myGuilds);
-          Groups.publicGuilds().$promise.then(function(guilds) {
+        Groups.Group.query({type:'guilds'}).$promise.then(function(myGuilds) {
+          $scope.$parent.guilds = myGuilds;
+          Groups.Group.query({type:'public'}).$promise.then(function(guilds) {
             $scope._publicGuilds = guilds;
             if ($scope.publicGuilds.length == 0) {
               $scope.loadMore(8);
@@ -79,7 +78,13 @@ habitrpg.controller('GuildPublicCtrl',
 
       $scope.join = function(guild) {
         guild.$join().finally(function() {
-          $rootScope.hardRedirect('/#/app/guilds/public');
+          $scope.syncPublicGuilds();
+        });
+      }
+
+      $scope.leave = function(guild) {
+        Groups.Group.leave({gid: guild._id, keep: false}, undefined, function() {
+          $scope.syncPublicGuilds();
         });
       }
 
