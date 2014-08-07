@@ -253,4 +253,24 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }]
     })
 
+    .state('app.guilds', {
+      url:'/guilds',
+      views: {
+        menuContent: {
+          templateUrl:'views/app.guilds.html',
+          controller: 'GuildCtrl'
+        }
+      }
+    })
+    .state('app.chat.guild', {
+      url: '/guilds/:gid',
+      templateUrl: 'views/app.chat.list.html',
+      data: {gid: null},
+      controller: ['$scope', '$state', function($scope, $state){
+        console.log($state.params.gid)
+        $state.current.data.gid = $state.params.gid;
+        $scope.query();
+      }]
+    })
+
 }])

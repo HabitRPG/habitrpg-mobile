@@ -17,6 +17,7 @@ habitrpg.controller('ChatCtrl',
         $rootScope.chatSyncing = false;
       }
 
+      console.log($state.current.data.gid);
       $scope.postChat = function(_message) {
         // FIXME setup the server for proper ngResource-handling
         startSyncing();
