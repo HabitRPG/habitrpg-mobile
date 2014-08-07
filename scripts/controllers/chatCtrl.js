@@ -14,10 +14,10 @@ habitrpg.controller('ChatCtrl',
       );
       $scope.chat = [];
       var startSyncing = function(){
-        $rootScope.chatSyncing = true;
+        $rootScope.syncing = true;
       }
       var doneSyncing = function(){
-        $rootScope.chatSyncing = false;
+        $rootScope.syncing = false;
       }
 
       $scope.postChat = function(_message) {

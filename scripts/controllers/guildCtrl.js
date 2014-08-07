@@ -8,9 +8,18 @@ habitrpg.controller('GuildCtrl',
 
       console.log('guild')
 
+      var startSyncing = function(){
+        $rootScope.syncing = true;
+      }
+      var doneSyncing = function(){
+        $rootScope.syncing = false;
+      }
+
       $scope.syncGuilds = function() {
+        startSyncing();
         Groups.myGuilds().$promise.then(function(guilds) {
           $scope.guilds = guilds;
+          doneSyncing();
         });
       };
 
