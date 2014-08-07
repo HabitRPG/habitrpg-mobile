@@ -267,7 +267,6 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       templateUrl: 'views/app.chat.list.html',
       data: {gid: null},
       controller: ['$scope', '$state', function($scope, $state){
-        console.log($state.params.gid)
         $state.current.data.gid = $state.params.gid;
         $scope.query();
       }]
