@@ -5,7 +5,7 @@ mixin navBtns
   ion-nav-buttons(side='left')
     button.button.button-icon.icon.ion-navicon(menu-toggle='left')
   ion-nav-buttons(side='right')
-    span(ng-show='User.settings.fetching || chatSyncing')
+    span(ng-show='User.settings.fetching || syncing')
       a.button.button-icon.icon.ion-loading-d
     block
 

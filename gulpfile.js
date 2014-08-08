@@ -52,7 +52,8 @@ var paths = {
     'scripts/controllers/inventoryCtrl.js',
     'scripts/controllers/petDetailsCtrl.js',
     'scripts/controllers/mountDetailsCtrl.js',
-    'scripts/controllers/stableCtrl.js'
+    'scripts/controllers/stableCtrl.js',
+    'scripts/controllers/guildCtrl.js'
   ],
   copy: [
     'config.xml',

@@ -3,6 +3,10 @@
 habitrpg.controller('ChatCtrl',
   ['$rootScope','$scope', 'User', '$resource', 'API_URL', '$state', '$http',
     function($rootScope, $scope, User, $resource, API_URL, $state, $http) {
+      if ($state.params.gid) {
+        $state.current.data.gid = $state.params.gid;
+        $scope.guildChat = true;
+      }
       $scope._message = {text:undefined};
       $scope.Chat = $resource(API_URL + "/api/v2/groups/:gid/chat",
         {gid:'@_id'}, {
@@ -11,10 +15,10 @@ habitrpg.controller('ChatCtrl',
       );
       $scope.chat = [];
       var startSyncing = function(){
-        $rootScope.chatSyncing = true;
+        $rootScope.syncing = true;
       }
       var doneSyncing = function(){
-        $rootScope.chatSyncing = false;
+        $rootScope.syncing = false;
       }
 
       $scope.postChat = function(_message) {

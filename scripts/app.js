@@ -253,4 +253,38 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       }]
     })
 
+    .state('app.guilds', {
+      url:'/guilds',
+      abstract: true,
+      views: {
+        menuContent: {
+          templateUrl:'views/app.guilds.html',
+          controller: 'GuildCtrl'
+        }
+      }
+    })
+    .state('app.guilds.list', {
+      url: '/list',
+      data: {sync: true},
+      templateUrl: 'views/app.guilds.list.html',
+      controller: ['$scope', function($scope){
+        $scope.syncGuilds();
+      }]
+    })
+    .state('app.guilds.public', {
+      url: '/public',
+      data: {sync: true},
+      templateUrl: 'views/app.guilds.public.html',
+      controller: 'GuildPublicCtrl'
+    })
+    .state('app.chat.guild', {
+      url: '/guild/:gid',
+      data: {sync: false},
+      templateUrl: 'views/app.chat.list.html',
+      data: {gid: null},
+      controller: ['$scope', function($scope){
+        $scope.query();
+      }]
+    })
+
 }])
