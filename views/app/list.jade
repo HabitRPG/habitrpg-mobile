@@ -1,5 +1,21 @@
 mixin taskText
   markdown.task-text(ng-model='task.text')
+  p {{task.date | date}}
+  p.task-date
+    span(ng-show='task.repeat.su')
+      | Su&nbsp;
+    span(ng-show='task.repeat.m')
+      | Mo&nbsp;
+    span(ng-show='task.repeat.t')
+      | Tu&nbsp;
+    span(ng-show='task.repeat.w')
+      | We&nbsp;
+    span(ng-show='task.repeat.th')
+      | Th&nbsp;
+    span(ng-show='task.repeat.f')
+      | Fr&nbsp;
+    span(ng-show='task.repeat.s')
+      | Sa&nbsp;
 
 - var tasks = {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',singular:'Daily'}, todo:{name:'To-Dos',singular:'To-Do'}, reward:{name:'Rewards',singular:'Reward'}}
 
