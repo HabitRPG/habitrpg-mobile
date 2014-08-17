@@ -22,8 +22,10 @@ habitrpg.controller('GuildCtrl',
       };
 
       $scope.viewGuild = function(guild, e) {
-        $state.go('app.chat.guild', {gid:guild._id});
+        $state.go('app.social.guild-chat', {gid:guild._id});
       }
+
+      $scope.syncGuilds();
     }
   ]);
 

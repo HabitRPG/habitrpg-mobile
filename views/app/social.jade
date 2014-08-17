@@ -6,14 +6,6 @@ script(id='views/app.social.html',type='text/ng-template')
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.party")}', ui-sref='app.social.party') Party
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.guilds")}', ui-sref='app.social.guilds') Guilds
 
-script(id='views/app.social.html',type='text/ng-template')
-  +ionContentView('Social', true)
-    div(ui-view='')
-  .tabs
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.tavern")}', ui-sref='app.social.tavern') Tavern
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.party")}', ui-sref='app.social.party') Party
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.guilds")}', ui-sref='app.social.guilds') Guilds
-
 script(id='views/app.social.party.html',type='text/ng-template')
   .list(ng-if='party._id')
     .item.item-divider {{group.name}}
@@ -26,3 +18,16 @@ script(id='views/app.social.party.html',type='text/ng-template')
     +boss(false, true)
   .padding(ng-if='!group._id')
     |Start a party (on habitrpg.com)
+
+script(id='views/app.social.guilds.html',type='text/ng-template')
+  ion-list#guildCtrl-list
+    ion-item.item-divider Your guilds
+    ion-item.item-icon-right.item-text-wrap(ng-repeat='guild in guilds' ng-click='viewGuild(guild)')
+      h2 {{guild.name}}
+      p {{guild.description}}
+      i.icon.ion-chevron-right
+    ion-item.item-divider Other guilds
+    ion-item.item-icon-right.item-text-wrap(ui-sref='app.social.public-guilds')
+      h2 Public guilds
+      i.icon.ion-chevron-right
+

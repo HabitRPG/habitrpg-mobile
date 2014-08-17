@@ -256,65 +256,25 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       controller: 'ChatCtrl'
     })
 
-    .state('app.chat', {
-      url:'/chat',
-      abstract: true,
-      views: {
-        menuContent: {
-          templateUrl:'views/app.chat.html',
-          controller: 'ChatCtrl'
-        }
-      }
-    })
-    .state('app.chat.tavern', {
-      url: '/tavern',
-      templateUrl: 'views/app.chat.list.html',
-      data: {gid: 'habitrpg'},
-      controller: ['$scope', function($scope){
-        $scope.query();
-      }]
-    })
-    .state('app.chat.party', {
-      url: '/party',
-      templateUrl: 'views/app.chat.list.html',
-      data: {gid: 'party'},
-      controller: ['$scope', function($scope){
-        $scope.query();
-      }]
+    .state('app.social.guilds', {
+      url: '/guilds',
+      templateUrl: 'views/app.social.guilds.html',
+      data: {sync: true},
+      controller: 'GuildCtrl'
     })
 
-    .state('app.guilds', {
-      url:'/guilds',
-      abstract: true,
-      views: {
-        menuContent: {
-          templateUrl:'views/app.guilds.html',
-          controller: 'GuildCtrl'
-        }
-      }
+    .state('app.social.guild-chat', {
+      url: '/guild-chat/:gid',
+      data: {sync: false},
+      templateUrl: 'views/app.chat.list.html',
+      data: {gid: null},
+      controller: 'ChatCtrl'
     })
-    .state('app.guilds.list', {
-      url: '/list',
-      data: {sync: true},
-      templateUrl: 'views/app.guilds.list.html',
-      controller: ['$scope', function($scope){
-        $scope.syncGuilds();
-      }]
-    })
-    .state('app.guilds.public', {
+
+    .state('app.social.public-guilds', {
       url: '/public',
       data: {sync: true},
       templateUrl: 'views/app.guilds.public.html',
       controller: 'GuildPublicCtrl'
-    })
-    .state('app.chat.guild', {
-      url: '/guild/:gid',
-      data: {sync: false},
-      templateUrl: 'views/app.chat.list.html',
-      data: {gid: null},
-      controller: ['$scope', function($scope){
-        $scope.query();
-      }]
-    })
-
+    })    
 }])
