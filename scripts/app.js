@@ -272,7 +272,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
     })
 
     .state('app.social.public-guilds', {
-      url: '/public',
+      url: '/public-guilds',
       data: {sync: true},
       templateUrl: 'views/app.guilds.public.html',
       controller: 'GuildPublicCtrl'
