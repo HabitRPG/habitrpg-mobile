@@ -53,6 +53,7 @@ var paths = {
     'scripts/controllers/petDetailsCtrl.js',
     'scripts/controllers/mountDetailsCtrl.js',
     'scripts/controllers/stableCtrl.js',
+    'scripts/controllers/partyCtrl.js',
     'scripts/controllers/guildCtrl.js'
   ],
   copy: [

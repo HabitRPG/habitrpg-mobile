@@ -245,7 +245,15 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
     .state('app.social.party', {
       url: '/party',
-      templateUrl: 'views/app.social.party.html'
+      templateUrl: 'views/app.social.party.html',
+      controller: 'PartyCtrl'
+    })
+
+    .state('app.social.party-chat', {
+      url: '/party-chat',
+      templateUrl: 'views/app.chat.list.html',
+      data: {gid: 'party'},
+      controller: 'ChatCtrl'
     })
 
     .state('app.chat', {

@@ -6,8 +6,23 @@ script(id='views/app.social.html',type='text/ng-template')
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.party")}', ui-sref='app.social.party') Party
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.guilds")}', ui-sref='app.social.guilds') Guilds
 
+script(id='views/app.social.html',type='text/ng-template')
+  +ionContentView('Social', true)
+    div(ui-view='')
+  .tabs
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.tavern")}', ui-sref='app.social.tavern') Tavern
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.party")}', ui-sref='app.social.party') Party
+    a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.guilds")}', ui-sref='app.social.guilds') Guilds
+
 script(id='views/app.social.party.html',type='text/ng-template')
-  .padding(ng-if='party._id')
-    |{{party}}
-  .padding(ng-if='!party._id')
-    |Create ffffffffffffffffffffffffffffffffffffgroup
+  .list(ng-if='party._id')
+    .item.item-divider {{group.name}}
+    .item
+      p {{group.description}}
+      p.small Group ID: {{group._id}}
+    a.item.item-icon-right(ui-sref='app.social.party-chat')
+      =env.t('chat')
+      i.icon.ion-chevron-right
+    +boss(false, true)
+  .padding(ng-if='!group._id')
+    |Start a party (on habitrpg.com)
