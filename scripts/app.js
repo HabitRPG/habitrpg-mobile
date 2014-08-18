@@ -226,65 +226,55 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       templateUrl: 'views/app.tasks.rewards.html'
     })
 
-    .state('app.chat', {
-      url:'/chat',
+    .state('app.social', {
+      url: '/social',
       abstract: true,
       views: {
         menuContent: {
-          templateUrl:'views/app.chat.html',
-          controller: 'ChatCtrl'
+          templateUrl:'views/app.social.html'
         }
       }
     })
-    .state('app.chat.tavern', {
+
+    .state('app.social.tavern', {
       url: '/tavern',
       templateUrl: 'views/app.chat.list.html',
       data: {gid: 'habitrpg'},
-      controller: ['$scope', function($scope){
-        $scope.query();
-      }]
-    })
-    .state('app.chat.party', {
-      url: '/party',
-      templateUrl: 'views/app.chat.list.html',
-      data: {gid: 'party'},
-      controller: ['$scope', function($scope){
-        $scope.query();
-      }]
+      controller: 'ChatCtrl'
     })
 
-    .state('app.guilds', {
-      url:'/guilds',
-      abstract: true,
-      views: {
-        menuContent: {
-          templateUrl:'views/app.guilds.html',
-          controller: 'GuildCtrl'
-        }
-      }
+    .state('app.social.party', {
+      url: '/party',
+      templateUrl: 'views/app.social.party.html',
+      controller: 'PartyCtrl'
     })
-    .state('app.guilds.list', {
-      url: '/list',
+
+    .state('app.social.party-chat', {
+      url: '/party-chat',
+      templateUrl: 'views/app.chat.list.html',
+      data: {gid: 'party'},
+      controller: 'ChatCtrl'
+    })
+
+    .state('app.social.guilds', {
+      url: '/guilds',
+      templateUrl: 'views/app.social.guilds.html',
       data: {sync: true},
-      templateUrl: 'views/app.guilds.list.html',
-      controller: ['$scope', function($scope){
-        $scope.syncGuilds();
-      }]
+      controller: 'GuildCtrl'
     })
-    .state('app.guilds.public', {
-      url: '/public',
-      data: {sync: true},
-      templateUrl: 'views/app.guilds.public.html',
-      controller: 'GuildPublicCtrl'
-    })
-    .state('app.chat.guild', {
-      url: '/guild/:gid',
+
+    .state('app.social.guild-chat', {
+      url: '/guild-chat/:gid',
       data: {sync: false},
       templateUrl: 'views/app.chat.list.html',
       data: {gid: null},
-      controller: ['$scope', function($scope){
-        $scope.query();
-      }]
+      controller: 'ChatCtrl'
     })
 
+    .state('app.social.public-guilds', {
+      url: '/public-guilds',
+      data: {sync: true},
+      templateUrl: 'views/app.guilds.public.html',
+      controller: 'GuildPublicCtrl'
+    })    
 }])

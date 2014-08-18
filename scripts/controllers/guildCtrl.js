@@ -22,8 +22,10 @@ habitrpg.controller('GuildCtrl',
       };
 
       $scope.viewGuild = function(guild, e) {
-        $state.go('app.chat.guild', {gid:guild._id});
+        $state.go('app.social.guild-chat', {gid:guild._id});
       }
+
+      $scope.syncGuilds();
     }
   ]);
 
@@ -45,7 +47,7 @@ habitrpg.controller('GuildPublicCtrl',
       $scope.syncPublicGuilds = function() {
         startSyncing();
         Groups.Group.query({type:'guilds'}).$promise.then(function(myGuilds) {
-          $scope.$parent.guilds = myGuilds;
+          Groups.data.myGuilds = myGuilds;
           Groups.Group.query({type:'public'}).$promise.then(function(guilds) {
             $scope._publicGuilds = guilds;
             if ($scope.publicGuilds.length == 0) {
@@ -68,11 +70,11 @@ habitrpg.controller('GuildPublicCtrl',
 
       $scope.isMyGuild = function(guild) {
         var res = false;
-        $scope.guilds.forEach(function(myGuild) {
+        Groups.data.myGuilds.forEach(function(myGuild) {
           if (guild._id == myGuild._id) {
             res = true;
           }
-        })
+        });
         return res;
       }
 

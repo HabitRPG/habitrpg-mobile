@@ -1,6 +1,7 @@
 include ../node_modules/habitrpg/views/shared/header/avatar
 include ../node_modules/habitrpg/views/options/profile
 include ../node_modules/habitrpg/views/shared/modals/quest-rewards
+include ../node_modules/habitrpg/views/options/social/boss
 include app/avatar
 include app/list
 include app/details
@@ -9,6 +10,7 @@ include app/profile
 include app/inventory
 include app/stable
 include app/settings
+include app/social
 include app/chat
 include app/guild
 
@@ -29,7 +31,7 @@ script(id='views/app.html',type='text/ng-template')
         ion-list
               // ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
               // +avatar2()
-          each v,k in {'tasks/habits':'Tasks','profile/avatar':'Profile','inventory/inventory':'Inventory','stable/pets':'Stable','chat/tavern':'Chat','guilds/list':'Guilds',settings:'Settings',about:'About'}
+          each v,k in {'tasks/habits':'Tasks','profile/avatar':'Profile','inventory/inventory':'Inventory','stable/pets':'Stable','social/tavern':'Social',settings:'Settings',about:'About'}
             ion-item(nav-clear, menu-close, href='#/app/#{k}')
               //-img(ng-src='assets/sidebar-icon-#{k}.png')
               | #{v}

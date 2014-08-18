@@ -50,5 +50,7 @@ habitrpg.controller('ChatCtrl',
         }
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
+
+      $scope.query();
     }
   ]);
