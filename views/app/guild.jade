@@ -1,10 +1,3 @@
-script(id='views/app.guilds.html',type='text/ng-template')
-  +ionContentView('Guilds', true)
-    div(ui-view='')
-  .tabs
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.list")}', ui-sref='app.guilds.list') Chat
-    a.tab-item(ng-class='{"tab-item-active": $state.is("app.guilds.public")}', ui-sref='app.guilds.public') Search
-
 script(id='views/app.guilds.list.html',type='text/ng-template')
   ion-list#guildCtrl-list
     ion-item.item-icon-right.item-text-wrap(ng-repeat='guild in guilds' ng-click='viewGuild(guild)')
