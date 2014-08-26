@@ -12,6 +12,8 @@ script(id='views/auth.login.html',type='text/ng-template')
         input(type='text', placeholder='Username', ng-model='login.username')
       label.item.item-input
         input(type='password', placeholder='Password', ng-model='login.password')
+      label.item.item-input
+        input(type='text', placeholder='API-Endpoint', ng-model='login.endpoint')
     .padding
       button.button.button-block.button-positive(type='submit') Submit
       a.button.icon-left.ion-social-facebook.button-block.button-stable(ui-sref='auth.facebook') Use Facebook
@@ -44,6 +46,8 @@ script(id='views/auth.register.html',type='text/ng-template')
         input(type='text', ng-model='registerVals.username', placeholder='Username', required='required')
       label.item.item-input
         input(type='email', ng-model='registerVals.email', placeholder='Email', required='required')
+      label.item.item-input
+        input(type='text', ng-model='registerVals.endpoint', placeholder='API-Endpoint', required='required')
       label.item.item-input
         input(type='password', ng-model='registerVals.password', placeholder='Password', required='required')
       label.item.item-input
