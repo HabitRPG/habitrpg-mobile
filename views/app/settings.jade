@@ -8,6 +8,9 @@ script(id="views/app.settings.html",type='text/ng-template')
         .item
           strong API Token:&nbsp;
           | {{settings.auth.apiToken}}
+        .item
+          strong API Endpoint&nbsp;
+          | {{settings.auth.apiEndpoint}}
 
       //-.card(ng-if='!user.purchased.plan.customerId')
         +premiumAndAds()
