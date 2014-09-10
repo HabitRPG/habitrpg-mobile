@@ -2,6 +2,8 @@ script(id="views/app.settings.html",type='text/ng-template')
   +ionContentView('Settings')
     div(ng-controller='SettingsCtrl', style='text-align:center')
       .list
+        .item.item-text-wrap
+          |Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.
         .item
           strong UUID:&nbsp;
           input(type='text' ng-model='apiId' ng-change='onIdChange()')
