@@ -4,10 +4,10 @@ script(id="views/app.settings.html",type='text/ng-template')
       .list
         .item
           strong UUID:&nbsp;
-          | {{settings.auth.apiId}}
+          input(type='text' ng-model='apiId' ng-change='onIdChange()')
         .item
           strong API Token:&nbsp;
-          | {{settings.auth.apiToken}}
+          input(type='text' ng-model='apiToken' ng-change='onIdChange()')
 
       //-.card(ng-if='!user.purchased.plan.customerId')
         +premiumAndAds()
