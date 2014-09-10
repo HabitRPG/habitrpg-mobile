@@ -7,12 +7,12 @@ script(id="views/app.settings.html",type='text/ng-template')
         .item.item-button-right
           strong UUID:&nbsp;
           | {{settings.auth.apiId}}
-          button.button.button-positive(ng-click='copy(settings.auth.apiId)')
+          button.button.button-positive(ng-click='copy("UUID", settings.auth.apiId)')
             i.icon.ion-clipboard
         .item.item-button-right
           strong API Token:&nbsp;
           | {{settings.auth.apiToken}}
-          button.button.button-positive(ng-click='copy(settings.auth.apiToken)')
+          button.button.button-positive(ng-click='copy("API Token", settings.auth.apiToken)')
             i.icon.ion-clipboard
 
       //-.card(ng-if='!user.purchased.plan.customerId')

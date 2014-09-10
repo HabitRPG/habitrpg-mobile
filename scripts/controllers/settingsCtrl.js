@@ -2,8 +2,8 @@
 
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('SettingsCtrl',
-  ['$scope', 'User', '$location',
-  function($scope, User, $location) {
+  ['$scope', 'User', '$location', 'Notification',
+  function($scope, User, $location, Notification) {
     $scope.resetApp = function () {
         localStorage.clear();
         location.reload();
@@ -18,8 +18,9 @@ habitrpg.controller('SettingsCtrl',
     };
 
     // copy to clipboard
-    $scope.copy = function(text) {
+    $scope.copy = function(type, text) {
       cordova.plugins.clipboard.copy(text);
+      Notification.push({type: 'text', text: type + ' copied to clipboard'});
     }
 
   }
