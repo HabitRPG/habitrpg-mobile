@@ -6,8 +6,8 @@
  */
 
 habitrpg.controller('AuthCtrl',
-  ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location', 'API_URL',
-  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL) {
+  ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location', 'API_URL', 'ApiUrlService',
+  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, API_URL, ApiUrlService) {
     $scope.Facebook = Facebook;
     $scope.Local = LocalAuth;
 
@@ -15,8 +15,17 @@ habitrpg.controller('AuthCtrl',
 
     $scope.initLoginForm = function(useUUID) {
       $scope.useUUID = useUUID;
-      $scope.login = {username:'',password:''};
-    }
+      $scope.login = {username:'',password:'',endpoint:API_URL};
+      $scope.registerVals = { endpoint: API_URL};
+    };
+    
+    $scope.setApiEndpoint = function (newEndpoint) {
+      habitrpg.value('API_URL', newEndpoint);
+      localStorage.setItem('habitrpg-endpoint', newEndpoint);
+      ApiUrlService.setApiUrl(newEndpoint);
+      
+      return newEndpoint;
+    };
 
     document.addEventListener('deviceready', function() {
 
@@ -34,6 +43,9 @@ habitrpg.controller('AuthCtrl',
         // we have this as a workaround for https://github.com/HabitRPG/habitrpg-mobile/issues/64
         return;
       }
+      
+      API_URL = $scope.setApiEndpoint(registerVals.endpoint);
+      
       $http.post(API_URL + '/api/v2/register', registerVals)
         .success(function(data, status, headers, config) {
           User.authenticate(data.id, data.apiToken, function(err) {
@@ -62,6 +74,8 @@ habitrpg.controller('AuthCtrl',
           $location.path("/habit");
         });
       }
+
+      API_URL = $scope.setApiEndpoint($scope.login.endpoint);
 
       if ($scope.useUUID) {
         runAuth($scope.login.username, $scope.login.password);

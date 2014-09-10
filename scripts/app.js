@@ -15,7 +15,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
   });
 }])
 
-.constant('API_URL', 'https://habitrpg.com')
+.value('API_URL', localStorage.getItem('habitrpg-endpoint') || 'https://habitrpg.com')
 //.constant('API_URL', 'http://localhost:3000')
 .constant("STORAGE_USER_ID", 'habitrpg-user')
 .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
