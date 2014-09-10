@@ -4,12 +4,16 @@ script(id="views/app.settings.html",type='text/ng-template')
       .list
         .item.item-text-wrap
           |Copy these for use in third party applications. However, think of your API Token like a password, and do not share it publicly. You may occasionally be asked for your User ID, but never post your API Token where others can see it, including on Github.
-        .item
+        .item.item-button-right
           strong UUID:&nbsp;
-          input(type='text' ng-model='apiId' ng-change='onIdChange()')
-        .item
+          | {{settings.auth.apiId}}
+          button.button.button-positive(ng-click='copy(settings.auth.apiId)')
+            i.icon.ion-clipboard
+        .item.item-button-right
           strong API Token:&nbsp;
-          input(type='text' ng-model='apiToken' ng-change='onIdChange()')
+          | {{settings.auth.apiToken}}
+          button.button.button-positive(ng-click='copy(settings.auth.apiToken)')
+            i.icon.ion-clipboard
 
       //-.card(ng-if='!user.purchased.plan.customerId')
         +premiumAndAds()

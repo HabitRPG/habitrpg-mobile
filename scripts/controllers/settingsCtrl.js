@@ -17,12 +17,9 @@ habitrpg.controller('SettingsCtrl',
         });
     };
 
-    // hack to make uuid and api token uneditable
-    $scope.apiId = $scope.settings.auth.apiId;
-    $scope.apiToken = $scope.settings.auth.apiToken;
-    $scope.onIdChange = function() {
-      $scope.apiId = $scope.settings.auth.apiId;
-      $scope.apiToken = $scope.settings.auth.apiToken;
+    // copy to clipboard
+    $scope.copy = function(text) {
+      cordova.plugins.clipboard.copy(text);
     }
 
   }
