@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('GuildCtrl',
-  ['$rootScope','$scope', 'User', '$resource', 'API_URL', '$state', '$http', 'Groups',
-    function($rootScope, $scope, User, $resource, API_URL, $state, $http, Groups) {
+  ['$rootScope','$scope', 'User', '$resource', '$state', '$http', 'Groups',
+    function($rootScope, $scope, User, $resource, $state, $http, Groups) {
 
       $scope.guilds = [];
 
@@ -30,8 +30,8 @@ habitrpg.controller('GuildCtrl',
   ]);
 
 habitrpg.controller('GuildPublicCtrl',
-  ['$rootScope','$scope', 'User', '$resource', 'API_URL', '$state', '$http', 'Groups',
-    function($rootScope, $scope, User, $resource, API_URL, $state, $http, Groups) {
+  ['$rootScope','$scope', 'User', '$resource', '$state', '$http', 'Groups',
+    function($rootScope, $scope, User, $resource, $state, $http, Groups) {
 
       $scope._publicGuilds = [];
       $scope.publicGuilds = [];

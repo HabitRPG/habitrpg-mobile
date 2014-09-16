@@ -15,8 +15,8 @@ habitrpg.controller('AuthCtrl',
 
     $scope.initLoginForm = function(useUUID) {
       $scope.useUUID = useUUID;
-      $scope.login = {username:'',password:'',endpoint:API_URL};
-      $scope.registerVals = { endpoint: API_URL};
+      $scope.login = {username:'',password:'',endpoint:ApiUrlService.get()};
+      $scope.registerVals = { endpoint: ApiUrlService.get()};
     };
 
     $scope.setApiEndpoint = function (newEndpoint) {
