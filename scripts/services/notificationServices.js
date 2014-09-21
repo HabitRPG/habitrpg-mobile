@@ -9,36 +9,19 @@ angular.module('notificationServices', []).
 
         return {
 
-            hide: function () {
-                $rootScope.notification = {type:null,data:null};
-                active = false;
-                timer = null;
-            },
-
-            animate: function () {
-                if (timer) {
-                    clearTimeout(timer);
-                    timer = $timeout(this.hide, 2000)
-                }
-                if (active == false) {
-                    active = true;
-                    timer = $timeout(this.hide, 2000);
-                }
-            },
-
             push: function (message) {
-                var notif = {};
+                var notif = {data: {}};
                 notif.type = message.type;
                 switch(message.type) {
                   case 'stats':
                     if (message.stats.gp) {
-                      notif.gp = (message.stats.exp>0 ? '+':'')+ goldFilter(message.stats.gp);
-                      notif.silver = silverFilter(message.stats.gp);
+                      notif.data.gp = (message.stats.exp>0 ? '+':'')+ goldFilter(message.stats.gp);
+                      notif.data.silver = silverFilter(message.stats.gp);
                     }
                     if (message.stats.exp)
-                      notif.exp = (message.stats.exp>0 ? '+':'')+ message.stats.exp;
+                      notif.data.exp = (message.stats.exp>0 ? '+':'')+ message.stats.exp;
                     if (message.stats.hp)
-                      notif.hp = message.stats.hp.toFixed(2)
+                      notif.data.hp = message.stats.hp.toFixed(2)
                     break;
                   case 'text':
                     notif.data = message.text;
@@ -48,22 +31,8 @@ angular.module('notificationServices', []).
                 $rootScope.notifications.push(notif);
 
                 $timeout(function(){
-                    $rootScope.notifications.pop();
+                    $rootScope.notifications.shift();
                 }, 2000);
-            },
-
-            get: function () {
-                return data;
-            },
-
-            clearTimer: function () {
-                $timeout.cancel(timer);
-                timer = null;
-                active = false;
-            },
-
-            init: function () {
-                timer = $timeout(this.hide, 2000);
             }
 
         }
