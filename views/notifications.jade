@@ -1,5 +1,6 @@
 // Notifications
-.bar.bar-header.bar-energized.notif-bar(ng-show='notification.type')
+.bar.bar-header.bar-energized.notif-bar(ng-repeat="notification in notifications",
+                                        style='margin-top: {{($index * 44) +"px"}}')
   h1.title
     span(ng-if='notification.type=="text"', ng-bind-html='notification.data')
     span(ng-if='notification.type=="stats"')

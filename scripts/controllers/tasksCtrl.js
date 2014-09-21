@@ -57,6 +57,11 @@ habitrpg
   .controller('TasksCtrl',
   ['$scope', '$rootScope', 'filterFilter', 'User', 'Notification', '$state', '$ionicActionSheet',
   function($scope, $rootScope, filterFilter, User, Notification, $state, $ionicActionSheet) {
+    Notification.push({type: 'text', text: 'Notification at ' + Date.now()});
+    Notification.push({type: 'text', text: 'Notification at ' + Date.now()});
+    Notification.push({type: 'text', text: 'Notification at ' + Date.now()});
+    Notification.push({type: 'text', text: 'Notification at ' + Date.now()});
+    Notification.push({type: 'text', text: 'Notification at ' + Date.now()});
 
     $scope.newTask = {};
 

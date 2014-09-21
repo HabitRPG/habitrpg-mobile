@@ -1,7 +1,7 @@
 angular.module('notificationServices', []).
     factory('Notification', ['$filter','$rootScope', '$timeout', function ($filter,$rootScope, $timeout) {
 
-        $rootScope.notification = {type:null,data:null};
+        $rootScope.notifications = [];
         var active = false;
         var timer = null;
         var goldFilter = $filter('gold');
@@ -27,8 +27,8 @@ angular.module('notificationServices', []).
             },
 
             push: function (message) {
-                var notif = $rootScope.notification.data = {};
-                $rootScope.notification.type = message.type;
+                var notif = {};
+                notif.type = message.type;
                 switch(message.type) {
                   case 'stats':
                     if (message.stats.gp) {
@@ -41,11 +41,15 @@ angular.module('notificationServices', []).
                       notif.hp = message.stats.hp.toFixed(2)
                     break;
                   case 'text':
-                    $rootScope.notification.data = message.text;
+                    notif.data = message.text;
                     break;
                 }
 
-                this.animate()
+                $rootScope.notifications.push(notif);
+
+                $timeout(function(){
+                    $rootScope.notifications.pop();
+                }, 2000);
             },
 
             get: function () {
