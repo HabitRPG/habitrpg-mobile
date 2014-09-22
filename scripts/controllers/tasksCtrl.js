@@ -16,6 +16,9 @@ habitrpg
     $scope.edit = function(task){
       $scope._editing=true;
       snapshot = _.cloneDeep(task);
+      if (task.type == 'todo') {
+        task.date = new Date(task.date);
+      }
     }
 
     $scope.cancel = function (task) {

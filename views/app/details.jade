@@ -81,8 +81,9 @@ script(id="views/app.task.html",type='text/ng-template')
                 a.button(ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', ng-class=  '{"active":task.repeat.s}') S
 
             // Todos
-              .item(ng-show='task.type == "todo"')
-                // TODO: Due Date
+            .item(ng-show='task.type == "todo"')
+              span.input-label Due Date
+              input(type='date' ng-model='task.date')
             .item(ng-hide='task.type == "reward"')
               span.input-label Difficulty
               .button-bar
