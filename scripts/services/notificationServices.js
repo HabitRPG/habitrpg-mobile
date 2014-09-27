@@ -10,6 +10,7 @@ angular.module('notificationServices', []).
         return {
 
             push: function (message) {
+                console.log('push:', message)
                 var notif = {data: {}};
                 notif.type = message.type;
                 switch(message.type) {

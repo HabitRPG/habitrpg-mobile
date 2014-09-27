@@ -83,18 +83,6 @@ habitrpg
       var statsDiff = {};
       var oldStats = _.clone(User.user.stats);
       User.user.ops.score({params:{id:task.id,direction:direction}});
-
-      //compute the stats change.
-      _.each(oldStats, function (value, key) {
-          var newValue = User.user.stats[key];
-          if (newValue !== value) {
-              statsDiff[key] = newValue - value;
-          }
-      });
-      //notify user if there are changes in stats.
-      if (Object.keys(statsDiff).length > 0) {
-        Notification.push({type: 'stats', stats: statsDiff});
-      }
     };
 
     $scope.notDue = function(task) {
