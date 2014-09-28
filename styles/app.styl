@@ -6,12 +6,15 @@
 @import "../node_modules/habitrpg/public/css/menu"
 @import "../node_modules/habitrpg/public/css/customizer"
 
+.notif-bar
+  .shop_gold, .shop_silver
+    margin-top: 8px
+
 .notif-bar.ng-move,
 .notif-bar.ng-enter,
 .notif-bar.ng-leave 
   -webkit-transition: all linear 0.5s
   transition: all linear 0.5s
-
 
 .notif-bar.ng-leave.ng-leave-active,
 .notif-bar.ng-move,
@@ -116,11 +119,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .shop-sprites
   margin: 4px 20px 4px 4px;
   td {vertical-align: middle;}
-
-.exp-and-gold
-  //border-left 1px solid white
-  //padding: 13px 0
-  margin: 0 8px
 
 .muted *
   color: grey !important

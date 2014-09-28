@@ -3,23 +3,46 @@
 habitrpg.controller('NotificationCtrl',
   ['$scope', '$rootScope', 'User', 'Notification',
   function ($scope, $rootScope, User, Notification) {
+
+    var alreadyNotified = {
+      hp: null,
+      gp: null,
+      exp: null,
+      mp: null
+    };
+
     $rootScope.$watchGroup([
         'user.stats.hp',
         'user.stats.exp',
         'user.stats.gp',
         'user.stats.mp'
       ], function(nv, ov){
-        var text = '';
-        var changed = {hp: false, exp: false, gp: false, mp: false};
-        if(nv[0] !== ov[0] && User.user.stats.lvl != 0) text+=('hp: ' + (nv[0] - ov[0]));
-        if(nv[1] !== ov[1] && User.user.stats.lvl != 0) text+=('exp: ' + (nv[1] - ov[1]));
-        if(nv[2] !== ov[2]) text+=('gp: ' + (nv[2] - ov[2])); 
-        if(nv[3] !== ov[3] && User.user.flags.classSelected && !User.user.preferences.disableClasses) text+=('mp: ' + (nv[3] - ov[3]));
+        var stats = {hp: null, exp: null, gp: null, mp: null};
 
-        if(text !== '') Notification.push({type: 'text', text: text});
+        if(nv[0] !== ov[0] && User.user.stats.lvl != 0 && alreadyNotified.hp != nv[0]){
+          stats.hp = (nv[0] - ov[0]);
+          alreadyNotified.hp = nv[0];
+        }
+
+        if(nv[1] !== ov[1] && User.user.stats.lvl != 0 && alreadyNotified.exp != nv[1]){
+          stats.exp = (nv[1] - ov[1]);
+          alreadyNotified.exp = nv[1];
+        }
+
+        if(nv[2] !== ov[2] && alreadyNotified.gp != nv[2]){
+          stats.gp = (nv[2] - ov[2]);
+          alreadyNotified.gp = nv[2];
+        }
+
+        if(nv[3] !== ov[3] && User.user.flags.classSelected && !User.user.preferences.disableClasses && alreadyNotified.mp != nv[3]){
+          stats.mp = (nv[3] - ov[3]);
+          alreadyNotified.mp = nv[3];
+        }
+
+        if(stats.hp || stats.exp || stats.gp || stats.mp) Notification.push({type: 'stats', stats: stats});
       });
 
-    $rootScope.$watch('user.stats.gp', function(after, before) {
+    /*$rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
       var money = after - before;
@@ -35,7 +58,7 @@ habitrpg.controller('NotificationCtrl',
         //Notification.text("+ " + Notification.coins(bonus) + ' ' + window.env.t('streakCoins'));
         delete User.user._tmp.streakBonus;
       }
-    });
+    });*/
 
     $rootScope.$watch('user._tmp.crit', function(after, before){
        if (after == before || !after) return;
