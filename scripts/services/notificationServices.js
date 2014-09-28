@@ -21,7 +21,7 @@ angular.module('notificationServices', []).
                 switch(message.type) {
                   case 'stats':
                     if (message.stats.gp) {
-                      notif.data.gp = sign(message.stats.gp) + goldFilter(message.stats.gp);
+                      notif.data.gp = goldFilter(message.stats.gp);
                       notif.data.silver = silverFilter(message.stats.gp);
                     }
                     if (message.stats.exp)
@@ -40,7 +40,7 @@ angular.module('notificationServices', []).
 
                 $timeout(function(){
                     $rootScope.notifications.shift();
-                }, 3500);
+                }, 2500);
             }
 
         }
