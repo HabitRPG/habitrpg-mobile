@@ -121,16 +121,15 @@ habitrpg.controller('NotificationCtrl',
       }
     });
 
-    // TODO icon? How to implement? (this and below)
-    /*$rootScope.$on('responseError', function(ev, error){
-      Notification.push({type: 'text', text: 'error'});
+    // TODO icon?
+    $rootScope.$on('responseError', function(ev, error){
+      Notification.push({type: 'text', text: '<i class="ion-alert"></i>&nbsp;' + error});
       //Notification.error(error);
     });
     
     // TODO icon?
     $rootScope.$on('responseText', function(ev, error){
-      Notification.push({type: 'text', text: 'response'});
-      //Notification.text(error);
-    });*/
+      Notification.push({type: 'text', text: '<i class="ion-alert"></i>&nbsp;' + error});
+    });
 
 }]);
