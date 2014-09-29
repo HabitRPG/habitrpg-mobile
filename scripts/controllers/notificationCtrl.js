@@ -42,6 +42,7 @@ habitrpg.controller('NotificationCtrl',
         if(stats.hp || stats.exp || stats.gp || stats.mp) Notification.push({type: 'stats', stats: stats});
       });
 
+    // TODO bonus
     /*$rootScope.$watch('user.stats.gp', function(after, before) {
       if (after == before) return;
       if (User.user.stats.lvl == 0) return;
@@ -59,16 +60,17 @@ habitrpg.controller('NotificationCtrl',
         delete User.user._tmp.streakBonus;
       }
     });*/
-
+    
     $rootScope.$watch('user._tmp.crit', function(after, before){
        if (after == before || !after) return;
        var amount = User.user._tmp.crit * 100 - 100;
        // reset the crit counter
        User.user._tmp.crit = undefined;
-       Notification.push({type: 'text', text: 'crit: ' + amount});
-       //Notification.crit(amount);
+       // Website use icon glyphicon-certificate, slightly different
+       Notification.push({type: 'text', text: '<i class="ion-load-b"></i>&nbsp;' + env.t('critBonus') + Math.round(amount) + '%'});
     });
 
+    // TODO: text and icon glyphicon-gift
     $rootScope.$watch('user._tmp.drop', function(after, before){
       if (after == before || !after) return;
       if (after.type !== 'gear') {
@@ -82,30 +84,27 @@ habitrpg.controller('NotificationCtrl',
       }
 
       if(after.type === 'HatchingPotion'){
-        var text = Content.hatchingPotions[after.key].text();
-        var notes = Content.hatchingPotions[after.key].notes();
-        Notification.push({type: 'text', text: 'drop: ' + text});
-        //Notification.drop(env.t('messageDropPotion', {dropText: text, dropNotes: notes}));
+        var text = $rootScope.Content.hatchingPotions[after.key].text();
+        var notes = $rootScope.Content.hatchingPotions[after.key].notes();
+        Notification.push({type: 'text', text: '<i class="ion-cube"></i>&nbsp;' + env.t('messageDropPotion', {dropText: text, dropNotes: notes})});
       }else if(after.type === 'Egg'){
-        var text = Content.eggs[after.key].text();
-        var notes = Content.eggs[after.key].notes();
-        Notification.push({type: 'text', text: 'drop: ' + text});
-        //Notification.drop(env.t('messageDropEgg', {dropText: text, dropNotes: notes}));
+        var text = $rootScope.Content.eggs[after.key].text();
+        var notes = $rootScope.Content.eggs[after.key].notes();
+        Notification.push({type: 'text', text: '<i class="ion-cube"></i>&nbsp;' + env.t('messageDropEgg', {dropText: text, dropNotes: notes})});
       }else if(after.type === 'Food'){
-        var text = Content.food[after.key].text();
-        var notes = Content.food[after.key].notes();
-        Notification.push({type: 'text', text: 'drop: ' + text});
-        //Notification.drop(env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes}));
+        var text = $rootScope.Content.food[after.key].text();
+        var notes = $rootScope.Content.food[after.key].notes();
+        Notification.push({type: 'text', text: '<i class="ion-cube"></i>&nbsp;' + env.t('messageDropFood', {dropArticle: after.article, dropText: text, dropNotes: notes})});
       }else{
         // Keep support for another type of drops that might be added
-        Notification.push({type: 'text', text: 'drop: ' + User.user._tmp.drop.dialog});
-        //Notification.drop(User.user._tmp.drop.dialog);
+        Notification.push({type: 'text', text: '<i class="ion-cube"></i>&nbsp;' + User.user._tmp.drop.dialog});
       }
     });
 
     $rootScope.$watch('user.achievements.streak', function(after, before){
       if(before == undefined || after == before || after < before) return;
-      Notification.push({type: 'text', text: 'streak achievement'});
+      Notification.push({type: 'text', text: '<i class="ion-refresh"></i>&nbsp;' + env.t('streakName') + ': ' + after});
+      // TODO see below
       /*if (User.user.achievements.streak > 1) {
         Notification.push(type: 'text', text: 'streak achievement');
         Notification.streak(User.user.achievements.streak);
@@ -118,19 +117,20 @@ habitrpg.controller('NotificationCtrl',
     $rootScope.$watch('user.stats.lvl', function(after, before) {
       if (after == before) return;
       if (after > before) {
-        Notification.push({type: 'text', text: 'level up'});
-        //Notification.lvl();
+        Notification.push({type: 'text', text: '<i class="ion-chevron-up"></i>&nbsp;' + env.t('levelUp')});
       }
     });
 
-    $rootScope.$on('responseError', function(ev, error){
+    // TODO icon? How to implement? (this and below)
+    /*$rootScope.$on('responseError', function(ev, error){
       Notification.push({type: 'text', text: 'error'});
       //Notification.error(error);
     });
-
+    
+    // TODO icon?
     $rootScope.$on('responseText', function(ev, error){
       Notification.push({type: 'text', text: 'response'});
       //Notification.text(error);
-    });
+    });*/
 
 }]);
