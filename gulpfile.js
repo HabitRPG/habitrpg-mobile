@@ -54,6 +54,7 @@ var paths = {
     'scripts/controllers/mountDetailsCtrl.js',
     'scripts/controllers/stableCtrl.js',
     'scripts/controllers/partyCtrl.js',
+    'scripts/controllers/notificationCtrl.js',
     'scripts/controllers/guildCtrl.js'
   ],
   copy: [

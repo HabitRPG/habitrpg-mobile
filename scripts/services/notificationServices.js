@@ -1,65 +1,45 @@
 angular.module('notificationServices', []).
     factory('Notification', ['$filter','$rootScope', '$timeout', function ($filter,$rootScope, $timeout) {
 
-        $rootScope.notification = {type:null,data:null};
-        var active = false;
-        var timer = null;
+        $rootScope.notifications = [];
         var goldFilter = $filter('gold');
         var silverFilter = $filter('silver');
+        var sign = function(number){
+            return number?number<0?'-':'+':'+';
+        };
+        var round = function(number){
+            return Math.abs(number.toFixed(1));
+        };
 
         return {
 
-            hide: function () {
-                $rootScope.notification = {type:null,data:null};
-                active = false;
-                timer = null;
-            },
-
-            animate: function () {
-                if (timer) {
-                    clearTimeout(timer);
-                    timer = $timeout(this.hide, 2000)
-                }
-                if (active == false) {
-                    active = true;
-                    timer = $timeout(this.hide, 2000);
-                }
-            },
-
             push: function (message) {
-                var notif = $rootScope.notification.data = {};
-                $rootScope.notification.type = message.type;
+                var notif = {data: {}};
+                notif.type = message.type;
+
                 switch(message.type) {
                   case 'stats':
                     if (message.stats.gp) {
-                      notif.gp = (message.stats.exp>0 ? '+':'')+ goldFilter(message.stats.gp);
-                      notif.silver = silverFilter(message.stats.gp);
+                      notif.data.gp = goldFilter(message.stats.gp);
+                      notif.data.silver = silverFilter(message.stats.gp);
                     }
                     if (message.stats.exp)
-                      notif.exp = (message.stats.exp>0 ? '+':'')+ message.stats.exp;
+                      notif.data.exp = sign(message.stats.exp) + round(message.stats.exp);
                     if (message.stats.hp)
-                      notif.hp = message.stats.hp.toFixed(2)
+                      notif.data.hp = sign(message.stats.hp) + round(message.stats.hp);
+                    if (message.stats.mp)
+                      notif.data.mp = sign(message.stats.hp) + round(message.stats.mp)
                     break;
                   case 'text':
-                    $rootScope.notification.data = message.text;
+                    notif.data = message.text;
                     break;
                 }
 
-                this.animate()
-            },
+                $rootScope.notifications.push(notif);
 
-            get: function () {
-                return data;
-            },
-
-            clearTimer: function () {
-                $timeout.cancel(timer);
-                timer = null;
-                active = false;
-            },
-
-            init: function () {
-                timer = $timeout(this.hide, 2000);
+                $timeout(function(){
+                    $rootScope.notifications.shift();
+                }, 2500);
             }
 
         }
