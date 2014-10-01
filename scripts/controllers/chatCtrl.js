@@ -1,14 +1,14 @@
 'use strict';
 
 habitrpg.controller('ChatCtrl',
-  ['$rootScope','$scope', 'User', '$resource', 'API_URL', '$state', '$http',
-    function($rootScope, $scope, User, $resource, API_URL, $state, $http) {
+  ['$rootScope','$scope', 'User', '$resource', 'ApiUrlService', '$state', '$http',
+    function($rootScope, $scope, User, $resource, ApiUrlService, $state, $http) {
       if ($state.params.gid) {
         $state.current.data.gid = $state.params.gid;
         $scope.guildChat = true;
       }
       $scope._message = {text:undefined};
-      $scope.Chat = $resource(API_URL + "/api/v2/groups/:gid/chat",
+      $scope.Chat = $resource(ApiUrlService.get() + "/api/v2/groups/:gid/chat",
         {gid:'@_id'}, {
           //send: {url: API_URL + '/api/v2/groups/:gid/chat', method: 'POST'/*, isArray:true*/}
         }
@@ -24,7 +24,7 @@ habitrpg.controller('ChatCtrl',
       $scope.postChat = function(_message) {
         // FIXME setup the server for proper ngResource-handling
         startSyncing();
-        $http.post(API_URL + '/api/v2/groups/' + $state.current.data.gid + '/chat', {}, {params:{message:_message.text}})
+        $http.post(ApiUrlService.get() + '/api/v2/groups/' + $state.current.data.gid + '/chat', {}, {params:{message:_message.text}})
           .success(function(){
             $scope.query();
             _message.text = undefined;
