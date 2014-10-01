@@ -294,11 +294,10 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
           } else if (response.needRefresh) {
             // Don't do anything in mobile (for now)
           } else if (response.data.code && response.data.code === 'ACCOUNT_SUSPENDED') {
-            // TODO what do do in mobile?
-            //confirm(response.data.err);
-            //localStorage.clear();
-            //window.location.href = '/logout';
-
+            confirm(response.data.err)
+            localStorage.clear();
+            location.reload();
+            
           // 400 range?
           } else if (response.status < 500) {
             $rootScope.$broadcast('responseText', response.data.err || response.data);
