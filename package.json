@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "dependencies": {
-    "gulp": "^3.6.2",
+    "gulp": "~3.6.2",
     "gulp-sass": "^0.7.1",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
