@@ -27,6 +27,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Clipboard\"><param name=\"ios-package\" value=\"CDVClipboard\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -52,6 +56,9 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
