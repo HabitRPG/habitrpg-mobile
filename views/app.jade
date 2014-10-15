@@ -17,7 +17,7 @@ include app/guild
 script(id='views/app.html',type='text/ng-template')
   ion-side-menus
     ion-pane(ion-side-menu-content)
-      ion-nav-bar.bar-stable(align-title='left')
+      ion-nav-bar.bar-stable(align-title='center')
         .button.button-clear(ng-hide='hideBackButton()' ng-click='goBack()')
           i.icon.ion-chevron-left
           | {{getPreviousTitle() || 'Back'}}
