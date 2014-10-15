@@ -265,9 +265,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
 
     .state('app.social.guild-chat', {
       url: '/guild-chat/:gid',
-      data: {sync: false},
+      data: {sync: false, gid: null},
       templateUrl: 'views/app.chat.list.html',
-      data: {gid: null},
       controller: 'ChatCtrl'
     })
 
@@ -304,7 +303,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
             // Need to reject the prompse so the error is handled correctly
             if (response.status === 401) {
               return $q.reject(response);
-            } 
+            }
 
             // Error
           } else {
