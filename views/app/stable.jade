@@ -5,7 +5,7 @@ mixin petList(source)
     .PixelPaw-Gold.stable-pet-not-owned-icon
   .list
     div.pet-item(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getPetsHeight(item)" ng-style='{height: getPetsHeight(item)}' ng-class="{'item':!item.potion}")
-      a.pet-item.item.item-icon-right(href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-if='item.potion')
+      a.pet-item.item.item-icon-right(ng-href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-if='item.potion')
         div()
           .stable-pet-icon(class="{{'Pet-'+item.egg+\'-\'+item.potion}}", ng-if="user.items.pets[item.egg+'-'+item.potion]>0 || user.items.mounts[item.egg+'-'+item.potion]" ng-class="{'pet-evolved': user.items.mounts[item.egg+'-'+item.potion] && user.items.pets[item.egg+'-'+item.potion]==-1}")
           .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.pets[item.egg+'-'+item.potion]")
@@ -16,7 +16,7 @@ mixin petList(source)
 
 mixin mountList(source)
   .list
-    a.pet-item.item.item-icon-right(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getMountsHeight(item)" href='#/app/mount-details/{{item.egg+"-"+item.potion}}' ng-style='{height: getMountsHeight(item)}')
+    a.pet-item.item.item-icon-right(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getMountsHeight(item)" ng-href='#/app/mount-details/{{item.egg+"-"+item.potion}}' ng-style='{height: getMountsHeight(item)}')
       div(ng-if='item.potion')
         .stable-pet-icon(class="{{'Mount_Head_'+item.egg+\'-\'+item.potion}}", ng-if="user.items.mounts[item.egg+'-'+item.potion]")
         .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.mounts[item.egg+'-'+item.potion]")
