@@ -15,7 +15,8 @@ script(id='views/app.social.party.html',type='text/ng-template')
     a.item.item-icon-right(ui-sref='app.social.party-chat')
       =env.t('chat')
       i.icon.ion-chevron-right
-    +boss(false, true)
+    div.padding
+      +boss(false, true)
   .padding(ng-if='!group._id')
     |To manage invitations or to create a party, please visit habitrpg.com
 
