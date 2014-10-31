@@ -44,7 +44,7 @@ script(id='views/app.pet-details.html',type='text/ng-template')
       .list
         .item
           |{{petDisplayName}}
-          div(class="Pet-{{pet}}", ng-if='user.items.pets[pet]>0')
+          div(class="Pet-{{pet}}", ng-if='user.items.pets[pet]>0 || user.items.mounts[pet]' ng-class="{'pet-evolved': user.items.mounts[pet] && user.items.pets[pet]==-1}")
           .PixelPaw(ng-if='!user.items.pets[pet]')
 
         div(ng-if='user.items.pets[pet]>0')
