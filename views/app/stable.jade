@@ -47,7 +47,7 @@ script(id='views/app.pet-details.html',type='text/ng-template')
           div(class="Pet-{{pet}}", ng-if='user.items.pets[pet]>0')
           .PixelPaw(ng-if='!user.items.pets[pet]')
 
-        div(ng-if='user.items.pets[pet]')
+        div(ng-if='user.items.pets[pet]>0')
           ion-toggle(ng-model="isAvatarPet", ng-change="chooseAvatarPet()")
             |Use as your avatar pet
           div(ng-show='!user.items.mounts[pet] && (Content.eggs[egg].key!="Egg") && !Content.specialPets[pet]')
