@@ -1,4 +1,8 @@
 mixin petList(source)
+  .item(ng-if='!user.items.pets["Dragon-Hydra"]')
+    a(href='' ng-click="externalLink('http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')")
+      | Rare pet contributors
+    .PixelPaw-Gold.stable-pet-not-owned-icon
   .list
     a.pet-item.item.item-icon-right(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getPetsHeight(item)" href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-style='{height: getPetsHeight(item)}')
       div(ng-if='item.potion')
@@ -8,10 +12,6 @@ mixin petList(source)
         i.icon.ion-chevron-right
       div(ng-if='!item.potion')
         .item.item-divider {{env.t(item.type)}}
-    .item(ng-if='!user.items.pets["Dragon-Hydra"]')
-      a(href='' ng-click="externalLink('http://habitrpg.wikia.com/wiki/Contributing_to_HabitRPG')")
-        | Rare pet contributors
-      .PixelPaw-Gold.stable-pet-not-owned-icon
 
 mixin mountList(source)
   .list
