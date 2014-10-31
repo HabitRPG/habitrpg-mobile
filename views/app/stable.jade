@@ -4,12 +4,13 @@ mixin petList(source)
       | Rare pet contributors
     .PixelPaw-Gold.stable-pet-not-owned-icon
   .list
-    a.pet-item.item.item-icon-right(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getPetsHeight(item)" href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-style='{height: getPetsHeight(item)}')
-      div(ng-if='item.potion')
-        .stable-pet-icon(class="{{'Pet-'+item.egg+\'-\'+item.potion}}", ng-if="user.items.pets[item.egg+'-'+item.potion]>0 || user.items.mounts[item.egg+'-'+item.potion]" ng-class="{'pet-evolved': user.items.mounts[item.egg+'-'+item.potion] && user.items.pets[item.egg+'-'+item.potion]==-1}")
-        .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.pets[item.egg+'-'+item.potion]")
-        | {{ env.t('petName', {potion: item.potion, egg: item.egg} )}}
-        i.icon.ion-chevron-right
+    div.pet-item(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getPetsHeight(item)" ng-style='{height: getPetsHeight(item)}' ng-class="{'item':!item.potion}")
+      a.pet-item.item.item-icon-right(href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-if='item.potion')
+        div()
+          .stable-pet-icon(class="{{'Pet-'+item.egg+\'-\'+item.potion}}", ng-if="user.items.pets[item.egg+'-'+item.potion]>0 || user.items.mounts[item.egg+'-'+item.potion]" ng-class="{'pet-evolved': user.items.mounts[item.egg+'-'+item.potion] && user.items.pets[item.egg+'-'+item.potion]==-1}")
+          .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.pets[item.egg+'-'+item.potion]")
+          | {{ env.t('petName', {potion: item.potion, egg: item.egg} )}}
+          i.icon.ion-chevron-right
       div(ng-if='!item.potion')
         .item.item-divider {{env.t(item.type)}}
 
