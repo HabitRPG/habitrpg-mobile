@@ -35,12 +35,13 @@ habitrpg
                   .concat(toArray(env.Content.specialPets, 'rareMounts'));
 
     $scope.getPetsHeight = function(item) {
-      var value = $rootScope.user.items.pets[item.egg+'-'+item.potion]
-      if (value > 0) {
+      var value = $rootScope.user.items.mounts[item.egg+'-'+item.potion] 
+                  || $rootScope.user.items.pets[item.egg+'-'+item.potion]
+
+      if (value) {
         return 100;
-      } else if (value < 0) {
-        return 50;
-      }
+      } 
+
       return 80;
     };
     $scope.getMountsHeight = function(item) {
