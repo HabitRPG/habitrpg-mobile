@@ -53,7 +53,7 @@ script(id='views/app.pet-details.html',type='text/ng-template')
           div(ng-show='!user.items.mounts[pet] && (Content.eggs[egg].key!="Egg") && !Content.specialPets[pet]')
             .padding
               .meter.balanced-border
-                span.balanced-bg(style='width:{{user.items.pets[pet]/.5}}%')
+                div.balanced-bg(style='width:{{user.items.pets[pet]/.5}}%')
             .item.item-divider=env.t('food')
             .item(ng-show='foodCount < 1')=env.t('noFood')
             .item(ng-repeat='(food,points) in ownedItems(user.items.food)', ng-click='chooseFood(food)')
