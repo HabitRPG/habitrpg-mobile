@@ -6,15 +6,10 @@
  */
 
 habitrpg.controller('AuthCtrl',
-  ['$scope', '$rootScope', 'Facebook', 'LocalAuth', 'User', '$http', '$location', 'ApiUrlService',
-  function($scope, $rootScope, Facebook, LocalAuth, User, $http, $location, ApiUrlService) {
-    $scope.Facebook = Facebook;
-    $scope.Local = LocalAuth;
+  ['$scope', '$rootScope', 'User', '$http', '$location', 'ApiUrlService',
+  function($scope, $rootScope, User, $http, $location, ApiUrlService) {
 
-    var showedFacebookMessage = false;
-
-    $scope.initLoginForm = function(useUUID) {
-      $scope.useUUID = useUUID;
+    $scope.initLoginForm = function() {
       $scope.login = {username:'',password:'',endpoint:ApiUrlService.get()};
       $scope.registerVals = { endpoint: ApiUrlService.get()};
     };
@@ -26,16 +21,6 @@ habitrpg.controller('AuthCtrl',
 
       return newEndpoint;
     };
-
-    document.addEventListener('deviceready', function() {
-
-      FB.init({
-        appId: '374812825970494',
-        nativeInterface: CDV.FB,
-        useCachedDialogs: false
-      });
-
-    }, false);
 
     $scope.register = function(form, registerVals) {
       if (form.$invalid) {
@@ -63,16 +48,16 @@ habitrpg.controller('AuthCtrl',
         });
     }
 
+    var runAuth = function(id, token){
+      User.authenticate(id, token, function(err) {
+        $location.path("/habit");
+      });
+    }
+
     $scope.auth = function() {
       var data = {
         username: $scope.login.username,
         password: $scope.login.password
-      }
-
-      var runAuth = function(id, token){
-        User.authenticate(id, token, function(err) {
-          $location.path("/habit");
-        });
       }
 
       $scope.setApiEndpoint($scope.login.endpoint);
@@ -93,6 +78,23 @@ habitrpg.controller('AuthCtrl',
             }
           });
       }
+    }
+
+    // ------ Social ----------
+
+    hello.init({
+      facebook : '128307497299777',
+    }, {redirect_uri : 'https://habitrpg.com'});
+
+    $scope.socialLogin = function(network){
+      hello(network).login({scope:'email'}).then(function(auth){
+        $http.post(ApiUrlService.get() + "/api/v2/user/auth/social", auth)
+          .success(function(data, status, headers, config) {
+            runAuth(data.id, data.token);
+          }).error(errorAlert);
+      }, function( e ){
+        alert("Signin error: " + e.error.message );
+      });
     }
   }
 ]);

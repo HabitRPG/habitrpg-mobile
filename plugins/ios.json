@@ -9,7 +9,15 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"Clipboard\"><param name=\"ios-package\" value=\"CDVClipboard\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
@@ -23,42 +31,33 @@
                         {
                             "xml": "<preference name=\"StatusBarBackgroundColor\" value=\"#000000\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Clipboard\"><param name=\"ios-package\" value=\"CDVClipboard\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
             },
             "framework": {
                 "parents": {
-                    "StoreKit.framework": [],
-                    "AudioToolbox.framework": [],
-                    "MessageUI.framework": [],
-                    "SystemConfiguration.framework": [],
-                    "CoreGraphics.framework": [],
-                    "AdSupport.framework": [],
-                    "CoreTelephony.framework": []
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ]
                 }
             }
         }
     },
     "installed_plugins": {
-        "org.apache.cordova.device": {
+        "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
-        "org.apache.cordova.statusbar": {
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
-        "com.verso.cordova.clipboard": {
+        "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },

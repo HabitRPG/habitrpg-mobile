@@ -6,7 +6,7 @@ script(id='views/auth.html',type='text/ng-template')
       div(ui-view='')
 
 script(id='views/auth.login.html',type='text/ng-template')
-  form(ng-submit='auth()', ng-init='initLoginForm(false)')
+  form(ng-submit='auth()', ng-init='initLoginForm()')
     .list.list-inset
       label.item.item-input
         input(type='text', placeholder='Username', ng-model='login.username')
@@ -16,28 +16,12 @@ script(id='views/auth.login.html',type='text/ng-template')
         input(type='text', placeholder='API-Endpoint', ng-model='login.endpoint')
     .padding
       button.button.button-block.button-positive(type='submit') Submit
-      a.button.icon-left.ion-social-facebook.button-block.button-stable(ui-sref='auth.facebook') Use Facebook
+      a.button.icon-left.ion-social-facebook.button-block.button-stable(alt=env.t('loginFacebookAlt'), ng-click='socialLogin("facebook")')=env.t('loginFacebookAlt')
       a.button.button-block.button-stable(ui-sref='auth.register') Register
   //-.login
     .login-header
       img(src='assets/home-logo.png', width='79%')
     .login-form
-
-script(id='views/auth.facebook.html',type='text/ng-template')
-  form(ng-submit='auth()', ng-init='initLoginForm(true)')
-    .card
-      .item.item-text-wrap
-        | Until we add Facebook authentication, use your UUID and API Token to log in (found at https://habitrpg.com > Options > Settings > API). Be sure to use your phone's Copy/Paste feature, they're too long to type.
-    .list.list-inset
-      label.item.item-input
-        input(type='text', placeholder='UUID', ng-model='login.username')
-      label.item.item-input
-        input(type='text', placeholder='API Token', ng-model='login.password')
-    .padding
-      button.button.button-block.button-positive(type='submit') Submit
-      button.button.icon-left.ion-social-facebook.button-block.button-stable(ui-sref='auth.login') Use Username/Password
-      button.button.button-block.button-stable(ui-sref='auth.register') Register
-
 
 script(id='views/auth.register.html',type='text/ng-template')
   form(ng-submit='register(regForm, registerVals)', name='regForm')

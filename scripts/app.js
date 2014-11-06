@@ -3,7 +3,7 @@
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authServices', 'groupServices', 'notificationServices', 'ngResource'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServices', 'notificationServices', 'ngResource'])
 
 .run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
@@ -45,15 +45,10 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'authService
       url: "/login",
       templateUrl: 'views/auth.login.html'
     })
-    .state('auth.facebook', {
-      url: "/facebook",
-      templateUrl: 'views/auth.facebook.html'
-    })
     .state('auth.register', {
       url: "/register",
       templateUrl: 'views/auth.register.html'
     })
-
 
     // ---- App ----
     .state('app', {
