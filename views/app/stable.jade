@@ -9,7 +9,7 @@ mixin petList(source)
         div()
           .stable-pet-icon(class="{{'Pet-'+item.egg+\'-\'+item.potion}}", ng-if="user.items.pets[item.egg+'-'+item.potion]>0 || user.items.mounts[item.egg+'-'+item.potion]" ng-class="{'pet-evolved': user.items.mounts[item.egg+'-'+item.potion] && user.items.pets[item.egg+'-'+item.potion]==-1}")
           .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.pets[item.egg+'-'+item.potion]")
-          | {{ env.t('petName', {potion: item.potion, egg: item.egg} )}}
+          | {{ env.t('petName', {potion: env.t('hatchingPotion' + item.potion), egg: env.t('dropEgg' + item.egg + 'Text')} )}}
           i.icon.ion-chevron-right
       div(ng-if='!item.potion')
         .item.item-divider {{env.t(item.type)}}
