@@ -20,7 +20,7 @@ mixin mountList(source)
       div(ng-if='item.potion')
         .stable-pet-icon(class="{{'Mount_Head_'+item.egg+\'-\'+item.potion}}", ng-if="user.items.mounts[item.egg+'-'+item.potion]")
         .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.mounts[item.egg+'-'+item.potion]")
-        | {{ env.t('mountName', {potion: env.t('hatchingPotion' + item.potion), mount: env.t('dropEgg' + item.egg + 'Text')} )}}
+        | {{ env.t('mountName', {potion: env.t('hatchingPotion' + item.potion), mount: env.t('dropEgg' + item.egg + 'MountText')} )}}
         i.icon.ion-chevron-right
       div(ng-if='!item.potion')
         .item.item-divider {{env.t(item.type)}}
