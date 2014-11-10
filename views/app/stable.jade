@@ -23,7 +23,7 @@ mixin mountList(source)
           .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.mounts[item.egg+'-'+item.potion]")
           | {{ env.t('mountName', {potion: env.t('hatchingPotion' + item.potion) != 'String \'hatchingPotion' + item.potion + '\' not found.' ? env.t('hatchingPotion' + item.potion) : item.potion, mount: env.t('dropEgg' + item.egg + 'MountText') != 'String \'dropEgg' + item.egg + 'MountText\' not found.' ? env.t('dropEgg' + item.egg + 'MountText') : item.egg} )}}
           i.icon.ion-chevron-right
-      div(ng-if='!item.potion')
+      div(ng-if='item.type')
         .item.item-divider {{env.t(item.type)}}
 
 script(id='views/app.stable.html',type='text/ng-template')
