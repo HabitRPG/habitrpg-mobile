@@ -50,7 +50,7 @@ habitrpg
       }
       var value = $rootScope.user.items.mounts[item.egg+'-'+item.potion]
       if (value) {
-        return 100;
+        return 115;
       } else {
         return 80;
       }
