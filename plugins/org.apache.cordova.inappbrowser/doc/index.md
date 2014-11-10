@@ -19,7 +19,7 @@
 
 # org.apache.cordova.inappbrowser
 
-This plugin provides a web browser view that displays when calling `window.open()`, or when opening a link formed as `<a target="_blank">`.
+This plugin provides a web browser view that displays when calling `window.open()`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
 
@@ -77,18 +77,56 @@ instance, or the system browser.
     - __transitionstyle__: Set to `fliphorizontal`, `crossdissolve` or `coververtical` to set the [transition style](http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle) (defaults to `coververtical`).
     - __toolbarposition__: Set to `top` or `bottom` (default is `bottom`). Causes the toolbar to be at the top or bottom of the window.
 
+    Windows only:
+
+    - __hidden__: set to `yes` to create the browser and load the page, but not show it. The loadstop event fires when loading is complete. Omit or set to `no` (default) to have the browser open and load normally.
+
 ### Supported Platforms
 
 - Amazon Fire OS
 - Android
 - BlackBerry 10
+- Firefox OS
 - iOS
+- Windows 8 and 8.1
 - Windows Phone 7 and 8
 
 ### Example
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     var ref2 = window.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+
+### Firefox OS Quirks
+
+As plugin doesn't enforce any design there is a need to add some CSS rules if 
+opened with `target='_blank'`. The rules might look like these
+
+``` css
+.inAppBrowserWrap {
+  background-color: rgba(0,0,0,0.75);
+  color: rgba(235,235,235,1.0);
+}
+.inAppBrowserWrap menu {
+  overflow: auto;
+  list-style-type: none;
+  padding-left: 0;
+}
+.inAppBrowserWrap menu li {
+  font-size: 25px;
+  height: 25px;
+  float: left;
+  margin: 0 10px;
+  padding: 3px 10px;
+  text-decoration: none;
+  color: #ccc;
+  display: block;
+  background: rgba(30,30,30,0.50);
+}
+.inAppBrowserWrap menu li.disabled {
+	color: #777;
+}
+```
+
 
 ## InAppBrowser
 
@@ -136,6 +174,7 @@ The object returned from a call to `window.open`.
 - Amazon Fire OS
 - Android
 - iOS
+- Windows 8 and 8.1
 - Windows Phone 7 and 8
 
 ### Quick Example
@@ -166,6 +205,7 @@ The function is passed an `InAppBrowserEvent` object.
 - Amazon Fire OS
 - Android
 - iOS
+- Windows 8 and 8.1
 - Windows Phone 7 and 8
 
 ### Quick Example
@@ -187,7 +227,9 @@ The function is passed an `InAppBrowserEvent` object.
 
 - Amazon Fire OS
 - Android
+- Firefox OS
 - iOS
+- Windows 8 and 8.1
 - Windows Phone 7 and 8
 
 ### Quick Example
@@ -208,6 +250,7 @@ The function is passed an `InAppBrowserEvent` object.
 - Amazon Fire OS
 - Android
 - iOS
+- Windows 8 and 8.1
 
 ### Quick Example
 
@@ -239,6 +282,7 @@ The function is passed an `InAppBrowserEvent` object.
 - Amazon Fire OS
 - Android
 - iOS
+- Windows 8 and 8.1
 
 ### Quick Example
 

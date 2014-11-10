@@ -97,3 +97,50 @@
 * CB-6212: [iOS] fix warnings compiled under arm64 64-bit
 * CB-6218: Update docs for BB10
 * CB-6460: Update license headers
+
+### 0.5.0 (Jun 05, 2014)
+* CB-6127 Spanish and rench Translations added. Github close #23
+* Clean up whitespace (mainly due to no newline at eof warning)
+* Adding permission info
+* CB-6806 Add license
+* CB-6491 add CONTRIBUTING.md
+* Add necessary capability so the plugin works on its own
+* CB-6474 InAppBrowser. Add data urls support to WP8
+* CB-6482 InAppBrowser calls incorrect callback on WP8
+* Fixed use of iOS 6 deprecated methods
+* CB-6360 - improvement: feature detection instead of iOS version detection
+* CB-5649 - InAppBrowser overrides App's orientation
+* refactoring fixed
+* CB-6396 [Firefox OS] Adding basic support
+
+### 0.5.1 (Aug 06, 2014)
+* ubuntu: support qt 5.2
+* **FFOS** update InAppBrowserProxy.js
+* **FFOS** app needs to be privileged
+* CB-6127 Updated translations for docs
+* CB-6769 ios: Fix statusbar color reset wasn't working on iOS7+
+
+### 0.5.2 (Sep 17, 2014)
+* CB-7471 cordova-plugin-inappbrowser documentation translation: cordova-plugin-inappbrowser
+* CB-7490 Fixes InAppBrowser manual tests crash on windows platform
+* CB-7249 cordova-plugin-inappbrowser documentation translation: cordova-plugin-inappbrowser
+* CB-7424 Wrong docs: anchor tags are not supported by the InAppBrowser
+* CB-7133 clarify that anchor1 doesn't exist
+* CB-7133 more fixup of tests on Android
+* CB-7133 fix up the tests for Android
+* Add just a bit more logging
+* CB-7133 port inappbrowser to plugin-test-framework
+* phonegap events supported for \_blank target
+* inappbrowser \_blank target position is fixed
+* amazon-fireos related changes.
+
+### 0.5.3 (Oct 03, 2014)
+* Windows implementation fixes and improvements
+* zIndex fixed
+* renamed InAppBrowser back to inappbrowser for case sensitive operating systems
+* Update french translation
+* Update doc to add Windows 8
+* Update windows proxy to be both compatible with windows 8 and 8.1
+* Rename windows81 by windows8 in src directory
+* Append Windows 8.1 platform configuration in plugin.xml
+* Append Windows 8.1 proxy using x-ms-webview
