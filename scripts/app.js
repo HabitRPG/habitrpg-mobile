@@ -1,5 +1,9 @@
 'use strict';
 
+document.addEventListener("deviceready", function(){
+  analytics.startTrackerWithId("UA-XXXXXXXX-X");
+}, false);
+
 /**
  * The main HabitRPG app module.
  */
@@ -13,6 +17,13 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServic
       StatusBar.styleDefault();
     }
   });
+  
+  $rootScope.$on('$stateChangeStart', 
+    function(event, toState, toParams, fromState, fromParams){ 
+      if(analytics != null){
+        analytics.trackView(toState.name);
+      }
+    });
 }])
 
 .constant('API_URL', localStorage.getItem('habitrpg-endpoint') || 'https://habitrpg.com')
