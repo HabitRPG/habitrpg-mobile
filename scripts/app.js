@@ -1,7 +1,11 @@
 'use strict';
 
 document.addEventListener("deviceready", function(){
-  analytics.startTrackerWithId("UA-XXXXXXXX-X");
+  if (window.analytics) {
+    analytics.startTrackerWithId("UA-33510635-1");
+    var uuid = angular.element(document.body).scope().User.user._id;
+    uuid && analytics.setUserId(uuid);
+  }
 }, false);
 
 /**
@@ -20,8 +24,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServic
   
   $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams){ 
-      if(analytics != null){
-        analytics.trackView(toState.name);
+      if(window.analytics){
+        analytics.trackView('/#/'+toState.name);
       }
     });
 }])
