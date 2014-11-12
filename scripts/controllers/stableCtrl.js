@@ -45,9 +45,12 @@ habitrpg
       return 80;
     };
     $scope.getMountsHeight = function(item) {
-      var value = $rootScope.user.items.pets[item.egg+'-'+item.potion]
+      if(!item.egg && !item.type) {
+        return 0;
+      }
+      var value = $rootScope.user.items.mounts[item.egg+'-'+item.potion]
       if (value) {
-        return 100;
+        return 115;
       } else {
         return 80;
       }

@@ -4,25 +4,26 @@ mixin petList(source)
       | Rare pet contributors
     .PixelPaw-Gold.stable-pet-not-owned-icon
   .list
-    div.pet-item(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getPetsHeight(item)" ng-style='{height: getPetsHeight(item)}' ng-class="{'item':!item.potion}")
-      a.pet-item.item.item-icon-right(ng-href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-if='item.potion')
+    div.pet-item(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getPetsHeight(item)" ng-style='{height: getPetsHeight(item)}' ng-class="{'item':item.type}")
+      a.pet-item.item.item-icon-right(ng-href='#/app/pet-details/{{item.egg+"-"+item.potion}}' ng-if='!item.type')
         div()
           .stable-pet-icon(class="{{'Pet-'+item.egg+\'-\'+item.potion}}", ng-if="user.items.pets[item.egg+'-'+item.potion]>0 || user.items.mounts[item.egg+'-'+item.potion]" ng-class="{'pet-evolved': user.items.mounts[item.egg+'-'+item.potion] && user.items.pets[item.egg+'-'+item.potion]==-1}")
           .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.pets[item.egg+'-'+item.potion]")
-          | {{ env.t('petName', {potion: item.potion, egg: item.egg} )}}
+          | {{ env.t('petName', {potion: env.t('hatchingPotion' + item.potion) != 'String \'hatchingPotion' + item.potion + '\' not found.' ? env.t('hatchingPotion' + item.potion) : item.potion, egg: env.t('dropEgg' + item.egg + 'Text') != 'String \'dropEgg' + item.egg + 'Text\' not found.' ? env.t('dropEgg' + item.egg + 'Text') : item.egg} )}}
           i.icon.ion-chevron-right
-      div(ng-if='!item.potion')
+      div(ng-if='item.type')
         .item.item-divider {{env.t(item.type)}}
 
 mixin mountList(source)
   .list
-    a.pet-item.item.item-icon-right(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getMountsHeight(item)" ng-href='#/app/mount-details/{{item.egg+"-"+item.potion}}' ng-style='{height: getMountsHeight(item)}')
-      div(ng-if='item.potion')
-        .stable-pet-icon(class="{{'Mount_Head_'+item.egg+\'-\'+item.potion}}", ng-if="user.items.mounts[item.egg+'-'+item.potion]")
-        .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.mounts[item.egg+'-'+item.potion]")
-        | {{ env.t('mountName', {potion: item.potion, mount: item.egg} )}}
-        i.icon.ion-chevron-right
-      div(ng-if='!item.potion')
+    div.pet-item(collection-repeat='item in #{source}' collection-item-width="'100%'" collection-item-height="getMountsHeight(item)" ng-style='{height: getMountsHeight(item)}' ng-class="{'item':item.type}")
+      a.pet-item.item.item-icon-right(ng-href='#/app/mount-details/{{item.egg+"-"+item.potion}}' ng-if='!item.type && item.egg')
+        div()
+          .stable-pet-icon(class="{{'Mount_Head_'+item.egg+\'-\'+item.potion}}", ng-if="user.items.mounts[item.egg+'-'+item.potion]")
+          .PixelPaw.stable-pet-not-owned-icon(ng-if="!user.items.mounts[item.egg+'-'+item.potion]")
+          | {{ env.t('mountName', {potion: env.t('hatchingPotion' + item.potion) != 'String \'hatchingPotion' + item.potion + '\' not found.' ? env.t('hatchingPotion' + item.potion) : item.potion, mount: env.t('dropEgg' + item.egg + 'MountText') != 'String \'dropEgg' + item.egg + 'MountText\' not found.' ? env.t('dropEgg' + item.egg + 'MountText') : item.egg} )}}
+          i.icon.ion-chevron-right
+      div(ng-if='item.type')
         .item.item-divider {{env.t(item.type)}}
 
 script(id='views/app.stable.html',type='text/ng-template')
