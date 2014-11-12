@@ -8,7 +8,7 @@ habitrpg
     function toArray(eggs, type) {
       var array = [];
       if (type) array.push({type: type});
-      if (type === 'rarePets'){
+      if (type === 'rarePets' || type === 'rareMounts'){
         Object.keys(eggs).forEach(function(key) {
           var egg = key.split('-')[0];
           var potion = key.split('-')[1];
@@ -35,12 +35,12 @@ habitrpg
                   .concat(toArray(env.Content.specialPets, 'rareMounts'));
 
     $scope.getPetsHeight = function(item) {
-      var value = $rootScope.user.items.mounts[item.egg+'-'+item.potion] 
+      var value = $rootScope.user.items.mounts[item.egg+'-'+item.potion]
                   || $rootScope.user.items.pets[item.egg+'-'+item.potion]
 
       if (value) {
         return 100;
-      } 
+      }
 
       return 80;
     };
