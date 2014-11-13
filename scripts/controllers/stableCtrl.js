@@ -8,11 +8,22 @@ habitrpg
     function toArray(eggs, type) {
       var array = [];
       if (type) array.push({type: type});
-      if (type === 'rarePets' || type === 'rareMounts'){
+      if (type === 'rarePets'){
         Object.keys(eggs).forEach(function(key) {
-          var egg = key.split('-')[0];
-          var potion = key.split('-')[1];
-          array.push({name: eggs[key], egg: egg, potion: potion});
+          if(User.user.items.pets[key]) {
+            var egg = key.split('-')[0];
+            var potion = key.split('-')[1];
+            array.push({name: eggs[key], egg: egg, potion: potion});
+          }
+        })
+        return array;
+      } else if(type === 'rareMounts') {
+        Object.keys(eggs).forEach(function(key) {
+          if(User.user.items.mounts[key]) {
+            var egg = key.split('-')[0];
+            var potion = key.split('-')[1];
+            array.push({name: eggs[key], egg: egg, potion: potion});
+          }
         })
         return array;
       } else {
