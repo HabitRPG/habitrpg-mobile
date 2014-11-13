@@ -9,23 +9,9 @@ habitrpg
       var array = [];
       if (type) array.push({type: type});
       if (type === 'rarePets'){
-        Object.keys(eggs).forEach(function(key) {
-          if(User.user.items.pets[key]) {
-            var egg = key.split('-')[0];
-            var potion = key.split('-')[1];
-            array.push({name: eggs[key], egg: egg, potion: potion});
-          }
-        })
-        return array;
+        return pushRare(array, eggs, "pets");
       } else if(type === 'rareMounts') {
-        Object.keys(eggs).forEach(function(key) {
-          if(User.user.items.mounts[key]) {
-            var egg = key.split('-')[0];
-            var potion = key.split('-')[1];
-            array.push({name: eggs[key], egg: egg, potion: potion});
-          }
-        })
-        return array;
+        return pushRare(array, eggs, "mounts");
       } else {
         Object.keys(eggs).forEach(function(key) {
           Object.keys($scope.hatchingPotions).forEach(function(potion) {
@@ -36,6 +22,17 @@ habitrpg
         })
         return array;
       }
+    }
+
+    function pushRare(array, eggs, kind) {
+        Object.keys(eggs).forEach(function(key) {
+          if(User.user.items[kind][key]) {
+            var egg = key.split('-')[0];
+            var potion = key.split('-')[1];
+            array.push({name: eggs[key], egg: egg, potion: potion});
+          }
+        })
+        return array;
     }
 
     $scope.eggs = toArray(env.Content.dropEggs)
