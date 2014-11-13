@@ -12,7 +12,7 @@ habitrpg
         Object.keys(eggs).forEach(function(key) {
           var egg = key.split('-')[0];
           var potion = key.split('-')[1];
-          array.push({egg: egg, potion: potion});
+          array.push({name: eggs[key], egg: egg, potion: potion});
         })
         return array;
       } else {
