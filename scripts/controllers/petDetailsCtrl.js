@@ -4,13 +4,15 @@ habitrpg.controller('PetDetailsCtrl',
   ['$scope','User','$state', '$rootScope', 
     function($scope, User, $state, $rootScope) {
       var user = User.user;
+      var params = $state.params.pet.split("+");
 
-      $scope.pet = $state.params.pet;
+      $scope.pet = params[0];
+      $scope.name = params[1]
 
       var pieces = $scope.pet.split('-');
       $scope.egg = pieces[0];
       $scope.potion = pieces[1];
-      $scope.petDisplayName = env.t('petName', {
+      $scope.petDisplayName = ($scope.name ? env.t($scope.name) : null) || env.t('petName', {
         potion: $rootScope.Content.hatchingPotions[$scope.potion] ? $rootScope.Content.hatchingPotions[$scope.potion].text() : $scope.potion,
         egg: $rootScope.Content.eggs[$scope.egg] ? $rootScope.Content.eggs[$scope.egg].text() : $scope.egg
       });
