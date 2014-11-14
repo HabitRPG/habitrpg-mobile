@@ -2,7 +2,7 @@
 
 document.addEventListener("deviceready", function(){
   if (window.analytics) {
-    analytics.startTrackerWithId("UA-33510635-1");
+    analytics.startTrackerWithId("UA-33510635-2");
     var uuid = angular.element(document.body).scope().User.user._id;
     uuid && analytics.setUserId(uuid);
   }
@@ -22,12 +22,14 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServic
     }
   });
   
-  $rootScope.$on('$stateChangeStart', 
-    function(event, toState, toParams, fromState, fromParams){ 
-      if(window.analytics){
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+    if (window.analytics) {
+      // async defer trackView, since it slows down the app (this should be a background thread op in the cordova plugin, shouldn't it?)
+      window.setTimeout(function(){
         analytics.trackView('/#/'+toState.name);
-      }
-    });
+      },0);
+    }
+  });
 }])
 
 .constant('API_URL', localStorage.getItem('habitrpg-endpoint') || 'https://habitrpg.com')
