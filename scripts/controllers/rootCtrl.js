@@ -7,7 +7,6 @@ habitrpg.controller('RootCtrl',
 
     $rootScope.User = User;
     $rootScope.user = User.user;
-
     $rootScope.set = User.set;
     $rootScope.settings = User.settings;
     $rootScope.settings.auth.apiEndpoint = API_URL;
