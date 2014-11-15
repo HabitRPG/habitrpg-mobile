@@ -287,6 +287,16 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServic
       data: {sync: true},
       templateUrl: 'views/app.guilds.public.html',
       controller: 'GuildPublicCtrl'
+    })
+    
+    
+    .state('app.purchase', {
+      url: '/purchase',
+      views: {
+        menuContent: {
+          templateUrl:'views/app.purchase.html'
+        }
+      }
     });
 
     $provide.factory('myHttpInterceptor', ['$rootScope','$q',function($rootScope,$q) {
