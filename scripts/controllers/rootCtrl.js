@@ -7,6 +7,7 @@ habitrpg.controller('RootCtrl',
 
     $rootScope.User = User;
     $rootScope.user = User.user;
+
     $rootScope.set = User.set;
     $rootScope.settings = User.settings;
     $rootScope.settings.auth.apiEndpoint = API_URL;
@@ -16,6 +17,8 @@ habitrpg.controller('RootCtrl',
     $rootScope.moment = $window.moment;
     $rootScope.Math = $window.Math;
     $rootScope.env = $window.env;
+
+    $rootScope.userPets = $rootScope.Shared.countPets(null, $scope.user.items.pets);;
 
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
