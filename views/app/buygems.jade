@@ -8,7 +8,8 @@ script(id='views/app.purchase.html',type='text/ng-template')
           span.Pet_Currency_Gem1x.inline-gems
         p=env.t('donateText2')
         p
-          | 5 {{:: env.t('USD')}}
-        button.button.button-positive
+          | 5 
+          span=env.t('USD')
+        button.button.button-positive(ng-click='buyGems()')
           | buy
           i.icon.ion-briefcase

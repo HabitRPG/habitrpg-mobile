@@ -42,6 +42,7 @@ var paths = {
     'node_modules/habitrpg/public/js/services/groupServices.js',
     'bower_components/habitrpg-shared/script/directives.js',
     'scripts/services/notificationServices.js',
+    'scripts/services/storeService.js',
     'scripts/controllers/userAvatarCtrl.js',
     'scripts/controllers/rootCtrl.js',
     'scripts/controllers/settingsCtrl.js',
@@ -55,7 +56,8 @@ var paths = {
     'scripts/controllers/stableCtrl.js',
     'scripts/controllers/partyCtrl.js',
     'scripts/controllers/notificationCtrl.js',
-    'scripts/controllers/guildCtrl.js'
+    'scripts/controllers/guildCtrl.js',
+    'scripts/controllers/purchaseCtrl.js'
   ],
   copy: [
     'config.xml',
