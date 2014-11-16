@@ -11,7 +11,7 @@ mixin wallet
       li {{Shared.silver(user.stats.gp)}}
 
 mixin avatar2(full)
-  .avatar-box(ng-init='profile=user',class='#{full ? "full" : ""}')
+  .avatar-box(ng-init='profile=user;profile.petCount=userPets',class='#{full ? "full" : ""}')
     if full
       +herobox({main:1})
     else

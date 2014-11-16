@@ -17,6 +17,8 @@ habitrpg.controller('RootCtrl',
     $rootScope.Math = $window.Math;
     $rootScope.env = $window.env;
 
+    $rootScope.userPets = $rootScope.Shared.countPets(null, $scope.user.items.pets);;
+
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
