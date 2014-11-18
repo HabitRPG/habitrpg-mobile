@@ -11,7 +11,7 @@ script(id='views/app.profile.backgrounds.html',type='text/ng-template')
     +backgrounds(true)
 
 script(id='views/app.profile.stats.html',type='text/ng-template')
-  .list(ng-init='profile=user')
+  .list(ng-init='profile=user;profile.petCount=Shared.countPets(null, user.items.pets);')
     .item.profile-background
       +avatar2(true)
     +profileStats()
