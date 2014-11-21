@@ -6,12 +6,23 @@ document.addEventListener("deviceready", function(){
     var uuid = angular.element(document.body).scope().User.user._id;
     uuid && analytics.setUserId(uuid);
   }
+  
+  if(window.store){
+    var store = window.store;
+    alert("register");
+    store.register({
+      id: "BUY.20.GEMS", 
+      alias: "20 Gems",
+      type: store.CONSUMABLE
+    });
+  }
+  
 }, false);
 
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServices', 'notificationServices', 'ngResource'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServices', 'notificationServices', 'storeServices', 'ngResource'])
 
 .run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
@@ -294,7 +305,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServic
       url: '/purchase',
       views: {
         menuContent: {
-          templateUrl:'views/app.purchase.html'
+          templateUrl:'views/app.purchase.html',
+          controller:'PurchaseCtrl'
         }
       }
     });
