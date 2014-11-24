@@ -8,13 +8,21 @@ document.addEventListener("deviceready", function(){
   }
   
   if(window.store){
+    // needs to be refactored...
+  
     var store = window.store;
-    alert("register");
+
     store.register({
-      id: "BUY.20.GEMS", 
+      id: "buy.20.gems", 
       alias: "20 Gems",
       type: store.CONSUMABLE
     });
+    
+    store.ready(function(){
+      alert("store is ready");
+    });
+    
+    store.refresh();
   }
   
 }, false);
