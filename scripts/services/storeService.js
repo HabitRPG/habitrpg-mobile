@@ -3,15 +3,20 @@ var w = window;
 angular.module('storeServices', [])
   .service('StoreService', ['ApiUrlService', '$rootScope',
     function(ApiUrlService, $rootScope){
-    
       var url = ApiUrlService.get();
  
-      if($rootScope.isIOS){
-        w.store.validator = url+'/iap/ios/verify';
+      var uuid = $rootScope.User.user._id;
+      var token = $rootScope.User.user.apiToken;
+ 
+      var authParams = '?_id='+uuid+'&apiToken='+token;
+ 
+      if($rootScope.isIOS)
+      {
+        w.store.validator = url+'/iap/ios/verify'+authParams;
       }
       else
       {
-        w.store.validator = url+'/iap/android/verify';
+        w.store.validator = url+'/iap/android/verify'+authParams;
       }
 /*
     w.store.register({

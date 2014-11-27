@@ -10,6 +10,17 @@ script(id='views/app.purchase.html',type='text/ng-template')
         p
           | 5 
           span=env.t('USD')
-        button.button.button-positive(ng-click='buyGems()')
+        button.button.button-positive(ng-click='buy("buy.20.gems")')
+          | buy &nbsp;
+          i.icon.ion-briefcase
+      ion-item.item-text-wrap.item-button-right
+        h2
+          | inapp.test +20 &nbsp;
+          span.Pet_Currency_Gem1x.inline-gems
+        p=env.t('donateText2')
+        p
+          | 5 
+          span=env.t('USD')
+        button.button.button-positive(ng-click='buy("inapp.test")')
           | buy &nbsp;
           i.icon.ion-briefcase
