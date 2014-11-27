@@ -5,7 +5,7 @@ angular.module('storeServices', [])
     function(ApiUrlService, $rootScope){
     
       var url = ApiUrlService.get();
-    
+ 
       if($rootScope.isIOS){
         w.store.validator = url+'/iap/ios/verify';
       }
@@ -13,8 +13,18 @@ angular.module('storeServices', [])
       {
         w.store.validator = url+'/iap/android/verify';
       }
-
-      alert(w.store.validator);
+/*
+    w.store.register({
+      id: "android.test.purchased", //"buy.20.gems", 
+      alias: "20 Gems",
+      type: w.store.CONSUMABLE
+    });
+    
+    w.store.ready(function(){
+      alert("store is ready");
+    });
+    
+    w.store.refresh();*/
     
       this.getStore = function(){
         return w.store || {};

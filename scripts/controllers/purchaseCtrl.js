@@ -5,8 +5,9 @@ habitrpg.controller('PurchaseCtrl',
   function($scope, store){
     $scope.store = store.getStore();
     
-    try{
-      $scope.store.when("buy.20.gems")
+    $scope.registerAlerts = function(id){
+     try{
+      $scope.store.when(id)
         .error(function(err){
           alert(err);
           alert(JSON.stringify(err));
@@ -24,10 +25,11 @@ habitrpg.controller('PurchaseCtrl',
       console.info(pr);
       alert(ex);
     }
+    };
     
-    $scope.buyGems = function(){
-      try{
-        $scope.store.order("buy.20.gems")
+    $scope.buy = function(id){
+       try{
+        $scope.store.order(id)
         .then(function(ex){
           alert("Order started");
           alert(JSON.stringify(ex));
@@ -40,5 +42,8 @@ habitrpg.controller('PurchaseCtrl',
       alert(JSON.stringify(ex));
       }
     };
+    
+   $scope.registerAlerts("buy.20.gems");
+   $scope.registerAlerts("inapp.test");
   }
 ]);
