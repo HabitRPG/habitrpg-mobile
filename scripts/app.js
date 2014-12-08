@@ -9,50 +9,13 @@ document.addEventListener("deviceready", function(){
   
   if(window.store){
     var store = window.store;
-  
-    store.register({
-      id: "inapp.test",
-      alias: "test",
-      type: store.CONSUMABLE
-    });
-    
-    store.register({
-      id: "buy.20.gems", 
-      alias: "20 Gems",
-      type: store.CONSUMABLE
-    });
-    
-    store.ready(function(){
-      alert("store is ready");
-    });
-    
 
-    function getFunc(name){
-      return function debugFunc(pr){
-        console.info(name, pr);
-      };
-    }
-    
-    store.when("consumable order")
-      .approved(getFunc("approved"))
-      .cancelled(getFunc("cancelled"))
-      .error(getFunc("error"))
-      .finished(getFunc("finished"))
-      .initiated(getFunc("initiated"))
-      .invalid(getFunc("invalid"))
-      .loaded(getFunc("loaded"))
-      .owned(getFunc("owned"))
-      .refunded(getFunc("refunded"))
-      .registered(getFunc("registered"))
-      .approved(getFunc("approved"))
-      .requested(getFunc("requested"))
-      .unverified(getFunc("unverified"))
-      .updated(getFunc("updated"))
-      .valid(getFunc("valid"))
-      .verified(getFunc("verified"));
+    store.ready(function(){
+      // store is ready :)
+    });
 
     store.refresh();
-    }
+  }
 }, false);
 
 /**

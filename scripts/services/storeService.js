@@ -18,19 +18,32 @@ angular.module('storeServices', [])
       {
         w.store.validator = url+'/iap/android/verify'+authParams;
       }
-/*
-    w.store.register({
-      id: "android.test.purchased", //"buy.20.gems", 
-      alias: "20 Gems",
-      type: w.store.CONSUMABLE
-    });
-    
-    w.store.ready(function(){
-      alert("store is ready");
-    });
-    
-    w.store.refresh();*/
-    
+
+      function registerProductAndCallback(product){
+        w.store.register(product);
+
+        w.store.when(product.id)
+          .error(function(err){
+            console.log(JSON.stringify(err));
+          })
+          .approved(function(pr){
+            var projectJson = JSON.stringify(pr);
+            console.log(projectJson);
+            // start verification call to the api
+            pr.verify();
+          })
+          .verified(function(pr){
+            // Purchased!
+            pr.finish();
+          });
+      }
+
+      registerProductAndCallback({
+        id: "buy.20.gems", 
+        alias: "20 Gems",
+        type: w.store.CONSUMABLE
+      });
+
       this.getStore = function(){
         return w.store || {};
       };
