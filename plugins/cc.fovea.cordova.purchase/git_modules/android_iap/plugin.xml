@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.smartmobilesoftware.inappbilling"
+    version="3.0.0">
+
+    <name>Android InAppBilling</name>
+    <description>Use this In-app Billing plugin to sell digital goods, including one-time items and recurring subscriptions from your Cordova application. Main repo with full documentation located at: https://github.com/poiuytrez/AndroidInAppBilling</description>
+    
+    <author>Guillaume Charhon - Smart Mobile Software</author>
+    <keywords>billing,in-app,inapp,purchase,credit</keywords>
+    <license>MIT License</license>
+
+    <engines>
+      <engine name="cordova" version=">=3.0.0" />
+    </engines>
+	
+    <!-- android -->
+    <platform name="android">
+        <js-module src="v3/www/inappbilling.js" name="InAppBillingPlugin">
+            <clobbers target="inappbilling" />
+        </js-module>
+
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+            <!-- InApp Billing -->
+			<uses-permission android:name="com.android.vending.BILLING" />
+        </config-file>
+
+        <!-- Cordova >= 3.0.0 -->
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="InAppBillingPlugin">   
+				<param name="android-package" value="com.smartmobilesoftware.inappbilling.InAppBillingPlugin"/>
+			</feature>
+        </config-file>
+        
+        <!-- In-app Billing Library -->
+		<source-file src="v3/src/android/com/android/vending/billing/IInAppBillingService.aidl" target-dir="src/com/android/vending/billing" />
+
+        <!-- cordova plugin src files -->
+        <source-file src="v3/src/android/com/smartmobilesoftware/inappbilling/InAppBillingPlugin.java" target-dir="src/com/smartmobilesoftware/inappbilling" />
+
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/Base64.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/Base64DecoderException.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/IabException.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/IabHelper.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/IabResult.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/Inventory.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/Purchase.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/Security.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="v3/src/android/com/smartmobilesoftware/util/SkuDetails.java" target-dir="src/com/smartmobilesoftware/util" />
+    </platform>
+</plugin>

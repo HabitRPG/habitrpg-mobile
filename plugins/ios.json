@@ -35,6 +35,10 @@
                         {
                             "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppPurchase\"><param name=\"ios-package\" value=\"InAppPurchase\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -70,6 +74,12 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "StoreKit.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -89,6 +99,9 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "com.danielcwilson.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "cc.fovea.cordova.purchase": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
