@@ -6,12 +6,22 @@ document.addEventListener("deviceready", function(){
     var uuid = angular.element(document.body).scope().User.user._id;
     uuid && analytics.setUserId(uuid);
   }
+  
+  if(window.store){
+    var store = window.store;
+
+    store.ready(function(){
+      // store is ready :)
+    });
+
+    store.refresh();
+  }
 }, false);
 
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServices', 'notificationServices', 'ngResource'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServices', 'notificationServices', 'storeServices', 'ngResource'])
 
 .run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
@@ -287,6 +297,17 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServic
       data: {sync: true},
       templateUrl: 'views/app.guilds.public.html',
       controller: 'GuildPublicCtrl'
+    })
+    
+    
+    .state('app.purchase', {
+      url: '/purchase',
+      views: {
+        menuContent: {
+          templateUrl:'views/app.purchase.html',
+          controller:'PurchaseCtrl'
+        }
+      }
     });
 
     $provide.factory('myHttpInterceptor', ['$rootScope','$q',function($rootScope,$q) {
