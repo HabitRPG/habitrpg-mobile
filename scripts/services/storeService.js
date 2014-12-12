@@ -1,10 +1,10 @@
 var w = window;
 
 angular.module('storeServices', [])
-  .service('StoreService', ['ApiUrlService', '$rootScope',
-    function(ApiUrlService, $rootScope){
+  .service('StoreService', ['ApiUrlService', '$rootScope', 'User',
+    function(ApiUrlService, $rootScope, User){
       var url = ApiUrlService.get();
- 
+
       var uuid = $rootScope.User.user._id;
       var token = $rootScope.User.user.apiToken;
  
@@ -35,6 +35,7 @@ angular.module('storeServices', [])
           .verified(function(pr){
             // Purchased!
             pr.finish();
+            User.sync();
           });
       }
 
