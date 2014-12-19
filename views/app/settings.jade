@@ -15,7 +15,7 @@ script(id="views/app.settings.html",type='text/ng-template')
           button.button.button-positive(ng-click='copy("API Token", settings.auth.apiToken)')
             i.icon.ion-clipboard
         .item
-          strong API Token:&nbsp;
+          strong URL:&nbsp;
           | {{settings.auth.apiEndpoint}}
 
       //-.card(ng-if='!user.purchased.plan.customerId')
