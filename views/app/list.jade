@@ -1,5 +1,5 @@
 mixin taskText
-  markdown.task-text(ng-model='task.text')
+  markdown.task-text(text='task.text', remove-watch='true')
 
 - var tasks = {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',singular:'Daily'}, todo:{name:'To-Dos',singular:'To-Do'}, reward:{name:'Rewards',singular:'Reward'}}
 
