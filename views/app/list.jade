@@ -1,6 +1,5 @@
 mixin taskText
-  markdown.task-text(ng-model='task.text')
-  p(ng-if="task.date") {{task.date | date}}
+  markdown.task-text(text='task.text', remove-watch='true')
 
 - var tasks = {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',singular:'Daily'}, todo:{name:'To-Dos',singular:'To-Do'}, reward:{name:'Rewards',singular:'Reward'}}
 
@@ -17,12 +16,12 @@ mixin taskList(k)
           .item.rewards-wallet
             +wallet()
 
-        form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")',ng-show='_addingTask')
+        form.item.item-input-inset(ng-submit='addTask(newTask,"#{k}")',ng-if='_addingTask')
           label.item-input-wrapper
             input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
           button.button.button-small(type='submit') Add
 
-        .card(ng-if='user.#{k}s.length == 0')
+        .card(ng-if=' ::user.#{k}s.length == 0')
           .item.item-text-wrap
             | No #{nav.name} found, add some above.
 
@@ -31,22 +30,26 @@ mixin taskList(k)
           if k=='reward'
             .item.item-divider Custom Rewards
 
-          ion-item.item-text-wrap(on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
+          ion-item.item-text-wrap(on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='::[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
             if k=='habit'
               .item-button-right
                 .buttons
-                  button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up", $event)', ng-show='task.up')
-                  button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down", $event)', ng-show='task.down')
+                  button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up", $event)', ng-show=' ::task.up')
+                  button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down", $event)', ng-show=' ::task.down')
                 +taskText()
             if k=='daily' || k=='todo'
               .item-button-left
                 button.button.button-large.button-clear.button-positive.icon(ng-click='changeCheck(task, $event)')
-                  i(ng-class="task.completed && 'icon ion-checkmark-circled' || !task.completed && 'checkbox-icon'")
+                  i(ng-class=" ::{'icon ion-checkmark-circled': task.completed, 'checkbox-icon': !task.completed }")
                 +taskText()
+
+                if k=='todo'
+                  p(ng-if=" ::isDateSet(task)") {{ ::task.date}}
+
             if k=='reward'
               .item-button-right
                 button.button.button-small.buy-button(ng-click='score(task,"down", $event)')
-                  | {{task.value}}
+                  | {{ ::task.value}}
                   span.shop_gold
                 +taskText()
 
