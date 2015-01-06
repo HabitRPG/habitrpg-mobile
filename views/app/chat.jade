@@ -5,9 +5,9 @@ script(id='views/app.chat.list.html',type='text/ng-template')
         textarea.col.col-80(placeholder='Type Chat', ng-model='_message.text')
         button.button.button-positive(type='submit', ng-show='_message.text') Send
     ion-item.item-text-wrap(ng-repeat='message in chat', ng-if='!message.flagCount || message.flagCount < 2')
-      .pull-right(style='opacity:0.3;') {{moment(message.timestamp).format('MMM Do h:mma')}}
-      h2 {{message.user}}
-      markdown(ng-model='message.text')
+      .pull-right(style='opacity:0.3;') {{ ::moment(message.timestamp).format('MMM Do h:mma')}}
+      h2 {{ ::message.user}}
+      markdown(text='::message.text', remove-watch='true')
     ion-infinite-scroll(on-infinite='loadMore(5)', distance='1%')
 
 script(id='views/app.chat.html',type='text/ng-template')

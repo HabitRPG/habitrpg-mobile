@@ -15,6 +15,8 @@ include app/chat
 include app/guild
 include app/buygems
 
+- var sideMenuItems = {'tasks/habits':'Tasks','profile/avatar':'Profile','inventory/inventory':'Inventory','stable/pets':'Stable','social/tavern':'Social',purchase: 'Purchase Gems',settings:'Settings',about:'About'}
+
 script(id='views/app.html',type='text/ng-template')
   ion-side-menus
     ion-pane(ion-side-menu-content)
@@ -25,14 +27,12 @@ script(id='views/app.html',type='text/ng-template')
 
       ion-nav-view(name='menuContent', animation='slide-left-right')
     ion-side-menu(side='left')
-      header.bar.bar-header.bar-stable(ng-if='isIOS')
+      header.bar.bar-header.bar-stable(ng-if=' ::isIOS')
         h1.title Menu
-      ion-content(ng-class='{"has-header":isIOS}')
+      ion-content(ng-class=':: {"has-header":isIOS}')
         +avatar2(true)
         ion-list
-              // ion-item.menu-avatar(nav-clear, menu-close, href='#/app/profile')
-              // +avatar2()
-          each v,k in {'tasks/habits':'Tasks','profile/avatar':'Profile','inventory/inventory':'Inventory','stable/pets':'Stable','social/tavern':'Social',purchase: 'Purchase Gems',settings:'Settings',about:'About'}
+          each v,k in sideMenuItems
             ion-item(nav-clear, menu-close, href='#/app/#{k}')
               //-img(ng-src='assets/sidebar-icon-#{k}.png')
               | #{v}

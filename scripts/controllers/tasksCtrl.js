@@ -102,7 +102,11 @@ habitrpg
         case (value < 10): return ' color-better';
         default: return  ' color-best';
       }
-    }
+    };
+    
+    $scope.isDateSet = function(task){
+      return !!task.date;
+    };
 
     $scope.addTask = function (newTask, type) {
       var text = newTask.text
