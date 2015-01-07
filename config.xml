@@ -2,8 +2,8 @@
     <widget xmlns   = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "com.ocdevel.habitrpg"
-        versionCode = "45"
-        version     = "0.0.45">
+        versionCode = "46"
+        version     = "0.0.46">
 
     <!-- versionCode is optional and Android only -->
 

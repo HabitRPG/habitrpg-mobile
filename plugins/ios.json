@@ -5,52 +5,9 @@
     },
     "config_munge": {
         "files": {
-            "config.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" onload=\"true\" value=\"CDVStatusBar\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Clipboard\"><param name=\"ios-package\" value=\"CDVClipboard\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppPurchase\"><param name=\"ios-package\" value=\"InAppPurchase\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
             "framework": {
                 "parents": {
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
+                    "StoreKit.framework": [],
                     "SystemConfiguration.framework": [
                         {
                             "xml": "false",
@@ -75,9 +32,43 @@
                             "count": 1
                         }
                     ],
-                    "StoreKit.framework": [
+                    "CoreGraphics.framework": [
                         {
                             "xml": "false",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Clipboard\"><param name=\"ios-package\" value=\"CDVClipboard\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" onload=\"true\" value=\"CDVStatusBar\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
                             "count": 1
                         }
                     ]
@@ -86,6 +77,12 @@
         }
     },
     "installed_plugins": {
+        "com.danielcwilson.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.verso.cordova.clipboard": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
@@ -93,15 +90,6 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "com.verso.cordova.clipboard": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "com.danielcwilson.plugins.googleanalytics": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "cc.fovea.cordova.purchase": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
