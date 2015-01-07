@@ -21,7 +21,7 @@ mixin taskList(k)
             input(type='text', placeholder='＋ Add New #{nav.singular}', ng-model='newTask.text')
           button.button.button-small(type='submit') Add
 
-        .card(ng-if=' ::user.#{k}s.length == 0')
+        .card(ng-if='user.#{k}s.length == 0')
           .item.item-text-wrap
             | No #{nav.name} found, add some above.
 
@@ -30,7 +30,7 @@ mixin taskList(k)
           if k=='reward'
             .item.item-divider Custom Rewards
 
-          ion-item.item-text-wrap(on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='::[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
+          ion-item.item-text-wrap(on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
             if k=='habit'
               .item-button-right
                 .buttons
@@ -40,7 +40,7 @@ mixin taskList(k)
             if k=='daily' || k=='todo'
               .item-button-left
                 button.button.button-large.button-clear.button-positive.icon(ng-click='changeCheck(task, $event)')
-                  i(ng-class=" ::{'icon ion-checkmark-circled': task.completed, 'checkbox-icon': !task.completed }")
+                  i(ng-class="{'icon ion-checkmark-circled': task.completed, 'checkbox-icon': !task.completed }")
                 +taskText()
 
                 if k=='todo'
@@ -49,7 +49,7 @@ mixin taskList(k)
             if k=='reward'
               .item-button-right
                 button.button.button-small.buy-button(ng-click='score(task,"down", $event)')
-                  | {{ ::task.value}}
+                  | {{task.value}}
                   span.shop_gold
                 +taskText()
 

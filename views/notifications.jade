@@ -6,19 +6,19 @@ div(ng-controller="NotificationCtrl")
       span(ng-if='notification.type=="text"', ng-bind-html='notification.data')
       span(ng-if='notification.type=="stats"')
         span(ng-show='notification.data.hp')
-          | {{ ::notification.data.hp}}&nbsp;
+          | {{notification.data.hp}}&nbsp;
           i.ion-heart
           |&nbsp;
         span(ng-show='notification.data.exp')
-          | {{ ::notification.data.exp}}&nbsp;
+          | {{notification.data.exp}}&nbsp;
           i.ion-star
           |&nbsp;
         span(ng-show='notification.data.gp || notification.data.silver')
-          | {{ ::notification.data.gp}}
+          | {{notification.data.gp}}
           span.shop_gold
-          | {{ ::notification.data.silver}}
+          | {{notification.data.silver}}
           span.shop_silver
           |&nbsp;
         span(ng-show='notification.data.mp')
-          | {{ ::notification.data.mp}}&nbsp;
+          | {{notification.data.mp}}&nbsp;
           i.ion-fireball
