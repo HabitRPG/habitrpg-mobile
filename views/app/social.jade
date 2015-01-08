@@ -23,7 +23,7 @@ script(id='views/app.social.party.html',type='text/ng-template')
 script(id='views/app.social.guilds.html',type='text/ng-template')
   ion-list#guildCtrl-list
     ion-item.item-divider Your guilds
-    ion-item.item-icon-right.item-text-wrap(ng-repeat='guild in guilds track by group._id' ng-click='viewGuild(guild)')
+    ion-item.item-icon-right.item-text-wrap(ng-repeat='guild in guilds track by guild._id' ng-click='viewGuild(guild)')
       h2 {{ ::guild.name}}
       p {{ ::guild.description}}
       i.icon.ion-chevron-right
