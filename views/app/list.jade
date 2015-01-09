@@ -25,12 +25,12 @@ mixin taskList(k)
           .item.item-text-wrap
             | No #{nav.name} found, add some above.
 
-        ion-list(show-reorder="_reorder")
+        ion-list(show-reorder="_reorder", task-list="#{k}")
 
           if k=='reward'
             .item.item-divider Custom Rewards
 
-          ion-item.item-text-wrap(on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
+          ion-item.item-text-wrap(class='task-#{k}', on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class=' ::[getClass(task.value),(task.completed || notDue(task)) ? "completed" : ""]')
             if k=='habit'
               .item-button-right
                 .buttons
@@ -40,7 +40,7 @@ mixin taskList(k)
             if k=='daily' || k=='todo'
               .item-button-left
                 button.button.button-large.button-clear.button-positive.icon(ng-click='changeCheck(task, $event)')
-                  i(ng-class="{'icon ion-checkmark-circled': task.completed, 'checkbox-icon': !task.completed }")
+                  i(ng-class=" ::{'icon ion-checkmark-circled': task.completed, 'checkbox-icon': !task.completed }")
                 +taskText()
 
                 if k=='todo'
