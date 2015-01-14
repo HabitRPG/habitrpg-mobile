@@ -31,6 +31,10 @@
                         {
                             "xml": "<feature name=\"InAppBillingPlugin\"><param name=\"android-package\" value=\"com.smartmobilesoftware.inappbilling.InAppBillingPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -50,6 +54,48 @@
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"com.android.vending.BILLING\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"com.google.android.c2dm.permission.RECEIVE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<permission android:name=\"com.ocdevel.habitrpg.permission.C2D_MESSAGE\" android:protectionLevel=\"signature\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"com.ocdevel.habitrpg.permission.C2D_MESSAGE\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<activity android:exported=\"true\" android:name=\"com.plugin.gcm.PushHandlerActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:name=\"com.plugin.gcm.CordovaGCMBroadcastReceiver\" android:permission=\"com.google.android.c2dm.permission.SEND\"><intent-filter><action android:name=\"com.google.android.c2dm.intent.RECEIVE\" /><action android:name=\"com.google.android.c2dm.intent.REGISTRATION\" /><category android:name=\"com.ocdevel.habitrpg\" /></intent-filter></receiver>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:name=\"com.plugin.gcm.GCMIntentService\" />",
                             "count": 1
                         }
                     ]
@@ -74,6 +120,9 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "cc.fovea.cordova.purchase": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
