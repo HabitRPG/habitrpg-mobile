@@ -1,5 +1,5 @@
 mixin taskText
-  markdown.task-text(text=' ::task.text', remove-watch='true')
+  markdown.task-text(text=' ::task.text', remove-watch='true', use-timeout=':: $index > 10', timeout-time=':: ($index > 10) ? $index * 7 : 50')
 
 - var tasks = {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',singular:'Daily'}, todo:{name:'To-Dos',singular:'To-Do'}, reward:{name:'Rewards',singular:'Reward'}}
 
