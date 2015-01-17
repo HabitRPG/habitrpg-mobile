@@ -309,49 +309,4 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServic
         }
       }
     });
-
-    $provide.factory('myHttpInterceptor', ['$rootScope','$q',function($rootScope,$q) {
-      return {
-        response: function(response) {
-          return response;
-        },
-        responseError: function(response) {
-          // Offline
-          if (response.status == 0 ||
-            // don't know why we're getting 404 here, should be 0
-            (response.status == 404 && _.isEmpty(response.data))) {
-            // Don't do anything in mobile
-
-            // Needs refresh
-          } else if (response.needRefresh) {
-            // Don't do anything in mobile (for now)
-          } else if (response.data.code && response.data.code === 'ACCOUNT_SUSPENDED') {
-            alert(response.data.err)
-            localStorage.clear();
-            location.reload();
-
-          // 400 range?
-          } else if (response.status < 500) {
-            $rootScope.$broadcast('responseText', response.data.err || response.data);
-            // Need to reject the prompse so the error is handled correctly
-            if (response.status === 401) {
-              return $q.reject(response);
-            }
-
-            // Error
-          } else {
-            var error = 'Error contacting the server. Please try again in a few minutes.';
-            $rootScope.$broadcast('responseError', error);
-            console.error(response);
-          }
-
-          return response;
-          // this completely halts the chain, meaning we can't queue offline actions
-          //if (canRecover(response)) return responseOrNewPromise
-          //return $q.reject(response);
-        }
-      };
-    }]);
-    $httpProvider.interceptors.push('myHttpInterceptor');
-
 }])
