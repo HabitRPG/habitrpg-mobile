@@ -17,6 +17,10 @@ script(id="views/app.settings.html",type='text/ng-template')
         .item
           strong URL:&nbsp;
           | {{ ::settings.auth.apiEndpoint}}
+        .item(style='text-align:left')
+          label.item-item-input.item-stacked-label
+            span.input-label Remind to login
+            input(type='time', ng-model='remindTimeOfDay', ng-change='timeChanged()', placeholder='No time-to-remind set')
 
       //-.card(ng-if='!user.purchased.plan.customerId')
         +premiumAndAds()
