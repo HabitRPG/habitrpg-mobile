@@ -21,7 +21,7 @@ document.addEventListener("deviceready", function(){
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'userServices', 'groupServices', 'challengeServices', 'memberServices', 'sharedServices', 'notificationServices', 'storeServices', 'ngResource', 'ngCordova'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
 
 .run(['$ionicPlatform','$rootScope', '$cordovaLocalNotification', function($ionicPlatform,$rootScope, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {

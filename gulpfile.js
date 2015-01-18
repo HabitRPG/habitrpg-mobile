@@ -67,17 +67,17 @@ var paths = {
   ],
   copy: [
     'config.xml',
-    'bower_components/**/*',
-    '!bower_components/habitrpg-shared/node_modules/**/*',
-    '!bower_components/habitrpg-shared/img/unprocessed/**/*',
+    'bower_components/**/**/*',
+    '!bower_components/habitrpg-shared/node_modules/**/**/*',
+    '!bower_components/habitrpg-shared/img/unprocessed/**/**/*',
     //'!bower_components/habitrpg-shared/img/emoji/**/*',
-    '!bower_components/habitrpg-shared/img/project_files/**/*',
-    '!bower_components/habitrpg-shared/.git/**/*', // I'm using symlink
-    '!bower_components/angular/**/*',
-    '!bower_components/angular-animate/**/*',
-    '!bower_components/angular-sanitize/**/*',
-    '!bower_components/angular-resource/**/*',
-    '!bower_components/angular-ui-router/**/*'
+    '!bower_components/habitrpg-shared/img/project_files/**/**/*',
+    '!bower_components/habitrpg-shared/.git/**/**/*', // I'm using symlink
+    '!bower_components/angular/**/**/*',
+    '!bower_components/angular-animate/**/**/*',
+    '!bower_components/angular-sanitize/**/**/*',
+    '!bower_components/angular-resource/**/**/*',
+    '!bower_components/angular-ui-router/**/**/*'
   ]
 };
 var dist = './www';
