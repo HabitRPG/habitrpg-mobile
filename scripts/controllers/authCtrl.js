@@ -6,18 +6,18 @@
  */
 
 habitrpg.controller('AuthCtrl',
-  ['$scope', '$rootScope', 'User', '$http', '$location', 'ApiUrlService',
-  function($scope, $rootScope, User, $http, $location, ApiUrlService) {
+  ['$scope', '$rootScope', 'User', '$http', '$location', 'ApiUrl',
+  function($scope, $rootScope, User, $http, $location, ApiUrl) {
 
     $scope.initLoginForm = function() {
-      $scope.login = {username:'',password:'',endpoint:ApiUrlService.get()};
-      $scope.registerVals = { endpoint: ApiUrlService.get()};
+      $scope.login = {username:'',password:'',endpoint:ApiUrl.get()};
+      $scope.registerVals = { endpoint: ApiUrl.get()};
     };
 
     $scope.setApiEndpoint = function (newEndpoint) {
       habitrpg.value('API_URL', newEndpoint);
       localStorage.setItem('habitrpg-endpoint', newEndpoint);
-      ApiUrlService.setApiUrl(newEndpoint);
+      ApiUrl.setApiUrl(newEndpoint);
 
       return newEndpoint;
     };
@@ -31,7 +31,7 @@ habitrpg.controller('AuthCtrl',
 
       $scope.setApiEndpoint(registerVals.endpoint);
 
-      $http.post(ApiUrlService.get() + '/api/v2/register', registerVals)
+      $http.post(ApiUrl.get() + '/api/v2/register', registerVals)
         .success(function(data, status, headers, config) {
           User.authenticate(data.id, data.apiToken, function(err) {
             $location.path("/habit");
@@ -65,7 +65,7 @@ habitrpg.controller('AuthCtrl',
       if ($scope.useUUID) {
         runAuth($scope.login.username, $scope.login.password);
       } else {
-        $http.post(ApiUrlService.get() + '/api/v2/user/auth/local', data)
+        $http.post(ApiUrl.get() + '/api/v2/user/auth/local', data)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
           }).error(function(data, status, headers, config) {
@@ -88,7 +88,7 @@ habitrpg.controller('AuthCtrl',
 
     $scope.socialLogin = function(network){
       hello(network).login({scope:'email'}).then(function(auth){
-        $http.post(ApiUrlService.get() + "/api/v2/user/auth/social", auth)
+        $http.post(ApiUrl.get() + "/api/v2/user/auth/social", auth)
           .success(function(data, status, headers, config) {
             runAuth(data.id, data.token);
           }).error(errorAlert);
