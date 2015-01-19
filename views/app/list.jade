@@ -34,8 +34,8 @@ mixin taskList(k)
             if k=='habit'
               .item-button-right
                 .buttons
-                  button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up", $event)', ng-show=' ::task.up')
-                  button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down", $event)', ng-show=' ::task.down')
+                  button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up", $event);changeColor(task, $event)', ng-show=' ::task.up')
+                  button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down", $event); changeColor(task, $event)', ng-show=' ::task.down')
                 +taskText()
             if k=='daily' || k=='todo'
               .item-button-left
