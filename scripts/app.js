@@ -43,15 +43,19 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
         var now = moment();
         var nextRemindTime = moment([now.year(), now.month(), now.dayOfYear(), remindTime.hour(), remindTime.minute(), remindTime.second(), remindTime.millisecond()]);
 
+        var title = "HabitRPG";
+
         var remindMessages = [
-          "Don't forget to check off your dailies!"
+          "Don't forget to check off your dailies!",
+          "Have you checked your Dailies today?",
+          "Be sure to check off your Dailies!"
         ];
 
         if(!nextRemindTime.isBefore(now)) {
           $cordovaLocalNotification.add({
             id: 'LOGIN_REMINDER',
             date: nextRemindTime.toDate(),
-            //title: remindTitle,
+            title: title,
             message: _.sample(remindMessages),
             autoCancel: true
           });
@@ -62,6 +66,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
         $cordovaLocalNotification.add({
           id: 'LOGIN_REMINDER_nextDay',
           date: nextRemindTime.toDate(),
+          title: title,
           message: _.sample(remindMessages),
           autoCancel: true
         });
@@ -73,6 +78,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
         $cordovaLocalNotification.add({
           id: 'LOGIN_REMINDER_3daysInFuture',
           date: nextRemindTime.toDate(),
+          title: title,
           message: _.sample(remindMessages),
           autoCancel: true
         });
