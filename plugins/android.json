@@ -5,9 +5,33 @@
     },
     "config_munge": {
         "files": {
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"com.android.vending.BILLING\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
             "res/xml/config.xml": {
                 "parents": {
                     "/*": [
+                        {
+                            "xml": "<feature name=\"InAppBillingPlugin\"><param name=\"android-package\" value=\"com.smartmobilesoftware.inappbilling.InAppBillingPlugin\" /></feature>",
+                            "count": 1
+                        },
                         {
                             "xml": "<feature name=\"UniversalAnalytics\"><param name=\"android-package\" value=\"com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin\" /></feature>",
                             "count": 1
@@ -27,30 +51,6 @@
                         {
                             "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" onload=\"true\" value=\"org.apache.cordova.statusbar.StatusBar\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBillingPlugin\"><param name=\"android-package\" value=\"com.smartmobilesoftware.inappbilling.InAppBillingPlugin\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
-            "AndroidManifest.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-                            "count": 1
-                        }
-                    ],
-                    "/manifest": [
-                        {
-                            "xml": "<uses-permission android:name=\"com.android.vending.BILLING\" />",
-                            "count": 1
                         }
                     ]
                 }
@@ -58,6 +58,9 @@
         }
     },
     "installed_plugins": {
+        "cc.fovea.cordova.purchase": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
         "com.danielcwilson.plugins.googleanalytics": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
@@ -71,9 +74,6 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "cc.fovea.cordova.purchase": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
