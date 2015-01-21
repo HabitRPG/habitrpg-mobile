@@ -13,16 +13,16 @@ var _ = require('habitrpg/node_modules/lodash');
 var fs = require('fs');
 var xml2js = require('xml2js');
 var shared = require('habitrpg/node_modules/habitrpg-shared');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 var paths = {
   sass:   ['./styles/**/*.scss'],
   stylus:   ['./styles/**/*.styl'],
   views:  ['./views/**/*.jade'],
   websiteViews: ['./node_modules/habitrpg/views/**/*.jade'],
-  scripts: [ // TODO a **/* with excludes
-    /* using custom build so we can use angular1.3+
-      ionic.bundle.js = [ionic.js, angular.js, angular-animate.js, angular-sanitize.js, angular-ui-router.js, ionic-angular.js]*/
-//    'bower_components/ionic/js/ionic.bundle.js',
+  scripts: [ 
+    'bower_components/collide/collide.js',
     'bower_components/ionic/release/js/ionic.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
@@ -34,7 +34,7 @@ var paths = {
     'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
     'bower_components/js-emoji/emoji.js',
     'bower_components/marked/lib/marked.js',
-    "bower_components/hello/dist/hello.all.min.js",
+    'bower_components/hello/dist/hello.all.min.js',
 
     'node_modules/habitrpg/public/js/env.js',
     'scripts/app.js',
@@ -65,27 +65,40 @@ var paths = {
   ],
   copy: [
     'config.xml',
-    'bower_components/**/**/*',
-    '!bower_components/habitrpg-shared/node_modules/**/**/*',
-    '!bower_components/habitrpg-shared/img/unprocessed/**/**/*',
-    //'!bower_components/habitrpg-shared/img/emoji/**/*',
-    '!bower_components/habitrpg-shared/img/project_files/**/**/*',
-    '!bower_components/habitrpg-shared/.git/**/**/*', // I'm using symlink
-    '!bower_components/angular/**/**/*',
-    '!bower_components/angular-animate/**/**/*',
-    '!bower_components/angular-sanitize/**/**/*',
-    '!bower_components/angular-resource/**/**/*',
-    '!bower_components/angular-ui-router/**/**/*'
+    
+    'bower_components/habitrpg-shared/dist/habitrpg-shared.css',
+    'bower_components/habitrpg-shared/dist/*.png',
+    'bower_components/habitrpg-shared/locales/en/*',
+    'bower_components/habitrpg-shared/img/logo/*',
+    'bower_components/habitrpg-shared/img/sprites/backer-only/*',
+    
+    'bower_components/ionic/release/css/ionic.min.css',
+    'bower_components/ionic/release/fonts/*',
+    
+    'bower_components/js-emoji/emoji.css'
+  ],
+  imageMin: [
+    'bower_components/habitrpg-shared/img/emoji/**/*',
   ]
 };
 var dist = './www';
+var emojiDist = './www/bower_components/habitrpg-shared/img/emoji';
 
 gulp.task('clean', function(){
   return gulp.src('./www/bower_components/', {read: false})
     .pipe(rimraf())
 })
 
-gulp.task('copy', ['clean'], function(){
+gulp.task('minifyImages', ['clean'], function(){
+return gulp.src(paths.imageMin)
+        .pipe(imagemin({
+          progressive: true,
+          use: [pngquant()]
+        }))
+        .pipe(gulp.dest(emojiDist));
+});
+
+gulp.task('copy', ['minifyImages'], function(){
   gulp.src(paths.copy,{ base: './' })
     .pipe(gulp.dest(dist))
 });
