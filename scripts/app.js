@@ -19,15 +19,13 @@ document.addEventListener("deviceready", function(){
     store.refresh();
   }
 
-  if (!window.plugins.pushNotification) {
-  } else {
+  if (window.plugins.pushNotification) {
     pushNotification = window.plugins.pushNotification;
 
-    // result contains any message sent from the plugin call
-  alert(device.platform);
+    var $scope = angular.element(document.body).scope();
 
     if (device.platform == 'android' || device.platform == 'Android') {
-      alert("start");
+      console.info("start");
       console.info('<li>registering ' + device.platform + '</li>');
 
       onNotification =  function (e) {
@@ -38,6 +36,8 @@ document.addEventListener("deviceready", function(){
           case 'registered':
             if ( e.regid.length > 0 )
             {
+              $scope.postData('/user/pushDevice', {regId: e.regid, type: 'android'});
+
               console.info('<li>REGISTERED -> REGID:' + e.regid + "</li>");
               // Your GCM push server needs to know the regID before it can push to this device
               // here is where you might want to send it the regID for later use.
@@ -87,8 +87,7 @@ document.addEventListener("deviceready", function(){
             break;
         }
       };
-
-
+      
       pushNotification.register(
           function (result) {
             alert('result = ' + result);
@@ -100,7 +99,6 @@ document.addEventListener("deviceready", function(){
             "senderID": "20738163915",
             "ecb": "onNotification"
           });
-
     }
   }
 
