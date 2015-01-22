@@ -1,52 +1,51 @@
 var w = window;
 
-angular.module('storeServices', [])
-  .service('StoreService', ['ApiUrlService', '$rootScope', 'User',
-    function(ApiUrlService, $rootScope, User){
-      var url = ApiUrlService.get();
+angular.module('habitrpg').service('StoreService',
+['ApiUrl', '$rootScope', 'User',
+function(ApiUrl, $rootScope, User){
+  var url = ApiUrl.get();
 
-      var uuid = $rootScope.User.user._id;
-      var token = $rootScope.User.user.apiToken;
- 
-      var authParams = '?_id='+uuid+'&apiToken='+token;
- 
-      if($rootScope.isIOS)
-      {
-        w.store.validator = url+'/iap/ios/verify'+authParams;
-      }
-      else
-      {
-        w.store.validator = url+'/iap/android/verify'+authParams;
-      }
+  var uuid = $rootScope.User.user._id;
+  var token = $rootScope.User.user.apiToken;
 
-      function registerProductAndCallback(product){
-        w.store.register(product);
+  var authParams = '?_id='+uuid+'&apiToken='+token;
 
-        w.store.when(product.id)
-          .error(function(err){
-            console.log(JSON.stringify(err));
-          })
-          .approved(function(pr){
-            var projectJson = JSON.stringify(pr);
-            console.log(projectJson);
-            // start verification call to the api
-            pr.verify();
-          })
-          .verified(function(pr){
-            // Purchased!
-            pr.finish();
-            User.sync();
-          });
-      }
+  if($rootScope.isIOS)
+  {
+    w.store.validator = url+'/iap/ios/verify'+authParams;
+  }
+  else
+  {
+    w.store.validator = url+'/iap/android/verify'+authParams;
+  }
 
-      registerProductAndCallback({
-        id: "buy.20.gems", 
-        alias: "20 Gems",
-        type: w.store.CONSUMABLE
+  function registerProductAndCallback(product){
+    w.store.register(product);
+
+    w.store.when(product.id)
+      .error(function(err){
+        console.log(JSON.stringify(err));
+      })
+      .approved(function(pr){
+        var projectJson = JSON.stringify(pr);
+        console.log(projectJson);
+        // start verification call to the api
+        pr.verify();
+      })
+      .verified(function(pr){
+        // Purchased!
+        pr.finish();
+        User.sync();
       });
+  }
 
-      this.getStore = function(){
-        return w.store || {};
-      };
-    }
-]);
+  registerProductAndCallback({
+    id: "buy.20.gems",
+    alias: "20 Gems",
+    type: w.store.CONSUMABLE
+  });
+
+  this.getStore = function(){
+    return w.store || {};
+  };
+}]);

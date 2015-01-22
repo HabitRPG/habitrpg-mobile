@@ -1,8 +1,8 @@
 'use strict';
 
 habitrpg.controller('PurchaseCtrl', 
-  ['$scope', 'StoreService', '$rootScope', 'ApiUrlService',
-  function($scope, store, $rootScope, ApiUrlService){
+  ['$scope', 'StoreService', '$rootScope', 'ApiUrl',
+  function($scope, store, $rootScope, ApiUrl){
     $scope.store = store.getStore();
 
     $scope.buy = function(id){
@@ -11,7 +11,7 @@ habitrpg.controller('PurchaseCtrl',
         return;
       }
 
-      if(ApiUrlService.get() !== 'https://habitrpg.com'){
+      if(ApiUrl.get() !== 'https://habitrpg.com'){
         alert("You are using a custom server, please contact your server administrator.");
         return;
       }

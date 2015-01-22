@@ -38,40 +38,28 @@ var paths = {
 
     'node_modules/habitrpg/public/js/env.js',
     'scripts/app.js',
+    'bower_components/habitrpg-shared/script/config.js',
     'bower_components/habitrpg-shared/script/userServices.js',
+    'node_modules/habitrpg/public/js/services/challengeServices.js',
+    'node_modules/habitrpg/public/js/services/memberServices.js',
+    'node_modules/habitrpg/public/js/services/sharedServices.js',
     'node_modules/habitrpg/public/js/services/groupServices.js',
     'bower_components/habitrpg-shared/script/directives.js',
-    'scripts/services/notificationServices.js',
-    'scripts/services/storeService.js',
-    'scripts/controllers/userAvatarCtrl.js',
-    'scripts/controllers/rootCtrl.js',
-    'scripts/controllers/settingsCtrl.js',
-    'scripts/filters/filters.js',
-    'scripts/controllers/authCtrl.js',
-    'scripts/controllers/tasksCtrl.js',
-    'scripts/controllers/chatCtrl.js',
-    'scripts/controllers/inventoryCtrl.js',
-    'scripts/controllers/petDetailsCtrl.js',
-    'scripts/controllers/mountDetailsCtrl.js',
-    'scripts/controllers/stableCtrl.js',
-    'scripts/controllers/partyCtrl.js',
-    'scripts/controllers/notificationCtrl.js',
-    'scripts/controllers/guildCtrl.js',
-    'scripts/controllers/purchaseCtrl.js'
+    'scripts/**/*.js'
   ],
   copy: [
     'config.xml',
-    'bower_components/**/*',
-    '!bower_components/habitrpg-shared/node_modules/**/*',
-    '!bower_components/habitrpg-shared/img/unprocessed/**/*',
+    'bower_components/**/**/*',
+    '!bower_components/habitrpg-shared/node_modules/**/**/*',
+    '!bower_components/habitrpg-shared/img/unprocessed/**/**/*',
     //'!bower_components/habitrpg-shared/img/emoji/**/*',
-    '!bower_components/habitrpg-shared/img/project_files/**/*',
-    '!bower_components/habitrpg-shared/.git/**/*', // I'm using symlink
-    '!bower_components/angular/**/*',
-    '!bower_components/angular-animate/**/*',
-    '!bower_components/angular-sanitize/**/*',
-    '!bower_components/angular-resource/**/*',
-    '!bower_components/angular-ui-router/**/*'
+    '!bower_components/habitrpg-shared/img/project_files/**/**/*',
+    '!bower_components/habitrpg-shared/.git/**/**/*', // I'm using symlink
+    '!bower_components/angular/**/**/*',
+    '!bower_components/angular-animate/**/**/*',
+    '!bower_components/angular-sanitize/**/**/*',
+    '!bower_components/angular-resource/**/**/*',
+    '!bower_components/angular-ui-router/**/**/*'
   ]
 };
 var dist = './www';
