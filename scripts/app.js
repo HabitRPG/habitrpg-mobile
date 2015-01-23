@@ -19,10 +19,10 @@ document.addEventListener("deviceready", function(){
     store.refresh();
   }
 
-  if (window.plugins.pushNotification) {
+  var $scope = angular.element(document.body).scope();
+  if (window.plugins.pushNotification && $scope.User.user) {
     pushNotification = window.plugins.pushNotification;
 
-    var $scope = angular.element(document.body).scope();
 
     if (device.platform == 'android' || device.platform == 'Android') {
       console.info("start");
@@ -36,7 +36,7 @@ document.addEventListener("deviceready", function(){
           case 'registered':
             if ( e.regid.length > 0 )
             {
-              $scope.postData('/user/pushDevice', {regId: e.regid, type: 'android'});
+              $scope.postData('/api/v2/user/pushDevice', {regId: e.regid, type: 'android'});
 
               console.info('<li>REGISTERED -> REGID:' + e.regid + "</li>");
               // Your GCM push server needs to know the regID before it can push to this device
