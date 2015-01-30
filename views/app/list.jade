@@ -1,5 +1,5 @@
 mixin taskText
-  markdown.task-text(text=' ::task.text', remove-watch='true')
+  markdown.task-text(text=' ::task.text', remove-watch='true', use-timeout=':: $index > 10', timeout-time=':: ($index > 10) ? $index * 7 : 50')
 
 - var tasks = {habit:{name:'Habits',singular:'Habit'}, daily:{name:'Dailies',singular:'Daily'}, todo:{name:'To-Dos',singular:'To-Do'}, reward:{name:'Rewards',singular:'Reward'}}
 
@@ -25,22 +25,22 @@ mixin taskList(k)
           .item.item-text-wrap
             | No #{nav.name} found, add some above.
 
-        ion-list(show-reorder="_reorder")
+        ion-list(show-reorder="_reorder", task-list="#{k}")
 
           if k=='reward'
             .item.item-divider Custom Rewards
 
-          ion-item.item-text-wrap(on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class='[getClass(task.value),"task-#{k}",(task.completed || notDue(task)) ? "completed" : ""]')
+          ion-item.item-text-wrap(class='task-#{k}', on-hold="actionSheet(task)", ng-click="viewTask(task)", ng-repeat='task in user.#{k}s | filter:taskFilter',ng-class=' ::[getClass(task.value),(task.completed || notDue(task)) ? "completed" : ""]')
             if k=='habit'
               .item-button-right
                 .buttons
-                  button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up", $event)', ng-show=' ::task.up')
-                  button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down", $event)', ng-show=' ::task.down')
+                  button.button.button-small.icon.ion-plus-round(ng-click='score(task,"up", $event);changeColor(task, $event)', ng-show=' ::task.up')
+                  button.button.button-small.icon.ion-minus-round(ng-click='score(task,"down", $event); changeColor(task, $event)', ng-show=' ::task.down')
                 +taskText()
             if k=='daily' || k=='todo'
               .item-button-left
                 button.button.button-large.button-clear.button-positive.icon(ng-click='changeCheck(task, $event)')
-                  i(ng-class="{'icon ion-checkmark-circled': task.completed, 'checkbox-icon': !task.completed }")
+                  i(ng-class=" ::{'icon ion-checkmark-circled': task.completed, 'checkbox-icon': !task.completed }")
                 +taskText()
 
                 if k=='todo'
