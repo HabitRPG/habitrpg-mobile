@@ -50,7 +50,7 @@ var paths = {
   copy: [
     'config.xml',
     'bower_components/**/**/*',
-    'node_modules/habitrpg/common/dist/sprites',
+    'node_modules/habitrpg/common/dist/**/**/*',
     //'node_modules/habitrpg/common/img/emoji/**/*',
     '!bower_components/angular/**/**/*',
     '!bower_components/angular-animate/**/**/*',
