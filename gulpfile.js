@@ -50,13 +50,15 @@ var paths = {
   copy: [
     'config.xml',
     'bower_components/**/**/*',
-    'node_modules/habitrpg/common/dist/**/**/*',
-    //'node_modules/habitrpg/common/img/emoji/**/*',
     '!bower_components/angular/**/**/*',
     '!bower_components/angular-animate/**/**/*',
     '!bower_components/angular-sanitize/**/**/*',
     '!bower_components/angular-resource/**/**/*',
     '!bower_components/angular-ui-router/**/**/*'
+  ],
+  common: [
+    'node_modules/habitrpg/common/dist/**/**/*',
+    'node_modules/habitrpg/common/img/emoji/**/*'
   ]
 };
 var dist = './www';
@@ -68,7 +70,9 @@ gulp.task('clean', function(){
 
 gulp.task('copy', ['clean'], function(){
   gulp.src(paths.copy,{ base: './' })
-    .pipe(gulp.dest(dist))
+    .pipe(gulp.dest(dist));
+  gulp.src(paths.common,{ base: 'node_modules/habitrpg/'})
+    .pipe(gulp.dest(dist));
 });
 
 gulp.task('sass', function() {
