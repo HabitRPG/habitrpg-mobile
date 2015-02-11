@@ -17,11 +17,24 @@ habitrpg.controller('SettingsCtrl',
         });
     };
 
+    var setTime = localStorage.getItem('REMINDER_TIME');
+
+    if(setTime){
+        $scope.remindTimeOfDay = moment(setTime).toDate();
+    }
+
+    $scope.timeChanged = function(){
+        var date = moment($scope.remindTimeOfDay).toJSON();
+
+        localStorage.setItem('REMINDER_TIME', date);
+
+        $scope.resetLocalNotifications();
+    };
+
     // copy to clipboard
     $scope.copy = function(type, text) {
       cordova.plugins.clipboard.copy(text);
       Notification.push({type: 'text', text: type + ' copied to clipboard'});
     }
-
   }
 ]);

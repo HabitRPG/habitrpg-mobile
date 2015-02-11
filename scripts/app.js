@@ -21,15 +21,72 @@ document.addEventListener("deviceready", function(){
 /**
  * The main HabitRPG app module.
  */
-var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource'])
+var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
 
-.run(['$ionicPlatform','$rootScope',function($ionicPlatform,$rootScope) {
+.run(['$ionicPlatform','$rootScope', '$cordovaLocalNotification', function($ionicPlatform,$rootScope, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
     $rootScope.isIOS = $ionicPlatform.is('iOS');
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $rootScope.resetLocalNotifications = function(){
+      var reminderTimeString = localStorage.getItem("REMINDER_TIME");
+
+      $cordovaLocalNotification.cancelAll();
+
+      var remindTime = moment(reminderTimeString);
+
+      // If its valid, local notifications will be created
+      if(reminderTimeString && remindTime.isValid()) {
+        var now = moment();
+        var nextRemindTime = moment([now.year(), now.month(), now.dayOfYear(), remindTime.hour(), remindTime.minute(), remindTime.second(), remindTime.millisecond()]);
+
+        var title = "HabitRPG";
+
+        var remindMessages = [
+          "Don't forget to check off your dailies!",
+          "Have you checked your Dailies today?",
+          "Be sure to check off your Dailies!"
+        ];
+
+        if(!nextRemindTime.isBefore(now)) {
+          $cordovaLocalNotification.add({
+            id: 'LOGIN_REMINDER',
+            date: nextRemindTime.toDate(),
+            title: title,
+            message: _.sample(remindMessages),
+            autoCancel: true
+          });
+        }
+
+        nextRemindTime.add(1, 'day');
+
+        $cordovaLocalNotification.add({
+          id: 'LOGIN_REMINDER_nextDay',
+          date: nextRemindTime.toDate(),
+          title: title,
+          message: _.sample(remindMessages),
+          autoCancel: true
+        });
+
+        nextRemindTime.add(2, 'day');
+
+        // If someone ignores the first / two :)
+
+        $cordovaLocalNotification.add({
+          id: 'LOGIN_REMINDER_3daysInFuture',
+          date: nextRemindTime.toDate(),
+          title: title,
+          message: _.sample(remindMessages),
+          autoCancel: true
+        });
+      }
+
+    };
+
+    $rootScope.resetLocalNotifications();
   });
   
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){

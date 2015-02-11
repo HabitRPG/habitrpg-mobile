@@ -34,9 +34,11 @@ var paths = {
     'node_modules/habitrpg/common/dist/scripts/habitrpg-shared.js',
     'bower_components/js-emoji/emoji.js',
     'bower_components/marked/lib/marked.js',
-    "bower_components/hello/dist/hello.all.min.js",
-
+    'bower_components/hello/dist/hello.all.min.js',
     'node_modules/habitrpg/public/js/env.js',
+    
+    'bower_components/ngCordova/dist/ng-cordova.min.js',
+    
     'scripts/app.js',
     'node_modules/habitrpg/common/script/public/config.js',
     'node_modules/habitrpg/common/script/public/userServices.js',

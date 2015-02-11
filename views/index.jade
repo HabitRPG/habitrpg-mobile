@@ -47,8 +47,8 @@ html
     script(type='text/javascript').
       window.env = !{JSON.stringify(env)};
 
-    script(src='cordova.js')
     script(src='js/app.min.js')
+    script(src='cordova.js')
 
   body(ng-app='habitrpg', ng-controller='RootCtrl', ng-cloak)
     include notifications
