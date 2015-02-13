@@ -193,7 +193,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
 .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')
 .constant("MOBILE_APP", true)
 
-.config(['$stateProvider', '$urlRouterProvider', '$provide', '$httpProvider', function ($stateProvider, $urlRouterProvider, $provide, $httpProvider) {
+.config(['$compileProvider', '$stateProvider', '$urlRouterProvider', '$provide', '$httpProvider', function ($compileProvider, $stateProvider, $urlRouterProvider, $provide, $httpProvider) {
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|app):/);
   $urlRouterProvider
     .when('/app', '/app/tasks/habits')
     .when('/app/tasks', '/app/tasks/habits')
