@@ -51,7 +51,7 @@ html
     script(src='js/app.min.js')
     script(src='cordova.js')
 
-  body(ng-app='habitrpg', ng-controller='RootCtrl', ng-cloak)
+  body(ng-app='habitrpg', ng-controller='RootCtrl', ng-cloak, ng-csp)
     include notifications
     include auth
     include app
