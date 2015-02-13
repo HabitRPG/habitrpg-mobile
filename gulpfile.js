@@ -8,17 +8,17 @@ var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
 var rimraf = require('gulp-rimraf');
-var i18n = require('habitrpg/src/i18n');
+var i18n = require('habitrpg/website/src/i18n');
 var _ = require('habitrpg/node_modules/lodash');
 var fs = require('fs');
 var xml2js = require('xml2js');
-var shared = require('habitrpg/node_modules/habitrpg-shared');
+var shared = require('habitrpg/common');
 
 var paths = {
   sass:   ['./styles/**/*.scss'],
   stylus:   ['./styles/**/*.styl'],
   views:  ['./views/**/*.jade'],
-  websiteViews: ['./node_modules/habitrpg/views/**/*.jade'],
+  websiteViews: ['./node_modules/habitrpg/website/views/**/*.jade'],
   scripts: [ // TODO a **/* with excludes
     /* using custom build so we can use angular1.3+
       ionic.bundle.js = [ionic.js, angular.js, angular-animate.js, angular-sanitize.js, angular-ui-router.js, ionic-angular.js]*/
@@ -31,7 +31,7 @@ var paths = {
     'bower_components/ionic/release/js/ionic-angular.js',
 
     'bower_components/angular-resource/angular-resource.js',
-    'bower_components/habitrpg-shared/dist/habitrpg-shared.js',
+    'node_modules/habitrpg/common/dist/scripts/habitrpg-shared.js',
     'bower_components/js-emoji/emoji.js',
     'bower_components/marked/lib/marked.js',
     'bower_components/hello/dist/hello.all.min.js',
@@ -40,28 +40,27 @@ var paths = {
     'bower_components/ngCordova/dist/ng-cordova.min.js',
     
     'scripts/app.js',
-    'bower_components/habitrpg-shared/script/config.js',
-    'bower_components/habitrpg-shared/script/userServices.js',
-    'node_modules/habitrpg/public/js/services/challengeServices.js',
-    'node_modules/habitrpg/public/js/services/memberServices.js',
-    'node_modules/habitrpg/public/js/services/sharedServices.js',
-    'node_modules/habitrpg/public/js/services/groupServices.js',
-    'bower_components/habitrpg-shared/script/directives.js',
+    'node_modules/habitrpg/common/script/public/config.js',
+    'node_modules/habitrpg/common/script/public/userServices.js',
+    'node_modules/habitrpg/website/public/js/services/challengeServices.js',
+    'node_modules/habitrpg/website/public/js/services/memberServices.js',
+    'node_modules/habitrpg/website/public/js/services/sharedServices.js',
+    'node_modules/habitrpg/website/public/js/services/groupServices.js',
+    'node_modules/habitrpg/common/script/public/directives.js',
     'scripts/**/*.js'
   ],
   copy: [
     'config.xml',
     'bower_components/**/**/*',
-    '!bower_components/habitrpg-shared/node_modules/**/**/*',
-    '!bower_components/habitrpg-shared/img/unprocessed/**/**/*',
-    //'!bower_components/habitrpg-shared/img/emoji/**/*',
-    '!bower_components/habitrpg-shared/img/project_files/**/**/*',
-    '!bower_components/habitrpg-shared/.git/**/**/*', // I'm using symlink
     '!bower_components/angular/**/**/*',
     '!bower_components/angular-animate/**/**/*',
     '!bower_components/angular-sanitize/**/**/*',
     '!bower_components/angular-resource/**/**/*',
     '!bower_components/angular-ui-router/**/**/*'
+  ],
+  common: [
+    'node_modules/habitrpg/common/dist/**/**/*',
+    'node_modules/habitrpg/common/img/emoji/**/*'
   ]
 };
 var dist = './www';
@@ -73,7 +72,9 @@ gulp.task('clean', function(){
 
 gulp.task('copy', ['clean'], function(){
   gulp.src(paths.copy,{ base: './' })
-    .pipe(gulp.dest(dist))
+    .pipe(gulp.dest(dist));
+  gulp.src(paths.common,{ base: 'node_modules/habitrpg/'})
+    .pipe(gulp.dest(dist));
 });
 
 gulp.task('sass', function() {
@@ -105,7 +106,7 @@ gulp.task('views', function(){
       args.push('en');
       return shared.i18n.t.apply(null, args);
     },
-    Content:require('./node_modules/habitrpg/node_modules/habitrpg-shared').content},
+    Content:require('./node_modules/habitrpg/common').content},
     moment:require('./node_modules/habitrpg/node_modules/moment')
   }};
   // can't xml-parse synchronously, hence all this hubub
