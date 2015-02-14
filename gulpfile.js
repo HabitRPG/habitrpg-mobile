@@ -35,7 +35,7 @@ var paths = {
     'bower_components/js-emoji/emoji.js',
     'bower_components/marked/lib/marked.js',
     'bower_components/hello/dist/hello.all.min.js',
-    'node_modules/habitrpg/public/js/env.js',
+    'node_modules/habitrpg/website/public/js/env.js',
     
     'bower_components/ngCordova/dist/ng-cordova.min.js',
     
