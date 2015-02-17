@@ -63,15 +63,25 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" onload=\"true\" value=\"org.apache.cordova.statusbar.StatusBar\" /></feature>",
                             "count": 1
-                        },
+                        }
+                    ]
+                }
+            },
+            "res/values/billing_key_param.xml": {
+                "parents": {
+                    "/*": [
                         {
-                            "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
+                            "xml": "<string name=\"billing_key_param\">$BILLING_KEY</string>",
                             "count": 1
                         }
                     ]
@@ -89,7 +99,7 @@
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
-        "org.apache.cordova.device": {
+        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.inappbrowser": {
@@ -97,10 +107,11 @@
         },
         "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "de.appplant.cordova.plugin.local-notification": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        }
+    }
 }

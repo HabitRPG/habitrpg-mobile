@@ -6,16 +6,6 @@ document.addEventListener("deviceready", function(){
     var uuid = angular.element(document.body).scope().User.user._id;
     uuid && analytics.setUserId(uuid);
   }
-  
-  if(window.store){
-    var store = window.store;
-
-    store.ready(function(){
-      // store is ready :)
-    });
-
-    store.refresh();
-  }
 }, false);
 
 /**
@@ -23,12 +13,24 @@ document.addEventListener("deviceready", function(){
  */
 var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
 
-.run(['$ionicPlatform','$rootScope', '$cordovaLocalNotification', function($ionicPlatform,$rootScope, $cordovaLocalNotification) {
+.run(['$ionicPlatform','$rootScope', '$cordovaLocalNotification', '$timeout', function($ionicPlatform,$rootScope, $cordovaLocalNotification, $timeout) {
   $ionicPlatform.ready(function() {
     $rootScope.isIOS = $ionicPlatform.is('iOS');
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+
+    if(window.store){
+      var store = window.store;
+
+      store.ready(function(){
+        // store is ready :)
+      });
+
+      $timeout(function(){
+        store.refresh();
+      }, 250);
     }
 
     $rootScope.resetLocalNotifications = function(){

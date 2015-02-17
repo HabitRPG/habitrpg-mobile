@@ -48,4 +48,7 @@
       <param name="android-package" value="com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin" />
     </feature>
 
+    <feature name="InAppBillingPlugin">
+      <param name="BILLING_KEY" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk6EVccD7D6y5vLmsUxUXVYTMyByq+NjfTzjMBaKCk93fq8Ahn6Ipha1K4oBIvArUj3CsP5Tb/Yf6c6SrEsSnE3eqgKQgeq+fYyfIm+Fb+tFGTttLonZ2Sqemqeyx2PjOG2CVZBXj1+Zr7jb0ocMNYraYUTvklWnpcK6/5ZaZLLent1PGiU9l5jIfRAsxmJH/UpssgpFPnCs+8PRKUALkJATTfVCCF+PJef6mcKAafAArKUEo0lR2/NeaE62Wpii33DLuKDPfMqL3g4EHZTEVE1ezFl/3WPeLlxuQm38hZLpEfEYKp17qzplU+GmWIfjZt6OdtVdonlYxIxNAZLnWEQIDAQAB" />
+    </feature>
 </widget>
