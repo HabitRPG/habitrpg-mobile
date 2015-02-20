@@ -1,5 +1,8 @@
 node_modules/
 /www/
 bower_components
-platforms/
+platforms/*
+!platforms/android/
+platforms/android/*
+!platforms/android/AndroidManifest.xml
 .idea/
