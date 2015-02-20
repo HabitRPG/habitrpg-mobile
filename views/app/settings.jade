@@ -20,7 +20,8 @@ script(id="views/app.settings.html",type='text/ng-template')
         .item(style='text-align:left')
           label.item-item-input.item-stacked-label
             span.input-label Remind to login
-            input(type='time', ng-model='remindTimeOfDay', ng-change='timeChanged()', placeholder='No time-to-remind set')
+          button.button.button-positive(ng-click='onRemindTimeTapped()')
+            | {{ remindTimeOfDayString }}
 
       //-.card(ng-if='!user.purchased.plan.customerId')
         +premiumAndAds()

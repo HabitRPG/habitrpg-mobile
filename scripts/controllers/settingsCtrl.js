@@ -19,17 +19,40 @@ habitrpg.controller('SettingsCtrl',
 
     var setTime = localStorage.getItem('REMINDER_TIME');
 
-    if(setTime){
-        $scope.remindTimeOfDay = moment(setTime).toDate();
+    function setTimeAsString(time){
+      if(time && time != ''){
+        $scope.remindTimeOfDayString = moment(time).format('HH:mm');
+      }
+      else{
+        $scope.remindTimeOfDayString = 'No time-to-remind set';
+      }
     }
 
-    $scope.timeChanged = function(){
-        var date = moment($scope.remindTimeOfDay).toJSON();
+    setTimeAsString(setTime);
 
-        localStorage.setItem('REMINDER_TIME', date);
-
+    $scope.onRemindTimeTapped = function(){
+      var options = {
+        date: $scope.remindTimeOfDay || new Date(),
+        mode: 'time'
+      };
+      
+      datePicker.show(options, function(date){
+        $scope.$apply(function(){
+          setTimeAsString(date);
+        });
+        
+        if(date)
+        {
+          localStorage.setItem('REMINDER_TIME', date+'');
+        }
+        else
+        {
+          localStorage.setItem('REMINDER_TIME', '');
+        }
+     
         $scope.resetLocalNotifications();
-    };
+      });
+    }
 
     // copy to clipboard
     $scope.copy = function(type, text) {

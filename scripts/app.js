@@ -43,7 +43,10 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
       // If its valid, local notifications will be created
       if(reminderTimeString && remindTime.isValid()) {
         var now = moment();
-        var nextRemindTime = moment([now.year(), now.month(), now.dayOfYear(), remindTime.hour(), remindTime.minute(), remindTime.second(), remindTime.millisecond()]);
+        
+        // momentjs only returns the day of week / year
+        var currentDay = now.format('D');
+        var nextRemindTime = moment([now.year(), now.month(), currentDay, remindTime.hour(), remindTime.minute(), remindTime.second(), remindTime.millisecond()]);
 
         var title = "HabitRPG";
 
@@ -63,29 +66,24 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
           });
         }
 
-        nextRemindTime.add(1, 'day');
-
         $cordovaLocalNotification.add({
           id: 'LOGIN_REMINDER_nextDay',
-          date: nextRemindTime.toDate(),
+          date: nextRemindTime.add(1, 'day').toDate(),
           title: title,
           message: _.sample(remindMessages),
           autoCancel: true
         });
-
-        nextRemindTime.add(2, 'day');
 
         // If someone ignores the first / two :)
 
         $cordovaLocalNotification.add({
           id: 'LOGIN_REMINDER_3daysInFuture',
-          date: nextRemindTime.toDate(),
+          date: nextRemindTime.add(1, 'day').toDate(),
           title: title,
           message: _.sample(remindMessages),
           autoCancel: true
         });
       }
-
     };
 
     $rootScope.resetLocalNotifications();
