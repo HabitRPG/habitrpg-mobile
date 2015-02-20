@@ -73,6 +73,10 @@
                         {
                             "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" onload=\"true\" value=\"org.apache.cordova.statusbar.StatusBar\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -106,6 +110,9 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
