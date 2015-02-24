@@ -21,18 +21,6 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
       StatusBar.styleDefault();
     }
 
-    if(window.store){
-      var store = window.store;
-
-      store.ready(function(){
-        // store is ready :)
-      });
-
-      $timeout(function(){
-        store.refresh();
-      }, 250);
-    }
-
     $rootScope.resetLocalNotifications = function(){
       var reminderTimeString = localStorage.getItem("REMINDER_TIME");
 

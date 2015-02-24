@@ -55,6 +55,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Clipboard\"><param name=\"android-package\" value=\"com.verso.cordova.clipboard.Clipboard\" /></feature>",
                             "count": 1
                         },
@@ -73,10 +77,6 @@
                         {
                             "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" onload=\"true\" value=\"org.apache.cordova.statusbar.StatusBar\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -85,7 +85,7 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<string name=\"billing_key_param\">$BILLING_KEY</string>",
+                            "xml": "<string name=\"billing_key_param\">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk6EVccD7D6y5vLmsUxUXVYTMyByq+NjfTzjMBaKCk93fq8Ahn6Ipha1K4oBIvArUj3CsP5Tb/Yf6c6SrEsSnE3eqgKQgeq+fYyfIm+Fb+tFGTttLonZ2Sqemqeyx2PjOG2CVZBXj1+Zr7jb0ocMNYraYUTvklWnpcK6/5ZaZLLent1PGiU9l5jIfRAsxmJH/UpssgpFPnCs+8PRKUALkJATTfVCCF+PJef6mcKAafAArKUEo0lR2/NeaE62Wpii33DLuKDPfMqL3g4EHZTEVE1ezFl/3WPeLlxuQm38hZLpEfEYKp17qzplU+GmWIfjZt6OdtVdonlYxIxNAZLnWEQIDAQAB</string>",
                             "count": 1
                         }
                     ]
@@ -100,6 +100,9 @@
         "com.danielcwilson.plugins.googleanalytics": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
+        "com.plugin.datepicker": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
@@ -110,9 +113,6 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },

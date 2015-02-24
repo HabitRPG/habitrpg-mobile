@@ -1,8 +1,8 @@
 var w = window;
 
 angular.module('habitrpg').service('StoreService',
-['ApiUrl', '$rootScope', 'User',
-function(ApiUrl, $rootScope, User){
+['ApiUrl', '$rootScope', 'User', '$ionicPlatform','$timeout', 
+function(ApiUrl, $rootScope, User, $ionicPlatform, $timeout){
   var url = ApiUrl.get();
 
   var uuid = $rootScope.User.user._id;
@@ -39,10 +39,22 @@ function(ApiUrl, $rootScope, User){
       });
   }
 
-  registerProductAndCallback({
-    id: "buy.20.gems",
-    alias: "20 Gems",
-    type: w.store.CONSUMABLE
+  $ionicPlatform.ready(function() {
+    if(w.store){
+      registerProductAndCallback({
+        id: "buy.20.gems",
+        alias: "20 Gems",
+        type: w.store.CONSUMABLE
+      });
+    
+      w.store.ready(function(){
+        // store is ready :)
+      });
+
+      $timeout(function(){
+        w.store.refresh();
+      }, 250);
+    }
   });
 
   this.getStore = function(){
