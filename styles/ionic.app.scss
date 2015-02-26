@@ -16,8 +16,18 @@ $dark:                            #444 !default;
 */
 
 // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../bower_components/ionic/fonts" !default;
+$ionicons-font-path: "../bower_components/ionic/release/fonts" !default;
+
+// To match the webapp more, changed colours
+$stable:						#f2f5f6;
+$bar-transparency:				1;
+$button-stable-text:			#3e5555;
+$item-divider-bg: 				$stable;
+
+
+$bar-stable-bg:                 #3e5555;
+$bar-stable-text:				#f2f5f6;
+
 
 // Include all of Ionic
 @import "../bower_components/ionic/scss/ionic";
-

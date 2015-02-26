@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
+var less = require('gulp-less');
 var jade = require('gulp-jade');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
@@ -56,11 +57,16 @@ var paths = {
     '!bower_components/angular-animate/**/**/*',
     '!bower_components/angular-sanitize/**/**/*',
     '!bower_components/angular-resource/**/**/*',
-    '!bower_components/angular-ui-router/**/**/*'
+    '!bower_components/angular-ui-router/**/**/*',
+    '!bower_components/jquery/**/**/*',
   ],
   common: [
     'node_modules/habitrpg/common/dist/**/**/*',
-    'node_modules/habitrpg/common/img/emoji/**/*'
+    'node_modules/habitrpg/common/img/emoji/**/*',
+    'node_modules/habitrpg/common/img/sprites/npc_ian.gif'
+  ],
+  fonts: [
+    'bower_components/bootstrap/fonts/*',
   ]
 };
 var dist = './www';
@@ -75,6 +81,20 @@ gulp.task('copy', ['clean'], function(){
     .pipe(gulp.dest(dist));
   gulp.src(paths.common,{ base: 'node_modules/habitrpg/'})
     .pipe(gulp.dest(dist));
+  gulp.src(paths.fonts,{ base: 'bower_components/bootstrap/' })
+    .pipe(gulp.dest(dist));
+});
+
+gulp.task('less', function() {
+  gulp.src('./styles/glyph.import.less')
+    .pipe(less())
+    .pipe(gulp.dest(dist+'/css/'))
+    .pipe(minifyCss({
+      keepSpecialComments: 0
+    }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(gulp.dest(dist+'/css/'))
+    .pipe(connect.reload())
 });
 
 gulp.task('sass', function() {
@@ -144,4 +164,4 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
 
-gulp.task('default', ['copy','sass','stylus','views','scripts','connect','watch']);
+gulp.task('default', ['copy','sass','less','stylus','views','scripts','connect','watch']);
