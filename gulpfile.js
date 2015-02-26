@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
-var less = require('gulp-less');
 var jade = require('gulp-jade');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
@@ -66,7 +65,7 @@ var paths = {
     'node_modules/habitrpg/common/img/sprites/npc_ian.gif'
   ],
   fonts: [
-    'bower_components/bootstrap/fonts/*',
+    'bower_components/bootstrap-sass/vendor/assets/fonts/bootstrap/*',
   ]
 };
 var dist = './www';
@@ -81,24 +80,12 @@ gulp.task('copy', ['clean'], function(){
     .pipe(gulp.dest(dist));
   gulp.src(paths.common,{ base: 'node_modules/habitrpg/'})
     .pipe(gulp.dest(dist));
-  gulp.src(paths.fonts,{ base: 'bower_components/bootstrap/' })
-    .pipe(gulp.dest(dist));
-});
-
-gulp.task('less', function() {
-  gulp.src('./styles/glyph.import.less')
-    .pipe(less())
-    .pipe(gulp.dest(dist+'/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest(dist+'/css/'))
-    .pipe(connect.reload())
+  gulp.src(paths.fonts,{ base: 'bower_components/bootstrap-sass/vendor/assets/fonts/bootstrap/' })
+    .pipe(gulp.dest(dist+'/fonts'));
 });
 
 gulp.task('sass', function() {
-  gulp.src('./styles/ionic.app.scss')
+  gulp.src('./styles/*.scss')
     .pipe(sass())
     .pipe(gulp.dest(dist+'/css/'))
     .pipe(minifyCss({
@@ -164,4 +151,4 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
 
-gulp.task('default', ['copy','sass','less','stylus','views','scripts','connect','watch']);
+gulp.task('default', ['copy','sass','stylus','views','scripts','connect','watch']);
