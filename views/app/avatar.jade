@@ -1,5 +1,5 @@
-mixin wallet
-  .row.wallet-box
+mixin wallet()
+  .row.wallet-box(style='{{!(user.flags.classSelected && !user.preferences.disableClasses) ? "padding-top: 16px":""}}')
     ul.col.toolbar-gems
       li.Pet_Currency_Gem2x.Gems
       li.gem-text {{user.balance * 4 | number:0}}
@@ -32,9 +32,10 @@ mixin avatar2(full)
           span.meter-text.value
             |  {{Math.floor(user.stats.exp) | number:0}} / {{Shared.tnl(user.stats.lvl) | number:0}}
         if full
+          .meter-label(ng-if='user.flags.classSelected && !user.preferences.disableClasses')
+            span.glyphicon.glyphicon-fire
           .meter.mana(class='#{full ? "":"sidebar"}', ng-if='user.flags.classSelected && !user.preferences.disableClasses')
             .bar(style='width: {{user.stats.mp / user._statsComputed.maxMP * 100}}%;')
-            span.meter-text
-              span.icon.ion-flash
+            span.meter-text.value
               |  {{Math.floor(user.stats.mp)}} / {{user._statsComputed.maxMP}}
         +wallet()
