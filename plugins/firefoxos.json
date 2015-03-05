@@ -35,6 +35,9 @@
         },
         "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.plugin.datepicker": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
     "dependent_plugins": {
