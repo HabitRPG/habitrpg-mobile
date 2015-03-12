@@ -1,0 +1,7 @@
+$bootstrap-sass-asset-helper: false;
+$icon-font-path: "../fonts/";
+$icon-font-name: "glyphicons-halflings-regular";
+$icon-font-svg-id: "glyphicons_halflingsregular";
+
+// Include all of Ionic
+@import "../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/glyphicons";

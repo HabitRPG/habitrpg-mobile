@@ -56,11 +56,16 @@ var paths = {
     '!bower_components/angular-animate/**/**/*',
     '!bower_components/angular-sanitize/**/**/*',
     '!bower_components/angular-resource/**/**/*',
-    '!bower_components/angular-ui-router/**/**/*'
+    '!bower_components/angular-ui-router/**/**/*',
+    '!bower_components/jquery/**/**/*',
   ],
   common: [
     'node_modules/habitrpg/common/dist/**/**/*',
-    'node_modules/habitrpg/common/img/emoji/**/*'
+    'node_modules/habitrpg/common/img/emoji/**/*',
+    'node_modules/habitrpg/common/img/sprites/npc_ian.gif'
+  ],
+  fonts: [
+    'bower_components/bootstrap-sass/vendor/assets/fonts/bootstrap/*',
   ]
 };
 var dist = './www';
@@ -75,10 +80,12 @@ gulp.task('copy', ['clean'], function(){
     .pipe(gulp.dest(dist));
   gulp.src(paths.common,{ base: 'node_modules/habitrpg/'})
     .pipe(gulp.dest(dist));
+  gulp.src(paths.fonts,{ base: 'bower_components/bootstrap-sass/vendor/assets/fonts/bootstrap/' })
+    .pipe(gulp.dest(dist+'/fonts'));
 });
 
 gulp.task('sass', function() {
-  gulp.src('./styles/ionic.app.scss')
+  gulp.src('./styles/*.scss')
     .pipe(sass())
     .pipe(gulp.dest(dist+'/css/'))
     .pipe(minifyCss({

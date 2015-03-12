@@ -6,6 +6,18 @@
 @import "../node_modules/habitrpg/website/public/css/menu"
 @import "../node_modules/habitrpg/website/public/css/customizer"
 
+.item-divider
+  margin-bottom 10px
+
+.item-divider.ng-binding
+  margin-bottom inherit
+
+.table-striped
+  margin-bottom 10px
+  
+.menu .scroll-content
+  top 147px
+
 .notif-bar
   .shop_gold, .shop_silver
     margin-top: 8px
@@ -43,16 +55,18 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .task-reward > .item-content {background-color: white !important;}
 
 .avatar-box
-  padding 5px 5px
+  padding 0
   vertical-align top
-  background-color #C9DAF8
+  overflow hidden
+  background-color #cfdbde
 .herobox
   max-width 140px
   max-height 150px
-  margin-right 5px
+  margin-right 10px
   float left
   outline none
   margin-bottom 0
+  background-color #dae3e5 !important
 .avatar-level
   span[tooltip="Level"]
     line-height 12px
@@ -60,10 +74,19 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
 .full .herobox:after {opacity: 1}
 .hero-stats
   display block
-  padding 0
+  padding 0 5px 
   margin 5px 3px 0 0
   .meter-text
     z-index 100
+  .meter-label
+    height 25px !important
+  .meter
+    height 25px !important
+    margin-bottom 0.4em
+    .value
+      font-size: 13px;
+      line-height: 23px;
+      padding-right: 5px;
 .meter
   padding 0
   height: 25px
@@ -85,7 +108,7 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   margin 0 auto
   font-size 0.9em
   width 110px
-  padding 3px 0 0 0
+  padding 6px 0 0 0
   .toolbar-gems
     padding-top 0
     margin-top 0
@@ -101,7 +124,8 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   padding 5px
   background-color #e5ebed
 .profile-background
-  background-color #e5ebed
+  background-color #cfdbde
+  padding: 0
 
 .rewards-wallet
   overflow: hidden

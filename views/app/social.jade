@@ -7,7 +7,7 @@ script(id='views/app.social.html',type='text/ng-template')
     a.tab-item(ng-class='{"tab-item-active": $state.is("app.social.guilds")}', ui-sref='app.social.guilds') Guilds
 
 script(id='views/app.social.party.html',type='text/ng-template')
-  .list(ng-if='party._id')
+  .list(ng-if='group._id')
     .item.item-divider {{ ::group.name}}
     .item
       p {{ ::group.description}}
