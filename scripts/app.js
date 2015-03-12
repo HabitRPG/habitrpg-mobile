@@ -18,7 +18,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
     $rootScope.isIOS = $ionicPlatform.is('iOS');
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.style(1);
     }
 
     $rootScope.resetLocalNotifications = function(){
