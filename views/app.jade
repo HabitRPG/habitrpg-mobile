@@ -27,9 +27,9 @@ script(id='views/app.html',type='text/ng-template')
           | {{getPreviousTitle() || 'Back'}}
 
       ion-nav-view(name='menuContent', animation='slide-left-right')
-    ion-side-menu(side='left')
+    ion-side-menu(side='left' ng-class='isIOS ? "ios" : ""')
       +avatar2(true)
-      ion-content(ng-class=':: {"has-header":isIOS}')
+      ion-content()
         ion-list
           each v,k in sideMenuItems
             ion-item(nav-clear, menu-close, href='#/app/#{k}')
