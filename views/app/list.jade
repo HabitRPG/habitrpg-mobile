@@ -44,7 +44,7 @@ mixin taskList(k)
                 +taskText()
 
                 if k=='todo'
-                  p(ng-if=" ::isDateSet(task)") {{ ::task.date}}
+                  p(ng-if=" ::isDateSet(task)") {{ ::task.date | date:(user.preferences.dateFormat.indexOf('yyyy') == 0 ? user.preferences.dateFormat.substr(5) : user.preferences.dateFormat.substr(0,5))}}
 
             if k=='reward'
               .item-button-right
