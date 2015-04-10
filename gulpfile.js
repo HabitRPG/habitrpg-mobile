@@ -13,16 +13,16 @@ var _ = require('habitrpg/node_modules/lodash');
 var fs = require('fs');
 var xml2js = require('xml2js');
 var shared = require('habitrpg/common');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 var paths = {
   sass:   ['./styles/**/*.scss'],
   stylus:   ['./styles/**/*.styl'],
   views:  ['./views/**/*.jade'],
   websiteViews: ['./node_modules/habitrpg/website/views/**/*.jade'],
-  scripts: [ // TODO a **/* with excludes
-    /* using custom build so we can use angular1.3+
-      ionic.bundle.js = [ionic.js, angular.js, angular-animate.js, angular-sanitize.js, angular-ui-router.js, ionic-angular.js]*/
-//    'bower_components/ionic/js/ionic.bundle.js',
+  scripts: [
+    'bower_components/collide/collide.js',
     'bower_components/ionic/release/js/ionic.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
@@ -51,17 +51,21 @@ var paths = {
   ],
   copy: [
     'config.xml',
-    'bower_components/**/**/*',
-    '!bower_components/angular/**/**/*',
-    '!bower_components/angular-animate/**/**/*',
-    '!bower_components/angular-sanitize/**/**/*',
-    '!bower_components/angular-resource/**/**/*',
-    '!bower_components/angular-ui-router/**/**/*',
-    '!bower_components/jquery/**/**/*',
+
+    'bower_components/ionic/release/css/ionic.min.css',
+    'bower_components/ionic/release/fonts/*',
+    
+    'bower_components/js-emoji/emoji.css'
+  ],
+  
+  imageMin: [
+    'node_modules/habitrpg/common/img/emoji/**/*',
   ],
   common: [
+    'node_modules/habitrpg/common/locales/en/*',
+    'node_modules/habitrpg/common/img/logo/*',
+    'node_modules/habitrpg/common/img/sprites/backer-only/*',
     'node_modules/habitrpg/common/dist/**/**/*',
-    'node_modules/habitrpg/common/img/emoji/**/*',
     'node_modules/habitrpg/common/img/sprites/npc_ian.gif'
   ],
   fonts: [
@@ -69,13 +73,23 @@ var paths = {
   ]
 };
 var dist = './www';
+var emojiDist = './www/common/img/emoji';
 
 gulp.task('clean', function(){
   return gulp.src('./www/bower_components/', {read: false})
     .pipe(rimraf())
 })
 
-gulp.task('copy', ['clean'], function(){
+gulp.task('minifyImages', ['clean'], function(){
+  return gulp.src(paths.imageMin)
+        .pipe(imagemin({
+          progressive: true,
+          use: [pngquant()]
+        }))
+        .pipe(gulp.dest(emojiDist));
+});
+
+gulp.task('copy', ['minifyImages'], function(){
   gulp.src(paths.copy,{ base: './' })
     .pipe(gulp.dest(dist));
   gulp.src(paths.common,{ base: 'node_modules/habitrpg/'})
