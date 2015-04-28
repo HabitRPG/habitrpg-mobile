@@ -1,6 +1,6 @@
 'use strict';
 
-var pushNotification, onNotification;
+var pushNotification, onNotification, executePushRegistration;
 
 document.addEventListener("deviceready", function(){
   if (window.analytics) {
@@ -77,18 +77,23 @@ document.addEventListener("deviceready", function(){
             break;
         }
       };
-      
-      pushNotification.register(
-          function (result) {
-            alert('result = ' + result);
-          },
-          function(error){
-            alert('error = '+error);
-          },
-          {
-            "senderID": "20738163915",
-            "ecb": "onNotification"
-          });
+
+      executePushRegistration = function() {
+
+        pushNotification.register(
+            function (result) {
+              console.info('result = ' + result);
+            },
+            function (error) {
+              console.error('error = ' + error);
+            },
+            {
+              "senderID": "20738163915",
+              "ecb": "onNotification"
+            });
+      };
+
+      executePushRegistration();
     }
   }
 
