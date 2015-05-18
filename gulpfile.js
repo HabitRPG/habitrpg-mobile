@@ -128,7 +128,8 @@ gulp.task('views', function(){
       return shared.i18n.t.apply(null, args);
     },
     Content:require('./node_modules/habitrpg/common').content},
-    moment:require('./node_modules/habitrpg/node_modules/moment')
+    moment:require('./node_modules/habitrpg/node_modules/moment'),
+    _: _
   }};
   // can't xml-parse synchronously, hence all this hubub
   new xml2js.Parser().parseString(fs.readFileSync(__dirname + '/config.xml'), function(err,res){
