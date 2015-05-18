@@ -17,6 +17,7 @@ habitrpg.controller('AuthCtrl',
     $scope.setApiEndpoint = function (newEndpoint) {
       habitrpg.value('API_URL', newEndpoint);
       localStorage.setItem('habitrpg-endpoint', newEndpoint);
+      $rootScope.settings.auth.apiEndpoint = newEndpoint;
       ApiUrl.setApiUrl(newEndpoint);
 
       return newEndpoint;
@@ -34,6 +35,8 @@ habitrpg.controller('AuthCtrl',
       $http.post(ApiUrl.get() + '/api/v2/register', registerVals)
         .success(function(data, status, headers, config) {
           User.authenticate(data.id, data.apiToken, function(err) {
+            executePushRegistration();
+
             $location.path("/habit");
           });
         })
@@ -50,6 +53,7 @@ habitrpg.controller('AuthCtrl',
 
     var runAuth = function(id, token){
       User.authenticate(id, token, function(err) {
+        executePushRegistration();
         $location.path("/habit");
       });
     }
@@ -83,7 +87,7 @@ habitrpg.controller('AuthCtrl',
     // ------ Social ----------
 
     hello.init({
-      facebook : '128307497299777',
+      facebook : '128307497299777'
     }, {redirect_uri : 'https://habitrpg.com'});
 
     $scope.socialLogin = function(network){

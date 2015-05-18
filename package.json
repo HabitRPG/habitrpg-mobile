@@ -22,5 +22,6 @@
   },
   "devDependencies": {
     "xml2js": "~0.4.4"
-  }
+  },
+  "cordovaPlugins": []
 }
