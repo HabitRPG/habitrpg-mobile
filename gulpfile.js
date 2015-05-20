@@ -118,18 +118,20 @@ gulp.task('stylus', function () {
 });
 
 gulp.task('views', function(){
-  var locals = {locals:{env:{
-    translations: i18n.translations['en'],
-    language: _.find(i18n.avalaibleLanguages, {code: 'en'}),
-    // TODO: use actual env.t() function with translations
-    t: function(){ // stringName and vars are the allowed parameters
-      var args = Array.prototype.slice.call(arguments, 0);
-      args.push('en');
-      return shared.i18n.t.apply(null, args);
+  var locals = {locals:{
+    env:{
+      translations: i18n.translations['en'],
+      language: _.find(i18n.avalaibleLanguages, {code: 'en'}),
+      // TODO: use actual env.t() function with translations
+      t: function(){ // stringName and vars are the allowed parameters
+        var args = Array.prototype.slice.call(arguments, 0);
+        args.push('en');
+        return shared.i18n.t.apply(null, args);
+      },
+      Content:require('./node_modules/habitrpg/common').content,
+      _: _
     },
-    Content:require('./node_modules/habitrpg/common').content},
-    moment:require('./node_modules/habitrpg/node_modules/moment'),
-    _: _
+    moment:require('./node_modules/habitrpg/node_modules/moment')
   }};
   // can't xml-parse synchronously, hence all this hubub
   new xml2js.Parser().parseString(fs.readFileSync(__dirname + '/config.xml'), function(err,res){

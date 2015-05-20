@@ -15,8 +15,6 @@
     "ngCordova": "~0.1.11-alpha"
   },
   "devDependencies": {
-    "gulp-imagemin": "^2.1.0",
-    "imagemin-pngquant": "^4.0.0"
   },
   "resolutions": {
     "angular-sanitize": "1.3.0-beta.11",
