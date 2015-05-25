@@ -1,256 +1,755 @@
 /*
-    Copyright 2013-2014 appPlant UG
+ * Copyright (c) 2013-2015 by appPlant UG. All rights reserved.
+ *
+ * @APPPLANT_LICENSE_HEADER_START@
+ *
+ * This file contains Original Code and/or Modifications of Original Code
+ * as defined in and that are subject to the Apache License
+ * Version 2.0 (the 'License'). You may not use this file except in
+ * compliance with the License. Please obtain a copy of the License at
+ * http://opensource.org/licenses/Apache-2.0/ and read it before using this
+ * file.
+ *
+ * The Original Code and all software distributed under the License are
+ * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ * Please see the License for the specific language governing rights and
+ * limitations under the License.
+ *
+ * @APPPLANT_LICENSE_HEADER_END@
+ */
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+var exec    = require('cordova/exec'),
+    channel = require('cordova/channel');
 
-     http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
-*/
+/*************
+ * INTERFACE *
+ *************/
 
-var LocalNotification = function () {
-    this._defaults = {
-        message:    '',
-        title:      '',
-        autoCancel: false,
-        badge:      0,
-        id:         '0',
-        json:       '',
-        repeat:     ''
-    };
+/**
+ * Returns the default settings.
+ *
+ * @return {Object}
+ */
+exports.getDefaults = function () {
+    return this._defaults;
 };
 
-LocalNotification.prototype = {
-    /**
-     * Returns the default settings
-     *
-     * @return {Object}
-     */
-    getDefaults: function () {
-        return this._defaults;
-    },
+/**
+ * Overwrite default settings.
+ *
+ * @param {Object} defaults
+ */
+exports.setDefaults = function (newDefaults) {
+    var defaults = this.getDefaults();
 
-    /**
-     * Overwrite default settings
-     *
-     * @param {Object} defaults
-     */
-    setDefaults: function (newDefaults) {
-        var defaults = this.getDefaults();
-
-        for (var key in defaults) {
-            if (newDefaults[key] !== undefined) {
-                defaults[key] = newDefaults[key];
-            }
+    for (var key in defaults) {
+        if (newDefaults.hasOwnProperty(key)) {
+            defaults[key] = newDefaults[key];
         }
-    },
+    }
+};
 
-    /**
-     * @private
-     * Merge settings with default values
-     *
-     * @param {Object} options
-     * @retrun {Object}
-     */
-    mergeWithDefaults: function (options) {
-        var defaults = this.getDefaults();
+/**
+ * Schedule a new local notification.
+ *
+ * @param {Object} opts
+ *      The notification properties
+ * @param {Function} callback
+ *      A function to be called after the notification has been canceled
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.schedule = function (opts, callback, scope) {
+    this.registerPermission(function(granted) {
 
-        for (var key in defaults) {
-            if (options[key] === undefined) {
+        if (!granted)
+            return;
+
+        var notifications = Array.isArray(opts) ? opts : [opts];
+
+        for (var i = 0; i < notifications.length; i++) {
+            var properties = notifications[i];
+
+            this.mergeWithDefaults(properties);
+            this.convertProperties(properties);
+        }
+
+        this.exec('schedule', notifications, callback, scope);
+    }, this);
+};
+
+/**
+ * Update existing notifications specified by IDs in options.
+ *
+ * @param {Object} options
+ *      The notification properties to update
+ * @param {Function} callback
+ *      A function to be called after the notification has been updated
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.update = function (opts, callback, scope) {
+    var notifications = Array.isArray(opts) ? opts : [opts];
+
+    for (var i = 0; i < notifications.length; i++) {
+        var properties = notifications[i];
+
+        this.convertProperties(properties);
+    }
+
+    this.exec('update', notifications, callback, scope);
+};
+
+/**
+ * Clear the specified notification.
+ *
+ * @param {String} id
+ *      The ID of the notification
+ * @param {Function} callback
+ *      A function to be called after the notification has been cleared
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.clear = function (ids, callback, scope) {
+    ids = Array.isArray(ids) ? ids : [ids];
+
+    ids = this.convertIds(ids);
+
+    this.exec('clear', ids, callback, scope);
+};
+
+/**
+ * Clear all previously sheduled notifications.
+ *
+ * @param {Function} callback
+ *      A function to be called after all notifications have been cleared
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.clearAll = function (callback, scope) {
+    this.exec('clearAll', null, callback, scope);
+};
+
+/**
+ * Cancel the specified notifications.
+ *
+ * @param {String[]} ids
+ *      The IDs of the notifications
+ * @param {Function} callback
+ *      A function to be called after the notifications has been canceled
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.cancel = function (ids, callback, scope) {
+
+    ids = Array.isArray(ids) ? ids : [ids];
+
+    ids = this.convertIds(ids);
+
+    this.exec('cancel', ids, callback, scope);
+};
+
+/**
+ * Remove all previously registered notifications.
+ *
+ * @param {Function} callback
+ *      A function to be called after all notifications have been canceled
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.cancelAll = function (callback, scope) {
+    this.exec('cancelAll', null, callback, scope);
+};
+
+/**
+ * Check if a notification with an ID is present.
+ *
+ * @param {String} id
+ *      The ID of the notification
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.isPresent = function (id, callback, scope) {
+    var notId = (id || '0').toString();
+
+    this.exec('isPresent', notId, callback, scope);
+};
+
+/**
+ * Check if a notification with an ID is scheduled.
+ *
+ * @param {String} id
+ *      The ID of the notification
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.isScheduled = function (id, callback, scope) {
+    var notId = (id || '0').toString();
+
+    this.exec('isScheduled', notId, callback, scope);
+};
+
+/**
+ * Check if a notification with an ID was triggered.
+ *
+ * @param {String} id
+ *      The ID of the notification
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.isTriggered = function (id, callback, scope) {
+    var notId = (id || '0').toString();
+
+    this.exec('isTriggered', notId, callback, scope);
+};
+
+/**
+ * List all local notification IDs.
+ *
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getAllIds = function (callback, scope) {
+    this.exec('getAllIds', null, callback, scope);
+};
+
+/**
+ * Alias for `getAllIds`.
+ */
+exports.getIds = function () {
+    this.getAllIds.apply(this, arguments);
+};
+
+/**
+ * List all scheduled notification IDs.
+ *
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getScheduledIds = function (callback, scope) {
+    this.exec('getScheduledIds', null, callback, scope);
+};
+
+/**
+ * List all triggered notification IDs.
+ *
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getTriggeredIds = function (callback, scope) {
+    this.exec('getTriggeredIds', null, callback, scope);
+};
+
+/**
+ * Property list for given local notifications.
+ * If called without IDs, all notification will be returned.
+ *
+ * @param {Number[]?} ids
+ *      Set of notification IDs
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.get = function () {
+    var args = Array.apply(null, arguments);
+
+    if (typeof args[0] == 'function') {
+        args.unshift([]);
+    }
+
+    var ids      = args[0],
+        callback = args[1],
+        scope    = args[2];
+
+    if (!Array.isArray(ids)) {
+        ids = [ids];
+    }
+
+    ids = this.convertIds(ids);
+
+    this.exec('getAll', ids, callback, scope);
+};
+
+/**
+ * Property list for all local notifications.
+ *
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getAll = function (callback, scope) {
+    this.exec('getAll', null, callback, scope);
+};
+
+/**
+ * Property list for given scheduled notifications.
+ * If called without IDs, all notification will be returned.
+ *
+ * @param {Number[]?} ids
+ *      Set of notification IDs
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getScheduled = function () {
+    var args = Array.apply(null, arguments);
+
+    if (typeof args[0] == 'function') {
+        args.unshift([]);
+    }
+
+    var ids      = args[0],
+        callback = args[1],
+        scope    = args[2];
+
+    if (!Array.isArray(ids)) {
+        ids = [ids];
+    }
+
+    ids = this.convertIds(ids);
+
+    this.exec('getScheduled', ids, callback, scope);
+};
+
+/**
+ * Retrieve the properties for all scheduled notifications.
+ *
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getAllScheduled = function (callback, scope) {
+    this.exec('getScheduled', null, callback, scope);
+};
+
+/**
+ * Property list for given triggered notifications.
+ * If called without IDs, all notification will be returned.
+ *
+ * @param {Number[]?} ids
+ *      Set of notification IDs
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getTriggered = function () {
+    var args = Array.apply(null, arguments);
+
+    if (typeof args[0] == 'function') {
+        args.unshift([]);
+    }
+
+    var ids      = args[0],
+        callback = args[1],
+        scope    = args[2];
+
+    if (!Array.isArray(ids)) {
+        ids = [ids];
+    }
+
+    ids = this.convertIds(ids);
+
+    this.exec('getTriggered', ids, callback, scope);
+};
+
+/**
+ * Retrieve the properties for all triggered notifications.
+ *
+ * @param {Function} callback
+ *      A callback function to be called with the list
+ * @param {Object?} scope
+ *      The scope for the callback function
+ */
+exports.getAllTriggered = function (callback, scope) {
+    this.exec('getTriggered', null, callback, scope);
+};
+
+/**
+ * Informs if the app has the permission to show notifications.
+ *
+ * @param {Function} callback
+ *      The function to be exec as the callback
+ * @param {Object?} scope
+ *      The callback function's scope
+ */
+exports.hasPermission = function (callback, scope) {
+    var fn = this.createCallbackFn(callback, scope);
+
+    if (device.platform != 'iOS') {
+        fn(true);
+        return;
+    }
+
+    exec(fn, null, 'LocalNotification', 'hasPermission', []);
+};
+
+/**
+ * Register permission to show notifications if not already granted.
+ *
+ * @param {Function} callback
+ *      The function to be exec as the callback
+ * @param {Object?} scope
+ *      The callback function's scope
+ */
+exports.registerPermission = function (callback, scope) {
+    var fn = this.createCallbackFn(callback, scope);
+
+    if (device.platform != 'iOS') {
+        fn(true);
+        return;
+    }
+
+    exec(fn, null, 'LocalNotification', 'registerPermission', []);
+};
+
+
+/****************
+ * DEPRECATIONS *
+ ****************/
+
+/**
+ * Schedule a new local notification.
+ */
+exports.add = function () {
+    console.warn('Depreated: Please use `notification.local.schedule` instead.');
+
+    exports.schedule.apply(this, arguments);
+};
+
+/**
+ * Register permission to show notifications
+ * if not already granted.
+ */
+exports.promptForPermission = function () {
+    console.warn('Depreated: Please use `notification.local.registerPermission` instead.');
+
+    exports.registerPermission.apply(this, arguments);
+};
+
+
+/**********
+ * EVENTS *
+ **********/
+
+/**
+ * Register callback for given event.
+ *
+ * @param {String} event
+ *      The event's name
+ * @param {Function} callback
+ *      The function to be exec as callback
+ * @param {Object?} scope
+ *      The callback function's scope
+ */
+exports.on = function (event, callback, scope) {
+
+    if (!this._listener[event]) {
+        this._listener[event] = [];
+    }
+
+    var item = [callback, scope || window];
+
+    this._listener[event].push(item);
+};
+
+/**
+ * Unregister callback for given event.
+ *
+ * @param {String} event
+ *      The event's name
+ * @param {Function} callback
+ *      The function to be exec as callback
+ */
+exports.un = function (event, callback) {
+    var listener = this._listener[event];
+
+    if (!listener)
+        return;
+
+    for (var i = 0; i < listener.length; i++) {
+        var fn = listener[i][0];
+
+        if (fn == callback) {
+            listener.splice(i, 1);
+            break;
+        }
+    }
+};
+
+
+/***********
+ * MEMBERS *
+ ***********/
+
+// Default values
+exports._defaults = {
+    text:  '',
+    title: '',
+    sound: 'res://platform_default',
+    badge: 0,
+    id:    "0",
+    data:  undefined,
+    every: undefined,
+    at:    undefined
+};
+
+// listener
+exports._listener = {};
+
+
+/***********
+ * PRIVATE *
+ ***********/
+
+/**
+ * Merge custom properties with the default values.
+ *
+ * @param {Object} options
+ *      Set of custom values
+ *
+ * @retrun {Object}
+ *      The merged property list
+ */
+exports.mergeWithDefaults = function (options) {
+    var defaults = this.getDefaults();
+
+    options.at   = this.getValueFor(options, 'at', 'firstAt', 'date');
+    options.text = this.getValueFor(options, 'text', 'message');
+    options.data = this.getValueFor(options, 'data', 'json');
+
+    if (options.at === undefined || options.at === null) {
+        options.at = new Date();
+    }
+
+    for (var key in defaults) {
+        if (options[key] === null || options[key] === undefined) {
+            if (options.hasOwnProperty(key) && ['data','sound'].indexOf(key) > -1) {
+                options[key] = undefined;
+            } else {
                 options[key] = defaults[key];
             }
         }
+    }
 
-        return options;
-    },
-
-    /**
-     * @private
-     */
-    applyPlatformSpecificOptions: function () {
-        var defaults = this._defaults;
-
-        switch (device.platform) {
-        case 'Android':
-            defaults.icon       = 'icon';
-            defaults.smallIcon  = null;
-            defaults.ongoing    = false;
-            defaults.sound      = 'TYPE_NOTIFICATION'; break;
-        case 'iOS':
-            defaults.sound      = ''; break;
-        case 'WinCE': case 'Win32NT':
-            defaults.smallImage = null;
-            defaults.image      = null;
-            defaults.wideImage  = null;
-        };
-    },
-
-    /**
-     * Add a new entry to the registry
-     *
-     * @param {Object} options
-     * @return {Number} The notification's ID
-     */
-    add: function (options) {
-        var options    = this.mergeWithDefaults(options),
-            callbackFn = null;
-
-        if (options.id) {
-            options.id = options.id.toString();
+    for (key in options) {
+        if (!defaults.hasOwnProperty(key)) {
+            delete options[key];
         }
+    }
 
-        if (options.date === undefined) {
-            options.date = new Date();
-        }
-
-        if (typeof options.date == 'object') {
-            options.date = Math.round(options.date.getTime()/1000);
-        }
-
-        if (['WinCE', 'Win32NT'].indexOf(device.platform)) {
-            callbackFn = function (cmd) {
-                eval(cmd);
-            };
-        }
-
-        cordova.exec(callbackFn, null, 'LocalNotification', 'add', [options]);
-
-        return options.id;
-    },
-
-    /**
-     * Cancels the specified notification
-     *
-     * @param {String} id of the notification
-     */
-    cancel: function (id) {
-        cordova.exec(null, null, 'LocalNotification', 'cancel', [id.toString()]);
-    },
-
-    /**
-     * Removes all previously registered notifications
-     */
-    cancelAll: function () {
-        cordova.exec(null, null, 'LocalNotification', 'cancelAll', []);
-    },
-
-    /**
-     * @async
-     *
-     * Retrieves a list with all currently pending notifications.
-     *
-     * @param {Function} callback
-     */
-    getScheduledIds: function (callback) {
-        cordova.exec(callback, null, 'LocalNotification', 'getScheduledIds', []);
-    },
-
-    /**
-     * @async
-     *
-     * Checks wether a notification with an ID is scheduled.
-     *
-     * @param {String}   id
-     * @param {Function} callback
-     */
-    isScheduled: function (id, callback) {
-        cordova.exec(callback, null, 'LocalNotification', 'isScheduled', [id.toString()]);
-    },
-
-    /**
-     * Informs if the app has the permission to show badges.
-     *
-     * @param {Function} callback
-     *      The function to be exec as the callback
-     * @param {Object?} scope
-     *      The callback function's scope
-     */
-    hasPermission: function (callback, scope) {
-        var fn = function (badge) {
-            callback.call(scope || this, badge);
-        };
-
-        cordova.exec(fn, null, 'LocalNotification', 'hasPermission', []);
-    },
-
-    /**
-     * Ask for permission to show badges if not already granted.
-     */
-    promptForPermission: function () {
-        cordova.exec(null, null, 'LocalNotification', 'promptForPermission', []);
-    },
-
-    /**
-     * Occurs when a notification was added.
-     *
-     * @param {String} id    The ID of the notification
-     * @param {String} state Either "foreground" or "background"
-     * @param {String} json  A custom (JSON) string
-     */
-    onadd: function (id, state, json) {},
-
-    /**
-     * Occurs when the notification is triggered.
-     *
-     * @param {String} id    The ID of the notification
-     * @param {String} state Either "foreground" or "background"
-     * @param {String} json  A custom (JSON) string
-     */
-    ontrigger: function (id, state, json) {},
-
-    /**
-     * Fires after the notification was clicked.
-     *
-     * @param {String} id    The ID of the notification
-     * @param {String} state Either "foreground" or "background"
-     * @param {String} json  A custom (JSON) string
-     */
-    onclick: function (id, state, json) {},
-
-    /**
-     * Fires if the notification was canceled.
-     *
-     * @param {String} id    The ID of the notification
-     * @param {String} state Either "foreground" or "background"
-     * @param {String} json  A custom (JSON) string
-     */
-    oncancel: function (id, state, json) {}
+    return options;
 };
 
-var plugin  = new LocalNotification(),
-    channel = require('cordova/channel');
+/**
+ * Convert the passed values to their required type.
+ *
+ * @param {Object} options
+ *      Set of custom values
+ *
+ * @retrun {Object}
+ *      The converted property list
+ */
+exports.convertProperties = function (options) {
 
-channel.deviceready.subscribe( function () {
-    cordova.exec(null, null, 'LocalNotification', 'deviceready', []);
+    if (options.id) {
+        if (isNaN(options.id)) {
+            options.id = this.getDefaults().id;
+        } else {
+            options.id = options.id.toString();
+        }
+    }
+
+    if (options.title) {
+        options.title = options.title.toString();
+    }
+
+    if (options.text) {
+        options.text  = options.text.toString();
+    }
+
+    if (options.badge) {
+        if (isNaN(options.badge)) {
+            options.badge = this.getDefaults().badge;
+        } else {
+            options.badge = Number(options.badge);
+        }
+    }
+
+    if (typeof options.at == 'object') {
+        options.at = Math.round(options.at.getTime()/1000);
+    }
+
+    if (typeof options.data == 'object') {
+        options.data = JSON.stringify(options.data);
+    }
+
+    return options;
+};
+
+/**
+ * Merge platform specific properties into the default ones.
+ *
+ * @return {Object}
+ *      The default properties for the platform
+ */
+exports.applyPlatformSpecificOptions = function () {
+    var defaults = this._defaults;
+
+    switch (device.platform) {
+    case 'Android':
+        defaults.icon      = 'res://icon';
+        defaults.smallIcon = 'res://ic_popup_reminder';
+        defaults.ongoing   = false;
+        defaults.led       = 'FFFFFF';
+        break;
+    }
+
+    return defaults;
+};
+
+/**
+ * Create callback, which will be executed within a specific scope.
+ *
+ * @param {Function} callbackFn
+ *      The callback function
+ * @param {Object} scope
+ *      The scope for the function
+ *
+ * @return {Function}
+ *      The new callback function
+ */
+exports.createCallbackFn = function (callbackFn, scope) {
+    if (typeof callbackFn != 'function')
+        return;
+
+    return function () {
+        callbackFn.apply(scope || this, arguments);
+    };
+};
+
+/**
+ * Convert the IDs to Strings.
+ *
+ * @param {String/Number[]} ids
+ *
+ * @return Array of Strings
+ */
+exports.convertIds = function (ids) {
+    var convertedIds = [];
+
+    for (var i = 0; i < ids.length; i++) {
+        convertedIds.push(ids[i].toString());
+    }
+
+    return convertedIds;
+};
+
+/**
+ * First found value for the given keys.
+ *
+ * @param {Object} options
+ *      Object with key-value properties
+ * @param {String[]} keys*
+ *      Key list
+ */
+exports.getValueFor = function (options) {
+    var keys = Array.apply(null, arguments).slice(1);
+
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+
+        if (options.hasOwnProperty(key)) {
+            return options[key];
+        }
+    }
+};
+
+/**
+ * Fire event with given arguments.
+ *
+ * @param {String} event
+ *      The event's name
+ * @param {args*}
+ *      The callback's arguments
+ */
+exports.fireEvent = function (event) {
+    var args     = Array.apply(null, arguments).slice(1),
+        listener = this._listener[event];
+
+    if (!listener)
+        return;
+
+    for (var i = 0; i < listener.length; i++) {
+        var fn    = listener[i][0],
+            scope = listener[i][1];
+
+        fn.apply(scope, args);
+    }
+};
+
+/**
+ * Execute the native counterpart.
+ *
+ * @param {String} action
+ *      The name of the action
+ * @param args[]
+ *      Array of arguments
+ * @param {Function} callback
+ *      The callback function
+ * @param {Object} scope
+ *      The scope for the function
+ */
+exports.exec = function (action, args, callback, scope) {
+    var fn = this.createCallbackFn(callback, scope),
+        params = [];
+
+    if (Array.isArray(args)) {
+        params = args;
+    } else if (args) {
+        params.push(args);
+    }
+
+    exec(fn, null, 'LocalNotification', action, params);
+};
+
+
+/*********
+ * HOOKS *
+ *********/
+
+// Called after 'deviceready' event
+channel.deviceready.subscribe(function () {
+    // Device is ready now, the listeners are registered
+    // and all queued events can be executed.
+    exec(null, null, 'LocalNotification', 'deviceready', []);
 });
 
-channel.onCordovaReady.subscribe( function () {
-    channel.onCordovaInfoReady.subscribe( function () {
-        if (device.platform == 'Android') {
-            channel.onPause.subscribe( function () {
-                cordova.exec(null, null, 'LocalNotification', 'pause', []);
-            });
-
-            channel.onResume.subscribe( function () {
-                cordova.exec(null, null, 'LocalNotification', 'resume', []);
-            });
-
-            cordova.exec(null, null, 'LocalNotification', 'resume', []);
-        }
-
-        plugin.applyPlatformSpecificOptions();
+// Called before 'deviceready' event
+channel.onCordovaReady.subscribe(function () {
+    // Device plugin is ready now
+    channel.onCordovaInfoReady.subscribe(function () {
+        // Merge platform specifics into defaults
+        exports.applyPlatformSpecificOptions();
     });
 });
-
-module.exports = plugin;

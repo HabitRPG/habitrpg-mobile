@@ -1,27 +1,18 @@
 {
-    "version": "0.7.8",
+    "version": "0.8.1",
     "name": "de.appplant.cordova.plugin.local-notification",
     "cordova_name": "LocalNotification",
-    "description": "A bunch of local-notification plugins for Cordova 3.x.x",
+    "description": "The plugin supports scheduling local notifications in various ways with a single interface. It also allows you to update, clear or cancel them. There are different interfaces to query for local notifications and a complete set of events to hook into the life cycle of local notifications. To get a deep overview we recommend to read about all the topics in our wiki and try out the Kitchen Sink App",
     "license": "Apache 2.0",
-    "repo": "https://github.com/katzer/cordova-plugin-local-notifications/tree/0.7",
+    "repo": "https://github.com/katzer/cordova-plugin-local-notifications.git",
     "keywords": [
+        "appplant",
         "notification",
-        " local notification",
-        " alarm",
-        " scheduler",
-        " tile",
-        " live tiles",
-        " ios",
-        " android",
-        " windows phone 8",
-        " wp8",
-        " iOS8"
+        "local notification"
     ],
     "platforms": [
         "ios",
-        "android",
-        "wp8"
+        "android"
     ],
     "engines": [
         {
