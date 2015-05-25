@@ -39,14 +39,17 @@ function(ApiUrl, $rootScope, User, $ionicPlatform, $timeout){
       });
   }
 
-  $ionicPlatform.ready(function() {
+  var storeInitialized = false;
+
+  function initializeStore()
+  {
     if(w.store){
       registerProductAndCallback({
         id: "buy.20.gems",
         alias: "20 Gems",
         type: w.store.CONSUMABLE
       });
-    
+
       w.store.ready(function(){
         // store is ready :)
       });
@@ -54,10 +57,25 @@ function(ApiUrl, $rootScope, User, $ionicPlatform, $timeout){
       $timeout(function(){
         w.store.refresh();
       }, 250);
+
+      storeInitialized = true;
     }
+    else
+    {
+      console.log("No store available");
+    }
+  }
+
+  $ionicPlatform.ready(function() {
+    $timeout(initializeStore, 500);
   });
 
   this.getStore = function(){
+    if(!storeInitialized)
+    {
+      initializeStore();
+    }
+
     return w.store || {};
   };
 }]);

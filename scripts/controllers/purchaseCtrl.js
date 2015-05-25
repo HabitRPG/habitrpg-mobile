@@ -3,8 +3,6 @@
 habitrpg.controller('PurchaseCtrl', 
   ['$scope', 'StoreService', '$rootScope', 'ApiUrl',
   function($scope, store, $rootScope, ApiUrl){
-    $scope.store = store.getStore();
-
     $scope.buy = function(id){
       if($rootScope.isIOS){
         alert("In-App-Purchases are currently not available on IOS.");
@@ -17,7 +15,7 @@ habitrpg.controller('PurchaseCtrl',
       }
 
       try{
-        $scope.store.order(id)
+        store.getStore().order(id)
           .then(function(ex){
             // Callback Order started
           })
