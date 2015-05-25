@@ -1,14 +1,20 @@
 mixin wallet()
   .row.wallet-box(style='{{!(user.flags.classSelected && !user.preferences.disableClasses) ? "padding-top: 16px":""}}')
-    ul.col.toolbar-gems
-      li.Pet_Currency_Gem2x.Gems
-      li.gem-text {{user.balance * 4 | number:0}}
-    ul.col.toolbar-currency.gold
-      li.shop_gold
-      li {{Shared.gold(user.stats.gp) | goldRoundThousandsToK}}
-    ul.col.toolbar-currency.silver
-      li.shop_silver
-      li {{Shared.silver(user.stats.gp)}}
+    table
+      tr
+        td.toolbar-gems
+          div.Pet_Currency_Gem2x.Gems
+        td.toolbar-currency.gold
+          div.shop_gold
+        td.toolbar-currency.silver
+          div.shop_silver
+      tr
+        td(text-align='center')
+          div.gem-text {{user.balance * 4 | number:0}}
+        td
+          div {{Shared.gold(user.stats.gp) | goldRoundThousandsToK}}
+        td
+          div {{Shared.silver(user.stats.gp)}}
 
 mixin avatar2(full)
   .avatar-box(ng-init='profile=user',class='#{full ? "full" : ""}')
