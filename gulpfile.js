@@ -59,7 +59,7 @@ var paths = {
   ],
   
   imageMin: [
-    'node_modules/habitrpg/common/img/emoji/**/*',
+    'node_modules/habitrpg/common/img/emoji/**/*'
   ],
   common: [
     'node_modules/habitrpg/common/locales/en/*',
@@ -69,7 +69,7 @@ var paths = {
     'node_modules/habitrpg/common/img/sprites/npc_ian.gif'
   ],
   fonts: [
-    'bower_components/bootstrap-sass/vendor/assets/fonts/bootstrap/*',
+    'bower_components/bootstrap-sass/vendor/assets/fonts/bootstrap/*'
   ]
 };
 var dist = './www';
@@ -78,7 +78,7 @@ var emojiDist = './www/common/img/emoji';
 gulp.task('clean', function(){
   return gulp.src('./www/bower_components/', {read: false})
     .pipe(rimraf())
-})
+});
 
 gulp.task('minifyImages', ['clean'], function(){
   return gulp.src(paths.imageMin)
