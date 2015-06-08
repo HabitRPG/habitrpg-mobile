@@ -2,6 +2,8 @@
 
 var pushNotification, onNotification, executePushRegistration;
 
+executePushRegistration = function(){};
+
 document.addEventListener("deviceready", function(){
   if (window.analytics) {
     analytics.startTrackerWithId("UA-33510635-2");
@@ -119,6 +121,7 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
     }
 
     $rootScope.resetLocalNotifications = function(){
+      if (!$ionicPlatform.is('Android')) return;
       var reminderTimeString = localStorage.getItem("REMINDER_TIME");
 
       $cordovaLocalNotification.cancelAll();

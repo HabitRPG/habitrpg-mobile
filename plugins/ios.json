@@ -7,34 +7,39 @@
         "files": {
             "framework": {
                 "parents": {
-                    "StoreKit.framework": [],
+                    "StoreKit.framework": [
+                        {
+                            "xml": false,
+                            "count": 1
+                        }
+                    ],
                     "SystemConfiguration.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "CoreData.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "libz.dylib": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "libsqlite3.0.dylib": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "CoreGraphics.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ]
@@ -44,7 +49,19 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"InAppPurchase\"><param name=\"ios-package\" value=\"InAppPurchase\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DatePicker\"><param name=\"ios-package\" value=\"DatePicker\" /></feature>",
                             "count": 1
                         },
                         {
@@ -53,6 +70,10 @@
                         },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
                         {
@@ -77,13 +98,22 @@
         }
     },
     "installed_plugins": {
+        "cc.fovea.cordova.purchase": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
         "com.danielcwilson.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
-        "org.apache.cordova.device": {
+        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.inappbrowser": {
@@ -93,5 +123,9 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        }
+    }
 }

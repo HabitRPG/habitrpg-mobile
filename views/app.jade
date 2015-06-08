@@ -32,7 +32,7 @@ script(id='views/app.html',type='text/ng-template')
       ion-content()
         ion-list
           each v,k in sideMenuItems
-            ion-item(nav-clear, menu-close, href='#/app/#{k}')
+            ion-item(nav-clear, menu-close, href='#/app/#{k}', ng-if="!(isIOS && '#{k}'=='purchase')")
               //-img(ng-src='assets/sidebar-icon-#{k}.png')
               | #{v}
 

@@ -68,22 +68,57 @@ script(id="views/app.task.html",type='text/ng-template')
                 a.button.icon.ion-android-add(ng-click='task.up = !task.up', ng-class='{"active":task.up}')
                 a.button.icon.ion-android-remove(ng-click='task.down = !task.down', ng-class='{"active":task.down}')
             // Dailies
+            .item.item-text-wrap(ng-if='task.startDate')
+              span.input-label Start Date: {{task.startDate | date:'MM/dd/yyyy'}} 
+              div If you would like to edit this value, you can do so on the website
+
             .item(ng-if='task.type == "daily"')
+
               span.input-label Repeat
-              .button-bar
-                a.button(ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)', ng-class='{"active":task.repeat.su}') Sun
-                a.button(ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)', ng-class=  '{"active":task.repeat.m}') M
-                a.button(ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)', ng-class=  '{"active":task.repeat.t}') T
-                a.button(ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)', ng-class=  '{"active":task.repeat.w}') W
-              .button-bar
-                a.button(ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)', ng-class='{"active":task.repeat.th}') Th
-                a.button(ng-click='task.challenge.id || (task.repeat.f = !task.repeat.f)', ng-class=  '{"active":task.repeat.f}') F
-                a.button(ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', ng-class=  '{"active":task.repeat.s}') S
+
+              // the !task.frequency bit is temporary, for when new daily behavior is not yet live
+              // @TODO, clean up when dailies change is live
+              div(ng-if='!task.frequency') // This whole section can be deleted after PR is live
+                .button-bar
+                  a.button(ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)', ng-class='{"active":task.repeat.su}') Sun
+                  a.button(ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)', ng-class=  '{"active":task.repeat.m}') M
+                  a.button(ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)', ng-class=  '{"active":task.repeat.t}') T
+                  a.button(ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)', ng-class=  '{"active":task.repeat.w}') W
+                .button-bar
+                  a.button(ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)', ng-class='{"active":task.repeat.th}') Th
+                  a.button(ng-click='task.challenge.id || (task.repeat.f = !task.repeat.f)', ng-class=  '{"active":task.repeat.f}') F
+                  a.button(ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', ng-class=  '{"active":task.repeat.s}') S
+              // remove ng-if check after pr is live
+              .list(ng-if='task.frequency') 
+                label.item.item-input.item-select
+                  .input-label Frequency
+                  select.form-control(ng-model='task.frequency', ng-disabled='task.challenge.id')
+                    option(value='weekly') On Certain Days of the Week
+                    option(value='daily') Every X Days
+                .item.item-wrap-text(ng-if='task.challenge.id') Cannot change frequency of challenge task
+
+              div(ng-if='task.frequency == "weekly"')
+                .button-bar
+                  a.button(ng-click='task.challenge.id || (task.repeat.su = !task.repeat.su)', ng-class='{"active":task.repeat.su}') Sun
+                  a.button(ng-click='task.challenge.id || (task.repeat.m = !task.repeat.m)', ng-class=  '{"active":task.repeat.m}') M
+                  a.button(ng-click='task.challenge.id || (task.repeat.t = !task.repeat.t)', ng-class=  '{"active":task.repeat.t}') T
+                  a.button(ng-click='task.challenge.id || (task.repeat.w = !task.repeat.w)', ng-class=  '{"active":task.repeat.w}') W
+                .button-bar
+                  a.button(ng-click='task.challenge.id || (task.repeat.th = !task.repeat.th)', ng-class='{"active":task.repeat.th}') Th
+                  a.button(ng-click='task.challenge.id || (task.repeat.f = !task.repeat.f)', ng-class=  '{"active":task.repeat.f}') F
+                  a.button(ng-click='task.challenge.id || (task.repeat.s = !task.repeat.s)', ng-class=  '{"active":task.repeat.s}') S
+
+              .list(ng-if='task.frequency == "daily"')
+                .item.item-input
+                  input(type='number', ng-model='task.everyX', min='0')
+                  span.input-label days
+                
 
             // Todos
             .item(ng-show='task.type == "todo"')
               span.input-label Due Date
               input(type='date' ng-model='task.date')
+
             .item(ng-hide='task.type == "reward"')
               span.input-label Difficulty
               .button-bar
