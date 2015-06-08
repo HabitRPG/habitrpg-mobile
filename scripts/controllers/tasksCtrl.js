@@ -86,8 +86,9 @@ habitrpg
     };
 
     $scope.notDue = function(task) {
-      if (task.type == 'daily')
-        return !$rootScope.Shared.shouldDo(+new Date, task.repeat, {dayStart: User.user.preferences.dayStart});
+      if (task.type == 'daily'){
+        return !$rootScope.Shared.shouldDo(+new Date, task, {dayStart: User.user.preferences.dayStart});
+      }
       return false;
     }
 
@@ -103,7 +104,7 @@ habitrpg
         default: return  ' color-best';
       }
     };
-    
+
     $scope.isDateSet = function(task){
       return !!task.date;
     };

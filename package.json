@@ -16,7 +16,7 @@
     "gulp-sass": "^0.7.1",
     "gulp-stylus": "~1.0.0",
     "gulp-uglify": "~0.2.1",
-    "habitrpg": "HabitRPG/habitrpg#develop",
+    "habitrpg": "HabitRPG/habitrpg#weeklies-pr-patch",
     "imagemin-pngquant": "^4.1.0",
     "lodash": "^3.8.0"
   },
