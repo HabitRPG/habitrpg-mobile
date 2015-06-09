@@ -145,8 +145,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
         ];
 
         if(!nextRemindTime.isBefore(now)) {
-          $cordovaLocalNotification.add({
-            id: 'LOGIN_REMINDER',
+          $cordovaLocalNotification.schedule({
+            id: 1,
             date: nextRemindTime.toDate(),
             title: title,
             message: _.sample(remindMessages),
@@ -154,8 +154,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
           });
         }
 
-        $cordovaLocalNotification.add({
-          id: 'LOGIN_REMINDER_nextDay',
+        $cordovaLocalNotification.schedule({
+          id: 2,
           date: nextRemindTime.add(1, 'day').toDate(),
           title: title,
           message: _.sample(remindMessages),
@@ -164,8 +164,8 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
 
         // If someone ignores the first / two :)
 
-        $cordovaLocalNotification.add({
-          id: 'LOGIN_REMINDER_3daysInFuture',
+        $cordovaLocalNotification.schedule({
+          id: 3,
           date: nextRemindTime.add(1, 'day').toDate(),
           title: title,
           message: _.sample(remindMessages),
