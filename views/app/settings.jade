@@ -27,6 +27,9 @@ script(id="views/app.settings.html",type='text/ng-template')
         +premiumAndAds()
 
       .padding
+        ion-toggle(ng-model='settings.smallMode', ng-change='User.save()') Small Mode
+
+      .padding
         button.button.button-block(ng-click='User.user.ops.sleep({})')
             span(ng-show='user.preferences.sleep') Check Out of Inn
             span(ng-hide='user.preferences.sleep') Rest in the Inn
