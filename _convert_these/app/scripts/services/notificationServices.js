@@ -30,14 +30,14 @@ angular.module('notificationServices', []).
 
                 if (timer) {
                     clearTimeout(timer);
-                    timer = setTimeout(this.hide, 2000)
+                    timer = setTimeout(this.hide, 6000)
                 }
 
                 if (active == false) {
                     active = true;
 
                     $('#notification').transition({ y: notifyheight, x: 0 });
-                    timer = setTimeout(this.hide, 2000);
+                    timer = setTimeout(this.hide, 6000);
                 }
 
             },
@@ -81,7 +81,7 @@ angular.module('notificationServices', []).
             },
 
             init: function () {
-                timer = setTimeout(this.hide, 2000);
+                timer = setTimeout(this.hide, 6000);
             }
 
         }
