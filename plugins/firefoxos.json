@@ -24,6 +24,12 @@
         "com.danielcwilson.plugins.googleanalytics": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.plugin.datepicker": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
@@ -34,9 +40,6 @@
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         },
         "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.ocdevel.habitrpg"
-        },
-        "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.ocdevel.habitrpg"
         }
     },
