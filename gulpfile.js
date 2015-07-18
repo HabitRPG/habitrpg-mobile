@@ -36,12 +36,13 @@ var paths = {
     'bower_components/marked/lib/marked.js',
     'bower_components/hello/dist/hello.all.min.js',
     'node_modules/habitrpg/website/public/js/env.js',
-    
+
     'bower_components/ngCordova/dist/ng-cordova.min.js',
-    
+
     'scripts/app.js',
     'node_modules/habitrpg/common/script/public/config.js',
     'node_modules/habitrpg/common/script/public/userServices.js',
+    'node_modules/habitrpg/website/public/js/services/analyticsServices.js',
     'node_modules/habitrpg/website/public/js/services/challengeServices.js',
     'node_modules/habitrpg/website/public/js/services/memberServices.js',
     'node_modules/habitrpg/website/public/js/services/sharedServices.js',
@@ -54,10 +55,10 @@ var paths = {
 
     'bower_components/ionic/release/css/ionic.min.css',
     'bower_components/ionic/release/fonts/*',
-    
+
     'bower_components/js-emoji/emoji.css'
   ],
-  
+
   imageMin: [
     'node_modules/habitrpg/common/img/emoji/**/*'
   ],
