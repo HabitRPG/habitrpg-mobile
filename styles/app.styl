@@ -83,15 +83,17 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
   width 100%
   .meter-text
     z-index 100
+    .value
+      right: 0.2em
   .meter-label
     height 25px !important
+    text-align right
   .meter
     height 25px !important
     margin-bottom 0.4em
     .value
       font-size: 13px;
       line-height: 23px;
-      padding-right: 5px;
 .meter
   padding 0
   height: 25px
@@ -104,7 +106,6 @@ for $stage in (worst $worst) (worse $worse) (bad $bad) (neutral $neutral) (good 
     margin-bottom 0
   .meter-text
     line-height 21px
-    padding-left 5px
 
 .shop_gold, .shop_silver
   display inline-block
