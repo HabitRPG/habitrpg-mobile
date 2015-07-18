@@ -3,7 +3,8 @@
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('RootCtrl',
   ['$scope', '$rootScope', '$location', '$ionicNavBarDelegate', 'User', '$state', '$stateParams', '$window', '$ionicPlatform', 'Groups', 'ApiUrl', '$http', 'API_URL',
-  function ($scope, $rootScope, $location, $ionicNavBarDelegate, User, $state, $stateParams, $window, $ionicPlatform, Groups, ApiUrl, $http, API_URL) {
+      '$ionicPopup',
+  function ($scope, $rootScope, $location, $ionicNavBarDelegate, User, $state, $stateParams, $window, $ionicPlatform, Groups, ApiUrl, $http, API_URL, $ionicPopup) {
 
     $rootScope.User = User;
     $rootScope.user = User.user;
@@ -81,5 +82,33 @@ habitrpg.controller('RootCtrl',
       }
       return false;
     }
+
+
+    if($ionicPlatform.is('ios'))
+    {
+      var versionToCheck = ionic.Platform.version().toString();
+
+      var splittedVersion = versionToCheck.split('.');
+
+      if(splittedVersion[0] == '7' || splittedVersion[0] == '8' || splittedVersion[0] == '9')
+      {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Update',
+          template: 'We’ve released an improved, updated app: Habitica! This old app is no longer supported. Click "Open Store" to download the new app now.',
+
+          okText: 'Open Store' // String (default: 'OK'). The text of the OK button.
+         });
+
+        confirmPopup.then(function(res) {
+          if(res) {
+            // open url
+            $rootScope.externalLink('itms://itunes.apple.com/us/app/habitica/id994882113');
+          } else {
+            // Cancel
+          }
+        });
+      }
+    }
+
   }
 ]);
