@@ -4,7 +4,6 @@
   "description": "",
   "private": true,
   "dependencies": {
-    "cordova-gen-icon": "https://bitbucket.org/lefnire/cordova-gen-icon/get/lefnire/cordovageniconjs-edited-online-with-bitb-1398874449722.tar.gz",
     "gulp": "~3.6.2",
     "gulp-concat": "^2.2.0",
     "gulp-connect": "~2.0.5",
@@ -16,7 +15,7 @@
     "gulp-sass": "^0.7.1",
     "gulp-stylus": "~1.0.0",
     "gulp-uglify": "~0.2.1",
-    "habitrpg": "HabitRPG/habitrpg",
+    "habitrpg": "HabitRPG/habitrpg#develop",
     "imagemin-pngquant": "^4.1.0",
     "lodash": "^3.8.0"
   },
