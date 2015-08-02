@@ -185,9 +185,15 @@ var habitrpg = angular.module('habitrpg', ['ionic', 'ngResource', 'ngCordova'])
       },0);
     }
   });
+
+  var endpoint = localStorage.getItem('habitrpg-endpoint');
+
+  if(endpoint == 'https://habitrpg.com'){
+    localStorage.setItem('habitrpg-endpoint', 'https://habitica.com');
+  }
 }])
 
-.constant('API_URL', localStorage.getItem('habitrpg-endpoint') || 'https://habitrpg.com')
+.constant('API_URL', localStorage.getItem('habitrpg-endpoint') || 'https://habitica.com')
 //.constant('API_URL', 'http://localhost:3000')
 .constant("STORAGE_USER_ID", 'habitrpg-user')
 .constant("STORAGE_SETTINGS_ID", 'habit-mobile-settings')

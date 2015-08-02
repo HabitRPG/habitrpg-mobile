@@ -9,7 +9,7 @@ habitrpg.controller('PurchaseCtrl',
         return;
       }
 
-      if(ApiUrl.get() !== 'https://habitrpg.com'){
+      if(ApiUrl.get() !== 'https://habitica.com'){
         alert("You are using a custom server, please contact your server administrator.");
         return;
       }
