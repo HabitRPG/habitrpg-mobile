@@ -44,3 +44,12 @@ script(id='views/app.html',type='text/ng-template')
         output.queueLengthReporter {{queueLength()}}
 
 
+script(id='views/app.modals.killswitch.html',type='text/ng-template')
+  .modal
+    ion-header-bar
+      h1.title Error
+    ion-content
+      .padding
+        {{killswitchMessage}}
+        .padding
+          a.button.button-block.button-stable(href=storeUrl) Go to App Store
