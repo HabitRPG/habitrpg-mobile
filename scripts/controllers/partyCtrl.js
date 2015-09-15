@@ -44,6 +44,7 @@ habitrpg.controller('PartyCtrl',
       Quests.sendAction('questAccept')
         .then(function(quest) {
           $scope.group.quest = quest;
+          User.user.party.quest.RSVPNeeded = false;
         });
     };
 
@@ -51,6 +52,7 @@ habitrpg.controller('PartyCtrl',
       Quests.sendAction('questReject')
         .then(function(quest) {
           $scope.group.quest = quest;
+          User.user.party.quest.RSVPNeeded = false;
         });
     };
   }
