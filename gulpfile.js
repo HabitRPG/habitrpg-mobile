@@ -47,6 +47,7 @@ var paths = {
     'node_modules/habitrpg/website/public/js/services/memberServices.js',
     'node_modules/habitrpg/website/public/js/services/sharedServices.js',
     'node_modules/habitrpg/website/public/js/services/groupServices.js',
+    'node_modules/habitrpg/website/public/js/services/questServices.js',
 
     'node_modules/habitrpg/website/public/js/filters/money.js',
     'node_modules/habitrpg/website/public/js/filters/roundLargeNumbers.js',
