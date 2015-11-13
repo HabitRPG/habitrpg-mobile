@@ -3,8 +3,10 @@
 // Make user and settings available for everyone through root scope.
 habitrpg.controller('RootCtrl',
   ['$scope', '$rootScope', '$location', '$ionicNavBarDelegate', 'User', '$state', '$stateParams', '$window', '$ionicPlatform', 'Groups', 'ApiUrl', '$http', 'API_URL',
-      '$ionicPopup', '$ionicModal',
-  function ($scope, $rootScope, $location, $ionicNavBarDelegate, User, $state, $stateParams, $window, $ionicPlatform, Groups, ApiUrl, $http, API_URL, $ionicPopup, $ionicModal) {
+      '$ionicPopup', '$ionicModal', 'Stats', 
+  function ($scope, $rootScope, $location, $ionicNavBarDelegate, User, $state, $stateParams, $window, $ionicPlatform, Groups, ApiUrl, $http, API_URL, $ionicPopup, $ionicModal, Stats) {
+
+    $rootScope.statCalc = Stats;
 
     $rootScope.User = User;
     $rootScope.user = User.user;

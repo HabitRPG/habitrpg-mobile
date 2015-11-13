@@ -8,7 +8,7 @@ var connect = require('gulp-connect');
 var stylus = require('gulp-stylus');
 var uglify = require('gulp-uglify');
 var rimraf = require('gulp-rimraf');
-var i18n = require('habitrpg/website/src/i18n');
+var i18n = require('habitrpg/website/src/libs/i18n');
 var _ = require('habitrpg/node_modules/lodash');
 var fs = require('fs');
 var xml2js = require('xml2js');
@@ -48,6 +48,7 @@ var paths = {
     'node_modules/habitrpg/website/public/js/services/sharedServices.js',
     'node_modules/habitrpg/website/public/js/services/groupServices.js',
     'node_modules/habitrpg/website/public/js/services/questServices.js',
+    'node_modules/habitrpg/website/public/js/services/statServices.js',
 
     'node_modules/habitrpg/website/public/js/filters/money.js',
     'node_modules/habitrpg/website/public/js/filters/roundLargeNumbers.js',
@@ -125,6 +126,8 @@ gulp.task('stylus', function () {
 });
 
 gulp.task('views', function(){
+  var tavernQuest = require('./node_modules/habitrpg/website/src/models/group').tavernQuest;
+
   var locals = {locals:{
     env:{
       translations: i18n.translations['en'],
@@ -136,7 +139,8 @@ gulp.task('views', function(){
         return shared.i18n.t.apply(null, args);
       },
       Content:require('./node_modules/habitrpg/common').content,
-      _: _
+      _: _, 
+      worldDmg: (tavernQuest && tavernQuest.extra && tavernQuest.extra.worldDmg) || {},
     },
     moment:require('./node_modules/habitrpg/node_modules/moment')
   }};
