@@ -131,9 +131,9 @@ gulp.task('stylus', function () {
     .pipe(connect.reload())
 });
 
-var Content = require('./content');
+var es6 = require('./es6');
 gulp.task('views', function(){
-  var tavernQuest = require('./node_modules/habitrpg/website/src/models/group').tavernQuest;
+  var tavernQuest = es6.tavernQuest;
 
   var locals = {locals:{
     env:{
@@ -145,7 +145,7 @@ gulp.task('views', function(){
         args.push('en');
         return shared.i18n.t.apply(null, args);
       },
-      Content: Content,
+      Content: es6.Content,
       _: _,
       worldDmg: (tavernQuest && tavernQuest.extra && tavernQuest.extra.worldDmg) || {},
     },
