@@ -16,6 +16,12 @@ var shared = require('habitrpg/common');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 
+require("babel-core/register")({
+  // This will override `node_modules` ignoring - you can alternatively pass
+  // an array of strings to be explicitly matched or a regex / glob
+  ignore: false
+});
+
 var paths = {
   sass:   ['./styles/**/*.scss'],
   stylus:   ['./styles/**/*.styl'],
@@ -125,6 +131,7 @@ gulp.task('stylus', function () {
     .pipe(connect.reload())
 });
 
+var Content = require('./content');
 gulp.task('views', function(){
   var tavernQuest = require('./node_modules/habitrpg/website/src/models/group').tavernQuest;
 
@@ -138,8 +145,8 @@ gulp.task('views', function(){
         args.push('en');
         return shared.i18n.t.apply(null, args);
       },
-      Content:require('./node_modules/habitrpg/common').content,
-      _: _, 
+      Content: Content,
+      _: _,
       worldDmg: (tavernQuest && tavernQuest.extra && tavernQuest.extra.worldDmg) || {},
     },
     moment:require('./node_modules/habitrpg/node_modules/moment')
