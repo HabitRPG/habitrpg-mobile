@@ -1,3 +1,15 @@
+# Deprecation notice
+This app is no longer developed nor maintained.
+
+We've switched to native apps for Android and iOS:
+### iOS
+- [GitHub](https://github.com/HabitRPG/habitrpg-ios)
+- [App Store](https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8)
+
+# Android
+- [GitHub](https://github.com/HabitRPG/habitrpg-android)
+- [Google Play](https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica)
+
 habitrpg-mobile
 =====================
 
