@@ -37,11 +37,11 @@ platform's documentation on how to install these.
 
 ## Building for Mobile
 
-Platforms are: `ios` or `android`
+Platforms are: `ios`, `android` or `firefoxos`
 
 1. Add cordova platform
    `ionic platform add <platform>`
-2. Start the application on a connected device
+2. Start the application on a connected device (for `firefoxos`, use WebIDE instead)
    `ionic run <platform>`
 
 For all the other ionic commands see `ionic --help`

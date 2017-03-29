@@ -1,0 +1,51 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"firefoxos-package\" value=\"Device\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cc.fovea.cordova.purchase": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.danielcwilson.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.plugin.datepicker": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "com.verso.cordova.clipboard": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        },
+        "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        }
+    },
+    "dependent_plugins": {
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.ocdevel.habitrpg"
+        }
+    }
+}
